@@ -14,7 +14,7 @@ export class TopComponent implements OnInit {
   }
 sendMain(){
 
-  this.router.navigate(['/main/list'])
+  this.router.navigate(['/main/image'])
   //this.router.navigate(['/companyInfo/addCompanyInfo'])
 
 }

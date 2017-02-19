@@ -1,0 +1,15 @@
+    <img [src]="photoURL()" style="height:100px" class="img-rounded">
+
+    <div class="form-group">
+      <label for="InputTextarea">画像情報</label>
+      <textarea class="form-control" [(ngModel)]="comment" rows="3" id="InputTextarea" placeholder="画像に関して補足情報入力"></textarea>
+    </div>
+
+    <div class="form-group">
+  <h4>【ファイル情報】</h4>
+  <h4>ファイル名:　{{file.name}}</h4>
+  <p>サイズ:　{{file.size}}　|　タイプ:　 {{file.type}}</p>
+  <p *ngIf="flag"><button  (click)="imageUpload(file)">アップロード</button></p>
+  <p *ngIf="flagOK"><button >アップロード済</button></p>
+  <p *ngIf="flagNG"><button >アップロード失敗</button></p>
+    </div>

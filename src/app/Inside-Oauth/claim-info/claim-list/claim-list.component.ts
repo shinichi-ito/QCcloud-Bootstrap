@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {InsideService} from "../../Inside.service";
 
 @Component({
   selector: 'app-claim-list',
@@ -13,7 +14,7 @@ export class ClaimListComponent implements OnInit {
   public sortBy = "email";
   public sortOrder = "asc";
 
-  constructor() {
+  constructor(private insideService:InsideService) {
   }
 
 
