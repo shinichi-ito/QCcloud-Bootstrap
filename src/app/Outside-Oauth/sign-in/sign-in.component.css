@@ -1,0 +1,31 @@
+.login-TW {
+  background-color: #63bafb;
+}
+.login-FA {
+  background-color: #5288f7;
+}
+.login-GO {
+  background-color: #f65d4a;
+}
+.boxAll li a {
+  display: block;
+  padding: 6px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  color:#ffffff;
+  font-size:14px;
+  text-decoration:none;
+
+}
+
+.boxAll ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.boxAll li a:hover {
+  opacity: 0.8;
+}
+

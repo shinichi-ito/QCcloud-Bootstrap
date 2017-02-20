@@ -13,6 +13,9 @@ import {AddCompanyInfoComponent} from "./Inside-Oauth/company-info/add-company-i
 import {PrivacyPolicyComponent} from "./Inside-Oauth/company-info/privacy-policy/privacy-policy.component";
 import {RiyouKiyakuComponent} from "./Inside-Oauth/company-info/riyou-kiyaku/riyou-kiyaku.component";
 import {DataTableModule} from "angular2-datatable";
+import {InsideService} from "./Inside-Oauth/Inside.service";
+import { SignInComponent } from './Outside-Oauth/sign-in/sign-in.component';
+import { SignUpComponent } from './Outside-Oauth/sign-up/sign-up.component';
 
 export const firebaseConfig = {                     //対象は　qccloud-asia-northeast1
   apiKey: "AIzaSyDCIMKBP2jorKKBJaCXtm3024C1IHD-UCA",
@@ -27,10 +30,10 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AppComponent,
     TopComponent,
     HeaderComponent,
-    CompanyInfoComponent,
-    AddCompanyInfoComponent,
-    RiyouKiyakuComponent,
-    PrivacyPolicyComponent
+    SignInComponent,
+    SignUpComponent,
+
+
   ],
   imports: [
     BrowserModule,

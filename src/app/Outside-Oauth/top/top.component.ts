@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {InsideService} from "../../Inside-Oauth/Inside.service";
 
 @Component({
   selector: 'app-top',
@@ -14,8 +15,9 @@ export class TopComponent implements OnInit {
   }
 sendMain(){
 
-  this.router.navigate(['/main/image'])
-  //this.router.navigate(['/companyInfo/addCompanyInfo'])
+ // this.router.navigate(['/main/image'])
+  this.router.navigate(['/signup'])
 
 }
+
 }

@@ -1,0 +1,124 @@
+<div class="panel panel-default" style="width: 80%;margin: 0 auto;">
+  <div class="panel-heading">
+    対応種別登録
+  </div>
+  <div class="panel-body">
+
+    <div class="form-group">
+
+      <p class="help-block">効果確認</p>
+    <div>
+      <label for="rating1">以前の状態より改善されたか</label>
+    </div>
+    <div>
+      <rating id="rating1" [(ngModel)]="x" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+              style="color: #0275d8; font-size: 20px;"></rating>
+    </div>
+
+    <div>
+      <label for="rating2">対策の狙いは達成できたか</label>
+    </div>
+    <div>
+      <rating id="rating2" [(ngModel)]="x" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+              style="color: #0275d8; font-size: 20px;"></rating>
+    </div>
+
+    <div>
+      <label for="rating3">副作用は発生してないか</label>
+    </div>
+    <div>
+      <rating id="rating3" [(ngModel)]="x" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+              style="color: #0275d8; font-size: 20px;"></rating>
+    </div>
+
+    <div>
+      <label for="rating4">水平展開はできているか</label>
+    </div>
+    <div>
+      <rating id="rating4" [(ngModel)]="x" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+              style="color: #0275d8; font-size: 20px;"></rating>
+    </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="taiou">追加情報</label>
+      <textarea type="text" class="form-control" rows="3" id="taiou" placeholder="追加情報があれを入力ください。"></textarea>
+    </div>
+
+
+
+
+      <div class="form-group">
+        <label for="hasseibi">効果確認日</label>
+        <input type="text" id="hasseibi" class="form-control" (click)="open()" placeholder="対応日を入力ください" value="{{ getDate() | date:'yyyy/MM/dd'}}">
+        <div *ngIf="opened">
+          <div style="display:inline-block; min-height:290px;">
+            <datepicker  [(ngModel)]="dt" name="dt"></datepicker>
+            <button type="button" class="btn btn-default" (click)="open()">閉じる</button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+<div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    投稿者情報登録
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="employee">投稿者</label>
+      <select class="form-control" id="employee">
+        <option>選択肢１</option>
+        <option>選択肢２</option>
+        <option>選択肢３</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="branch">所属</label>
+      <input type="text" class="form-control" id="branch">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    登録
+  </div>
+  <div class="panel-body">
+
+    <div class="form-group">
+      <label for="InputPassword">パスワード</label>
+      <input type="password" class="form-control" id="InputPassword" placeholder="編集用パスワード。">
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-xs-3">公開してもよろしいですか?</label>
+      <label class="radio-inline">
+        <input type="radio" name="examplecheck">仮登録
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="examplecheck">公開
+      </label>
+
+    </div>
+    <button type="button" class="btn btn-primary btn-block">登録</button>
+
+
+
+  </div>
+</div>
