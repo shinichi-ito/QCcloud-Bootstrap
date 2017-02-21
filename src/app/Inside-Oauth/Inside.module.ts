@@ -5,7 +5,7 @@ import {InsideRouting} from "./Inside.routing";
 import { ClaimListComponent } from './claim-info/claim-list/claim-list.component';
 import {DataTableModule} from "angular2-datatable";
 import {DataFilterPipe} from "./claim-info/claim-list/data-filter.pipe";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {InsideService} from "./Inside.service";
 import { ImageInfoComponent } from './claim-info/image-info/image-info.component';
@@ -85,7 +85,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     JsonpModule,
     DatepickerModule.forRoot(),
     RatingModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    ReactiveFormsModule,
   ],
 
   providers:[ImageService,InsideService ]

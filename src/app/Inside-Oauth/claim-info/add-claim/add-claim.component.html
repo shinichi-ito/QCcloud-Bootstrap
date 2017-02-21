@@ -7,12 +7,10 @@
 
       <div class="form-group">
         <label for="syubetu">情報種別</label>
-        <select class="form-control" id="syubetu">
-          <option>選択肢１</option>
-          <option>選択肢２</option>
-          <option>選択肢３</option>
+        <select class="form-control" id="syubetu" [(ngModel)]="syubetu" name="syubetu">
+          <option *ngFor="let item of syubetus" [value]="item">{{item}}</option>
         </select>
-      </div>
+  </div>
 
 
 

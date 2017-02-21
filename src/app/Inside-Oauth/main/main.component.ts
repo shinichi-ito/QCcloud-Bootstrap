@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OauthInfoService} from "../oauth-info.service";
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private oauthInfoService:OauthInfoService) { }
 
   ngOnInit() {
   }
-
+onoffHeader(){
+    this.oauthInfoService.onoffHeader
+}
 }

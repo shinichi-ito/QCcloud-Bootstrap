@@ -5,6 +5,7 @@ import {COM_ROUTES} from "./Inside-Oauth/company-info/Company.routing";
 import {CompanyInfoComponent} from "./Inside-Oauth/company-info/company-info.component";
 import {SignInComponent} from "./Outside-Oauth/sign-in/sign-in.component";
 import {SignUpComponent} from "./Outside-Oauth/sign-up/sign-up.component";
+import {SignInGuard} from "./Outside-Oauth/signin.Guard";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -16,7 +17,7 @@ const APP_ROUTES: Routes = [
   { path: 'top', component: TopComponent},
   { path: 'signin', component: SignInComponent},
   { path: 'signup', component: SignUpComponent},
-  { path: 'main',loadChildren:'app/Inside-Oauth/Inside.module#InsideModule'},
+  { path: 'main',loadChildren:'app/Inside-Oauth/Inside.module#InsideModule',canActivate: [SignInGuard]},
 
 
 

@@ -13,10 +13,10 @@ export class TopComponent implements OnInit {
 
   ngOnInit() {
   }
-sendMain(){
+signIn(){
 
  // this.router.navigate(['/main/image'])
-  this.router.navigate(['/signup'])
+  this.router.navigate(['/signin'])
 
 }
 

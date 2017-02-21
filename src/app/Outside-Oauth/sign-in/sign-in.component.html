@@ -1,20 +1,50 @@
+
 <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
   <div class="panel-heading">
     ログイン
   </div>
   <div class="panel-body">
-
+    <form (ngSubmit)="signIn()" [formGroup]="myForm">
     <div class="form-group">
-      <label for="mail">メールアドレス</label>
-        <input type="text"  class="form-control" id="mail" placeholder="メールアドレスを入力ください">
+      <label for="mail">メールアドレス <span *ngIf="myForm.controls.email.dirty &&
+                myForm.controls.email.errors||myForm.controls.email.untouched &&
+           myForm.controls.email.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.email.errors.required ">
+        *</span>
+        <span class="text-danger"
+              [hidden]="!myForm.controls.email.errors.pattern ">Format error</span>
+      </span></label>
+        <input type="text"  class="form-control" id="mail" formControlName="email" [(ngModel)]="email" placeholder="メールアドレスを入力ください">
     </div>
 
+
+
+
     <div class="form-group">
-      <label for="password">パスワード</label>
-      <input type="password"  class="form-control" id="password" placeholder="パスワードを入力ください">
+      <label for="password">パスワード <span *ngIf="myForm.controls.password.dirty &&
+                myForm.controls.password.errors||myForm.controls.password.untouched &&
+           myForm.controls.password.errors">
+       <span class="text-danger"
+             [hidden]="!myForm.controls.password.errors.required ">*</span>
+
+        <span class="text-danger"
+              [hidden]="!myForm.controls.password.errors.minlength ">6文字以上</span>
+            </span></label>
+      <input type="password"  class="form-control" id="password" formControlName="password" [(ngModel)]="password" placeholder="パスワードを入力ください">
     </div>
 
-    <a (click)="onSendResetPasswordMail()">パスワードを忘れたら</a>
+
+      <div class="form-group">
+    <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
+      </div>
+</form>
+
+    <div class="form-group">
+      <a (click)="onSendResetPasswordMail()">パスワードを忘れたら</a>
+    </div>
+
+
 
 
 
@@ -33,12 +63,15 @@
       Twitter
     </a></li>
   </ul>
-  <a href="#">まだアカウントをお持ちでない方はこちら</a>
+  <a (click)="changeCreateUserPage()">まだアカウントをお持ちでない方はこちら</a>
 
 
 </div>
 
 
+    <div class="form-group">
+      <button (click)="changeTop()" class="btn btn-default btn-block">キャンセル</button>
+    </div>
 
 
 

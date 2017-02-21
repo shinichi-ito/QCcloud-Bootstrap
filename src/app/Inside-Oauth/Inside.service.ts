@@ -1,14 +1,53 @@
 import {Injectable} from "@angular/core";
 import {Jsonp, URLSearchParams, Http} from "@angular/http";
+import * as firebase from 'firebase'
+import {Department} from "./employee-info/add-department/department.interface";
+import {FirebaseListObservable, AngularFire} from "angularfire2";
+
+
+
+
 /**
  * Created by hp on 2017/02/18.
  */
 @Injectable()
 export class InsideService {
   public file:File;
-constructor(private http:Http,private jsonp:Jsonp){}
-test(){
+  busyos: FirebaseListObservable<any[]>;
+constructor(private af : AngularFire,private http:Http,private jsonp:Jsonp){}
 
+addBusyo(data:Department,uid:string){
+  const busyo = {
+    busyo:data.busyo,
+    tourokusya:data.tourokusya,
+    startAt: firebase.database.ServerValue.TIMESTAMP
+  };
+  this.busyos=this.af.database.list('companyData/'+uid+'/BusyoInfo')
+ return this.busyos.push(busyo)
+
+
+}
+
+  getBusyo(uid:string){
+  return this.af.database.list('companyData/'+uid+'/BusyoInfo')
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+test(){
   var formData = new FormData();
   formData.append('file',this.file);
   let url:string="http://localhost:8888/rest/addFile/test";
@@ -26,10 +65,6 @@ test(){
   xhr.onload=(ev)=>{
     console.log("受信に成功");
   };
-
-
-
-
 }
 
   getStorageUrl(){

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {InsideService} from "../../Inside.service";
+import {OauthInfoService} from "../../oauth-info.service";
+import {AngularFire} from "angularfire2";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-claim-list',
@@ -14,7 +17,11 @@ export class ClaimListComponent implements OnInit {
   public sortBy = "email";
   public sortOrder = "asc";
 
-  constructor(private insideService:InsideService) {
+  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+     console.log(this.oauthInfoService.uid)
+     console.log(this.oauthInfoService.photoURL)
+     console.log(this.oauthInfoService.displayName)
+
   }
 
 
@@ -28,6 +35,10 @@ export class ClaimListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+
+
     this.data=[
       {
         "name": "Wing",

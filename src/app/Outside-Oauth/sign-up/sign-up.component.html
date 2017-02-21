@@ -1,3 +1,4 @@
+<form (ngSubmit)="SignUp()" [formGroup]="myForm">
 <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
   <div class="panel-heading">
     ログイン
@@ -5,20 +6,59 @@
   <div class="panel-body">
 
     <div class="form-group">
-      <label for="companyname">会社名</label>
-      <input type="text"  class="form-control" id="companyname" placeholder="会社を入力ください">
+      <label for="companyname">会社名<span *ngIf="myForm.controls.companyname.dirty &&
+                myForm.controls.companyname.errors||myForm.controls.companyname.untouched &&
+           myForm.controls.companyname.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.companyname.errors.required ">
+        *</span>
+          </span></label>
+      <input type="text"  class="form-control" formControlName="companyname" [(ngModel)]="companyname" id="companyname" placeholder="会社を入力ください">
     </div>
 
     <div class="form-group">
-      <label for="mail">メールアドレス</label>
-      <input type="text"  class="form-control" id="mail" placeholder="メールアドレスを入力ください">
+      <label for="mail">メールアドレス <span *ngIf="myForm.controls.email.dirty &&
+                myForm.controls.email.errors||myForm.controls.email.untouched &&
+           myForm.controls.email.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.email.errors.required ">
+        *</span>
+        <span class="text-danger"
+              [hidden]="!myForm.controls.email.errors.pattern ">Format error</span>
+      </span></label>
+      <input type="text"  class="form-control" formControlName="email" [(ngModel)]="email" id="mail" placeholder="メールアドレスを入力ください">
     </div>
 
     <div class="form-group">
-      <label for="password">パスワード</label>
-      <input type="password"  class="form-control" id="password" placeholder="パスワードを入力ください">
+      <label for="password">パスワード<span *ngIf="myForm.controls.password.dirty &&
+                myForm.controls.password.errors||myForm.controls.password.untouched &&
+           myForm.controls.password.errors">
+       <span class="text-danger"
+             [hidden]="!myForm.controls.password.errors.required ">*</span>
+
+        <span class="text-danger"
+              [hidden]="!myForm.controls.password.errors.minlength ">6文字以上</span>
+            </span></label>
+      <input type="password"  class="form-control" formControlName="password" [(ngModel)]="password" id="password" placeholder="パスワードを入力ください">
     </div>
-    <button type="button" class="btn btn-primary btn-block">登録</button>
+
+    <div class="form-group">
+      <label for="confirmPassword">再パスワード<span *ngIf="myForm.controls.confirmPassword.dirty &&
+                myForm.controls.confirmPassword.errors||myForm.controls.confirmPassword.untouched &&
+           myForm.controls.confirmPassword.errors">
+       <span class="text-danger"
+             [hidden]="!myForm.controls.confirmPassword.errors.required ">*</span>
+
+        <span class="text-danger" *ngIf="!myForm.controls.confirmPassword.pristine && myForm.controls.confirmPassword.errors != null
+   && myForm.controls.confirmPassword.errors['passwordsNotMatch']">パスワードが一致しません</span>
+    </span></label>
+      <input type="password"  class="form-control" id="confirmPassword" formControlName="confirmPassword" [(ngModel)]="confirmPassword" placeholder="再パスワードを入力ください">
+    </div>
+
+
+
+    <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
  </div>
 </div>
 
+</form>
