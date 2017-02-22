@@ -1,0 +1,57 @@
+
+<form (ngSubmit)="Add()" [formGroup]="myForm">
+  <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
+    <div class="panel-heading">
+      社員情報登録
+    </div>
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label for="tourokusya">登録者<span *ngIf="myForm.controls.tourokusya.dirty &&
+                myForm.controls.tourokusya.errors||myForm.controls.tourokusya.untouched &&
+           myForm.controls.tourokusya.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.tourokusya.errors.required ">
+        *</span>
+          </span></label>
+        <input type="text" class="form-control" id="tourokusya"  [(ngModel)]="tourokusya" formControlName="tourokusya" class="form-control" placeholder="登録者を入力して下さい。">
+      </div>
+
+
+      <div class="form-group">
+        <label for="name">社員名<span *ngIf="myForm.controls.name.dirty &&
+                myForm.controls.name.errors||myForm.controls.name.untouched &&
+           myForm.controls.name.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.name.errors.required ">
+        *</span>
+          </span></label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="name" formControlName="name" class="form-control" placeholder="社員名を入力して下さい。">
+      </div>
+
+      <div class="form-group">
+        <label for="siten">支店</label>
+        <select class="form-control" id="siten" [(ngModel)]="siten" formControlName="siten" >
+          <option *ngFor="let item of sitenList" [value]="item.siten">{{item?.siten}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="busyo">部署</label>
+        <select class="form-control" id="busyo" [(ngModel)]="busyo" formControlName="busyo">
+          <option *ngFor="let item of busyoList" [value]="item.busyo">{{item?.busyo}}</option>
+        </select>
+      </div>
+
+
+
+      <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
+
+    </div>
+  </div>
+
+</form>
+
+
+
+

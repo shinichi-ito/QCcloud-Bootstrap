@@ -3,6 +3,10 @@ import {Jsonp, URLSearchParams, Http} from "@angular/http";
 import * as firebase from 'firebase'
 import {Department} from "./employee-info/add-department/department.interface";
 import {FirebaseListObservable, AngularFire} from "angularfire2";
+import {Observable} from "rxjs";
+import {OauthInfoService} from "./oauth-info.service";
+import {BranchOffice} from "./employee-info/add-branch-office/BranchOffice.interface";
+import {Employee} from "./employee-info/add-employee/Employee.interface";
 
 
 
@@ -14,7 +18,126 @@ import {FirebaseListObservable, AngularFire} from "angularfire2";
 export class InsideService {
   public file:File;
   busyos: FirebaseListObservable<any[]>;
-constructor(private af : AngularFire,private http:Http,private jsonp:Jsonp){}
+  sitens: FirebaseListObservable<any[]>;
+  busyoList:any[]=[];
+  sitenList:any[]=[];
+uid:string;
+  public busyoAdd: Observable<any>;
+  public busyoChanged: Observable<any>;
+  public busyoRemoved: Observable<any>;
+  public sitenAdd: Observable<any>;
+  public sitenChanged: Observable<any>;
+  public sitenRemoved: Observable<any>;
+  public memberAdd: Observable<any>;
+  public memberChanged: Observable<any>;
+  public memberRemoved: Observable<any>;
+constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
+  this.uid=this.oauthInfoService.uid
+  this.busyoAddTrigger(this.uid)
+  this.busyoChangeTrigger(this.uid)
+  this.busyoRemoveTrigger(this.uid)
+  this.sitenAddTrigger(this.uid)
+  this.sitenChangeTrigger(this.uid)
+  this.sitenRemoveTrigger(this.uid)
+  this.memberAddTrigger(this.uid)
+  this.memberChangeTrigger(this.uid)
+  this.memberRemoveTrigger(this.uid)
+
+
+}
+
+
+  //Firebaseのトリガー関連
+  busyoAddTrigger(uid){
+    this.busyoAdd=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
+      commentsRef.on('child_added', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+  busyoChangeTrigger(uid){
+    this.busyoChanged=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
+      commentsRef.on('child_changed', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+  busyoRemoveTrigger(uid){
+    this.busyoRemoved=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
+      commentsRef.on('child_removed', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+
+  sitenAddTrigger(uid){
+    this.sitenAdd=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/SitenInfo');
+      commentsRef.on('child_added', (data) =>{
+        observer.next(data)
+      });
+    })
+  }
+  sitenChangeTrigger(uid){
+    this.sitenChanged=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/SitenInfo');
+      commentsRef.on('child_changed', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+  sitenRemoveTrigger(uid){
+    this.sitenRemoved=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/SitenInfo');
+      commentsRef.on('child_removed', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+
+  memberAddTrigger(uid){
+    this.memberAdd=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
+      commentsRef.on('child_added', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+  memberChangeTrigger(uid){
+    this.memberChanged=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
+      commentsRef.on('child_changed', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+  memberRemoveTrigger(uid){
+    this.memberRemoved=Observable.create(observer=>{
+      let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
+      commentsRef.on('child_removed', (data)=> {
+        observer.next(data)
+      });
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 addBusyo(data:Department,uid:string){
   const busyo = {
@@ -27,10 +150,81 @@ addBusyo(data:Department,uid:string){
 
 
 }
+deleteBusyo(key:string,uid:string){
+  this.busyos=this.af.database.list('companyData/'+this.uid+'/BusyoInfo')
+  this.busyos.remove(key)
+    .then(data=>{
 
-  getBusyo(uid:string){
-  return this.af.database.list('companyData/'+uid+'/BusyoInfo')
+    })
+    .catch(error=>{
+
+
+    });
+}
+
+  addSiten(data:BranchOffice,uid:string){
+    const siten = {
+      siten:data.siten,
+      tourokusya:data.tourokusya,
+      startAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    this.busyos=this.af.database.list('companyData/'+uid+'/SitenInfo')
+    return this.busyos.push(siten)
+
+
   }
+  deleteSiten(key:string,uid:string){
+    this.sitens=this.af.database.list('companyData/'+this.uid+'/SitenInfo')
+    this.sitens.remove(key)
+      .then(data=>{
+
+      })
+      .catch(error=>{
+
+
+      });
+  }
+
+
+  addMember(data:Employee,uid:string){
+    const member = {
+      name:data.name,
+      siten:data.siten,
+      busyo:data.busyo,
+      tourokusya:data.tourokusya,
+      startAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    this.busyos=this.af.database.list('companyData/'+uid+'/MemberInfo')
+    return this.busyos.push(member)
+
+
+  }
+  deleteMember(key:string,uid:string){
+    this.sitens=this.af.database.list('companyData/'+this.uid+'/MemberInfo')
+    this.sitens.remove(key)
+      .then(data=>{
+
+      })
+      .catch(error=>{
+
+
+      });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

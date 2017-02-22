@@ -1,0 +1,35 @@
+<form (ngSubmit)="Add()" [formGroup]="myForm">
+  <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
+    <div class="panel-heading">
+      支店情報登録
+    </div>
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label for="tourokusya">登録者<span *ngIf="myForm.controls.tourokusya.dirty &&
+                myForm.controls.tourokusya.errors||myForm.controls.tourokusya.untouched &&
+           myForm.controls.tourokusya.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.tourokusya.errors.required ">
+        *</span>
+          </span></label>
+        <input type="text" [(ngModel)]="tourokusya" formControlName="tourokusya" class="form-control" id="tourokusya" placeholder="登録者を入力して下さい。">
+      </div>
+
+
+      <div class="form-group">
+        <label for="siten">支店名<span *ngIf="myForm.controls.siten.dirty &&
+                myForm.controls.siten.errors||myForm.controls.siten.untouched &&
+           myForm.controls.siten.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.siten.errors.required ">
+        *</span>
+          </span></label>
+        <input type="text" class="form-control" id="siten"  [(ngModel)]="siten" formControlName="siten" placeholder="部署名を入力して下さい。">
+      </div>
+      <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
+    </div>
+  </div>
+</form>
+
+

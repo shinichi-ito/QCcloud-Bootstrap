@@ -267,7 +267,7 @@ changeTop(){
         this.getSyubetu(uid)
         ///////////////////前もってデータを取得しておく//////////////////////////
 
-        this.router.navigate(['/main/adddepartment'])
+        this.router.navigate(['/main/addemployee'])
       }
 
 
