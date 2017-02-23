@@ -33,13 +33,13 @@ export class ListBranchComponent implements OnInit {
     //   this.insideService.sitenList.push({key:value.key,siten:value.val().siten,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     // });
 
-    this.subscription=this.insideService.sitenChanged.subscribe(value=>{
-      this.insideService.sitenList[this.index]={key:value.key,siten:value.val().siten,tourokusya:value.val().tourokusya,startAt:value.val().startAt}
-    });
-
-    this.subscription=this.insideService.sitenRemoved.subscribe(value=>{
-      this.insideService.sitenList.splice(this.index,1);
-    });
+    // this.subscription=this.insideService.sitenChanged.subscribe(value=>{
+    //   this.insideService.sitenList[this.index]={key:value.key,siten:value.val().siten,tourokusya:value.val().tourokusya,startAt:value.val().startAt}
+    // });
+    //
+    // this.subscription=this.insideService.sitenRemoved.subscribe(value=>{
+    //   this.insideService.sitenList.splice(this.index,1);
+    // });
     this.sitenList=this.insideService.sitenList
   }
   setEdit(index){

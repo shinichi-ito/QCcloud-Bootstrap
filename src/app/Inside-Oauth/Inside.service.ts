@@ -21,110 +21,194 @@ export class InsideService {
   sitens: FirebaseListObservable<any[]>;
   busyoList:any[]=[];
   sitenList:any[]=[];
+  memberList:any[]=[];
+  syubetuList:any[]=[];
+  taiouList:any[]=[];
+  taisakuList:any[]=[];
+  claimList:any[]=[];
 uid:string;
-  public busyoAdd: Observable<any>;
-  public busyoChanged: Observable<any>;
-  public busyoRemoved: Observable<any>;
-  public sitenAdd: Observable<any>;
-  public sitenChanged: Observable<any>;
-  public sitenRemoved: Observable<any>;
-  public memberAdd: Observable<any>;
-  public memberChanged: Observable<any>;
-  public memberRemoved: Observable<any>;
+key:string;
 constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
-  this.uid=this.oauthInfoService.uid
-  this.busyoAddTrigger(this.uid)
-  this.busyoChangeTrigger(this.uid)
-  this.busyoRemoveTrigger(this.uid)
-  this.sitenAddTrigger(this.uid)
-  this.sitenChangeTrigger(this.uid)
-  this.sitenRemoveTrigger(this.uid)
-  this.memberAddTrigger(this.uid)
-  this.memberChangeTrigger(this.uid)
-  this.memberRemoveTrigger(this.uid)
-
-
+  this.uid=this.oauthInfoService.uid;
+  this.busyoAddTrigger(this.uid);
+  this.busyoChangeTrigger(this.uid);
+  this.busyoRemoveTrigger(this.uid);
+  this.sitenAddTrigger(this.uid);
+  this.sitenChangeTrigger(this.uid);
+  this.sitenRemoveTrigger(this.uid);
+  this.memberAddTrigger(this.uid);
+  this.memberChangeTrigger(this.uid);
+  this.memberRemoveTrigger(this.uid);
+  this.syubetuAdd(this.uid);
+  this.taiouJyoukyouAdd(this.uid);
+  this.taisakuJyoukyouAdd(this.uid);
+  this.claimAddTrigger(this.uid);
+  this.claimChangeTrigger(this.uid);
+  this.claimRemoveTrigger(this.uid);
 }
 
 
   //Firebaseのトリガー関連
   busyoAddTrigger(uid){
-    this.busyoAdd=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
-      commentsRef.on('child_added', (data)=> {
-        observer.next(data)
-      });
+      commentsRef.on('child_added', (value)=> {
+        this.busyoList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
   busyoChangeTrigger(uid){
-    this.busyoChanged=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
-      commentsRef.on('child_changed', (data)=> {
-        observer.next(data)
-      });
+      commentsRef.on('child_changed', (value)=> {
+        for(let index in this.busyoList){
+          if(this.busyoList[index].key==value.key){
+            this.busyoList[index]={key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt}
+          }
+        }
     })
   }
   busyoRemoveTrigger(uid){
-    this.busyoRemoved=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
-      commentsRef.on('child_removed', (data)=> {
-        observer.next(data)
-      });
-    })
+      commentsRef.on('child_removed', (value)=> {
+        for(let key in this.busyoList){
+          if(this.busyoList[key].key==value.key){
+           this.busyoList.splice(Number(key),1);
+          }
+        }
+   })
   }
 
   sitenAddTrigger(uid){
-    this.sitenAdd=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/SitenInfo');
-      commentsRef.on('child_added', (data) =>{
-        observer.next(data)
-      });
+      commentsRef.on('child_added', (value) =>{
+        this.sitenList.push({key:value.key,siten:value.val().siten,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
   sitenChangeTrigger(uid){
-    this.sitenChanged=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/SitenInfo');
-      commentsRef.on('child_changed', (data)=> {
-        observer.next(data)
-      });
+      commentsRef.on('child_changed', (value)=> {
+        for(let index in this.sitenList){
+          if(this.sitenList[index].key==value.key){
+            this.sitenList[index]={key:value.key,siten:value.val().siten,tourokusya:value.val().tourokusya,startAt:value.val().startAt}
+          }
+        }
     })
   }
   sitenRemoveTrigger(uid){
-    this.sitenRemoved=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/SitenInfo');
-      commentsRef.on('child_removed', (data)=> {
-        observer.next(data)
-      });
+      commentsRef.on('child_removed', (value)=> {
+        for(let key in this.sitenList){
+          if(this.sitenList[key].key==value.key){
+            this.sitenList.splice(Number(key),1);
+          }
+        }
     })
   }
 
   memberAddTrigger(uid){
-    this.memberAdd=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
-      commentsRef.on('child_added', (data)=> {
-        observer.next(data)
-      });
+      commentsRef.on('child_added', (value)=> {
+        this.memberList.push({key:value.key,name:value.val().name,siten:value.val().siten,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
   memberChangeTrigger(uid){
-    this.memberChanged=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
-      commentsRef.on('child_changed', (data)=> {
-        observer.next(data)
-      });
+      commentsRef.on('child_changed', (value)=> {
+        for(let index in this.memberList){
+          if(this.memberList[index].key==value.key){
+            this.memberList[index]={key:value.key,name:value.val().name,siten:value.val().siten,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt}
+          }
+        }
     })
   }
   memberRemoveTrigger(uid){
-    this.memberRemoved=Observable.create(observer=>{
       let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
-      commentsRef.on('child_removed', (data)=> {
-        observer.next(data)
-      });
+      commentsRef.on('child_removed', (value)=> {
+        for(let key in this.memberList){
+          if(this.memberList[key].key==value.key){
+            this.memberList.splice(Number(key),1);
+          }
+        }
+    })
+  }
+
+  claimAddTrigger(uid){
+    let commentsRef = firebase.database().ref('ClaimData/'+uid);
+    commentsRef.on('child_added', (value)=> {
+    //  console.log("claim追加"+value.val().siten)
+    //  this.claimList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
+    })
+  }
+  claimChangeTrigger(uid){
+    let commentsRef = firebase.database().ref('ClaimData/'+uid);
+    commentsRef.on('child_changed', (value)=> {
+     // console.log("claim変更"+value.val().busyo)
+      // for(let index in this.claimList){
+      //   if(this.claimList[index].key==value.key){
+      //     this.claimList[index]={key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt}
+      //   }
+      // }
+    })
+  }
+  claimRemoveTrigger(uid){
+    let commentsRef = firebase.database().ref('ClaimData/'+uid);
+    commentsRef.on('child_removed', (value)=> {
+    //  console.log("claim削除"+value)
+      // for(let key in this.claimList){
+      //   if(this.claimList[key].key==value.key){
+      //     this.claimList.splice(Number(key),1);
+      //   }
+      // }
+    })
+  }
+
+
+  taiouAddTrigger(uid){
+    let commentsRef = firebase.database().ref('TaiouData/'+uid);
+    commentsRef.on('child_added', (value)=> {
+     // console.log("taiou追加"+value.val().siten)
+      //  this.claimList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  syubetuAdd(uid){
+  let commentsRef = firebase.database().ref('selectData/'+uid+'/syubetuInfo');
+  commentsRef.on('child_added', (value)=> {
+   // console.log(value.key)
+   // console.log(value.val())
+    this.syubetuList.push({key:value.key,syubetu:value.val()})
+  })
+}
+
+  taiouJyoukyouAdd(uid){
+    let commentsRef = firebase.database().ref('selectData/'+uid+'/taiouInfo');
+    commentsRef.on('child_added', (value)=> {
+      // console.log(value.key)
+     // console.log(value.val())
+      this.taiouList.push({key:value.key,taiou:value.val()})
+    })
+  }
+
+  taisakuJyoukyouAdd(uid){
+    let commentsRef = firebase.database().ref('selectData/'+uid+'/taisakuInfo');
+    commentsRef.on('child_added', (value)=> {
+      // console.log(value.key)
+      // console.log(value.val())
+      this.taisakuList.push({key:value.key,taisaku:value.val()})
+    })
+  }
 
 
 

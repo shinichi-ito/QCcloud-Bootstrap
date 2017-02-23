@@ -1,4 +1,5 @@
-<form>
+<form [formGroup]="myForm"
+      (ngSubmit)="onSubmit(myForm.value)">
 <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
   <div class="panel-heading">
     情報概要
@@ -6,59 +7,143 @@
   <div class="panel-body">
 
     <div class="form-group">
-      <label for="companyname">会社名</label>
-      <input type="text" class="form-control" id="companyname" placeholder="会社名を入力して下さい。">
+      <label for="companyname">会社名<span *ngIf="myForm.controls.companyname.dirty &&
+                myForm.controls.companyname.errors||myForm.controls.companyname.untouched &&
+           myForm.controls.companyname.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.companyname.errors.required ">
+        *</span>
+          </span></label>
+      <input type="text" class="form-control" formControlName="companyname" [(ngModel)]="companyname"  id="companyname" placeholder="会社名を入力して下さい。">
     </div>
     <div class="form-group">
-      <label for="address">住所</label>
-      <input type="text" class="form-control" id="address" placeholder="住所を入力して下さい。">
+      <label for="address">住所<span *ngIf="myForm.controls.address.dirty &&
+                myForm.controls.address.errors||myForm.controls.address.untouched &&
+           myForm.controls.address.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.address.errors.required ">
+        *</span>
+          </span></label>
+      <input type="text" class="form-control" formControlName="address" [(ngModel)]="address"  id="address" placeholder="住所を入力して下さい。">
     </div>
 
     <div class="form-group">
-      <label for="tel">TEL</label>
-      <input type="text" class="form-control" id="tel" placeholder="電話番号を入力して下さい。">
+      <label for="tel">TEL<span *ngIf="myForm.controls.tel.dirty &&myForm.controls.tel.errors||myForm.controls.tel.untouched &&
+                myForm.controls.tel.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.tel.errors.required ">
+        *</span>
+        <span class="text-danger"
+              [hidden]="!myForm.controls.tel.errors.pattern ">
+        Format error</span>
+      </span></label>
+      <input type="text" class="form-control" formControlName="tel" [(ngModel)]="tel"  id="tel" placeholder="電話番号を入力して下さい。">
     </div>
 
     <div class="form-group">
-      <label for="daihyouname">代表者名</label>
-      <input type="text" class="form-control" id="daihyouname" placeholder="代表者名を入力して下さい。">
+      <label for="daihyouname">代表者名<span *ngIf="myForm.controls.daihyouname.dirty &&
+                myForm.controls.daihyouname.errors||myForm.controls.daihyouname.untouched &&
+           myForm.controls.daihyouname.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.daihyouname.errors.required ">
+        *</span>
+          </span></label>
+      <input type="text" class="form-control" id="daihyouname" formControlName="daihyouname" [(ngModel)]="daihyouname"  placeholder="代表者名を入力して下さい。">
     </div>
 
 
     <div class="form-group">
-      <label for="syokusyu">職種</label>
-      <select class="form-control" id="syokusyu">
-        <option>選択肢１</option>
-        <option>選択肢２</option>
-        <option>選択肢３</option>
+      <label for="syokusyu">職種<span *ngIf="myForm.controls.occupation.dirty &&
+                myForm.controls.occupation.errors||myForm.controls.occupation.untouched &&
+           myForm.controls.occupation.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.occupation.errors.required ">
+        *</span>
+          </span></label>
+      <select class="form-control" id="syokusyu" formControlName="occupation"  [(ngModel)]='occupation'>
+        <option *ngFor="let item of occupations" [value]="item.label">
+          {{ item.label }}</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="jyugyouinsu">従業員数</label>
-      <select class="form-control" id="jyugyouinsu">
-        <option>選択肢１</option>
-        <option>選択肢２</option>
-        <option>選択肢３</option>
+      <label for="jyugyouinsu">従業員数<span *ngIf="myForm.controls.employee.dirty &&
+                myForm.controls.employee.errors||myForm.controls.employee.untouched &&
+           myForm.controls.employee.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.employee.errors.required ">
+        *</span>
+          </span></label>
+      <select class="form-control" id="jyugyouinsu" formControlName="employee"  [(ngModel)]='employee'>
+        <option *ngFor="let item of employees" [value]="item.label">
+          {{ item.label }}
+        </option>
       </select>
     </div>
 
 
     <div class="form-group">
-      <label for="tantousyaname">担当者名</label>
-      <input type="text" class="form-control" id="tantousyaname" placeholder="担当者名を入力して下さい。">
+      <label for="tantousyaname">担当者名<span *ngIf="myForm.controls.tantouname.dirty &&
+                myForm.controls.tantouname.errors||myForm.controls.tantouname.untouched &&
+           myForm.controls.tantouname.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.tantouname.errors.required ">
+        *</span>
+          </span></label>
+      <input type="text" class="form-control" formControlName="tantouname"  [(ngModel)]='tantouname' id="tantousyaname" placeholder="担当者名を入力して下さい。">
     </div>
 
     <div class="form-group">
-      <label for="mail">メールアドレス</label>
-      <input type="email" class="form-control" id="mail" placeholder="連絡用のメールアドレスを入力ください。">
+      <label for="email">メールアドレス<span *ngIf="myForm.controls.email.dirty &&
+                myForm.controls.email.errors||myForm.controls.email.untouched &&
+           myForm.controls.email.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.email.errors.required ">
+        *</span>
+          <span class="text-danger"
+                [hidden]="!myForm.controls.email.errors.pattern ">
+        Format error</span>
+          </span></label>
+      <input type="email" class="form-control" formControlName="email"  [(ngModel)]='email' id="email" placeholder="連絡用のメールアドレスを入力ください。">
+    </div>
+
+
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="checkboxA"formControlName="riyoukiyaku" [(ngModel)]="riyoukiyaku" >利用規約に同意する  <span *ngIf="myForm.controls.riyoukiyaku.dirty &&
+                myForm.controls.riyoukiyaku.errors||myForm.controls.riyoukiyaku.untouched &&
+                myForm.controls.riyoukiyaku.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.riyoukiyaku.errors.required ">*</span>
+              <span ion-text  color="danger"
+                    [hidden]="!myForm.controls.riyoukiyaku.errors.pattern ">
+              同意されてません</span>
+        </span><a (click)="onKiyaku()">【利用規約へ】</a>
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="checkboxB" formControlName="privacypolicy" [(ngModel)]="privacypolicy" >プライバシーポリシーに同意する<span *ngIf="myForm.controls.privacypolicy.dirty &&
+                myForm.controls.privacypolicy.errors||myForm.controls.privacypolicy.untouched &&
+                myForm.controls.privacypolicy.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.privacypolicy.errors.required ">*</span>
+              <span ion-text  color="danger"
+                    [hidden]="!myForm.controls.privacypolicy.errors.pattern ">
+              同意されてません</span>
+        </span><a (click)="onPolicy()">【プライバシーポリシーへ】</a>
+      </label>
     </div>
 
 
 
 
 
-    <button type="button" class="btn btn-primary btn-block">登録</button>
+
+
+
+      <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
   </div>
 </div>
 

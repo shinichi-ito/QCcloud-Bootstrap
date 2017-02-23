@@ -1,4 +1,4 @@
-<form>
+<form (ngSubmit)="onAdd()" [formGroup]="myForm">
   <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
     <div class="panel-heading">
       情報概要
@@ -6,63 +6,96 @@
     <div class="panel-body">
 
       <div class="form-group">
-        <label for="syubetu">情報種別</label>
-        <select class="form-control" id="syubetu" [(ngModel)]="syubetu" name="syubetu">
-          <option *ngFor="let item of syubetus" [value]="item">{{item}}</option>
+        <label for="syubetu">情報種別<span *ngIf="myForm.controls.syubetu.dirty &&
+                myForm.controls.syubetu.errors||myForm.controls.syubetu.untouched &&
+           myForm.controls.syubetu.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.syubetu.errors.required ">
+        *</span>
+          </span></label>
+        <select class="form-control" id="syubetu" [(ngModel)]="syubetu" formControlName="syubetu">
+          <option *ngFor="let item of syubetus" [value]="item.syubetu">{{item.syubetu}}</option>
         </select>
   </div>
 
 
 
       <div class="form-group">
-        <label for="seihin">対象製品</label>
-        <input type="text" class="form-control" id="seihin" placeholder="製品名を入力して下さい。">
+        <label for="seihin">対象製品<span *ngIf="myForm.controls.seihin.dirty &&
+                myForm.controls.seihin.errors||myForm.controls.seihin.untouched &&
+           myForm.controls.seihin.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.seihin.errors.required ">
+        *</span>
+          </span></label>
+        <input type="text" class="form-control" id="seihin" [(ngModel)]="seihin" formControlName="seihin" placeholder="製品名を入力して下さい。">
       </div>
 
       <div class="form-group">
-        <label for="gaiyou">情報概要</label>
-        <input type="text" class="form-control" rows="3" id="gaiyou" placeholder="情報の概要を入力ください。">
+        <label for="gaiyou">情報概要<span *ngIf="myForm.controls.gaiyou.dirty &&
+                myForm.controls.gaiyou.errors||myForm.controls.gaiyou.untouched &&
+           myForm.controls.gaiyou.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.gaiyou.errors.required ">
+        *</span>
+          </span></label>
+        <input type="text" class="form-control" rows="3" id="gaiyou" [(ngModel)]="gaiyou" formControlName="gaiyou" placeholder="情報の概要を入力ください。">
       </div>
 
       <div class="form-group">
-        <label for="employee">投稿者</label>
-        <select class="form-control" id="employee">
-          <option>選択肢１</option>
-          <option>選択肢２</option>
-          <option>選択肢３</option>
+        <label for="toukousya">投稿者<span *ngIf="myForm.controls.toukousya.dirty &&
+                myForm.controls.toukousya.errors||myForm.controls.toukousya.untouched &&
+           myForm.controls.toukousya.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.toukousya.errors.required ">
+        *</span>
+          </span></label>
+        <select (change)="setMember($event.target.value)" class="form-control" id="toukousya" [(ngModel)]="toukousyaData" formControlName="toukousya">
+          <option *ngFor="let item of memberList" [value]="item.key">{{item.name}}</option>
         </select>
       </div>
+
 
       <div class="form-group">
         <label for="branch">所属</label>
-        <input type="text" class="form-control" id="branch">
+        <input type="text" class="form-control" id="branch" value="{{siten}}　{{busyo}}" [(ngModel)]="branch" formControlName="branch">
       </div>
 
       <div class="form-group">
-        <label for="InputPassword">パスワード</label>
-        <input type="password" class="form-control" id="InputPassword" placeholder="編集用パスワード。">
+        <label for="InputPassword">パスワード<span *ngIf="myForm.controls.password.dirty &&
+                myForm.controls.password.errors||myForm.controls.password.untouched &&
+           myForm.controls.password.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.password.errors.required ">
+        *</span>
+          </span></label>
+        <input type="password" class="form-control" id="InputPassword" [(ngModel)]="password" formControlName="password" placeholder="編集用パスワード。">
       </div>
 
-     <button type="button" class="btn btn-primary btn-block">管理番号取得</button>
+     <button   [disabled]="!myForm.valid" class="btn btn-primary btn-block">管理番号取得</button>
    </div>
   </div>
+</form>
 
 
-  <div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
+
+
+
+  <div *ngIf="getKey()" class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
     <div class="panel-heading">
-      情報概要
+      情報詳細
     </div>
     <div class="panel-body">
 
 
   <div class="form-group">
     <label for="hasseisaki">情報元</label>
-    <input type="text" class="form-control" id="hasseisaki" placeholder="発生先や情報の発生元を入力ください。">
+    <input type="text" class="form-control" [(ngModel)]="moto" name="moto" id="hasseisaki" placeholder="発生先や情報の発生元を入力ください。">
   </div>
 
   <div class="form-group">
     <label for="hasseibasyo">発生場所 工程</label>
-    <input type="text" class="form-control" id="hasseibasyo" placeholder="(例)組み立て工程のライン上。出荷作業中">
+    <input type="text" class="form-control" [(ngModel)]="basyo" name="basyo" id="hasseibasyo" placeholder="(例)組み立て工程のライン上。出荷作業中">
   </div>
 
       <div class="form-group">
@@ -71,7 +104,7 @@
       <div *ngIf="opened">
         <div style="display:inline-block; min-height:290px;">
           <datepicker  [(ngModel)]="dt" name="dt"></datepicker>
-          <button type="button" class="btn btn-default" (click)="open()">閉じる</button>
+          <button type="button" class="btn btn-warning" (click)="open()">閉じる</button>
         </div>
       </div>
       </div>
@@ -85,42 +118,40 @@
 
   <div class="form-group">
     <label for="syousai">情報詳細</label>
-    <textarea type="text" class="form-control" rows="3" id="syousai" placeholder="情報の詳細を入力ください。"></textarea>
+    <textarea type="text" class="form-control" [(ngModel)]="syousai" name="syousai" rows="3" id="syousai" placeholder="情報の詳細を入力ください。"></textarea>
   </div>
 
   <div class="form-group">
     <label for="seihinInfo">製品補足情報</label>
-    <textarea type="text" class="form-control"  id="seihinInfo" placeholder="対象製品の補足情報を入力ください。"></textarea>
+    <textarea type="text" class="form-control" [(ngModel)]="seihininfo" name="seihininfo"  id="seihinInfo" placeholder="対象製品の補足情報を入力ください。"></textarea>
   </div>
 
 
       <div class="form-group">
         <label for="yosoukoutei">対応が必要と予想される部署 工程</label>
-        <input type="text" class="form-control" id="yosoukoutei">
+        <input type="text" class="form-control" [(ngModel)]="yosoukoutei" name="yosoukoutei" id="yosoukoutei">
       </div>
 
 
 
       <div class="form-group">
-    <label for="kanrino">管理番号</label>
-    <input type="text" class="form-control" id="kanrino" placeholder="社内での専用の管理番号入力スペース">
-  </div>
+        <label class="control-label col-xs-3">公開しますか?</label>
 
-
-      <div class="form-group">
-        <label class="control-label col-xs-3">公開してもよろしいですか?</label>
           <label class="radio-inline">
-            <input type="radio" name="examplecheck">仮登録
+
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="kari">仮登録
+
+
           </label>
           <label class="radio-inline">
-          <input type="radio" name="examplecheck">公開
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="koukai">公開
         </label>
 
       </div>
 
 
-      <button type="button" class="btn btn-primary btn-block">登録</button>
+      <button type="button" (click)="secondAdd()" class="btn btn-primary btn-block">登録</button>
 
     </div>
   </div>
-</form>
+

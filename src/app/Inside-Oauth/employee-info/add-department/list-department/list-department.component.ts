@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ng2-bootstrap";
 import {FirebaseObjectObservable, AngularFire} from "angularfire2";
-import {Subscription} from "rxjs";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
@@ -21,25 +20,12 @@ export class ListDepartmentComponent implements OnInit {
   uid:string;
   busyoList:any[]=[];
   value: FirebaseObjectObservable<any>;
-  private subscription:Subscription;
   constructor( private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
   }
 
   ngOnInit() {
-
-    // this.subscription=this.insideService.busyoAdd.subscribe(value=>{
-    //   this.insideService.busyoList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
-    // });
-
-    this.subscription=this.insideService.busyoChanged.subscribe(value=>{
-      this.insideService.busyoList[this.index]={key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt}
-    });
-
-    this.subscription=this.insideService.busyoRemoved.subscribe(value=>{
-      this.insideService.busyoList.splice(this.index,1);
-    });
-    this.busyoList=this.insideService.busyoList
+  this.busyoList=this.insideService.busyoList
   }
   setEdit(index){
     this.index=index

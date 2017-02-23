@@ -226,7 +226,7 @@ changeTop(){
                 console.log('最初の会社情報登録成功2')
                 console.log(data)
                 console.log("クレームリストへ");
-                this.getSyubetu(authState.uid)
+
                 this.router.navigate(['/main/list'])
               })
             }
@@ -263,11 +263,7 @@ changeTop(){
         this.router.navigate(['/main/companyInfo/addCompanyInfo'])
       }else{
         console.log("クレームリストへ");
-        ///////////////////前もってデータを取得しておく//////////////////////////
-        this.getSyubetu(uid)
-        ///////////////////前もってデータを取得しておく//////////////////////////
-
-        this.router.navigate(['/main/addemployee'])
+          this.router.navigate(['/main/companyInfo/addCompanyInfo'])
       }
 
 
@@ -276,19 +272,7 @@ changeTop(){
     };
   }
 
-  getSyubetu(uid:string){
-    this.oauthInfoService.getSyubetu(uid).subscribe(data=>{
-      for(let key in data){
-      //  console.log(data[key])
-        this.oauthInfoService.syubetu.push(data[key])
-      }
 
-
-
-    })
-
-
-  }
 
 
 
