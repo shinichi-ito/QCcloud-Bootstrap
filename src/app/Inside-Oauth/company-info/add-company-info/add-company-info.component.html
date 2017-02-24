@@ -1,5 +1,5 @@
 <form [formGroup]="myForm"
-      (ngSubmit)="onSubmit(myForm.value)">
+      (ngSubmit)="onAdd()">
 <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
   <div class="panel-heading">
     情報概要
@@ -11,7 +11,7 @@
                 myForm.controls.companyname.errors||myForm.controls.companyname.untouched &&
            myForm.controls.companyname.errors">
       <span class="text-danger"
-            [hidden]="!myForm.controls.companyname.errors.required ">
+            [hidden]="!myForm.controls.companyname?.errors.required ">
         *</span>
           </span></label>
       <input type="text" class="form-control" formControlName="companyname" [(ngModel)]="companyname"  id="companyname" placeholder="会社名を入力して下さい。">
@@ -111,7 +111,8 @@
 
     <div class="checkbox">
       <label>
-        <input type="checkbox" value="checkboxA"formControlName="riyoukiyaku" [(ngModel)]="riyoukiyaku" >利用規約に同意する  <span *ngIf="myForm.controls.riyoukiyaku.dirty &&
+        <input type="checkbox" value="checkboxA"formControlName="riyoukiyaku" [(ngModel)]="riyoukiyaku" >
+        利用規約に同意する  <span *ngIf="myForm.controls.riyoukiyaku.dirty &&
                 myForm.controls.riyoukiyaku.errors||myForm.controls.riyoukiyaku.untouched &&
                 myForm.controls.riyoukiyaku.errors">
       <span class="text-danger"
@@ -119,12 +120,14 @@
               <span ion-text  color="danger"
                     [hidden]="!myForm.controls.riyoukiyaku.errors.pattern ">
               同意されてません</span>
-        </span><a (click)="onKiyaku()">【利用規約へ】</a>
+        </span><a HREF="/riyoukiyaku" TARGET="_blank">【利用規約確認】</a>
+
       </label>
     </div>
     <div class="checkbox">
       <label>
-        <input type="checkbox" value="checkboxB" formControlName="privacypolicy" [(ngModel)]="privacypolicy" >プライバシーポリシーに同意する<span *ngIf="myForm.controls.privacypolicy.dirty &&
+        <input type="checkbox" value="checkboxB" formControlName="privacypolicy" [(ngModel)]="privacypolicy" >
+        プライバシーポリシーに同意する<span *ngIf="myForm.controls.privacypolicy.dirty &&
                 myForm.controls.privacypolicy.errors||myForm.controls.privacypolicy.untouched &&
                 myForm.controls.privacypolicy.errors">
       <span class="text-danger"
@@ -132,7 +135,7 @@
               <span ion-text  color="danger"
                     [hidden]="!myForm.controls.privacypolicy.errors.pattern ">
               同意されてません</span>
-        </span><a (click)="onPolicy()">【プライバシーポリシーへ】</a>
+      </span><a HREF="/privacypolicy" TARGET="_blank">【プライバシーポリシー確認】</a>
       </label>
     </div>
 

@@ -27,10 +27,8 @@ import { AddEmployeeComponent } from './employee-info/add-employee/add-employee.
 import { AddBranchOfficeComponent } from './employee-info/add-branch-office/add-branch-office.component';
 import { AddDepartmentComponent } from './employee-info/add-department/add-department.component';
 import { InformationComponent } from './information/information.component';
-import {DatepickerModule, RatingModule, TimepickerModule, ModalModule} from "ng2-bootstrap";
+import {DatepickerModule, RatingModule, TimepickerModule, ModalModule, DropdownModule} from "ng2-bootstrap";
 import {CompanyInfoComponent} from "./company-info/company-info.component";
-import {PrivacyPolicyComponent} from "./company-info/privacy-policy/privacy-policy.component";
-import {RiyouKiyakuComponent} from "./company-info/riyou-kiyaku/riyou-kiyaku.component";
 import {AddCompanyInfoComponent} from "./company-info/add-company-info/add-company-info.component";
 import { HeaderClaimComponent } from './claim-info/header-claim/header-claim.component';
 import { OrderbyPipe } from './orderby.pipe';
@@ -40,6 +38,10 @@ import { ListDepartmentComponent } from './employee-info/add-department/list-dep
 import { AddDepartComponent } from './employee-info/add-department/add-depart/add-depart.component';
 import { AddEmloyComponent } from './employee-info/add-employee/add-emloy/add-emloy.component';
 import { ListEmpioyeeComponent } from './employee-info/add-employee/list-empioyee/list-empioyee.component';
+import {CompanyInfoService} from "./company-info/company-info.service";
+import { HeaderMainComponent } from './header-main/header-main.component';
+
+
 
 
 
@@ -82,8 +84,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     InformationComponent,
     CompanyInfoComponent,
     AddCompanyInfoComponent,
-    RiyouKiyakuComponent,
-    PrivacyPolicyComponent,
     HeaderClaimComponent,
     OrderbyPipe,
     AddBranchComponent,
@@ -91,7 +91,10 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ListDepartmentComponent,
     AddDepartComponent,
     AddEmloyComponent,
-    ListEmpioyeeComponent
+    ListEmpioyeeComponent,
+    HeaderMainComponent,
+
+
  ],
   imports:[
     InsideRouting,
@@ -104,11 +107,12 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     RatingModule.forRoot(),
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
+    DropdownModule.forRoot(),
     ReactiveFormsModule,
   ],
 
 
-  providers:[ImageService,InsideService ]
+  providers:[CompanyInfoService,ImageService,InsideService ]
 })
 export class InsideModule{
 

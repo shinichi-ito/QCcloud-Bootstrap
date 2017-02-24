@@ -6,6 +6,8 @@ import {CompanyInfoComponent} from "./Inside-Oauth/company-info/company-info.com
 import {SignInComponent} from "./Outside-Oauth/sign-in/sign-in.component";
 import {SignUpComponent} from "./Outside-Oauth/sign-up/sign-up.component";
 import {SignInGuard} from "./Outside-Oauth/signin.Guard";
+import {PrivacyPolicyComponent} from "./Outside-Oauth/privacy-policy/privacy-policy.component";
+import {RiyouKiyakuComponent} from "./Outside-Oauth/riyou-kiyaku/riyou-kiyaku.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -17,6 +19,8 @@ const APP_ROUTES: Routes = [
   { path: 'top', component: TopComponent},
   { path: 'signin', component: SignInComponent},
   { path: 'signup', component: SignUpComponent},
+  { path: 'privacypolicy', component: PrivacyPolicyComponent},
+  { path: 'riyoukiyaku', component: RiyouKiyakuComponent},
   { path: 'main',loadChildren:'app/Inside-Oauth/Inside.module#InsideModule',canActivate: [SignInGuard]},
 
 

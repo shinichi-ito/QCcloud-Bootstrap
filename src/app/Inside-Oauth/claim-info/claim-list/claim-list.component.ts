@@ -12,16 +12,17 @@ import {Router} from "@angular/router";
 export class ClaimListComponent implements OnInit {
 
   public data;
+  public data2;
   public filterQuery = "";
   public rowsOnPage = 10;
   public sortBy = "email";
   public sortOrder = "asc";
-
+  claimList:any[]=[];
   constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
-     console.log(this.oauthInfoService.uid)
-     console.log(this.oauthInfoService.photoURL)
-     console.log(this.oauthInfoService.displayName)
-
+  //   console.log(this.oauthInfoService.uid)
+  //   console.log(this.oauthInfoService.photoURL)
+    // console.log(this.oauthInfoService.displayName)
+this.data=this.insideService.claimList
   }
 
 
@@ -31,7 +32,7 @@ export class ClaimListComponent implements OnInit {
   }
 
   public sortByWordLength = (a: any) => {
-    return a.city.length;
+    return a.name.length;
   }
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class ClaimListComponent implements OnInit {
 
 
 
-    this.data=[
+    this.data2=[
       {
         "name": "Wing",
         "email": "tellus.eu.augue@arcu.com",

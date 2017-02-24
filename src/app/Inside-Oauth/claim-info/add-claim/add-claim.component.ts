@@ -114,7 +114,7 @@ setMember(value){
   for(let key in this.memberList){
   //  console.log(this.memberList[key].key)
     if(this.memberList[key].key==value){
-   //  console.log(this.name=this.memberList[key].name);
+    console.log(this.name=this.memberList[key].siten);
       this.name=this.memberList[key].name;
       this.siten=this.memberList[key].siten;
       this.busyo=this.memberList[key].busyo;
@@ -127,6 +127,7 @@ setMember(value){
       syubetu:this.syubetu,
       seihin:this.seihin,
       gaiyou:this.gaiyou,
+      name:this.name,
       siten:this.siten,
       busyo:this.busyo,
       password:this.password,

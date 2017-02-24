@@ -1,0 +1,29 @@
+div.kiyaku {/*利用規約の部分で使用*/
+  overflow: scroll;   /* スクロール表示 */
+  box-shadow: 0 0 0 3px #CCC, 0 0 0 4px #999;
+  width: 750px;
+  height: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: whitesmoke;
+  margin-bottom: 20px;
+}
+
+div.kiyaku ul.child{/*利用規約の部分で使用*/
+  margin:15px 0 0 10px;
+}
+div.kiyaku p.tR{/*利用規約の部分で使用*/
+  margin:30px 0 0 0;
+  font-size:0.95em;
+  line-height:140%;
+  text-align:right;
+}
+
+.main div   {
+  width: 800px;
+  margin: 0 auto;
+}
+.button div  {
+  width: 750px;
+  margin: 0 auto;
+}

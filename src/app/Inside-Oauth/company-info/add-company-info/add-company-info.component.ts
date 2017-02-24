@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
+import {CompanyInfoService} from "../company-info.service";
+import {OauthInfoService} from "../../oauth-info.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-add-company-info',
   templateUrl: './add-company-info.component.html',
   styleUrls: ['./add-company-info.component.css']
 })
-export class AddCompanyInfoComponent implements OnInit {
+export class AddCompanyInfoComponent implements OnInit{
   myForm: FormGroup;
   occupations:Array<any>;
   employees:Array<any>;
@@ -17,13 +20,14 @@ export class AddCompanyInfoComponent implements OnInit {
   tel:number;
   tantouname:string;
   email:string;
-  url:string;
   employee:string;
   occupation:string;
   riyoukiyaku:boolean;
   privacypolicy:boolean;
+uid:string;
 
-  constructor(private router:Router,private fb: FormBuilder) {
+  constructor(private router:Router,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
+    this.uid=this.oauthInfoService.uid;
     this.myForm = fb.group({
       "companyname": ['', Validators.required],
       "address": ['', Validators.required],
@@ -39,7 +43,6 @@ export class AddCompanyInfoComponent implements OnInit {
        "privacypolicy": [false,Validators.compose([Validators.required,Validators.pattern('true')])]
 
     });
-
 
 
   }
@@ -70,10 +73,17 @@ export class AddCompanyInfoComponent implements OnInit {
       {value: '3', label: '51名～100名'},
       {value: '4', label: '101名以上'},
     ];
-
-
-
-
   }
+
+
+
+  onAdd(){
+      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
+        console.log('会社詳細情報登録成功')
+      }).catch((error)=>{
+   });
+  }
+
+
 
 }

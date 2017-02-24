@@ -262,7 +262,7 @@ export class OauthService {
   }
   addSelect(uid: string) : Promise<any> {
     return new Promise((resolve, reject) => {
-      let selectData = this.af.database.list('selectData/' + uid + '/syubetInfo');
+      let selectData = this.af.database.list('selectData/' + uid + '/syubetuInfo');
       let newRef = selectData.push(
         {
           'syubetuInfo': 'クレーム情報'
@@ -281,7 +281,7 @@ export class OauthService {
 
   addSelect2(uid: string) : Promise<any>{
     return new Promise((resolve, reject) => {
-      let selectData = this.af.database.list('selectData/' + uid+'/syubetInfo');
+      let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
       let newRef=selectData.push(
         {
           'syubetuInfo': '社内不具合情報'
@@ -300,7 +300,7 @@ export class OauthService {
 
   addSelect3(uid: string) : Promise<any>{
     return new Promise((resolve, reject) => {
-      let selectData = this.af.database.list('selectData/' + uid+'/syubetInfo');
+      let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
       let newRef=selectData.push(
         {
           'syubetuInfo': '顧客要望'
@@ -318,7 +318,7 @@ export class OauthService {
   }
   addSelect4(uid: string) : Promise<any>{
     return new Promise((resolve, reject) => {
-      let selectData = this.af.database.list('selectData/' + uid+'/syubetInfo');
+      let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
       let newRef=selectData.push(
         {
           'syubetuInfo': 'その他'

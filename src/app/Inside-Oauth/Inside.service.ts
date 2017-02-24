@@ -106,6 +106,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   memberAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
       commentsRef.on('child_added', (value)=> {
+        console.log()
         this.memberList.push({key:value.key,name:value.val().name,siten:value.val().siten,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
@@ -134,7 +135,12 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     let commentsRef = firebase.database().ref('ClaimData/'+uid);
     commentsRef.on('child_added', (value)=> {
     //  console.log("claim追加"+value.val().siten)
-    //  this.claimList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
+     this.claimList.push({key:value.key,syubetu:value.val().syubetu,siten:value.val().siten
+        ,busyo:value.val().busyo, gaiyou:value.val().gaiyou,seihin:value.val().seihin,
+       name:value.val().name,basyo:value.val().basyo,moto:value.val().moto, seihininfo:value.val().seihininfo,
+       syousai:value.val().syousai, yosoukoutei:value.val().yosoukoutei,
+       password: value.val().password,koukai:value.val().koukai,startAt:value.val().startAt, updateAt: value.val().updateAt,
+       hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji})
     })
   }
   claimChangeTrigger(uid){
@@ -186,9 +192,10 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   syubetuAdd(uid){
   let commentsRef = firebase.database().ref('selectData/'+uid+'/syubetuInfo');
   commentsRef.on('child_added', (value)=> {
-   // console.log(value.key)
-   // console.log(value.val())
-    this.syubetuList.push({key:value.key,syubetu:value.val()})
+   //console.log(value.key)
+    //console.log(value.val().syubetuInfo)
+  this.syubetuList.push({key:value.key,syubetu:value.val().syubetuInfo})
+    //  this.claimList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
   })
 }
 
@@ -197,7 +204,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
       // console.log(value.key)
      // console.log(value.val())
-      this.taiouList.push({key:value.key,taiou:value.val()})
+      this.taiouList.push({key:value.key,taiou:value.val().taiouInfo})
     })
   }
 
@@ -205,8 +212,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     let commentsRef = firebase.database().ref('selectData/'+uid+'/taisakuInfo');
     commentsRef.on('child_added', (value)=> {
       // console.log(value.key)
-      // console.log(value.val())
-      this.taisakuList.push({key:value.key,taisaku:value.val()})
+     //  console.log(value.val())
+      this.taisakuList.push({key:value.key,taisaku:value.val().taisakuInfo})
     })
   }
 
