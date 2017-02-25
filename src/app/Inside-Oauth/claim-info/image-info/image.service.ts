@@ -22,6 +22,7 @@ export class ImageService {
       this._observer = observer).share();
   }
   addFile(file:File):void {//<input type=file  でファイルを選択するとfile-upload.direcitiveを通じてここに入る
+    //console.log(file.name)
     this.imagedetail.push(new ImageDetail(file.name,file.size,file.type,window.URL.createObjectURL(file),file))
      this._observer.next(this.imagedetail);
      this.loadImage(file)//base64:any[]=[];に名前付きの連想配列でbase64を入れる

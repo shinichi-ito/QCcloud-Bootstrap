@@ -15,6 +15,8 @@ import {COM_ROUTES} from "./company-info/Company.routing";
 import {AddBranchOfficeComponent} from "./employee-info/add-branch-office/add-branch-office.component";
 import {AddDepartmentComponent} from "./employee-info/add-department/add-department.component";
 import {AddCommentComponent} from "./claim-info/add-comment/add-comment.component";
+import {TopClaimComponent} from "./claim-info/top-claim/top-claim.component";
+import {CLAIM_ROUTES} from "./claim-info/top-claim/claim-routing";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -23,13 +25,9 @@ const IN_ROUTES: Routes = [
     { path: '',  redirectTo: '/top',  pathMatch: 'full'},
     { path: 'list',component:ClaimListComponent},
     { path: 'image',component:ImageInfoComponent},
-    { path: 'addcomment',component:AddCommentComponent},
     { path: 'addclaim',component:AddClaimComponent},
-    { path: 'addtaiou',component:AddTaiouComponent},
-    { path: 'addgenin',component:AddGeninComponent},
-    { path: 'addtaisaku',component:AddTaisakuComponent},
-    { path: 'addkouka',component:AddKoukaComponent},
     { path: 'editclaim',component:EditClaimComponent},
+    { path: 'topclaim',component:TopClaimComponent,children:CLAIM_ROUTES},
     { path: 'addemployee',component:AddEmployeeComponent},
     { path: 'addbranchoffice',component:AddBranchOfficeComponent},
     { path: 'adddepartment',component:AddDepartmentComponent},

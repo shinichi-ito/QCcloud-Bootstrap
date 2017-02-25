@@ -1,40 +1,7 @@
-<div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
-  <div class="panel-heading">
-    投稿者情報登録
-  </div>
-  <div class="panel-body">
-    <div class="form-group">
-      <label for="employee">投稿者</label>
-      <select class="form-control" id="employee">
-        <option>選択肢１</option>
-        <option>選択肢２</option>
-        <option>選択肢３</option>
-      </select>
-    </div>
+<ul class="nav nav-tabs">
+  <li role="presentation"><a  routerLink="/main/topclaim/addcomment/listcomment">コメント一覧</a></li>
+  <li role="presentation"><a  routerLink="/main/topclaim/addcomment/inputcomment">コメント登録</a></li>
 
-    <div class="form-group">
-      <label for="branch">所属</label>
-      <input type="text" class="form-control" id="branch">
-    </div>
-  </div>
-</div>
+</ul>
 
-
-
-
-<div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
-  <div class="panel-heading">
-    コメント登録
-  </div>
-  <div class="panel-body">
-    <div class="form-group">
-      <label for="taiou">コメント内容</label>
-      <textarea type="text" class="form-control" rows="3" id="taiou" placeholder="コメントを入力ください。"></textarea>
-    </div>
-
-    <button type="button" class="btn btn-primary btn-block">登録</button>
-
-  </div>
-</div>
-
-
+<router-outlet></router-outlet>

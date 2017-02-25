@@ -1,0 +1,101 @@
+<form (ngSubmit)="onAdd()" [formGroup]="myForm">
+  <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
+    <div class="panel-heading">
+      対応種別登録
+    </div>
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label for="taiousyubetu">対応種別<span *ngIf="myForm.controls.taiousyubetu.dirty &&
+                myForm.controls.taiousyubetu.errors||myForm.controls.taiousyubetu.untouched &&
+           myForm.controls.taiousyubetu.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.taiousyubetu.errors.required ">
+        *</span>
+          </span></label>
+        <select class="form-control" id="taiousyubetu" [(ngModel)]="taiousyubetu" formControlName="taiousyubetu">
+          <option *ngFor="let item of taiouSyubetuList" [value]="item.taiou">{{item.taiou}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="other">その他</label>
+        <div class="form-inline">
+          <input type="text" style="width: 80%" class="form-control" [(ngModel)]="syubetuvalue" formControlName="syubetuvalue" id="other" placeholder="上記の選択ボックスに該当するものがなければ入力ください">
+          <button type="button" (click)="addTaiouSyubetu()" class="btn btn-default">選択ボックスに追加</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="toukousya">投稿者<span *ngIf="myForm.controls.toukousya.dirty &&
+                myForm.controls.toukousya.errors||myForm.controls.toukousya.untouched &&
+           myForm.controls.toukousya.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.toukousya.errors.required ">
+        *</span>
+          </span></label>
+        <select (change)="setMember($event.target.value)" class="form-control" id="toukousya" [(ngModel)]="toukousyaData" formControlName="toukousya">
+          <option *ngFor="let item of memberList" [value]="item.key">{{item.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="branch">所属</label>
+        <input type="text" class="form-control" id="branch" value="{{siten}}　{{busyo}}" [(ngModel)]="branch" formControlName="branch">
+      </div>
+
+      <div class="form-group">
+        <label for="hasseibi">対応日</label>
+        <input type="text" id="hasseibi" class="form-control" (click)="open()" placeholder="対応日を入力ください" value="{{ getDate() | date:'yyyy/MM/dd'}}">
+        <div *ngIf="opened">
+          <div style="display:inline-block; min-height:290px;">
+            <datepicker  [(ngModel)]="dt" formControlName="dt"></datepicker>
+            <button type="button" class="btn btn-warning" (click)="open()">閉じる</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="taiou">対応内容<span *ngIf="myForm.controls.naiyou.dirty &&
+                myForm.controls.naiyou.errors||myForm.controls.naiyou.untouched &&
+           myForm.controls.naiyou.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.naiyou.errors.required ">
+        *</span>
+          </span></label>
+        <textarea type="text" class="form-control" rows="3"  [(ngModel)]="naiyou" formControlName="naiyou" id="taiou" placeholder="対応内容を入力ください。"></textarea>
+      </div>
+
+
+
+
+      <div class="form-group">
+        <label for="InputPassword">パスワード<span *ngIf="myForm.controls.password.dirty &&
+                myForm.controls.password.errors||myForm.controls.password.untouched &&
+           myForm.controls.password.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.password.errors.required ">
+        *</span>
+          </span></label>
+        <input type="password" class="form-control"  [(ngModel)]="password" formControlName="password" id="InputPassword" placeholder="編集用パスワード。">
+      </div>
+
+
+      <div class="form-group">
+        <label class="control-label col-xs-3">公開しますか?</label>
+        <label class="radio-inline">
+          <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="kari">仮登録
+        </label>
+        <label class="radio-inline">
+          <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="koukai">公開
+        </label>
+
+      </div>
+
+      <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
+
+
+    </div>
+  </div>
+
+</form>

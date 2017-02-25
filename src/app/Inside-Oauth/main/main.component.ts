@@ -15,7 +15,5 @@ export class MainComponent implements OnInit {
   ngOnInit() {
 
   }
-onoffHeader(){
-    this.oauthInfoService.onoffHeader
-}
+
 }

@@ -40,6 +40,18 @@ import { AddEmloyComponent } from './employee-info/add-employee/add-emloy/add-em
 import { ListEmpioyeeComponent } from './employee-info/add-employee/list-empioyee/list-empioyee.component';
 import {CompanyInfoService} from "./company-info/company-info.service";
 import { HeaderMainComponent } from './header-main/header-main.component';
+import { TopClaimComponent } from './claim-info/top-claim/top-claim.component';
+import { TopClaimEditComponent } from './claim-info/top-claim/top-claim-edit/top-claim-edit.component';
+import { ListTaiouComponent } from './claim-info/add-taiou/list-taiou/list-taiou.component';
+import { InputTaiouComponent } from './claim-info/add-taiou/input-taiou/input-taiou.component';
+import { InputTaisakuComponent } from './claim-info/add-taisaku/input-taisaku/input-taisaku.component';
+import { ListTaisakuComponent } from './claim-info/add-taisaku/list-taisaku/list-taisaku.component';
+import { InputCommentComponent } from './claim-info/add-comment/input-comment/input-comment.component';
+import { ListCommentComponent } from './claim-info/add-comment/list-comment/list-comment.component';
+import { InputGeninComponent } from './claim-info/add-genin/input-genin/input-genin.component';
+import { ListGeninComponent } from './claim-info/add-genin/list-genin/list-genin.component';
+import { InputKoukaComponent } from './claim-info/add-kouka/input-kouka/input-kouka.component';
+import { ListKoukaComponent } from './claim-info/add-kouka/list-kouka/list-kouka.component';
 
 
 
@@ -93,6 +105,18 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AddEmloyComponent,
     ListEmpioyeeComponent,
     HeaderMainComponent,
+    TopClaimComponent,
+    TopClaimEditComponent,
+    ListTaiouComponent,
+    InputTaiouComponent,
+    InputTaisakuComponent,
+    ListTaisakuComponent,
+    InputCommentComponent,
+    ListCommentComponent,
+    InputGeninComponent,
+    ListGeninComponent,
+    InputKoukaComponent,
+    ListKoukaComponent,
 
 
  ],

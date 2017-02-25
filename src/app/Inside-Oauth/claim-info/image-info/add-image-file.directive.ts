@@ -15,9 +15,9 @@ export class AddImageFileDirective {
   @HostListener('change')
   public onChange():any {
     let files = this.element.nativeElement.files;
-    this.insideService.file=files[0]
+   // this.insideService.file=files[0]
 
-   // this.imageService.addFile(files[0])
+   this.imageService.addFile(files[0])
   }
 
 

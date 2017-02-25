@@ -28,6 +28,7 @@ export class InsideService {
   claimList:any[]=[];
 uid:string;
 key:string;
+public claimitem:any;
 constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
   this.uid=this.oauthInfoService.uid;
   this.busyoAddTrigger(this.uid);
