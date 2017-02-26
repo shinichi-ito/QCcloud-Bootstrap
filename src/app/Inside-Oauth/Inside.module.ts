@@ -52,6 +52,7 @@ import { InputGeninComponent } from './claim-info/add-genin/input-genin/input-ge
 import { ListGeninComponent } from './claim-info/add-genin/list-genin/list-genin.component';
 import { InputKoukaComponent } from './claim-info/add-kouka/input-kouka/input-kouka.component';
 import { ListKoukaComponent } from './claim-info/add-kouka/list-kouka/list-kouka.component';
+import { ErrorDialogComponent } from './Dialog/error-dialog/error-dialog.component';
 
 
 
@@ -117,6 +118,7 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ListGeninComponent,
     InputKoukaComponent,
     ListKoukaComponent,
+    ErrorDialogComponent,
 
 
  ],
@@ -132,7 +134,7 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     DropdownModule.forRoot(),
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
 
 

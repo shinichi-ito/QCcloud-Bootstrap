@@ -64,8 +64,13 @@
       <!--参考サイトhttps://www.softel.co.jp/blogs/tech/archives/2848-->
 
 
+<button
+  (click)="onDetailClick()"
+  class="btn btn-sm btn-primary">
+  詳細
+</button>
 
-
+<app-error-dialog [tourData]="tourObj"  #errorDialog></app-error-dialog>
 
 
 

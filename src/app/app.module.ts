@@ -14,7 +14,7 @@ import {OauthService} from "./Outside-Oauth/oauth.service";
 import {OauthInfoService} from "./Inside-Oauth/oauth-info.service";
 import { PrivacyPolicyComponent } from './Outside-Oauth/privacy-policy/privacy-policy.component';
 import { RiyouKiyakuComponent } from './Outside-Oauth/riyou-kiyaku/riyou-kiyaku.component';
-
+import { ModalModule } from 'ng2-bootstrap/modal';
 
 
 export const firebaseConfig = {                     //対象は　qccloud-asia-northeast1
@@ -43,8 +43,10 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ReactiveFormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    routing
+    routing,
+    ModalModule.forRoot()
   ],
+
   providers: [SignInGuard,OauthService,OauthInfoService],
   bootstrap: [AppComponent]
 })

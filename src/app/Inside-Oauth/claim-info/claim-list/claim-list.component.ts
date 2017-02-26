@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {InsideService} from "../../Inside.service";
 import {OauthInfoService} from "../../oauth-info.service";
 import {AngularFire} from "angularfire2";
 import {Router} from "@angular/router";
+import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.component";
 
 @Component({
   selector: 'app-claim-list',
@@ -18,6 +19,10 @@ export class ClaimListComponent  {
   public sortBy = "email";
   public sortOrder = "asc";
   claimList:any[]=[];
+
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  tourObj:string='おはよう'
+
   constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
   //   console.log(this.oauthInfoService.uid)
   //   console.log(this.oauthInfoService.photoURL)
@@ -47,7 +52,10 @@ this.data=this.insideService.claimList
 
   }
 
+  onDetailClick() {
 
+    this.errorDialogComponent.openDialog();
+  }
 
 
 
