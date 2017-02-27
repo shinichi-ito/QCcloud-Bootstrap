@@ -1,14 +1,18 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {ImageDetail} from "../ImageDetail";
 import {Subscription} from "rxjs";
+import {FileDetail} from "./FileDetail";
+import {ImageService} from "../image.service";
+import {OauthInfoService} from "../../../oauth-info.service";
+import {InsideService} from "../../../Inside.service";
 
 @Component({
   selector: 'app-image-detail',
   templateUrl: './image-detail.component.html',
   styleUrls: ['./image-detail.component.css']
 })
-export class ImageDetailComponent implements OnInit {
+export class ImageDetailComponent implements OnInit,OnDestroy {
   @Input() file:ImageDetail;
   @Input() fileId:number;
   comment:string='';
@@ -25,11 +29,69 @@ export class ImageDetailComponent implements OnInit {
 
 
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private imageService:ImageService,private sanitizer: DomSanitizer) {
+    this.uid=this.oauthInfoService.uid
+  }
 
   ngOnInit() {
   }
   photoURL() {
     return this.sanitizer.bypassSecurityTrustUrl(this.file.imageUrl);
   }
+
+  imageUpload(fileDetail):void{
+    // console.log(fileDetail.file.type)
+
+      this.addImage(fileDetail)
+
+
+
+
+
+
+
+
+  }
+
+  addImage(fileDetail:FileDetail){
+    this.imageService.uploadingFile(fileDetail.file,this.uid);//storageに入れている
+    this.subscription=this.imageService._progress$.subscribe(
+      ( value) =>{
+        if (typeof value == "number"){
+          this._progress=value;//アップロードの進歩率
+        //  console.log(this._progress)
+        }else{
+          this.downloadURL=value
+        }
+      },
+      error => {
+        this.flag=false;
+        this.flagOK=false;
+        this.flagNG=true;
+      },
+      ()=>{
+
+        this.imageService.imageAnalysis(fileDetail.name).subscribe(data=> {//画像を分析して配列に入れている➀
+          for(let key in data.json().responses[0].labelAnnotations){
+            this.imageAnalysis.push(data.json().responses[0].labelAnnotations[key].description)
+           console.log(data.json().responses[0].labelAnnotations[key].description)
+           }
+        //   console.log(this.insideService.InfoData)
+           this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment).then(data=>{
+            this.flag=false;
+            this.flagOK=true;
+             this.flagNG=false;
+             }).catch(error=>{
+            })
+         },(error)=>{
+        })
+      }
+    )
+  }
+
+
+ngOnDestroy(){
+    this.subscription.unsubscribe();
+}
+
 }

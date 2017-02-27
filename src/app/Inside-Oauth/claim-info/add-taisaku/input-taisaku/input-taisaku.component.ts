@@ -35,10 +35,11 @@ export class InputTaisakuComponent  {
   public afterTomorrow: Date;
   public dateDisabled: {date: Date, mode: string}[];
   private opened: boolean = false;
+InfoData:any[]=[];
 
   public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
-    this.taisakuSyubetuList=this.insideService.taisakuList;
+    this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
     this.memberList=this.insideService.memberList;
     this.model = {
       label: "kari"
@@ -76,15 +77,14 @@ export class InputTaisakuComponent  {
 
   addTaisakuSyubetu(){
 
-
   }
 
   onAdd(){
-    const claimInfo = {
+    const Info = {
       syubetu:this.taisakusyubetu,
       name:this.name,
-      gaiyou:this.siten,
-      siten:this.busyo,
+      siten:this.siten,
+      busyo:this.busyo,
       taisakubi:this.dt,
       naiyou:this.naiyou,
       password:this.password,
@@ -93,8 +93,9 @@ export class InputTaisakuComponent  {
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.Info=this.af.database.list('TaisakuData/'+this.uid)
-    this.Info.push(claimInfo).then(data=>{
-
+    this.Info.push(Info).then(data=>{
+      this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
+      this.insideService.InfoData=this.InfoData
     }).catch(error=>{
 
     })

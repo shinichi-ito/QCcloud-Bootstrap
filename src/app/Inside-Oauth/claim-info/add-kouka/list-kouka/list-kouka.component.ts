@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FirebaseObjectObservable, AngularFire} from "angularfire2";
+import {KoukaDialogComponent} from "../../../Dialog/edit-dialog/kouka-dialog/kouka-dialog.component";
+import {OauthInfoService} from "../../../oauth-info.service";
+import {InsideService} from "../../../Inside.service";
 
 @Component({
   selector: 'app-list-kouka',
@@ -6,10 +10,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-kouka.component.css']
 })
 export class ListKoukaComponent implements OnInit {
+  koukaList:any[]=[];
+  index:number;
+  koukaData;
+  uid:string;
+  syubetu:string;
+  name:string;
+  siten:string;
+  busyo:string;
+  naiyou:string;
+  value: FirebaseObjectObservable<any>;
 
-  constructor() { }
+  @ViewChild("editKoukaDialog") koukaDialogComponent: KoukaDialogComponent;
+  constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+    this.uid=this.oauthInfoService.uid;
+  }
+
 
   ngOnInit() {
+    this.koukaList=this.insideService.koukaList
+    for(let key in this.koukaList){
+      console.log(this.koukaList[key])
+    }
+  }
+
+  setEdit(index){
+    this.index=index
+    this.koukaData=this.koukaList[index];
+    this.koukaDialogComponent.openDialog();
+  }
+
+  Delete(index){
+    this.index=index
+    this.koukaData=this.koukaList[index];
+    this.insideService.deleteKouka(this.koukaData.key,this.uid)
   }
 
 }

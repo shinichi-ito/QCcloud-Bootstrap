@@ -14,7 +14,6 @@ import {CompanyInfoComponent} from "./company-info/company-info.component";
 import {COM_ROUTES} from "./company-info/Company.routing";
 import {AddBranchOfficeComponent} from "./employee-info/add-branch-office/add-branch-office.component";
 import {AddDepartmentComponent} from "./employee-info/add-department/add-department.component";
-import {AddCommentComponent} from "./claim-info/add-comment/add-comment.component";
 import {TopClaimComponent} from "./claim-info/top-claim/top-claim.component";
 import {CLAIM_ROUTES} from "./claim-info/top-claim/claim-routing";
 /**

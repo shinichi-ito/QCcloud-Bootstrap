@@ -3,7 +3,6 @@ import {Jsonp, URLSearchParams, Http} from "@angular/http";
 import * as firebase from 'firebase'
 import {Department} from "./employee-info/add-department/department.interface";
 import {FirebaseListObservable, AngularFire} from "angularfire2";
-import {Observable} from "rxjs";
 import {OauthInfoService} from "./oauth-info.service";
 import {BranchOffice} from "./employee-info/add-branch-office/BranchOffice.interface";
 import {Employee} from "./employee-info/add-employee/Employee.interface";
@@ -19,15 +18,30 @@ export class InsideService {
   public file:File;
   busyos: FirebaseListObservable<any[]>;
   sitens: FirebaseListObservable<any[]>;
+  members: FirebaseListObservable<any[]>;
+  taious: FirebaseListObservable<any[]>;
+  taisakus: FirebaseListObservable<any[]>;
+  genins: FirebaseListObservable<any[]>;
+  koukas: FirebaseListObservable<any[]>;
+  comments: FirebaseListObservable<any[]>;
   busyoList:any[]=[];
   sitenList:any[]=[];
   memberList:any[]=[];
   syubetuList:any[]=[];
+  taiouSyubetuList:any[]=[];
+  taisakuSyubetuList:any[]=[];
+  claimList:any[]=[];
   taiouList:any[]=[];
   taisakuList:any[]=[];
-  claimList:any[]=[];
-uid:string;
-key:string;
+  geninList:any[]=[];
+  koukaList:any[]=[];
+  commentList:any[]=[];
+uid:string;//会社を振り分けるログイン時に受け取るユニークの値
+key:string;//各登録情報のユニークなキー
+  InfoData:any;//対策や対応情報を選択した際そのデータを入れておく key name siten busyo
+
+ // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
+  imageInfo: FirebaseListObservable<any[]>;
 public claimitem:any;
 constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
   this.uid=this.oauthInfoService.uid;
@@ -46,7 +60,43 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.claimAddTrigger(this.uid);
   this.claimChangeTrigger(this.uid);
   this.claimRemoveTrigger(this.uid);
+  this.taiouAddTrigger(this.uid);
+  this.taiouChangeTrigger(this.uid);
+  this.taiouRemoveTrigger(this.uid);
+  this.taisakuAddTrigger(this.uid);
+  this.taisakuChangeTrigger(this.uid);
+  this.taisakuRemoveTrigger(this.uid);
+  this.geninAddTrigger(this.uid);
+  this.geninChangeTrigger(this.uid);
+  this.geninRemoveTrigger(this.uid);
+  this.koukaAddTrigger(this.uid);
+  this.koukaChangeTrigger(this.uid);
+  this.koukaRemoveTrigger(this.uid);
+  this.commentAddTrigger(this.uid);
+  this.commentChangeTrigger(this.uid);
+  this.commentRemoveTrigger(this.uid);
+
 }
+
+  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string){
+     const imageInfo = {
+      imageAnalysis:jsonData,
+       downloadURL:downloadURL,
+       comment:comment,
+       toukousya:this.InfoData[0].name,
+       siten:this.InfoData[0].siten,
+       busyo:this.InfoData[0].busyo,
+       startAt: firebase.database.ServerValue.TIMESTAMP
+     };
+     this.imageInfo=this.af.database.list('FileData/'+this.uid+'/'+this.InfoData[0].key)
+    return  this.imageInfo.push(imageInfo)
+
+  }
+
+
+
+
+
 
 
   //Firebaseのトリガー関連
@@ -171,10 +221,177 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   taiouAddTrigger(uid){
     let commentsRef = firebase.database().ref('TaiouData/'+uid);
     commentsRef.on('child_added', (value)=> {
-     // console.log("taiou追加"+value.val().siten)
-      //  this.claimList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
+  //   console.log("taiou追加"+value.val().name)
+       this.taiouList.push({key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
   }
+  taiouChangeTrigger(uid){
+    let commentsRef = firebase.database().ref('TaiouData/'+uid);
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+       for(let index in this.taiouList){
+        if(this.taiouList[index].key==value.key){
+           this.taiouList[index]={key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+         }
+       }
+    })
+  }
+  taiouRemoveTrigger(uid){
+    let commentsRef = firebase.database().ref('TaiouData/'+uid);
+    commentsRef.on('child_removed', (value)=> {
+      //  console.log("claim削除"+value)
+       for(let key in this.taiouList){
+        if(this.taiouList[key].key==value.key){
+          this.taiouList.splice(Number(key),1);
+        }
+      }
+    })
+  }
+
+  taisakuAddTrigger(uid){
+    let commentsRef = firebase.database().ref('TaisakuData/'+uid);
+    commentsRef.on('child_added', (value)=> {
+      //   console.log("taiou追加"+value.val().name)
+      this.taisakuList.push({key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+    })
+  }
+  taisakuChangeTrigger(uid){
+    let commentsRef = firebase.database().ref('TaisakuData/'+uid);
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.taisakuList){
+        if(this.taisakuList[index].key==value.key){
+          this.taisakuList[index]={key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+        }
+      }
+    })
+  }
+  taisakuRemoveTrigger(uid){
+    let commentsRef = firebase.database().ref('TaisakuData/'+uid);
+    commentsRef.on('child_removed', (value)=> {
+      //  console.log("claim削除"+value)
+      for(let key in this.taisakuList){
+        if(this.taisakuList[key].key==value.key){
+          this.taisakuList.splice(Number(key),1);
+        }
+      }
+    })
+  }
+
+  geninAddTrigger(uid){
+    let commentsRef = firebase.database().ref('GeninData/'+uid);
+    commentsRef.on('child_added', (value)=> {
+      //   console.log("taiou追加"+value.val().name)
+      this.geninList.push({key:value.key,name:value.val().name,
+        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+    })
+  }
+  geninChangeTrigger(uid){
+    let commentsRef = firebase.database().ref('GeninData/'+uid);
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.geninList){
+        if(this.geninList[index].key==value.key){
+          this.geninList[index]={key:value.key,name:value.val().name,
+            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+        }
+      }
+    })
+  }
+  geninRemoveTrigger(uid){
+    let commentsRef = firebase.database().ref('GeninData/'+uid);
+    commentsRef.on('child_removed', (value)=> {
+      //  console.log("claim削除"+value)
+      for(let key in this.geninList){
+        if(this.geninList[key].key==value.key){
+          this.geninList.splice(Number(key),1);
+        }
+      }
+    })
+  }
+
+
+  koukaAddTrigger(uid){
+    let commentsRef = firebase.database().ref('KoukaData/'+uid);
+    commentsRef.on('child_added', (value)=> {
+      //   console.log("taiou追加"+value.val().name)
+      this.koukaList.push({key:value.key,name:value.val().name,
+        siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+    })
+  }
+  koukaChangeTrigger(uid){
+    let commentsRef = firebase.database().ref('KoukaData/'+uid);
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.koukaList){
+        if(this.koukaList[index].key==value.key){
+          this.koukaList[index]={key:value.key,name:value.val().name,
+            siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,
+            cc:value.val().cc,dd:value.val().dd,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+        }
+      }
+    })
+  }
+  koukaRemoveTrigger(uid){
+    let commentsRef = firebase.database().ref('KoukaData/'+uid);
+    commentsRef.on('child_removed', (value)=> {
+      //  console.log("claim削除"+value)
+      for(let key in this.koukaList){
+        if(this.koukaList[key].key==value.key){
+          this.koukaList.splice(Number(key),1);
+        }
+      }
+    })
+  }
+
+  commentAddTrigger(uid){
+    let commentsRef = firebase.database().ref('CommentData/'+uid);
+    commentsRef.on('child_added', (value)=> {
+      //   console.log("taiou追加"+value.val().name)
+      this.commentList.push({key:value.key,name:value.val().name,
+        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+    })
+  }
+  commentChangeTrigger(uid){
+    let commentsRef = firebase.database().ref('CommentData/'+uid);
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.commentList){
+        if(this.commentList[index].key==value.key){
+          this.commentList[index]={key:value.key,name:value.val().name,
+            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+        }
+      }
+    })
+  }
+  commentRemoveTrigger(uid){
+    let commentsRef = firebase.database().ref('CommentData/'+uid);
+    commentsRef.on('child_removed', (value)=> {
+      //  console.log("claim削除"+value)
+      for(let key in this.commentList){
+        if(this.commentList[key].key==value.key){
+          this.commentList.splice(Number(key),1);
+        }
+      }
+    })
+  }
+
+
+
 
 
 
@@ -205,7 +422,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
       // console.log(value.key)
      // console.log(value.val())
-      this.taiouList.push({key:value.key,taiou:value.val().taiouInfo})
+      this.taiouSyubetuList.push({key:value.key,taiou:value.val().taiouInfo})
     })
   }
 
@@ -214,7 +431,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
       // console.log(value.key)
      //  console.log(value.val())
-      this.taisakuList.push({key:value.key,taisaku:value.val().taisakuInfo})
+      this.taisakuSyubetuList.push({key:value.key,taisaku:value.val().taisakuInfo})
     })
   }
 
@@ -260,8 +477,8 @@ deleteBusyo(key:string,uid:string){
       tourokusya:data.tourokusya,
       startAt: firebase.database.ServerValue.TIMESTAMP
     };
-    this.busyos=this.af.database.list('companyData/'+uid+'/SitenInfo')
-    return this.busyos.push(siten)
+    this.sitens=this.af.database.list('companyData/'+uid+'/SitenInfo')
+    return this.sitens.push(siten)
 
 
   }
@@ -286,14 +503,14 @@ deleteBusyo(key:string,uid:string){
       tourokusya:data.tourokusya,
       startAt: firebase.database.ServerValue.TIMESTAMP
     };
-    this.busyos=this.af.database.list('companyData/'+uid+'/MemberInfo')
-    return this.busyos.push(member)
+    this.members=this.af.database.list('companyData/'+uid+'/MemberInfo')
+    return this.members.push(member)
 
 
   }
   deleteMember(key:string,uid:string){
-    this.sitens=this.af.database.list('companyData/'+this.uid+'/MemberInfo')
-    this.sitens.remove(key)
+    this.members=this.af.database.list('companyData/'+this.uid+'/MemberInfo')
+    this.members.remove(key)
       .then(data=>{
 
       })
@@ -304,11 +521,64 @@ deleteBusyo(key:string,uid:string){
   }
 
 
+  deleteTaiou(key:string,uid:string){
+    this.taious=this.af.database.list('TaiouData/'+this.uid)
+    this.taious.remove(key)
+      .then(data=>{
+
+      })
+      .catch(error=>{
 
 
+      });
+  }
+  deleteTaisaku(key:string,uid:string){
+    this.taisakus=this.af.database.list('TaisakuData/'+this.uid)
+    this.taisakus.remove(key)
+      .then(data=>{
+
+      })
+      .catch(error=>{
 
 
+      });
+  }
+  deleteGenin(key:string,uid:string){
+    this.genins=this.af.database.list('GeninData/'+this.uid)
+    this.genins.remove(key)
+      .then(data=>{
 
+      })
+      .catch(error=>{
+
+
+      });
+  }
+
+  deleteKouka(key:string,uid:string){
+    this.koukas=this.af.database.list('KoukaData/'+this.uid)
+    this.koukas.remove(key)
+      .then(data=>{
+
+      })
+      .catch(error=>{
+
+
+      });
+  }
+
+
+  deleteComment(key:string,uid:string){
+    this.comments=this.af.database.list('CommentData/'+this.uid)
+    this.comments.remove(key)
+      .then(data=>{
+
+      })
+      .catch(error=>{
+
+
+      });
+  }
 
 
 

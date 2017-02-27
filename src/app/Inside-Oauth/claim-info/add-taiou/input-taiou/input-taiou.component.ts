@@ -30,7 +30,7 @@ export class InputTaiouComponent  {
   taiouSyubetu:any[]=[];
   memberList:any[]=[];
   taiouSyubetuList:any[]=[];
-
+InfoData:any[]=[];
   uid:string;
   myForm: FormGroup;
   claimInfo2: FirebaseListObservable<any[]>;
@@ -61,7 +61,7 @@ export class InputTaiouComponent  {
     });
 
     this.uid=this.oauthInfoService.uid;
-    this.taiouSyubetuList=this.insideService.taiouList;
+    this.taiouSyubetuList=this.insideService.taiouSyubetuList;
     this.memberList=this.insideService.memberList;
     (this.tomorrow = new Date()).setDate(this.tomorrow.getDate() + 1);
     (this.afterTomorrow = new Date()).setDate(this.tomorrow.getDate() + 2);
@@ -101,8 +101,8 @@ export class InputTaiouComponent  {
     const claimInfo = {
       syubetu:this.taiousyubetu,
       name:this.name,
-      gaiyou:this.siten,
-      siten:this.busyo,
+      siten:this.siten,
+      busyo:this.busyo,
       taioubi:this.dt,
       naiyou:this.naiyou,
       password:this.password,
@@ -112,6 +112,9 @@ export class InputTaiouComponent  {
     };
     this.claimInfo2=this.af.database.list('TaiouData/'+this.uid)
     this.claimInfo2.push(claimInfo).then(data=>{
+   //   console.log(data.key)
+     this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
+     this.insideService.InfoData=this.InfoData
 
     }).catch(error=>{
 

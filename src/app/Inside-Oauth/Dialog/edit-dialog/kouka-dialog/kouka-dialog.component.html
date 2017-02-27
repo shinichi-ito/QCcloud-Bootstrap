@@ -1,0 +1,79 @@
+<div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
+        <h4 class="modal-title">タイトル</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+
+
+
+        <p class="help-block">効果確認</p>
+        <div class="form-group">
+          <label for="rating1">以前の状態より改善されたか</label>
+          <input type="text" class="form-control" id="rating1"  [(ngModel)]="aa" name="name" value="{{koukaData?.aa}}" placeholder="投稿者名を入力して下さい。">
+
+        </div>
+
+        <div class="form-group">
+          <label for="rating2">対策の狙いは達成できたか</label>
+          <input type="text" class="form-control" id="rating2"  [(ngModel)]="bb" name="name" value="{{koukaData?.bb}}" placeholder="投稿者名を入力して下さい。">
+     </div>
+
+        <div class="form-group">
+          <label for="rating3">副作用は発生してないか</label>
+          <input type="text" class="form-control" id="rating3"  [(ngModel)]="cc" name="name" value="{{koukaData?.cc}}" placeholder="投稿者名を入力して下さい。">
+
+        </div>
+
+        <div class="form-group">
+          <label for="rating4">水平展開はできているか</label>
+          <input type="text" class="form-control" id="rating4"  [(ngModel)]="dd" name="name" value="{{koukaData?.dd}}" placeholder="投稿者名を入力して下さい。">
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="form-group">
+          <label for="naiyou">追加内容</label>
+          <textarea type="text" class="form-control" id="naiyou"  [(ngModel)]="naiyou" name="naiyou" value="{{koukaData?.naiyou}}" placeholder="追加情報を入力して下さい。"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="name">投稿者</label>
+          <input type="text" class="form-control" id="name"  [(ngModel)]="name" name="name" value="{{koukaData?.name}}" placeholder="投稿者名を入力して下さい。">
+        </div>
+
+        <div class="form-group">
+          <label for="siten">支店名</label>
+          <input type="text" class="form-control" id="siten"  [(ngModel)]="siten" name="siten" value="{{koukaData?.siten}}" placeholder="支店名を入力して下さい。">
+        </div>
+
+        <div class="form-group">
+          <label for="busyo">部署名</label>
+          <input type="text" class="form-control" id="busyo"  [(ngModel)]="busyo" name="busyo" value="{{koukaData?.busyo}}" placeholder="部署名を入力して下さい。">
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary" (click)="onEdit()">編集</button>
+      </div>
+    </div>
+  </div>
+</div>
+

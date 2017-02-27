@@ -1,0 +1,42 @@
+<div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
+        <h4 class="modal-title">タイトル</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="form-group">
+          <label for="naiyou">原因分析内容</label>
+          <textarea type="text" class="form-control" id="naiyou"  [(ngModel)]="naiyou" name="naiyou" value="{{geninData?.naiyou}}" placeholder="対策内容を入力して下さい。"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="name">投稿者</label>
+          <input type="text" class="form-control" id="name"  [(ngModel)]="name" name="name" value="{{geninData?.name}}" placeholder="投稿者名を入力して下さい。">
+        </div>
+
+        <div class="form-group">
+          <label for="siten">支店名</label>
+          <input type="text" class="form-control" id="siten"  [(ngModel)]="siten" name="siten" value="{{geninData?.siten}}" placeholder="支店名を入力して下さい。">
+        </div>
+
+        <div class="form-group">
+          <label for="busyo">部署名</label>
+          <input type="text" class="form-control" id="busyo"  [(ngModel)]="busyo" name="busyo" value="{{geninData?.busyo}}" placeholder="部署名を入力して下さい。">
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary" (click)="onEdit()">編集</button>
+      </div>
+    </div>
+  </div>
+</div>
+

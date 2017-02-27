@@ -2,6 +2,7 @@ import {Injectable, Inject} from '@angular/core';
 import {Observable} from "rxjs";
 import {ImageDetail} from "./ImageDetail";
 import {FirebaseApp} from "angularfire2";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class ImageService {
@@ -15,7 +16,7 @@ export class ImageService {
   public imagedetail:ImageDetail[]=[];
   public base64:any[]=[];
 
-  constructor(@Inject(FirebaseApp) firebaseApp: any) {
+  constructor(private http:Http,@Inject(FirebaseApp) firebaseApp: any) {
     this._firebase = firebaseApp;
     this.percentage = 0;
     this.flagChange$ = new Observable(observer =>
@@ -53,6 +54,97 @@ export class ImageService {
 
   }
 
+  uploadingFile(file:File,uid:string) {
+    let storageRef = this._firebase.storage().ref('FileData/'+uid+'/'+file.name)
+    let fileUploading =  storageRef.put(file);
+    this._progress$=Observable.create(observer=>{
+      fileUploading.on('state_changed',
+        (snapshot)=> {
+          let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+         // console.log(percentage)
+          observer.next(percentage)
+        },
+        (error)=> {
+          switch (error.message) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+          observer.error(error.message)
+        },
+        ()=> {
+          let downloadURL = fileUploading.snapshot.downloadURL;
+         // console.log(downloadURL)
+          observer.next(downloadURL);
+
+          observer.complete()
+        }
+
+      );
+
+    });
+
+
+  }
+  imageAnalysis(filename:string){
+    let base64:string;
+    var VISION_API_URL = "https://vision.googleapis.com/v1/images:annotate?key=";//画像解析
+    var apiKey = "AIzaSyDCIMKBP2jorKKBJaCXtm3024C1IHD-UCA";
+    base64=this.base64[filename]
+    if (!base64) {
+// 画像データが無ければアラートを表示して終了します。
+      alert("キャプチャデータがありません。");
+      return;
+    }
+// Vision APIへのリクエストデータを作成。
+    // imageのcontextにBase64エンコードした画像データを設定します。
+    // featuresのtypeに顔検知機能の値である'FACE_DETECTION'を設定します。
+    // typeを変えることによって、ロゴやOCRなどの他の機能を使うことができます。
+    // featuresのmaxResultsには1以上の数値を設定しましょう。
+    var data = {
+      "requests":[
+        {
+          "image":{
+            "content": base64
+          },
+          "features":[
+            {
+              "type":"LABEL_DETECTION",
+              "maxResults":3
+            },
+            {
+              "type":"IMAGE_PROPERTIES",
+              "maxResults":3
+
+            }
+          ]
+        }
+      ],
+    }
+
+// Vision APIのエンドポイントにPOSTします。
+    return this.http.post(VISION_API_URL + apiKey, data)
+
+
+    // this.imageAnalysis().subscribe(data=>{//画像関連
+    //     for(let key in data.json().responses){
+    //       for(let keys in data.json().responses[key].labelAnnotations){
+    //         console.log(data.json().responses[key].labelAnnotations[keys].description)
+    //       }
+    //     }
+    //   }
+    // )
+    //
+
+
+
+  }
 
 
 }

@@ -53,6 +53,11 @@ import { ListGeninComponent } from './claim-info/add-genin/list-genin/list-genin
 import { InputKoukaComponent } from './claim-info/add-kouka/input-kouka/input-kouka.component';
 import { ListKoukaComponent } from './claim-info/add-kouka/list-kouka/list-kouka.component';
 import { ErrorDialogComponent } from './Dialog/error-dialog/error-dialog.component';
+import { TaiouDialogComponent } from './Dialog/edit-dialog/taiou-dialog/taiou-dialog.component';
+import { TaisakuDialogComponent } from './Dialog/edit-dialog/taisaku-dialog/taisaku-dialog.component';
+import { GeninDialogComponent } from './Dialog/edit-dialog/genin-dialog/genin-dialog.component';
+import { KoukaDialogComponent } from './Dialog/edit-dialog/kouka-dialog/kouka-dialog.component';
+import { CommentDialogComponent } from './Dialog/edit-dialog/comment-dialog/comment-dialog.component';
 
 
 
@@ -119,6 +124,11 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     InputKoukaComponent,
     ListKoukaComponent,
     ErrorDialogComponent,
+    TaiouDialogComponent,
+    TaisakuDialogComponent,
+    GeninDialogComponent,
+    KoukaDialogComponent,
+    CommentDialogComponent,
 
 
  ],

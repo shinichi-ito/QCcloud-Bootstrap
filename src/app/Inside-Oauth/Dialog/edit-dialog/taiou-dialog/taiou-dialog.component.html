@@ -1,0 +1,44 @@
+<div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
+        <h4 class="modal-title">タイトル</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label for="syubetu">対応状況</label>
+          <input type="text" class="form-control" id="syubetu"  [(ngModel)]="syubetu" name="syubetu" value="{{taiouData?.syubetu}}" placeholder="対応状況を入力して下さい。">
+        </div>
+
+        <div class="form-group">
+          <label for="naiyou">対応内容</label>
+          <textarea type="text" class="form-control" id="naiyou"  [(ngModel)]="naiyou" name="naiyou" value="{{taiouData?.naiyou}}" placeholder="対応内容を入力して下さい。"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="name">投稿者</label>
+          <input type="text" class="form-control" id="name"  [(ngModel)]="name" name="name" value="{{taiouData?.name}}" placeholder="投稿者名を入力して下さい。">
+        </div>
+
+        <div class="form-group">
+          <label for="siten">支店名</label>
+          <input type="text" class="form-control" id="siten"  [(ngModel)]="siten" name="siten" value="{{taiouData?.siten}}" placeholder="支店名を入力して下さい。">
+        </div>
+
+        <div class="form-group">
+          <label for="busyo">部署名</label>
+          <input type="text" class="form-control" id="busyo"  [(ngModel)]="busyo" name="busyo" value="{{taiouData?.busyo}}" placeholder="部署名を入力して下さい。">
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary" (click)="onEdit()">編集</button>
+      </div>
+    </div>
+  </div>
+</div>
