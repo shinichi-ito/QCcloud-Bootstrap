@@ -8,5 +8,5 @@ import {Routes} from "@angular/router";
 export const GENIN_ROUTES: Routes = [
   { path: 'listgenin',component:ListGeninComponent},
   { path: 'inputgenin',component:InputGeninComponent},
-  { path: 'addimagetaiou',component:ImageInfoComponent},
+  { path: 'addimagegenin',component:ImageInfoComponent},
 ];

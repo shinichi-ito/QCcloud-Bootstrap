@@ -1,3 +1,101 @@
-<p>
-  top-claim-edit works!
-</p>
+<div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    情報詳細
+  </div>
+  <div class="panel-body">
+
+    <div class="form-group">
+    <label for="syubetu">情報種別</label>
+    <input type="text" class="form-control" [(ngModel)]="syubetu" id="syubetu" value="{{syubetu}}">
+    </div>
+
+    <div class="form-group">
+      <label for="seihin">製品名</label>
+      <input type="text" class="form-control" [(ngModel)]="seihin" id="seihin" value="{{seihin}}">
+    </div>
+
+   <div class="form-group">
+   <label for="gaiyou">情報概要</label>
+   <input type="text" class="form-control" [(ngModel)]="gaiyou" id="gaiyou" value="{{gaiyou}}">
+   </div>
+
+   <div class="form-group">
+      <label for="syousai">情報詳細</label>
+      <textarea type="text" class="form-control" [(ngModel)]="syousai" id="syousai" value="{{syousai}}"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="moto">情報元</label>
+      <input type="text" class="form-control" [(ngModel)]="moto" id="moto" value="{{moto}}">
+    </div>
+
+    <div class="form-group">
+      <label for="hasseibasyo">発生場所 工程</label>
+      <input type="text" class="form-control" [(ngModel)]="basyo" name="basyo" id="hasseibasyo" placeholder="(例)組み立て工程のライン上。出荷作業中">
+    </div>
+
+    <div class="form-group">
+      <label for="hasseibi">発生日</label>
+      <input type="text" id="hasseibi" class="form-control" (click)="open()" placeholder="発生日入力" value="{{ dt | date:'yyyy/MM/dd'}}">
+      <div *ngIf="opened">
+        <div style="display:inline-block; min-height:290px;">
+          <datepicker  [(ngModel)]="dt" name="dt"></datepicker>
+          <button type="button" class="btn btn-warning" (click)="open()">閉じる</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="hasseiji">発生時間帯【予想される時間帯】</label>
+      <timepicker id="hasseiji" [(ngModel)]="mytime" name="mytime"></timepicker>
+    </div>
+
+    <div class="form-group">
+      <label for="seihinInfo">製品補足情報</label>
+      <textarea type="text" class="form-control" [(ngModel)]="seihininfo" name="seihininfo"  id="seihinInfo" placeholder="対象製品の補足情報を入力ください。"></textarea>
+    </div>
+
+
+    <div class="form-group">
+      <label for="yosoukoutei">対応が必要と予想される部署 工程</label>
+      <input type="text" class="form-control" [(ngModel)]="yosoukoutei" name="yosoukoutei" id="yosoukoutei">
+    </div>
+
+    <div class="form-group">
+      <label for="toukousya">投稿者</label>
+      <input type="text" class="form-control" [(ngModel)]="name" id="toukousya" value="{{name}}">
+    </div>
+
+    <div class="form-group">
+      <label for="siten">支店</label>
+      <input type="text" class="form-control" [(ngModel)]="siten" id="siten" value="{{siten}}">
+    </div>
+
+    <div class="form-group">
+      <label for="busyo">部署</label>
+      <input type="text" class="form-control" [(ngModel)]="busyo" id="busyo" value="{{busyo}}">
+    </div>
+
+
+
+
+    <div class="form-group">
+      <label for="password">パスワード</label>
+      <input type="text" class="form-control" [(ngModel)]="password" id="password" value="{{password}}">
+    </div>
+
+    <div *ngIf="check" class="alert alert-danger" role="alert">パスワードが違います。</div>
+
+    <button type="button" (click)="onEdit()" class="btn btn-primary btn-block">編集</button>
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+

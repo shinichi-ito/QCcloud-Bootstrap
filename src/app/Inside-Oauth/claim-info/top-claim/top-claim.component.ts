@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OauthInfoService} from "../../oauth-info.service";
 
 @Component({
   selector: 'app-top-claim',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-claim.component.css']
 })
 export class TopClaimComponent implements OnInit {
-
-  constructor() { }
+  onoffHeader:boolean=false;
+  constructor(private oauthInfoService:OauthInfoService) {
+    this.onoffHeader=this.oauthInfoService.onoffHeader;
+  }
 
   ngOnInit() {
   }
-
+setOnHeader(){
+    this.onoffHeader=true;
+}
+  setOffHeader(){
+    this.onoffHeader=false;
+  }
 }

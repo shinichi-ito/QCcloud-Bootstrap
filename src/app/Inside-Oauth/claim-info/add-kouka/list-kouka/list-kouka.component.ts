@@ -20,18 +20,39 @@ export class ListKoukaComponent implements OnInit {
   busyo:string;
   naiyou:string;
   value: FirebaseObjectObservable<any>;
-
+key:string;
+  newkoukaList:any[]=[];
   @ViewChild("editKoukaDialog") koukaDialogComponent: KoukaDialogComponent;
   constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
+    this.key=this.insideService.claimitem.key;
+    this.insideService.flagChangeKouka$.subscribe(
+      flag => {
+        //  console.log('対策');
+        this.koukaList=[];
+        this.newkoukaList=[];
+        this.koukaList=this.insideService.koukaList
+        for(let key in this.koukaList){
+          if(this.key==this.koukaList[key].claimkey){
+            this.newkoukaList.push(this.koukaList[key])
+          }
+        }
+
+      })
+
+
   }
 
 
   ngOnInit() {
     this.koukaList=this.insideService.koukaList
+
     for(let key in this.koukaList){
-      console.log(this.koukaList[key])
+      if(this.key==this.koukaList[key].claimkey){
+          this.newkoukaList.push(this.koukaList[key])
+      }
     }
+
   }
 
   setEdit(index){
@@ -44,6 +65,15 @@ export class ListKoukaComponent implements OnInit {
     this.index=index
     this.koukaData=this.koukaList[index];
     this.insideService.deleteKouka(this.koukaData.key,this.uid)
+    this.koukaList=[];
+    this.newkoukaList=[];
+    this.koukaList=this.insideService.koukaList
+    for(let key in this.koukaList){
+      if(this.key==this.koukaList[key].claimkey){
+        this.newkoukaList.push(this.koukaList[key])
+      }
+    }
+
   }
 
 }

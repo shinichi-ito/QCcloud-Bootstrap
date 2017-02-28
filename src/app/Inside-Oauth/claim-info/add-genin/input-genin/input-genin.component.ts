@@ -18,7 +18,7 @@ export class InputGeninComponent {
 
   model;
 
-
+key:string;
   memberList:any[]=[];
 
 
@@ -52,6 +52,9 @@ export class InputGeninComponent {
       "label": ['']
 
     });
+    this.key=this.insideService.claimitem.key;
+
+
 
   }
 
@@ -65,6 +68,7 @@ export class InputGeninComponent {
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
+      claimkey:this.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };

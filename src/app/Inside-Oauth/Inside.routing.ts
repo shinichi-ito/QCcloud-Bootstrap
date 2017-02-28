@@ -16,13 +16,14 @@ import {AddBranchOfficeComponent} from "./employee-info/add-branch-office/add-br
 import {AddDepartmentComponent} from "./employee-info/add-department/add-department.component";
 import {TopClaimComponent} from "./claim-info/top-claim/top-claim.component";
 import {CLAIM_ROUTES} from "./claim-info/top-claim/claim-routing";
+import {CLAIMALL_ROUTES} from "./claim-info/claim-list/claim-routing";
 /**
  * Created by hp on 2017/02/18.
  */
 const IN_ROUTES: Routes = [
   {path:'',component:MainComponent,children:[
     { path: '',  redirectTo: '/top',  pathMatch: 'full'},
-    { path: 'list',component:ClaimListComponent},
+    { path: 'list',component:ClaimListComponent,children:CLAIMALL_ROUTES},
     { path: 'image',component:ImageInfoComponent},
     { path: 'addclaim',component:AddClaimComponent},
     { path: 'editclaim',component:EditClaimComponent},

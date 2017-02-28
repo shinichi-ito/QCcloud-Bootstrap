@@ -36,11 +36,12 @@ export class InputTaisakuComponent  {
   public dateDisabled: {date: Date, mode: string}[];
   private opened: boolean = false;
 InfoData:any[]=[];
-
+key:string;
   public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
     this.memberList=this.insideService.memberList;
+    this.key=this.insideService.claimitem.key;
     this.model = {
       label: "kari"
     };
@@ -89,6 +90,7 @@ InfoData:any[]=[];
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
+      claimkey:this.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };

@@ -34,6 +34,7 @@ InfoData:any[]=[];
   uid:string;
   myForm: FormGroup;
   claimInfo2: FirebaseListObservable<any[]>;
+  key:string;
   public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.model = {
       label: "kari"
@@ -62,6 +63,10 @@ InfoData:any[]=[];
 
     this.uid=this.oauthInfoService.uid;
     this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+    this.key=this.insideService.claimitem.key;
+
+
+
     this.memberList=this.insideService.memberList;
     (this.tomorrow = new Date()).setDate(this.tomorrow.getDate() + 1);
     (this.afterTomorrow = new Date()).setDate(this.tomorrow.getDate() + 2);
@@ -107,6 +112,7 @@ InfoData:any[]=[];
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
+      claimkey:this.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };

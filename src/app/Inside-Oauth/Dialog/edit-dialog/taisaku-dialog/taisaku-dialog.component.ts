@@ -60,6 +60,8 @@ export class TaisakuDialogComponent implements OnInit {
     };
     this.value = this.af.database.object('TaisakuData/' + this.uid + '/'+this.taisakuData.key);
     this.value.update(taisakuInfo).then(data=>{
+
+
        this.modalRef.hide()
      }).catch(error=>{
      })

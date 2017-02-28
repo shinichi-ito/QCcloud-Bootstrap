@@ -8,5 +8,5 @@ import {ImageInfoComponent} from "../image-info/image-info.component";
 export const TAISAKU_ROUTES: Routes = [
   { path: 'listtaisaku',component:ListTaisakuComponent},
   { path: 'inputtaisaku',component:InputTaisakuComponent},
-  { path: 'addimagetaiou',component:ImageInfoComponent},
+  { path: 'addimagetaisaku',component:ImageInfoComponent},
 ];

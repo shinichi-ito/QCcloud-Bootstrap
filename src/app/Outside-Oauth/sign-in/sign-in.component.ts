@@ -156,7 +156,7 @@ changeTop(){
               console.log("Yes")//既にcompanyDataに登録がある
               if(data.$value===1){
                 console.log("クレームリストへ");
-                this.router.navigate(['/main/list'])
+                this.router.navigate(['/main/list/claimlistall'])
 
                 ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
                 //     this.insideService.addSitenSQLite()

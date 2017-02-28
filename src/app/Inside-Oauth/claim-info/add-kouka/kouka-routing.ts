@@ -8,5 +8,5 @@ import {ImageInfoComponent} from "../image-info/image-info.component";
 export const KOUKA_ROUTES: Routes = [
   { path: 'listkouka',component:ListKoukaComponent},
   { path: 'inputkouka',component:InputKoukaComponent},
-  { path: 'addimagetaiou',component:ImageInfoComponent},
+  { path: 'addimagekouka',component:ImageInfoComponent},
 ];

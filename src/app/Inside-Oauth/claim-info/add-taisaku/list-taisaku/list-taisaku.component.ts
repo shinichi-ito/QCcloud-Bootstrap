@@ -11,6 +11,7 @@ import {InsideService} from "../../../Inside.service";
 })
 export class ListTaisakuComponent implements OnInit {
   taisakuList:any[]=[];
+  newtaisakuList:any[]=[];
   index:number;
   taisakuData;
   uid:string;
@@ -20,25 +21,60 @@ export class ListTaisakuComponent implements OnInit {
   busyo:string;
   naiyou:string;
   value: FirebaseObjectObservable<any>;
-
+  taiouList:any[]=[];
+  newtaiouList:any[]=[];
+  OnOff:boolean=false;
+key:string;
   @ViewChild("editTaisakuDialog") taisakuDialogComponent: TaisakuDialogComponent;
   constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
+    this.key=this.insideService.claimitem.key;
+    this.insideService.flagChangeTaisaku$.subscribe(
+      flag => {
+        //  console.log('対策');
+        this.taisakuList=[];
+        this.newtaisakuList=[];
+        this.taisakuList=this.insideService.taisakuList
+        for(let key in this.taisakuList){
+          if(this.key==this.taisakuList[key].claimkey){
+            this.newtaisakuList.push(this.taisakuList[key])
+          }
+        }
+
+      })
+
   }
 
   ngOnInit() {
     this.taisakuList=this.insideService.taisakuList
-  }
+    for(let key in this.taisakuList){
+      if(this.key==this.taisakuList[key].claimkey){
+        this.newtaisakuList.push(this.taisakuList[key])
+      }
+    }
 
+  }
   setEdit(index){
+
     this.index=index
-    this.taisakuData=this.taisakuList[index];
-    this.taisakuDialogComponent.openDialog();
+    this.taisakuData=this.newtaisakuList[index];
+     this.taisakuDialogComponent.openDialog();
   }
 
   Delete(index){
     this.index=index
     this.taisakuData=this.taisakuList[index];
     this.insideService.deleteTaisaku(this.taisakuData.key,this.uid)
+    this.taisakuList=[];
+     this.newtaisakuList=[];
+     this.taisakuList=this.insideService.taisakuList
+     for(let key in this.taisakuList){
+      if(this.key==this.taisakuList[key].claimkey){
+         this.newtaisakuList.push(this.taisakuList[key])
+      }
+     }
+
+
+
   }
 }

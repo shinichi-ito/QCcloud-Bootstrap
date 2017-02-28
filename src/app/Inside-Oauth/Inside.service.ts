@@ -6,6 +6,7 @@ import {FirebaseListObservable, AngularFire} from "angularfire2";
 import {OauthInfoService} from "./oauth-info.service";
 import {BranchOffice} from "./employee-info/add-branch-office/BranchOffice.interface";
 import {Employee} from "./employee-info/add-employee/Employee.interface";
+import {Observable} from "rxjs";
 
 
 
@@ -33,17 +34,52 @@ export class InsideService {
   claimList:any[]=[];
   taiouList:any[]=[];
   taisakuList:any[]=[];
+  newtaisakuList:any[]=[];
   geninList:any[]=[];
   koukaList:any[]=[];
   commentList:any[]=[];
 uid:string;//会社を振り分けるログイン時に受け取るユニークの値
 key:string;//各登録情報のユニークなキー
   InfoData:any;//対策や対応情報を選択した際そのデータを入れておく key name siten busyo
+  flagChangeTaisaku$: Observable<number>;
+  private _observerTaisaku;
+  flagChangeTaiou$: Observable<number>;
+  private _observerTaiou;
+
+  flagChangeComment$: Observable<number>;
+  private _observerComment;
+
+  flagChangeGenin$: Observable<number>;
+  private _observerGenin;
+
+  flagChangeKouka$: Observable<number>;
+  private _observerKouka;
+
 
  // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
   imageInfo: FirebaseListObservable<any[]>;
 public claimitem:any;
+
 constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
+  this.flagChangeTaisaku$ = new Observable(observer =>
+    this._observerTaisaku = observer).share();
+  this.flagChangeTaiou$ = new Observable(observer =>
+    this._observerTaiou = observer).share();
+
+  this.flagChangeComment$ = new Observable(observer =>
+    this._observerComment = observer).share();
+
+  this.flagChangeGenin$ = new Observable(observer =>
+    this._observerGenin = observer).share();
+
+  this.flagChangeKouka$ = new Observable(observer =>
+    this._observerKouka = observer).share();
+
+
+
+
+
+
   this.uid=this.oauthInfoService.uid;
   this.busyoAddTrigger(this.uid);
   this.busyoChangeTrigger(this.uid);
@@ -221,8 +257,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   taiouAddTrigger(uid){
     let commentsRef = firebase.database().ref('TaiouData/'+uid);
     commentsRef.on('child_added', (value)=> {
-  //   console.log("taiou追加"+value.val().name)
-       this.taiouList.push({key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+   // console.log("taiou追加"+value.val().claimkey)
+       this.taiouList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
          siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
          password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
@@ -233,7 +269,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       // console.log("claim変更"+value.val().busyo)
        for(let index in this.taiouList){
         if(this.taiouList[index].key==value.key){
-           this.taiouList[index]={key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+          this._observerTaiou.next(this.taiouList);
+           this.taiouList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
              siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
              password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
          }
@@ -256,10 +293,12 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     let commentsRef = firebase.database().ref('TaisakuData/'+uid);
     commentsRef.on('child_added', (value)=> {
       //   console.log("taiou追加"+value.val().name)
-      this.taisakuList.push({key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+
+      this.taisakuList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
+
   }
   taisakuChangeTrigger(uid){
     let commentsRef = firebase.database().ref('TaisakuData/'+uid);
@@ -267,12 +306,16 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       // console.log("claim変更"+value.val().busyo)
       for(let index in this.taisakuList){
         if(this.taisakuList[index].key==value.key){
-          this.taisakuList[index]={key:value.key,syubetu:value.val().syubetu,name:value.val().name,
+          this._observerTaisaku.next(this.taisakuList);
+          this.taisakuList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
         }
       }
     })
+
+
+
   }
   taisakuRemoveTrigger(uid){
     let commentsRef = firebase.database().ref('TaisakuData/'+uid);
@@ -290,7 +333,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     let commentsRef = firebase.database().ref('GeninData/'+uid);
     commentsRef.on('child_added', (value)=> {
       //   console.log("taiou追加"+value.val().name)
-      this.geninList.push({key:value.key,name:value.val().name,
+      this.geninList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
@@ -301,7 +344,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       // console.log("claim変更"+value.val().busyo)
       for(let index in this.geninList){
         if(this.geninList[index].key==value.key){
-          this.geninList[index]={key:value.key,name:value.val().name,
+          this._observerGenin.next(this.geninList);
+          this.geninList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
         }
@@ -325,7 +369,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     let commentsRef = firebase.database().ref('KoukaData/'+uid);
     commentsRef.on('child_added', (value)=> {
       //   console.log("taiou追加"+value.val().name)
-      this.koukaList.push({key:value.key,name:value.val().name,
+      this.koukaList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,naiyou:value.val().naiyou,koukai:value.val().koukai,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
@@ -336,7 +380,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       // console.log("claim変更"+value.val().busyo)
       for(let index in this.koukaList){
         if(this.koukaList[index].key==value.key){
-          this.koukaList[index]={key:value.key,name:value.val().name,
+          this._observerKouka.next(this.koukaList);
+          this.koukaList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,
             cc:value.val().cc,dd:value.val().dd,naiyou:value.val().naiyou,koukai:value.val().koukai,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
@@ -360,7 +405,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     let commentsRef = firebase.database().ref('CommentData/'+uid);
     commentsRef.on('child_added', (value)=> {
       //   console.log("taiou追加"+value.val().name)
-      this.commentList.push({key:value.key,name:value.val().name,
+
+      this.commentList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
@@ -371,7 +417,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       // console.log("claim変更"+value.val().busyo)
       for(let index in this.commentList){
         if(this.commentList[index].key==value.key){
-          this.commentList[index]={key:value.key,name:value.val().name,
+          this._observerComment.next(this.commentList);
+          this.commentList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
         }

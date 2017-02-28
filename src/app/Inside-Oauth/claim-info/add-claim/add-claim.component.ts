@@ -132,6 +132,16 @@ setMember(value){
       busyo:this.busyo,
       password:this.password,
       koukai:this.model.label,
+      taiou:0,
+      taioufile:0,
+      genin:0,
+      geninfile:0,
+      taisaku:0,
+      taisakufile:0,
+      kouka:0,
+      koukafile:0,
+      comment:0,
+
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };

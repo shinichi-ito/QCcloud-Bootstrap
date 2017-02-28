@@ -36,9 +36,10 @@ export class InputKoukaComponent  {
   bb:number=5;
   cc:number=5;
   dd:number=5;
-
+key:string;
   public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService) {
+    this.key=this.insideService.claimitem.key;
     this.model = {
       label: "kari"
     };
@@ -91,6 +92,7 @@ export class InputKoukaComponent  {
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
+      claimkey:this.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };

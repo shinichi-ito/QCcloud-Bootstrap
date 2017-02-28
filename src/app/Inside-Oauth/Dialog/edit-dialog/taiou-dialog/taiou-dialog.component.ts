@@ -19,8 +19,10 @@ export class TaiouDialogComponent implements OnInit {
   busyo:string='';
   syubetu:string='';
   naiyou:string='';
+  key:string;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
+    this.key=this.insideService.claimitem.key;
   }
 
   ngOnInit() {

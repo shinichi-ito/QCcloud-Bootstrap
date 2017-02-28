@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {InsideService} from "../../Inside.service";
-import {OauthInfoService} from "../../oauth-info.service";
-import {AngularFire} from "angularfire2";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
 import {Router} from "@angular/router";
-import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.component";
+import {AngularFire} from "angularfire2";
+import {OauthInfoService} from "../../../oauth-info.service";
+import {InsideService} from "../../../Inside.service";
 
 @Component({
-  selector: 'app-claim-list',
-  templateUrl: './claim-list.component.html',
-  styleUrls: ['./claim-list.component.css']
+  selector: 'app-claim-list-all',
+  templateUrl: './claim-list-all.component.html',
+  styleUrls: ['./claim-list-all.component.css']
 })
-export class ClaimListComponent  {
+export class ClaimListAllComponent  {
 
   public data;
   public data2;
@@ -24,10 +24,10 @@ export class ClaimListComponent  {
   tourObj:string='おはよう'
 
   constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
-  //   console.log(this.oauthInfoService.uid)
-  //   console.log(this.oauthInfoService.photoURL)
+    //   console.log(this.oauthInfoService.uid)
+    //   console.log(this.oauthInfoService.photoURL)
     // console.log(this.oauthInfoService.displayName)
-this.data=this.insideService.claimList
+    this.data=this.insideService.claimList
 
   }
 
@@ -45,8 +45,8 @@ this.data=this.insideService.claimList
   sendEditClaim(claimitem){
     this.insideService.claimitem=claimitem;
     this.oauthInfoService.onoffHeader=false;
- //   console.log(this.insideService.claimitem)
- //  console.log(this.insideService.claimitem.key)
+    //   console.log(this.insideService.claimitem)
+    //  console.log(this.insideService.claimitem.key)
 
     this.router.navigate(['/main/topclaim/topclaimedit'])
     //this.router.navigate(['/main/topclaim/topclaimedit'])

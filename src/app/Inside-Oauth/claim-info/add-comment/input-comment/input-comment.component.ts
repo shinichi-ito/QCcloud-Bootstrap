@@ -21,7 +21,7 @@ export class InputCommentComponent  {
   uid:string;
   myForm: FormGroup;
   Info: FirebaseListObservable<any[]>;
-
+key:string;
   InfoData:any[]=[];
 
   public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,
@@ -49,7 +49,7 @@ export class InputCommentComponent  {
       "label": ['']
 
     });
-
+    this.key=this.insideService.claimitem.key;
   }
 
 
@@ -62,6 +62,7 @@ export class InputCommentComponent  {
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
+      claimkey:this.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };
