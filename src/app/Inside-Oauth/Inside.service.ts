@@ -56,6 +56,7 @@ key:string;//各登録情報のユニークなキー
   private _observerKouka;
 
 
+
  // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
   imageInfo: FirebaseListObservable<any[]>;
 public claimitem:any;
@@ -91,10 +92,13 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.memberChangeTrigger(this.uid);
   this.memberRemoveTrigger(this.uid);
   this.syubetuAdd(this.uid);
+  this.syubetuChange(this.uid);
   this.syubetuRemove(this.uid);
   this.taiouJyoukyouAdd(this.uid);
+  this. taiouJyoukyouChange(this.uid);
   this.taiouJyoukyouRemove(this.uid);
   this.taisakuJyoukyouAdd(this.uid);
+  this.taisakuJyoukyouChange(this.uid);
   this.taisakuJyoukyouRemove(this.uid);
   this.claimAddTrigger(this.uid);
   this.claimChangeTrigger(this.uid);
@@ -114,6 +118,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.commentAddTrigger(this.uid);
   this.commentChangeTrigger(this.uid);
   this.commentRemoveTrigger(this.uid);
+
 
 
 }
@@ -474,11 +479,23 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   commentsRef.on('child_added', (value)=> {
    //console.log(value.key)
     //console.log(value.val().syubetuInfo)
-  this.syubetuList.push({key:value.key,syubetu:value.val().syubetuInfo})
+  this.syubetuList.push({key:value.key,syubetu:value.val().syubetuInfo,tourokusya:value.val().tourokusya})
     //  this.claimList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
   })
 }
-
+  syubetuChange(uid){
+    let commentsRef = firebase.database().ref('selectData/'+uid+'/syubetuInfo');
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.syubetuList){
+        if(this.syubetuList[index].key==value.key){
+         // this._observerComment.next(this.commentList);
+          this.syubetuList[index]={key:value.key,syubetu:value.val().syubetuInfo,tourokusya:value.val().tourokusya
+            }
+        }
+      }
+    })
+  }
   syubetuRemove(uid){
     let commentsRef = firebase.database().ref('selectData/'+uid+'/syubetuInfo');
     commentsRef.on('child_removed', (value)=> {
@@ -498,10 +515,22 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
       // console.log(value.key)
      // console.log(value.val())
-      this.taiouSyubetuList.push({key:value.key,taiou:value.val().taiouInfo})
+      this.taiouSyubetuList.push({key:value.key,taiou:value.val().taiouInfo,tourokusya:value.val().tourokusya})
     })
   }
-
+  taiouJyoukyouChange(uid){
+    let commentsRef = firebase.database().ref('selectData/'+uid+'/taiouInfo');
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.taiouSyubetuList){
+        if(this.taiouSyubetuList[index].key==value.key){
+          // this._observerComment.next(this.commentList);
+          this.taiouSyubetuList[index]={key:value.key,taiou:value.val().taiouInfo,tourokusya:value.val().tourokusya
+          }
+        }
+      }
+    })
+  }
   taiouJyoukyouRemove(uid){
     let commentsRef = firebase.database().ref('selectData/'+uid+'/taiouInfo');
     commentsRef.on('child_removed', (value)=> {
@@ -521,9 +550,24 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
       // console.log(value.key)
      //  console.log(value.val())
-      this.taisakuSyubetuList.push({key:value.key,taisaku:value.val().taisakuInfo})
+      this.taisakuSyubetuList.push({key:value.key,taisaku:value.val().taisakuInfo,tourokusya:value.val().tourokusya})
     })
   }
+  taisakuJyoukyouChange(uid){
+    let commentsRef = firebase.database().ref('selectData/'+uid+'/taisakuInfo');
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.taisakuSyubetuList){
+        if(this.taisakuSyubetuList[index].key==value.key){
+          // this._observerComment.next(this.commentList);
+          this.taisakuSyubetuList[index]={key:value.key,taisaku:value.val().taisakuInfo,tourokusya:value.val().tourokusya
+          }
+        }
+      }
+    })
+  }
+
+
   taisakuJyoukyouRemove(uid){
     let commentsRef = firebase.database().ref('selectData/'+uid+'/taisakuInfo');
     commentsRef.on('child_removed', (value)=> {

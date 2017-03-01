@@ -160,7 +160,7 @@ this.claimitem=this.insideService.claimitem;
 
   addTaiouSyubetu(){
 
-    this.insideMainService.addTaiouSelect(this.uid,this.syubetuvalue).then(data=>{
+    this.insideMainService.addTaiouSelect(this.uid,this.syubetuvalue,this.name).then(data=>{
 
     }).catch(error=>{
 

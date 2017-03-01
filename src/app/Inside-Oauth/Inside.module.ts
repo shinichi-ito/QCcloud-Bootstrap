@@ -64,6 +64,10 @@ import { ClaimListAllComponent } from './claim-info/claim-list/claim-list-all/cl
 import { GeninListAllComponent } from './claim-info/claim-list/genin-list-all/genin-list-all.component';
 import { KoukaListAllComponent } from './claim-info/claim-list/kouka-list-all/kouka-list-all.component';
 import {InsideMainService} from "./inside-main.service";
+import { SelectEditComponent } from './select-edit/select-edit.component';
+import { SelectSyubetuComponent } from './select-edit/select-syubetu/select-syubetu.component';
+import { SelectTaiouComponent } from './select-edit/select-taiou/select-taiou.component';
+import { SelectTaisakuComponent } from './select-edit/select-taisaku/select-taisaku.component';
 
 
 
@@ -140,7 +144,11 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TaisakuListAllComponent,
     ClaimListAllComponent,
     GeninListAllComponent,
-    KoukaListAllComponent
+    KoukaListAllComponent,
+    SelectEditComponent,
+    SelectSyubetuComponent,
+    SelectTaiouComponent,
+    SelectTaisakuComponent
 
 
 

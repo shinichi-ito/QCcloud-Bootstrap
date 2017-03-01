@@ -13,7 +13,7 @@
             [hidden]="!myForm.controls.syubetu.errors.required ">
         *</span>
           </span></label>
-        <select class="form-control" id="syubetu" [(ngModel)]="syubetu" (ngModelChange)="onChange($event)" formControlName="syubetu">
+        <select class="form-control" id="syubetu" [(ngModel)]="syubetu" formControlName="syubetu">
           <option *ngFor="let item of syubetus" [value]="item.syubetu">{{item.syubetu}}</option>
         </select>
   </div>

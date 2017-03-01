@@ -1,0 +1,85 @@
+
+<div class="panel panel-default" style="width: 100%;margin: 0 auto;">
+  <div class="panel-heading">
+    選択ボックス編集
+  </div>
+  <div class="panel-body">
+
+
+    <div class="form-group">
+      <label for="syubetu">対応状況</label>
+      <input type="text" class="form-control" id="syubetu"  [(ngModel)]="syubetuname" placeholder="種別名を入力して下さい。">
+    </div>
+
+    <div class="form-group">
+      <label for="tourokusya">登録者</label>
+      <input type="text" [(ngModel)]="tourokusyaname"  class="form-control" id="tourokusya" placeholder="登録者を入力して下さい。">
+    </div>
+
+
+
+    <button   class="btn btn-primary btn-block" (click)="addSyubetu()">登録</button>
+
+
+
+
+    <div class="form-group">
+      <table class="table table-striped">
+        <thead>
+
+        <tr>
+          <th></th>
+          <th >
+            対応状況
+          </th>
+          <th >
+            登録者
+          </th>
+          <th >
+            編集
+          </th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of taiouSyubetuList let idx = index;">
+          <td>{{idx+1}}</td>
+          <td>{{item.taiou}}</td>
+          <td>{{item.tourokusya}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="setEdit(idx)">編集</button>
+            <button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--以下にダイアログ-->
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+      <div class="modal-body">
+
+
+        <div class="form-group">
+          <label for="syubetuname">対応状況</label>
+          <input type="text" class="form-control" id="syubetuname"  [(ngModel)]="syubetuname" name="busyo" value="{{syubetuData?.syubetu}}" placeholder="種別名を入力して下さい。">
+        </div>
+        <div class="form-group">
+          <label for="tourokusyaname">登録者</label>
+          <input type="text" class="form-control" id="tourokusyaname"  [(ngModel)]="tourokusyaname" name="tourokusya" value="{{syubetuData?.tourokusya}}" placeholder="登録者名を入力して下さい。">
+        </div>
+        <button  type="button"  class="btn btn-primary btn-block" (click)="onEdit()">種別編集</button>
+        <button  type="button"  class="btn btn-default btn-block" (click)="lgModal.hide()">キャンセル</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+

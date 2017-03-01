@@ -17,6 +17,10 @@ import {AddDepartmentComponent} from "./employee-info/add-department/add-departm
 import {TopClaimComponent} from "./claim-info/top-claim/top-claim.component";
 import {CLAIM_ROUTES} from "./claim-info/top-claim/claim-routing";
 import {CLAIMALL_ROUTES} from "./claim-info/claim-list/claim-routing";
+import {SelectEditComponent} from "./select-edit/select-edit.component";
+import {SelectSyubetuComponent} from "./select-edit/select-syubetu/select-syubetu.component";
+import {SelectTaisakuComponent} from "./select-edit/select-taisaku/select-taisaku.component";
+import {SelectTaiouComponent} from "./select-edit/select-taiou/select-taiou.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -32,6 +36,9 @@ const IN_ROUTES: Routes = [
     { path: 'addbranchoffice',component:AddBranchOfficeComponent},
     { path: 'adddepartment',component:AddDepartmentComponent},
     { path: 'companyInfo', component: CompanyInfoComponent ,children:COM_ROUTES},
+    { path: 'selectedit',component:SelectSyubetuComponent},
+    { path: 'selecttaiouedit',component:SelectTaiouComponent},
+    { path: 'selecttaisakuedit',component:SelectTaisakuComponent},
 
 
 

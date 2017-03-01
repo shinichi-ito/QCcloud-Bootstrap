@@ -217,7 +217,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid + '/syubetuInfo');
       let newRef = selectData.push(
         {
-          'syubetuInfo': 'クレーム情報'
+          'syubetuInfo': 'クレーム情報',
+          'tourokusya':'初期値'
         }).then((data) => {
       }).catch((error) => {
         this._observer.next(error.message);
@@ -236,7 +237,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
       let newRef=selectData.push(
         {
-          'syubetuInfo': '社内不具合情報'
+          'syubetuInfo': '社内不具合情報',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -255,7 +257,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
       let newRef=selectData.push(
         {
-          'syubetuInfo': '顧客要望'
+          'syubetuInfo': '顧客要望',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -291,7 +294,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taiouInfo');
       let newRef=selectData.push(
         {
-          'taiouInfo': '対応前'
+          'taiouInfo': '対応前',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -310,7 +314,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taiouInfo');
       let newRef=selectData.push(
         {
-          'taiouInfo': '初期対応中'
+          'taiouInfo': '初期対応中',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -328,7 +333,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taiouInfo');
       let newRef=selectData.push(
         {
-          'taiouInfo': '経過観察中'
+          'taiouInfo': '経過観察中',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -347,7 +353,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taiouInfo');
       let newRef=selectData.push(
         {
-          'taiouInfo': '再発生中'
+          'taiouInfo': '再発生中',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -385,7 +392,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taisakuInfo');
       let newRef=selectData.push(
         {
-          'taisakuInfo': '対策前'
+          'taisakuInfo': '対策前',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -404,7 +412,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taisakuInfo');
       let newRef=selectData.push(
         {
-          'taisakuInfo': '対策作成中'
+          'taisakuInfo': '対策作成中',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -423,7 +432,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taisakuInfo');
       let newRef=selectData.push(
         {
-          'taisakuInfo': '効果観察中'
+          'taisakuInfo': '効果観察中',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -442,7 +452,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taisakuInfo');
       let newRef=selectData.push(
         {
-          'taisakuInfo': '効果確認済'
+          'taisakuInfo': '効果確認済',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);
@@ -461,7 +472,8 @@ export class OauthService {
       let selectData = this.af.database.list('selectData/' + uid+'/taisakuInfo');
       let newRef=selectData.push(
         {
-          'taisakuInfo': '再発生中'
+          'taisakuInfo': '再発生中',
+          'tourokusya':'初期値'
         }).then((data)=>{
       }).catch((error)=>{
         this._observer.next(error.message);

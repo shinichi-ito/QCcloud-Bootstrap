@@ -126,7 +126,7 @@ InfoData:any[]=[];
   }
   addTaisakuSyubetu(){
 
-    this.insideMainService.addTaisakuSelect(this.uid,this.syubetuvalue).then(data=>{
+    this.insideMainService.addTaisakuSelect(this.uid,this.syubetuvalue,this.name).then(data=>{
 
     }).catch(error=>{
 

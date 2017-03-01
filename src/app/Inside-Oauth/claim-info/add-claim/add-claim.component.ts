@@ -47,6 +47,7 @@ export class AddClaimComponent  {
   public constructor(private af : AngularFire,private insideService:InsideService,
                      private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                       private insideMainService:InsideMainService) {
+    this.syubetus=this.insideService.syubetuList;
     this.model = {
       label: "kari"
     };
@@ -75,7 +76,7 @@ export class AddClaimComponent  {
         ]
       )]
     });
-    this.syubetus=this.insideService.syubetuList;
+
    (this.tomorrow = new Date()).setDate(this.tomorrow.getDate() + 1);
     (this.afterTomorrow = new Date()).setDate(this.tomorrow.getDate() + 2);
     (this.minDate = new Date()).setDate(this.minDate.getDate() - 1000);
@@ -163,14 +164,10 @@ setMember(value){
 
   }
 
-  onChange(newValue) {
- //   console.log(newValue);
-    this.syubetu = newValue;
-  }
 
   addSyubetu(){
 
-    this.insideMainService.addSelect(this.uid,this.syubetuvalue).then(data=>{
+    this.insideMainService.addSelect(this.uid,this.syubetuvalue,this.name).then(data=>{
 
     }).catch(error=>{
 

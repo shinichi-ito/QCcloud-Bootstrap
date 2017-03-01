@@ -7,12 +7,13 @@ export class InsideMainService {
   constructor(private af : AngularFire) { }
 
 
-  addSelect(uid: string,data:string) : Promise<any> {
+  addSelect(uid: string,data:string,tourokusya:string) : Promise<any> {
     return new Promise((resolve, reject) => {
       let selectData = this.af.database.list('selectData/' + uid + '/syubetuInfo');
       let newRef = selectData.push(
         {
-          syubetuInfo: data
+          syubetuInfo: data,
+          tourokusya:tourokusya
         }).then((data) => {
 
       }).catch((error) => {
@@ -26,12 +27,13 @@ export class InsideMainService {
       }
     })
   }
-  addTaisakuSelect(uid: string,data:string) : Promise<any> {
+  addTaisakuSelect(uid: string,data:string,tourokusya:string) : Promise<any> {
     return new Promise((resolve, reject) => {
       let selectData = this.af.database.list('selectData/' + uid + '/taisakuInfo');
       let newRef = selectData.push(
         {
-          taisakuInfo: data
+          taisakuInfo: data,
+          tourokusya:tourokusya
         }).then((data) => {
 
       }).catch((error) => {
@@ -45,12 +47,13 @@ export class InsideMainService {
       }
     })
   }
-  addTaiouSelect(uid: string,data:string) : Promise<any> {
+  addTaiouSelect(uid: string,data:string,tourokusya:string) : Promise<any> {
     return new Promise((resolve, reject) => {
       let selectData = this.af.database.list('selectData/' + uid + '/taiouInfo');
       let newRef = selectData.push(
         {
-          taiouInfo: data
+          taiouInfo: data,
+          tourokusya:tourokusya
         }).then((data) => {
 
       }).catch((error) => {
