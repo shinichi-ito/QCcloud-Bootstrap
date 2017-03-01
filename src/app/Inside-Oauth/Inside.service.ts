@@ -32,6 +32,7 @@ export class InsideService {
   taiouSyubetuList:any[]=[];
   taisakuSyubetuList:any[]=[];
   claimList:any[]=[];
+  fileList:any[]=[];
   taiouList:any[]=[];
   taisakuList:any[]=[];
   newtaisakuList:any[]=[];
@@ -118,25 +119,13 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.commentAddTrigger(this.uid);
   this.commentChangeTrigger(this.uid);
   this.commentRemoveTrigger(this.uid);
-
+  this.fileAddTrigger(this.uid);
+  this.fileChangeTrigger(this.uid);
+  this.fileRemoveTrigger(this.uid);
 
 
 }
 
-  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string){
-     const imageInfo = {
-      imageAnalysis:jsonData,
-       downloadURL:downloadURL,
-       comment:comment,
-       toukousya:this.InfoData[0].name,
-       siten:this.InfoData[0].siten,
-       busyo:this.InfoData[0].busyo,
-       startAt: firebase.database.ServerValue.TIMESTAMP
-     };
-     this.imageInfo=this.af.database.list('FileData/'+this.uid+'/'+this.InfoData[0].key)
-    return  this.imageInfo.push(imageInfo)
-
-  }
 
 
 
@@ -236,9 +225,9 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
        name:value.val().name,basyo:value.val().basyo,moto:value.val().moto, seihininfo:value.val().seihininfo,
        syousai:value.val().syousai, yosoukoutei:value.val().yosoukoutei,
        password: value.val().password,koukai:value.val().koukai,startAt:value.val().startAt, updateAt: value.val().updateAt,
-       hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,taioufile:value.val().taioufile,
-     taisaku:value.val().taisaku,taisakufaile:value.val().taisakufile,genin:value.val().genin,geninfile:value.val().geninfile,
-     kouka:value.val().kouka,koukafile:value.val().koukafile,comment:value.val().comment})
+       hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,
+     taisaku:value.val().taisaku,genin:value.val().genin,
+     kouka:value.val().kouka,comment:value.val().comment,file:value.val().file})
     })
   }
   claimChangeTrigger(uid){
@@ -252,9 +241,9 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
              name:value.val().name,basyo:value.val().basyo,moto:value.val().moto, seihininfo:value.val().seihininfo,
              syousai:value.val().syousai, yosoukoutei:value.val().yosoukoutei,
              password: value.val().password,koukai:value.val().koukai,startAt:value.val().startAt, updateAt: value.val().updateAt,
-             hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,taioufile:value.val().taioufile,
-             taisaku:value.val().taisaku,taisakufaile:value.val().taisakufile,genin:value.val().genin,geninfile:value.val().geninfile,
-             kouka:value.val().kouka,koukafile:value.val().koukafile,comment:value.val().comment}
+             hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,
+             taisaku:value.val().taisaku,genin:value.val().genin,
+             kouka:value.val().kouka,comment:value.val().comment,file:value.val().file}
          }
        }
 
@@ -272,6 +261,64 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
        }
     })
   }
+
+
+  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string){
+    const imageInfo = {
+      doko:this.InfoData[0].doko,
+      imageAnalysis:jsonData,
+      downloadURL:downloadURL,
+      comment:comment,
+      toukousya:this.InfoData[0].name,
+      siten:this.InfoData[0].siten,
+      busyo:this.InfoData[0].busyo,
+      claimkey:this.InfoData[0].claimkey,
+      startAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    this.imageInfo=this.af.database.list('FileData/'+this.uid)
+    //this.imageInfo=this.af.database.list('FileData/'+this.uid+'/'+this.InfoData[0].key)
+    return  this.imageInfo.push(imageInfo)
+
+  }
+
+
+  fileAddTrigger(uid){
+    let commentsRef = firebase.database().ref('FileData/'+uid);
+    commentsRef.on('child_added', (value)=> {
+    //  console.log("imagefile追加"+value.val())
+      this.fileList.push({claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
+        comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
+        startAt:value.val().startAt})
+    })
+  }
+
+  fileChangeTrigger(uid){
+    let commentsRef = firebase.database().ref('FileData/'+uid);
+    commentsRef.on('child_changed', (value)=> {
+      // console.log("claim変更"+value.val().busyo)
+      for(let index in this.fileList){
+        if(this.fileList[index].key==value.key){
+
+          this.fileList[index]={claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
+            comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
+            startAt:value.val().startAt}
+        }
+      }
+    })
+  }
+  fileRemoveTrigger(uid){
+    let commentsRef = firebase.database().ref('FileData/'+uid);
+    commentsRef.on('child_removed', (value)=> {
+      //  console.log("claim削除"+value)
+      for(let key in this.fileList){
+        if(this.fileList[key].key==value.key){
+          this.fileList.splice(Number(key),1);
+        }
+      }
+    })
+  }
+
+
 
 
   taiouAddTrigger(uid){

@@ -12,6 +12,8 @@ import {TaiouDialogComponent} from "../../../Dialog/edit-dialog/taiou-dialog/tai
 export class ListTaiouComponent implements OnInit {
 taiouList:any[]=[];
   newtaiouList:any[]=[];
+  fileList:any[]=[];
+  newfileList:any[]=[];
   index:number;
   taiouData;
   uid:string;
@@ -26,6 +28,7 @@ taiouList:any[]=[];
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  Image:string;
   @ViewChild("editTaiouDialog") taiouDialogComponent: TaiouDialogComponent;
  constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
@@ -42,7 +45,8 @@ taiouList:any[]=[];
            this.newtaiouList.push(this.taiouList[key])
          }
        }
-
+this.Image=this.newtaiouList[0].downloadURL
+       console.log(this.Image)
      })
 
 
@@ -58,6 +62,18 @@ taiouList:any[]=[];
        this.newtaiouList.push(this.taiouList[key])
       }
    }
+    this.fileList=this.insideService.fileList
+    for(let key in this.fileList){
+      console.log(this.fileList[key].doko)
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対応'){
+        //  console.log(this.key)
+     //  console.log(this.fileList[key])
+
+        this.newfileList.push(this.fileList[key])
+
+      }
+    }
+   //  this.Image=this.newfileList[0].downloadURL
 
   }
 

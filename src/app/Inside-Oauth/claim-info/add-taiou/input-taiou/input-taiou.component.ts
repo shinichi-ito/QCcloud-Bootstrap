@@ -39,7 +39,8 @@ InfoData:any[]=[];
 
  // key:string;
   claimitem:any;
-  public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
+  public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,
+                     private af : AngularFire,private insideService:InsideService) {
     this.model = {
       label: "kari"
     };
@@ -124,8 +125,9 @@ this.claimitem=this.insideService.claimitem;
     this.claimInfo2.push(claimInfo).then(data=>{
    //   console.log(data.key)
      this.addTaiouSu()
-     this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
+     this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,claimkey:this.claimitem.key,doko:'対応'})
      this.insideService.InfoData=this.InfoData
+     // console.log(this.insideService.InfoData[0])
 
     }).catch(error=>{
 

@@ -44,7 +44,7 @@ export class ClaimListAllComponent  {
 
   sendEditClaim(claimitem){
     this.insideService.claimitem=claimitem;
-   // console.log(claimitem.key)
+  //  console.log(claimitem)
     this.oauthInfoService.onoffHeader=false;
     this.router.navigate(['/main/topclaim/topclaimedit'])
    }

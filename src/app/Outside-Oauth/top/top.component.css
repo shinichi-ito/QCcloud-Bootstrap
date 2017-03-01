@@ -1,0 +1,18 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body{
+  margin-bottom: 200px;
+  /* footerの高さの最大値 */
+  padding-bottom: 0;
+}
+
+footer{
+  min-height: 100px;
+  /* footerの最小値 */
+  width:100%;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 0;
+}
