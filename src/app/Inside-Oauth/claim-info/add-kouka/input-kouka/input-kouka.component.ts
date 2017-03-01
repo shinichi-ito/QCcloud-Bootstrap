@@ -36,10 +36,14 @@ export class InputKoukaComponent  {
   bb:number=5;
   cc:number=5;
   dd:number=5;
-key:string;
+//key:string;
+  claimitem:any;
+  claimInfo: FirebaseObjectObservable<any[]>;
+  claimList:any[]=[];
   public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService) {
-    this.key=this.insideService.claimitem.key;
+    //this.key=this.insideService.claimitem.key;
+    this.claimitem=this.insideService.claimitem;
     this.model = {
       label: "kari"
     };
@@ -92,19 +96,38 @@ key:string;
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
-      claimkey:this.key,
+      claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.koukaInfo=this.af.database.list('KoukaData/'+this.uid)
     this.koukaInfo.push(Info).then(data=>{
-      //   console.log(data.key)
+      this.addKoukaSu()
       this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
       this.insideService.InfoData=this.InfoData
 
     }).catch(error=>{
 
     })
+  }
+  addKoukaSu(){//クレーム情報の対応数をプラス
+    this.claimList=this.insideService.claimList
+    for(let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
+        const claimInfo = {
+          kouka:this.claimList[key].kouka+1
+        };
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo.update(claimInfo).then(data=>{
+
+        }).catch(error=>{
+
+        })
+
+      }
+
+    }
+
   }
 
 

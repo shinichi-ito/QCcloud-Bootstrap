@@ -68,12 +68,6 @@ export class OauthService {
 
         })
 
-        this.addSelect4(uid).then(data=>{
-
-        }).catch(error=>{
-
-        })
-
         this.addTaiouSelect(uid).then(data=>{
 
         }).catch(error=>{
@@ -94,11 +88,7 @@ export class OauthService {
         }).catch(error=>{
 
         })
-        this.addTaiouSelect5(uid).then(data=>{
 
-        }).catch(error=>{
-
-        })
         this.addTaisakuSelect(uid).then(data=>{
 
         }).catch(error=>{
@@ -124,28 +114,6 @@ export class OauthService {
         }).catch(error=>{
 
         })
-        this.addTaisakuSelect6(uid).then(data=>{
-
-        }).catch(error=>{
-
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       }).catch((error)=>{
         console.log('最初の会社登録時のエラー'+error.message);
         this._observer.next(error.message);
@@ -183,12 +151,6 @@ export class OauthService {
 
         })
 
-        this.addSelect4(uid).then(data=>{
-
-        }).catch(error=>{
-
-        })
-
         this.addTaiouSelect(uid).then(data=>{
 
         }).catch(error=>{
@@ -209,12 +171,7 @@ export class OauthService {
         }).catch(error=>{
 
         })
-        this.addTaiouSelect5(uid).then(data=>{
-
-        }).catch(error=>{
-
-        })
-        this.addTaisakuSelect(uid).then(data=>{
+         this.addTaisakuSelect(uid).then(data=>{
 
         }).catch(error=>{
 
@@ -235,11 +192,6 @@ export class OauthService {
 
         })
         this.addTaisakuSelect5(uid).then(data=>{
-
-        }).catch(error=>{
-
-        })
-        this.addTaisakuSelect6(uid).then(data=>{
 
         }).catch(error=>{
 
@@ -316,24 +268,24 @@ export class OauthService {
       }
     })
   }
-  addSelect4(uid: string) : Promise<any>{
-    return new Promise((resolve, reject) => {
-      let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
-      let newRef=selectData.push(
-        {
-          'syubetuInfo': 'その他'
-        }).then((data)=>{
-      }).catch((error)=>{
-        this._observer.next(error.message);
-      });
-      if(newRef) {
-        resolve(newRef);
-      }
-      else {
-        reject("登録に失敗しました。時間をおいて再度登録ください");
-      }
-    })
-  }
+  // addSelect4(uid: string) : Promise<any>{
+  //   return new Promise((resolve, reject) => {
+  //     let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
+  //     let newRef=selectData.push(
+  //       {
+  //         'syubetuInfo': 'その他'
+  //       }).then((data)=>{
+  //     }).catch((error)=>{
+  //       this._observer.next(error.message);
+  //     });
+  //     if(newRef) {
+  //       resolve(newRef);
+  //     }
+  //     else {
+  //       reject("登録に失敗しました。時間をおいて再度登録ください");
+  //     }
+  //   })
+  // }
   addTaiouSelect(uid: string) : Promise<any>{
     return new Promise((resolve, reject) => {
       let selectData = this.af.database.list('selectData/' + uid+'/taiouInfo');
@@ -409,24 +361,24 @@ export class OauthService {
     })
   }
 
-  addTaiouSelect5(uid: string) : Promise<any>{
-    return new Promise((resolve, reject) => {
-      let selectData = this.af.database.list('selectData/' + uid+'/taiouInfo');
-      let newRef=selectData.push(
-        {
-          'taiouInfo': 'その他'
-        }).then((data)=>{
-      }).catch((error)=>{
-        this._observer.next(error.message);
-      });
-      if(newRef) {
-        resolve(newRef);
-      }
-      else {
-        reject("登録に失敗しました。時間をおいて再度登録ください");
-      }
-    })
-  }
+  // addTaiouSelect5(uid: string) : Promise<any>{
+  //   return new Promise((resolve, reject) => {
+  //     let selectData = this.af.database.list('selectData/' + uid+'/taiouInfo');
+  //     let newRef=selectData.push(
+  //       {
+  //         'taiouInfo': 'その他'
+  //       }).then((data)=>{
+  //     }).catch((error)=>{
+  //       this._observer.next(error.message);
+  //     });
+  //     if(newRef) {
+  //       resolve(newRef);
+  //     }
+  //     else {
+  //       reject("登録に失敗しました。時間をおいて再度登録ください");
+  //     }
+  //   })
+  // }
 
   addTaisakuSelect(uid: string) : Promise<any>{
     return new Promise((resolve, reject) => {
@@ -523,24 +475,24 @@ export class OauthService {
     })
   }
 
-  addTaisakuSelect6(uid: string) : Promise<any>{
-    return new Promise((resolve, reject) => {
-      let selectData = this.af.database.list('selectData/' + uid+'/taisakuInfo');
-      let newRef=selectData.push(
-        {
-          'taisakuInfo': 'その他'
-        }).then((data)=>{
-      }).catch((error)=>{
-        this._observer.next(error.message);
-      });
-      if(newRef) {
-        resolve(newRef);
-      }
-      else {
-        reject("登録に失敗しました。時間をおいて再度登録ください");
-      }
-    })
-  }
+  // addTaisakuSelect6(uid: string) : Promise<any>{
+  //   return new Promise((resolve, reject) => {
+  //     let selectData = this.af.database.list('selectData/' + uid+'/taisakuInfo');
+  //     let newRef=selectData.push(
+  //       {
+  //         'taisakuInfo': 'その他'
+  //       }).then((data)=>{
+  //     }).catch((error)=>{
+  //       this._observer.next(error.message);
+  //     });
+  //     if(newRef) {
+  //       resolve(newRef);
+  //     }
+  //     else {
+  //       reject("登録に失敗しました。時間をおいて再度登録ください");
+  //     }
+  //   })
+  // }
   getUserInfo():Observable<any>{//ログインとともに　ユーザー情報を取得
    return this.af.auth
 

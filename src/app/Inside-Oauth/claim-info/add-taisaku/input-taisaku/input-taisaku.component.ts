@@ -4,6 +4,7 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-input-taisaku',
   templateUrl: './input-taisaku.component.html',
@@ -18,7 +19,7 @@ export class InputTaisakuComponent  {
   syubetuvalue:string;
   naiyou:string;
   password:string;
-
+  claimList:any[]=[];
   model;
   claimInfo: FirebaseObjectObservable<any[]>;
   taisakuSyubetu:any[]=[];
@@ -36,12 +37,14 @@ export class InputTaisakuComponent  {
   public dateDisabled: {date: Date, mode: string}[];
   private opened: boolean = false;
 InfoData:any[]=[];
-key:string;
-  public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
+//key:string;
+  claimitem:any;
+  public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
     this.memberList=this.insideService.memberList;
-    this.key=this.insideService.claimitem.key;
+   // this.key=this.insideService.claimitem.key;
+    this.claimitem=this.insideService.claimitem;
     this.model = {
       label: "kari"
     };
@@ -76,9 +79,7 @@ key:string;
     ];
   }
 
-  addTaisakuSyubetu(){
 
-  }
 
   onAdd(){
     const Info = {
@@ -90,19 +91,47 @@ key:string;
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
-      claimkey:this.key,
+      claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.Info=this.af.database.list('TaisakuData/'+this.uid)
     this.Info.push(Info).then(data=>{
+      this.addTaisakuSu();
       this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
       this.insideService.InfoData=this.InfoData
     }).catch(error=>{
 
     })
   }
+  addTaisakuSu(){//クレーム情報の対応数をプラス
 
+    this.claimList=this.insideService.claimList
+    for(let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
+       // console.log(this.claimList[key].taiou)
+        const claimInfo = {
+          taisaku:this.claimList[key].taisaku+1
+        };
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo.update(claimInfo).then(data=>{
+
+        }).catch(error=>{
+
+        })
+      }
+    }
+
+
+  }
+  addTaisakuSyubetu(){
+
+    this.insideMainService.addTaisakuSelect(this.uid,this.syubetuvalue).then(data=>{
+
+    }).catch(error=>{
+
+    })
+  }
 
   setMember(value){
     for(let key in this.memberList){

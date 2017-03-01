@@ -63,6 +63,7 @@ import { TaisakuListAllComponent } from './claim-info/claim-list/taisaku-list-al
 import { ClaimListAllComponent } from './claim-info/claim-list/claim-list-all/claim-list-all.component';
 import { GeninListAllComponent } from './claim-info/claim-list/genin-list-all/genin-list-all.component';
 import { KoukaListAllComponent } from './claim-info/claim-list/kouka-list-all/kouka-list-all.component';
+import {InsideMainService} from "./inside-main.service";
 
 
 
@@ -160,7 +161,7 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
   ],
 
 
-  providers:[CompanyInfoService,ImageService,InsideService ]
+  providers:[CompanyInfoService,ImageService,InsideService ,InsideMainService]
 })
 export class InsideModule{
 

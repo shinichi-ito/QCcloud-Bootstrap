@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FirebaseObjectObservable, AngularFire} from "angularfire2";
+import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "angularfire2";
 import {KoukaDialogComponent} from "../../../Dialog/edit-dialog/kouka-dialog/kouka-dialog.component";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
@@ -20,12 +20,17 @@ export class ListKoukaComponent implements OnInit {
   busyo:string;
   naiyou:string;
   value: FirebaseObjectObservable<any>;
-key:string;
+//key:string;
   newkoukaList:any[]=[];
+  claimList:any[]=[];
+  claimitem:any;
+  claimInfo: FirebaseObjectObservable<any[]>;
+  koukas: FirebaseListObservable<any[]>;
   @ViewChild("editKoukaDialog") koukaDialogComponent: KoukaDialogComponent;
   constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
-    this.key=this.insideService.claimitem.key;
+    //this.key=this.insideService.claimitem.key;
+    this.claimitem=this.insideService.claimitem;
     this.insideService.flagChangeKouka$.subscribe(
       flag => {
         //  console.log('対策');
@@ -33,7 +38,7 @@ key:string;
         this.newkoukaList=[];
         this.koukaList=this.insideService.koukaList
         for(let key in this.koukaList){
-          if(this.key==this.koukaList[key].claimkey){
+          if(this.claimitem.key==this.koukaList[key].claimkey){
             this.newkoukaList.push(this.koukaList[key])
           }
         }
@@ -48,7 +53,7 @@ key:string;
     this.koukaList=this.insideService.koukaList
 
     for(let key in this.koukaList){
-      if(this.key==this.koukaList[key].claimkey){
+      if(this.claimitem.key==this.koukaList[key].claimkey){
           this.newkoukaList.push(this.koukaList[key])
       }
     }
@@ -64,16 +69,54 @@ key:string;
   Delete(index){
     this.index=index
     this.koukaData=this.koukaList[index];
-    this.insideService.deleteKouka(this.koukaData.key,this.uid)
-    this.koukaList=[];
-    this.newkoukaList=[];
-    this.koukaList=this.insideService.koukaList
-    for(let key in this.koukaList){
-      if(this.key==this.koukaList[key].claimkey){
-        this.newkoukaList.push(this.koukaList[key])
+    this.deleteKouka(this.koukaData.key,this.uid)
+   }
+
+
+
+  deleteKouka(key:string,uid:string){
+    this.koukas=this.af.database.list('KoukaData/'+this.uid)
+    this.koukas.remove(key)
+      .then(data=>{
+        this.koukaList=[];
+        this.newkoukaList=[];
+        this.koukaList=this.insideService.koukaList
+        for(let key in this.koukaList){
+          if(this.claimitem.key==this.koukaList[key].claimkey){
+            this.newkoukaList.push(this.koukaList[key])
+          }
+        }
+        this.minusKoukaSu()
+      })
+      .catch(error=>{
+
+
+      });
+  }
+
+  minusKoukaSu(){//クレーム情報の対応数をマイナス
+
+    this.claimList=this.insideService.claimList
+    for(let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
+        let su:number;
+        su=this.claimList[key].kouka-1
+        if(su<0){
+          su=0;
+        }
+        const claimInfo = {
+          kouka:su
+        };
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo.update(claimInfo).then(data=>{
+
+        }).catch(error=>{
+
+        })
       }
     }
-
   }
+
+
 
 }

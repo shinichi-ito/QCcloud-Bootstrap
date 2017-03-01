@@ -4,6 +4,7 @@ import * as firebase from 'firebase'
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-input-taiou',
   templateUrl: './input-taiou.component.html',
@@ -20,6 +21,7 @@ export class InputTaiouComponent  {
 
   model;
   claimInfo: FirebaseObjectObservable<any[]>;
+  claimInfo2: FirebaseListObservable<any[]>;
   public dt: Date = new Date();
   public minDate: Date = void 0;
   public events: any[];
@@ -33,9 +35,11 @@ export class InputTaiouComponent  {
 InfoData:any[]=[];
   uid:string;
   myForm: FormGroup;
-  claimInfo2: FirebaseListObservable<any[]>;
-  key:string;
-  public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
+  claimList:any[]=[];
+
+ // key:string;
+  claimitem:any;
+  public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.model = {
       label: "kari"
     };
@@ -63,8 +67,8 @@ InfoData:any[]=[];
 
     this.uid=this.oauthInfoService.uid;
     this.taiouSyubetuList=this.insideService.taiouSyubetuList;
-    this.key=this.insideService.claimitem.key;
-
+    // this.key=this.insideService.claimitem.key;
+this.claimitem=this.insideService.claimitem;
 
 
     this.memberList=this.insideService.memberList;
@@ -78,29 +82,29 @@ InfoData:any[]=[];
     ];
   }
 
-  addTaiouSyubetu(){
-    this.taiouSyubetu=[];
-    // console.log(this.syubetuvalue)
-    this.taiouSyubetu.push(this.syubetuvalue)
-    for(let key in this.taiouSyubetuList){
-      this.taiouSyubetu.push(this.taiouSyubetuList[key].taiou)
-      // console.log(this.taiouSyubetuList[key].taiou)
-    }
-
-    // console.log(this.taiouSyubetu)
-
-
-    const taiouInfo = {
-      taiouInfo:this.taiouSyubetu
-
-    };
-    this.claimInfo=this.af.database.object('selectData/'+this.uid+'/')
-    this.claimInfo.update(taiouInfo).then(data=>{
-      console.log('success')
-    }).catch(error=>{
-
-    })
-  }
+  // addTaiouSyubetu(){
+  //   this.taiouSyubetu=[];
+  //   // console.log(this.syubetuvalue)
+  //   this.taiouSyubetu.push(this.syubetuvalue)
+  //   for(let key in this.taiouSyubetuList){
+  //     this.taiouSyubetu.push(this.taiouSyubetuList[key].taiou)
+  //     // console.log(this.taiouSyubetuList[key].taiou)
+  //   }
+  //
+  //   // console.log(this.taiouSyubetu)
+  //
+  //
+  //   const taiouInfo = {
+  //     taiouInfo:this.taiouSyubetu
+  //
+  //   };
+  //   this.claimInfo=this.af.database.object('selectData/'+this.uid+'/')
+  //   this.claimInfo.update(taiouInfo).then(data=>{
+  //     console.log('success')
+  //   }).catch(error=>{
+  //
+  //   })
+  // }
 
   onAdd(){
     const claimInfo = {
@@ -112,13 +116,14 @@ InfoData:any[]=[];
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
-      claimkey:this.key,
+      claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.claimInfo2=this.af.database.list('TaiouData/'+this.uid)
     this.claimInfo2.push(claimInfo).then(data=>{
    //   console.log(data.key)
+     this.addTaiouSu()
      this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
      this.insideService.InfoData=this.InfoData
 
@@ -127,6 +132,40 @@ InfoData:any[]=[];
     })
   }
 
+
+  addTaiouSu(){//クレーム情報の対応数をプラス
+    this.claimList=this.insideService.claimList
+    for(let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
+      //  console.log(this.claimList[key].taiou)
+
+        const claimInfo = {
+          taiou:this.claimList[key].taiou+1
+        };
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo.update(claimInfo).then(data=>{
+
+        }).catch(error=>{
+
+        })
+
+
+      }
+    }
+
+
+
+
+  }
+
+  addTaiouSyubetu(){
+
+    this.insideMainService.addTaiouSelect(this.uid,this.syubetuvalue).then(data=>{
+
+    }).catch(error=>{
+
+    })
+  }
 
   setMember(value){
     for(let key in this.memberList){

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FirebaseObjectObservable, AngularFire} from "angularfire2";
+import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "angularfire2";
 import {TaiouDialogComponent} from "../../../Dialog/edit-dialog/taiou-dialog/taiou-dialog.component";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
@@ -22,11 +22,16 @@ export class ListCommentComponent implements OnInit {
   busyo:string;
   naiyou:string;
   value: FirebaseObjectObservable<any>;
-key:string;
+//key:string;
+  comments: FirebaseListObservable<any[]>;
+  claimList:any[]=[];
+  claimitem:any;
+  claimInfo: FirebaseObjectObservable<any[]>;
   @ViewChild("editCommentDialog") commentDialogComponent: CommentDialogComponent;
   constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
-    this.key=this.insideService.claimitem.key;
+   // this.key=this.insideService.claimitem.key;
+    this.claimitem=this.insideService.claimitem;
     this.insideService.flagChangeComment$.subscribe(
       flag => {
         //  console.log('対策');
@@ -34,7 +39,7 @@ key:string;
         this.newcommentList=[];
         this.commentList=this.insideService.commentList
         for(let key in this.commentList){
-          if(this.key==this.commentList[key].claimkey){
+          if(this.claimitem.key==this.commentList[key].claimkey){
             this.newcommentList.push(this.commentList[key])
           }
         }
@@ -45,7 +50,7 @@ key:string;
   ngOnInit() {
     this.commentList=this.insideService.commentList
     for(let key in this.commentList){
-      if(this.key==this.commentList[key].claimkey){
+      if(this.claimitem.key==this.commentList[key].claimkey){
          this.newcommentList.push(this.commentList[key])
       }
     }
@@ -62,15 +67,48 @@ key:string;
   Delete(index){
     this.index=index
     this.commentData=this.commentList[index];
-    this.insideService.deleteComment(this.commentData.key,this.uid)
-    this.commentList=[];
-    this.newcommentList=[];
-    this.commentList=this.insideService.commentList
-    for(let key in this.commentList){
-      if(this.key==this.commentList[key].claimkey){
-        this.newcommentList.push(this.commentList[key])
+    this.deleteComment(this.commentData.key,this.uid)
+  }
+  deleteComment(key:string,uid:string){
+    this.comments=this.af.database.list('CommentData/'+this.uid)
+    this.comments.remove(key)
+      .then(data=>{
+        this.commentList=[];
+        this.newcommentList=[];
+        this.commentList=this.insideService.commentList
+        for(let key in this.commentList){
+          if(this.claimitem.key==this.commentList[key].claimkey){
+            this.newcommentList.push(this.commentList[key])
+          }
+        }
+        this.minusCommentSu()
+      })
+      .catch(error=>{
+
+
+      });
+  }
+  minusCommentSu(){//クレーム情報の対応数をマイナス
+
+    this.claimList=this.insideService.claimList
+    for(let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
+         let su:number;
+        su=this.claimList[key].comment-1
+        if(su<0){
+          su=0;
+        }
+        const claimInfo = {
+          comment:su
+        };
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo.update(claimInfo).then(data=>{
+
+        }).catch(error=>{
+
+        })
       }
     }
-
   }
+
 }

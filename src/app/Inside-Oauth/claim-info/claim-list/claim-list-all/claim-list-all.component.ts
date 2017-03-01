@@ -44,15 +44,10 @@ export class ClaimListAllComponent  {
 
   sendEditClaim(claimitem){
     this.insideService.claimitem=claimitem;
+   // console.log(claimitem.key)
     this.oauthInfoService.onoffHeader=false;
-    //   console.log(this.insideService.claimitem)
-    //  console.log(this.insideService.claimitem.key)
-
     this.router.navigate(['/main/topclaim/topclaimedit'])
-    //this.router.navigate(['/main/topclaim/topclaimedit'])
-
-
-  }
+   }
 
   onDetailClick() {
 

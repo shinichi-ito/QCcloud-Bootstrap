@@ -4,6 +4,7 @@ import {OauthInfoService} from "../../oauth-info.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "angularfire2";
 import * as firebase from 'firebase'
+import {InsideMainService} from "../../inside-main.service";
 
 @Component({
   selector: 'app-add-claim',
@@ -37,11 +38,15 @@ export class AddClaimComponent  {
   syousai:string='';
   seihininfo:string='';
   yosoukoutei:string='';
+  syubetuvalue:string='';
   model;
   claimInfo: FirebaseListObservable<any[]>;
   claimInfo2: FirebaseObjectObservable<any[]>;
   myForm: FormGroup;
-  public constructor(private af : AngularFire,private insideService:InsideService,private fb: FormBuilder,private oauthInfoService:OauthInfoService) {
+
+  public constructor(private af : AngularFire,private insideService:InsideService,
+                     private fb: FormBuilder,private oauthInfoService:OauthInfoService,
+                      private insideMainService:InsideMainService) {
     this.model = {
       label: "kari"
     };
@@ -64,6 +69,7 @@ export class AddClaimComponent  {
         ]
       )],
       "branch": [''],
+      "syubetuvalue":[''],
       "password": ['',Validators.compose([
           Validators.required
         ]
@@ -156,6 +162,20 @@ setMember(value){
     })
 
   }
+
+  onChange(newValue) {
+ //   console.log(newValue);
+    this.syubetu = newValue;
+  }
+
+  addSyubetu(){
+
+    this.insideMainService.addSelect(this.uid,this.syubetuvalue).then(data=>{
+
+    }).catch(error=>{
+
+    })
+ }
 
 
 
