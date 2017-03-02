@@ -33,6 +33,7 @@ taiouList:any[]=[];
   jyoukyouData;
   InfoData:any[]=[];
    OnOff:boolean=false;
+   passwordData:any[]=[];
   @ViewChild("editTaiouDialog") taiouDialogComponent: TaiouDialogComponent;
  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
@@ -89,17 +90,20 @@ taiouList:any[]=[];
     this.OnOff=true;
     this.index=index;
     this.taiouData=this.newtaiouList[index];
-   // console.log(this.taiouData.key)
+    console.log(this.taiouData)
     let jyoukyouData:any[]=[];
+    let passwordData:any[]=[];
     for(let key in this.newfileList){
 
      // console.log(this.newfileList[key].jyoukyoukey)
       if(this.newfileList[key].jyoukyoukey==this.taiouData.key){
       //  console.log(this.newfileList[key].jyoukyoukey)
         jyoukyouData.push(this.newfileList[key]);
+        passwordData.push(this.taiouData.password)
        }
      }
        this.jyoukyouData=jyoukyouData
+       this.passwordData=passwordData
   }
   addImage(index){
     this.index=index;

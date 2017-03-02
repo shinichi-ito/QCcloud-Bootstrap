@@ -60,11 +60,14 @@
 </div>
 
 
+<button type="button" class="btn btn-primary" (click)="Error()">エラーテスト</button>
+<button type="button" class="btn btn-primary" (click)="Progress()">プログレステスト</button>
+
+<!--エラーダイアログ-->
+<app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
+<!--プログレスダイアログ-->
+<app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
 
 
-
-
-
-    <!--<img src="assets/img/ajax-loader.gif">-->
 
 

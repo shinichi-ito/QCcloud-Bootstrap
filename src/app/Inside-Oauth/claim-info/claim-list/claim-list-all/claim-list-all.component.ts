@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {AngularFire} from "angularfire2";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 
 @Component({
   selector: 'app-claim-list-all',
@@ -18,18 +19,15 @@ export class ClaimListAllComponent  {
   public rowsOnPage = 10;
   public sortBy = "email";
   public sortOrder = "asc";
-  taiouList:any[]=[];
+
 
   @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
-  tourObj:string='おはよう'
-
+  errorData:string='エラー内容'
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string='プログレス内容'
   constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
-    //   console.log(this.oauthInfoService.uid)
-    //   console.log(this.oauthInfoService.photoURL)
-    // console.log(this.oauthInfoService.displayName)
-    this.data=this.insideService.claimList
-
-  }
+      this.data=this.insideService.claimList
+ }
 
 
 
@@ -40,8 +38,12 @@ export class ClaimListAllComponent  {
   public sortByWordLength = (a: any) => {
     return a.name.length;
   }
-
-
+  Error(){
+    this.errorDialogComponent.openDialog();
+  }
+  Progress(){
+    this.progressDialogComponent.openDialog();
+  }
   sendEditClaim(claimitem){
     this.insideService.claimitem=claimitem;
   //  console.log(claimitem)

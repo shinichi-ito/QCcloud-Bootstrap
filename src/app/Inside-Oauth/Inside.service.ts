@@ -263,12 +263,13 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   }
 
 
-  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string,type:string){
+  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string,type:string,filename:string){
     const imageInfo = {
       doko:this.InfoData[0].doko,
       imageAnalysis:jsonData,
       downloadURL:downloadURL,
       type:type,
+      filename:filename,
       comment:comment,
       jyoukyoukey:this.InfoData[0].jyoukyoukey,//このキーは対応や対策のキーです。その対応や対策に対応する画像を選別するため必要
       toukousya:this.InfoData[0].toukousya,
@@ -289,7 +290,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
       //console.log("imagefile追加"+value.val())
       this.fileList.push({claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
-        jyoukyoukey:value.val().jyoukyoukey,type:value.val().type,comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
+        jyoukyoukey:value.val().jyoukyoukey,type:value.val().type,comment:value.val().comment,toukousya:value.val().toukousya,
+        siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,filename:value.val().filename,
         startAt:value.val().startAt})
     })
   }
@@ -302,7 +304,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
         if(this.fileList[index].key==value.key){
 
           this.fileList[index]={claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
-            jyoukyoukey:value.val().jyoukyoukey, type:value.val().type, comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
+            jyoukyoukey:value.val().jyoukyoukey, type:value.val().type, comment:value.val().comment,toukousya:value.val().toukousya,
+            siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,filename:value.val().filename,
             startAt:value.val().startAt}
         }
       }

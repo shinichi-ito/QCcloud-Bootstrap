@@ -48,7 +48,7 @@
 
 
 <button  *ngIf="OnOff" type="button" class="btn btn-primary" (click)="Close()">閉じる</button>
-<app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData"></app-view-image>
+<app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData" [passwordData]="passwordData"></app-view-image>
 
 <!--編集ダイアログ-->
 <app-taiou-dialog [taiouData]="taiouData"  #editTaiouDialog></app-taiou-dialog>

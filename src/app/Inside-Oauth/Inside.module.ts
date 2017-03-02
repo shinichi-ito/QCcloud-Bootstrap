@@ -72,6 +72,8 @@ import { SelectTaiouComponent } from './select-edit/select-taiou/select-taiou.co
 import { SelectTaisakuComponent } from './select-edit/select-taisaku/select-taisaku.component';
 import { ViewImageComponent } from './claim-info/view-image/view-image.component';
 import { ImageTopComponent } from './claim-info/image-info/image-top/image-top.component';
+import { ProgressDialogComponent } from './Dialog/progress-dialog/progress-dialog.component';
+import { PasswordDialogComponent } from './Dialog/password-dialog/password-dialog.component';
 
 
 /**
@@ -148,7 +150,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SelectTaiouComponent,
     SelectTaisakuComponent,
     ViewImageComponent,
-    ImageTopComponent
+    ImageTopComponent,
+    ProgressDialogComponent,
+    PasswordDialogComponent
 
 
 

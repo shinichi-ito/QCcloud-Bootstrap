@@ -8,10 +8,13 @@
         <p>{{item.comment}}</p>
         <p>{{item.toukousya}}</p>
         <p>{{item.siten}}　{{item.busyo}}</p>
-        <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">ボタン</a></p>
+        <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>
+          <a  (click)="setPassword()" class="btn btn-default" role="button" target="_blank">削除</a>
+
       </div>
     </div>
 
   </li>
 </ul>
 
+<app-password-dialog  [password]="password"  #passwordDialog></app-password-dialog>
