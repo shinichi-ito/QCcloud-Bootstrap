@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "angularfire2";
-import {TaiouDialogComponent} from "../../../Dialog/edit-dialog/taiou-dialog/taiou-dialog.component";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {CommentDialogComponent} from "../../../Dialog/edit-dialog/comment-dialog/comment-dialog.component";
-
+import * as firebase from 'firebase'
 @Component({
   selector: 'app-list-comment',
   templateUrl: './list-comment.component.html',
@@ -99,7 +98,8 @@ export class ListCommentComponent implements OnInit {
           su=0;
         }
         const claimInfo = {
-          comment:su
+          comment:su,
+           updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

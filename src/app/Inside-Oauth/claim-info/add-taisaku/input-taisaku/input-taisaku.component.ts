@@ -93,7 +93,7 @@ InfoData:any[]=[];
       koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+     // updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.Info=this.af.database.list('TaisakuData/'+this.uid)
     this.Info.push(Info).then(data=>{
@@ -111,7 +111,8 @@ InfoData:any[]=[];
       if (this.claimList[key].key == this.claimitem.key) {
        // console.log(this.claimList[key].taiou)
         const claimInfo = {
-          taisaku:this.claimList[key].taisaku+1
+          taisaku:this.claimList[key].taisaku+1,
+          updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

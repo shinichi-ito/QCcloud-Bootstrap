@@ -263,13 +263,15 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   }
 
 
-  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string){
+  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string,type:string){
     const imageInfo = {
       doko:this.InfoData[0].doko,
       imageAnalysis:jsonData,
       downloadURL:downloadURL,
+      type:type,
       comment:comment,
-      toukousya:this.InfoData[0].name,
+      jyoukyoukey:this.InfoData[0].jyoukyoukey,//このキーは対応や対策のキーです。その対応や対策に対応する画像を選別するため必要
+      toukousya:this.InfoData[0].toukousya,
       siten:this.InfoData[0].siten,
       busyo:this.InfoData[0].busyo,
       claimkey:this.InfoData[0].claimkey,
@@ -285,9 +287,9 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   fileAddTrigger(uid){
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_added', (value)=> {
-    //  console.log("imagefile追加"+value.val())
+      //console.log("imagefile追加"+value.val())
       this.fileList.push({claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
-        comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
+        jyoukyoukey:value.val().jyoukyoukey,type:value.val().type,comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
         startAt:value.val().startAt})
     })
   }
@@ -300,7 +302,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
         if(this.fileList[index].key==value.key){
 
           this.fileList[index]={claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
-            comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
+            jyoukyoukey:value.val().jyoukyoukey, type:value.val().type, comment:value.val().comment,toukousya:value.val().toukousya,siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,
             startAt:value.val().startAt}
         }
       }
@@ -399,7 +401,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   geninAddTrigger(uid){
     let commentsRef = firebase.database().ref('GeninData/'+uid);
     commentsRef.on('child_added', (value)=> {
-      //   console.log("taiou追加"+value.val().name)
+      //  console.log("taiou追加"+value.val().name)
       this.geninList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})

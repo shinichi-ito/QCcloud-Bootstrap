@@ -102,7 +102,7 @@ export class AddClaimComponent  {
       seihininfo:this.seihininfo,
       yosoukoutei:this.yosoukoutei,
       koukai:this.model.label,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+     // updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.insideService.key)
     this.claimInfo2.update(claimInfo).then(data=>{
@@ -147,7 +147,7 @@ setMember(value){
       file:0,
 
       startAt: firebase.database.ServerValue.TIMESTAMP,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+    //  updateAt: firebase.database.ServerValue.TIMESTAMP
     };
 
     this.claimInfo=this.af.database.list('ClaimData/'+this.uid)

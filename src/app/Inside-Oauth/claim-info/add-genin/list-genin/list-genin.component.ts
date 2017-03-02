@@ -3,6 +3,8 @@ import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "ang
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {GeninDialogComponent} from "../../../Dialog/edit-dialog/genin-dialog/genin-dialog.component";
+import * as firebase from 'firebase'
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-genin',
@@ -25,9 +27,14 @@ export class ListGeninComponent implements OnInit {
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  OnOff:boolean=false;
+  fileList:any[]=[];
+  newfileList:any[]=[];
+  jyoukyouData;
+  InfoData:any[]=[];
 //key:string;
   @ViewChild("editGeninDialog") geninDialogComponent: GeninDialogComponent;
-  constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
    // this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;
@@ -56,7 +63,77 @@ export class ListGeninComponent implements OnInit {
          this.newgeninList.push(this.geninList[key])
       }
     }
+    this.fileList=this.insideService.fileList
+    for(let key in this.fileList){
+       // console.log(this.fileList[key].doko)
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='原因'){
+       // console.log(this.fileList[key])
+        this.newfileList.push(this.fileList[key])
+      }
+    }
+
+
   }
+
+
+  View(index){
+    this.OnOff=true;
+    this.index=index;
+    this.geninData=this.newgeninList[index];
+    // console.log(this.taiouData.key)
+    let jyoukyouData:any[]=[];
+    for(let key in this.newfileList){
+
+    //  console.log(this.newfileList[key].jyoukyoukey)
+      if(this.newfileList[key].jyoukyoukey==this.geninData.key){
+        //  console.log(this.newfileList[key].jyoukyoukey)
+        jyoukyouData.push(this.newfileList[key]);
+      }
+    }
+    this.jyoukyouData=jyoukyouData
+  }
+  addImage(index){
+    this.index=index;
+    this.geninData=this.newgeninList[index];
+    let jyoukyouData:any[]=[];
+    let geninData:any[]=[];
+    for(let key in this.newfileList){
+      if(this.newfileList[key].jyoukyoukey==this.geninData.key){
+        jyoukyouData.push(this.newfileList[key]);
+        geninData.push(this.geninData)
+      }
+    }
+    // console.log(taiouData[0])
+    if(!jyoukyouData[0]){
+      this.InfoData.push({jyoukyoukey:this.geninData.key,toukousya:this.geninData.name,
+        siten:this.geninData.siten,busyo:this.geninData.busyo,
+        claimkey:this.geninData.claimkey,doko:'原因',naiyou:this.geninData.naiyou})
+      this.insideService.InfoData=this.InfoData
+      this.router.navigate(['/main/topclaim/addgenin/addimagegenin']);
+    }else {
+
+
+      this.InfoData.push({
+        jyoukyoukey: jyoukyouData[0].jyoukyoukey, toukousya: jyoukyouData[0].toukousya,
+        siten: jyoukyouData[0].siten, busyo: jyoukyouData[0].busyo,
+        claimkey: jyoukyouData[0].claimkey, doko: '対応', naiyou: geninData[0].naiyou
+      })
+      this.insideService.InfoData = this.InfoData
+
+      this.router.navigate(['/main/topclaim/addgenin/addimagegenin']);
+    }
+  }
+
+  Close(){
+    this.OnOff=false;
+
+  }
+
+
+
+
+
+
 
   setEdit(index){
     this.index=index
@@ -99,7 +176,8 @@ export class ListGeninComponent implements OnInit {
           su=0;
         }
         const claimInfo = {
-          genin:su
+          genin:su,
+          updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

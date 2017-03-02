@@ -14,6 +14,9 @@
           <th >
             編集
           </th>
+          <th >
+            関連ファイル
+          </th>
         </tr>
         </thead>
         <tbody>
@@ -58,6 +61,13 @@
             <button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>
 
           </td>
+
+          <td>
+            <button type="button" class="btn btn-primary" (click)="addImage(idx)">関連ファイル登録</button>
+            <button type="button" class="btn btn-primary" (click)="View(idx)">関連ファイル</button>
+          </td>
+
+
         </tr>
         </tbody>
       </table>
@@ -65,6 +75,12 @@
   </div>
 </div>
 
+
+
+
+
+<button  *ngIf="OnOff" type="button" class="btn btn-primary" (click)="Close()">閉じる</button>
+<app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData"></app-view-image>
 
 <!--編集ダイアログ-->
 <app-kouka-dialog [koukaData]="koukaData"  #editKoukaDialog></app-kouka-dialog>

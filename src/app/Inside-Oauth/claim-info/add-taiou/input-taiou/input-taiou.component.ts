@@ -119,14 +119,14 @@ this.claimitem=this.insideService.claimitem;
       koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+   //   updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.claimInfo2=this.af.database.list('TaiouData/'+this.uid)
     this.claimInfo2.push(claimInfo).then(data=>{
    //   console.log(data.key)
      this.addTaiouSu()
-     this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,claimkey:this.claimitem.key,doko:'対応'})
-     this.insideService.InfoData=this.InfoData
+     this.InfoData.push({jyoukyoukey:data.key,toukousya:this.name,siten:this.siten,busyo:this.busyo,claimkey:this.claimitem.key,doko:'対応',naiyou:this.naiyou})
+     this.insideService.InfoData=this.InfoData;
      // console.log(this.insideService.InfoData[0])
 
     }).catch(error=>{
@@ -142,7 +142,8 @@ this.claimitem=this.insideService.claimitem;
       //  console.log(this.claimList[key].taiou)
 
         const claimInfo = {
-          taiou:this.claimList[key].taiou+1
+          taiou:this.claimList[key].taiou+1,
+          updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

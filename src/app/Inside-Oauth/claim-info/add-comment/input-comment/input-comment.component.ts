@@ -67,7 +67,7 @@ export class InputCommentComponent  {
       koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+    //  updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.Info=this.af.database.list('CommentData/'+this.uid)
     this.Info.push(Info).then(data=>{
@@ -84,7 +84,8 @@ export class InputCommentComponent  {
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
         const claimInfo = {
-          comment:this.claimList[key].comment+1
+          comment:this.claimList[key].comment+1,
+           updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

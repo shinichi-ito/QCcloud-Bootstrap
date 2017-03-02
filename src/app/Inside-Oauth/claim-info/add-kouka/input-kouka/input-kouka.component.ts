@@ -98,7 +98,7 @@ export class InputKoukaComponent  {
       koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+     // updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.koukaInfo=this.af.database.list('KoukaData/'+this.uid)
     this.koukaInfo.push(Info).then(data=>{
@@ -115,7 +115,8 @@ export class InputKoukaComponent  {
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
         const claimInfo = {
-          kouka:this.claimList[key].kouka+1
+          kouka:this.claimList[key].kouka+1,
+          updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

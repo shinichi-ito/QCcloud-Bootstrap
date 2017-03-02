@@ -7,7 +7,7 @@ import {ImageService} from "../image.service";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
-
+import * as firebase from 'firebase'
 @Component({
   selector: 'app-image-detail',
   templateUrl: './image-detail.component.html',
@@ -52,7 +52,7 @@ export class ImageDetailComponent implements OnInit,OnDestroy {
       ( value) =>{
         if (typeof value == "number"){
           this._progress=value;//アップロードの進歩率
-        //  console.log(this._progress)
+         console.log(this._progress)
         }else{
           this.downloadURL=value
         }
@@ -70,7 +70,7 @@ export class ImageDetailComponent implements OnInit,OnDestroy {
         //  console.log(data.json().responses[0].labelAnnotations[key].description)
            }
        //   console.log(this.insideService.InfoData[0].claimkey)
-           this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment).then(data=>{
+           this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment,fileDetail.type).then(data=>{
            this.addImageSu()
             this.flag=false;
             this.flagOK=true;
@@ -91,7 +91,8 @@ export class ImageDetailComponent implements OnInit,OnDestroy {
         //  console.log(this.claimList[key].taiou)
 
         const claimInfo = {
-          file:this.claimList[key].file+1
+          file:this.claimList[key].file+1,
+          updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.Info.update(claimInfo).then(data=>{

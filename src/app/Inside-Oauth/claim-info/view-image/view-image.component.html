@@ -1,0 +1,17 @@
+
+<ul class="list-group" >
+  <li class="list-group-item" *ngFor="let item of jyoukyouData">
+    <div style="width: 200px" class="thumbnail">
+      <img style="height: 150px" src="{{item.downloadURL}}">
+      <div class="caption">
+        <p>備考</p>
+        <p>{{item.comment}}</p>
+        <p>{{item.toukousya}}</p>
+        <p>{{item.siten}}　{{item.busyo}}</p>
+        <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">ボタン</a></p>
+      </div>
+    </div>
+
+  </li>
+</ul>
+

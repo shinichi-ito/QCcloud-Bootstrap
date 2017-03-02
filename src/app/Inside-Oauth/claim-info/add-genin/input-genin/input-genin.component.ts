@@ -70,7 +70,7 @@ export class InputGeninComponent {
       koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+     // updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.Info=this.af.database.list('GeninData/'+this.uid)
     this.Info.push(Info).then(data=>{
@@ -87,7 +87,8 @@ export class InputGeninComponent {
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
         const claimInfo = {
-          genin:this.claimList[key].genin+1
+          genin:this.claimList[key].genin+1,
+           updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

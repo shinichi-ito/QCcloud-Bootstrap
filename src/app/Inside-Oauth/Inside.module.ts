@@ -28,8 +28,7 @@ import { AddBranchOfficeComponent } from './employee-info/add-branch-office/add-
 import { AddDepartmentComponent } from './employee-info/add-department/add-department.component';
 import { InformationComponent } from './information/information.component';
 import {
-  DatepickerModule, RatingModule, TimepickerModule, ModalModule, DropdownModule,
-  CarouselModule
+  DatepickerModule, RatingModule, TimepickerModule, ModalModule, DropdownModule
 } from "ng2-bootstrap";
 import {CompanyInfoComponent} from "./company-info/company-info.component";
 import {AddCompanyInfoComponent} from "./company-info/add-company-info/add-company-info.component";
@@ -71,12 +70,8 @@ import { SelectEditComponent } from './select-edit/select-edit.component';
 import { SelectSyubetuComponent } from './select-edit/select-syubetu/select-syubetu.component';
 import { SelectTaiouComponent } from './select-edit/select-taiou/select-taiou.component';
 import { SelectTaisakuComponent } from './select-edit/select-taisaku/select-taisaku.component';
-
-
-
-
-
-
+import { ViewImageComponent } from './claim-info/view-image/view-image.component';
+import { ImageTopComponent } from './claim-info/image-info/image-top/image-top.component';
 
 
 /**
@@ -151,7 +146,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SelectEditComponent,
     SelectSyubetuComponent,
     SelectTaiouComponent,
-    SelectTaisakuComponent
+    SelectTaisakuComponent,
+    ViewImageComponent,
+    ImageTopComponent
 
 
 
@@ -168,7 +165,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     DropdownModule.forRoot(),
-    CarouselModule.forRoot(),
     ReactiveFormsModule
   ],
 

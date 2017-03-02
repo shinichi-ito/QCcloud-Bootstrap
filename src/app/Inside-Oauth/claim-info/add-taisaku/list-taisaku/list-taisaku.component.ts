@@ -3,7 +3,8 @@ import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "ang
 import {TaisakuDialogComponent} from "../../../Dialog/edit-dialog/taisaku-dialog/taisaku-dialog.component";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
-
+import * as firebase from 'firebase'
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-list-taisaku',
   templateUrl: './list-taisaku.component.html',
@@ -28,9 +29,13 @@ export class ListTaisakuComponent implements OnInit {
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  InfoData:any[]=[];
+  fileList:any[]=[];
+  newfileList:any[]=[];
+  jyoukyouData;
 //key:string;
   @ViewChild("editTaisakuDialog") taisakuDialogComponent: TaisakuDialogComponent;
-  constructor(private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     //this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;
@@ -58,8 +63,86 @@ export class ListTaisakuComponent implements OnInit {
         this.newtaisakuList.push(this.taisakuList[key])
       }
     }
+    this.fileList=this.insideService.fileList
+    for(let key in this.fileList){
+      //  console.log(this.fileList[key].doko)
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対策'){
+        this.newfileList.push(this.fileList[key])
+      }
+    }
 
   }
+
+  View(index){
+    this.OnOff=true;
+    this.index=index;
+    this.taisakuData=this.newtaisakuList[index];
+    // console.log(this.taiouData.key)
+    let jyoukyouData:any[]=[];
+    for(let key in this.newfileList){
+
+      // console.log(this.newfileList[key].jyoukyoukey)
+      if(this.newfileList[key].jyoukyoukey==this.taisakuData.key){
+        //  console.log(this.newfileList[key].jyoukyoukey)
+        jyoukyouData.push(this.newfileList[key]);
+      }
+    }
+    this.jyoukyouData=jyoukyouData
+  }
+  addImage(index){
+    this.index=index;
+    this.taisakuData=this.newtaisakuList[index];
+    let jyoukyouData:any[]=[];
+    let taisakuData:any[]=[];
+    for(let key in this.newfileList){
+      if(this.newfileList[key].jyoukyoukey==this.taisakuData.key){
+        jyoukyouData.push(this.newfileList[key]);
+        taisakuData.push(this.taisakuData)
+      }
+    }
+   //  console.log(this.taisakuData)
+    if(!jyoukyouData[0]){
+      this.InfoData.push({jyoukyoukey:this.taisakuData.key,toukousya:this.taisakuData.name,
+        siten:this.taisakuData.siten,busyo:this.taisakuData.busyo,
+        claimkey:this.taisakuData.claimkey,doko:'対策',naiyou:this.taisakuData.naiyou})
+      this.insideService.InfoData=this.InfoData
+
+      this.router.navigate(['/main/topclaim/addtaisaku/addimagetaisaku']);
+    }else{
+      this.InfoData.push({jyoukyoukey:jyoukyouData[0].jyoukyoukey,toukousya:jyoukyouData[0].toukousya,
+        siten:jyoukyouData[0].siten,busyo:jyoukyouData[0].busyo,
+        claimkey:jyoukyouData[0].claimkey,doko:'対策',naiyou:taisakuData[0].naiyou})
+      this.insideService.InfoData=this.InfoData
+
+      this.router.navigate(['/main/topclaim/addtaisaku/addimagetaisaku']);
+
+    }
+
+
+  }
+
+  Close(){
+    this.OnOff=false;
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   setEdit(index){
 
     this.index=index
@@ -105,7 +188,8 @@ export class ListTaisakuComponent implements OnInit {
           su=0;
         }
         const claimInfo = {
-          taisaku:su
+          taisaku:su,
+          updateAt: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
