@@ -39,7 +39,7 @@ const IN_ROUTES: Routes = [
     { path: 'selectedit',component:SelectSyubetuComponent},
     { path: 'selecttaiouedit',component:SelectTaiouComponent},
     { path: 'selecttaisakuedit',component:SelectTaisakuComponent},
-
+    { path: 'editclaim',component:EditClaimComponent},
 
 
 

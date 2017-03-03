@@ -5,6 +5,7 @@ import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
 import {Router} from "@angular/router";
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-list-taisaku',
   templateUrl: './list-taisaku.component.html',
@@ -36,7 +37,7 @@ export class ListTaisakuComponent implements OnInit {
 //key:string;
   passwordData:any[]=[];
   @ViewChild("editTaisakuDialog") taisakuDialogComponent: TaisakuDialogComponent;
-  constructor(private insideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+  constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     //this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;

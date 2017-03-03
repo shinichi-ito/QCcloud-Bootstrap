@@ -5,6 +5,7 @@ import {InsideService} from "../../../Inside.service";
 import {GeninDialogComponent} from "../../../Dialog/edit-dialog/genin-dialog/genin-dialog.component";
 import * as firebase from 'firebase'
 import {Router} from "@angular/router";
+import {InsideMainService} from "../../../inside-main.service";
 
 @Component({
   selector: 'app-list-genin',
@@ -35,7 +36,7 @@ export class ListGeninComponent implements OnInit {
   passwordData:any[]=[];
 //key:string;
   @ViewChild("editGeninDialog") geninDialogComponent: GeninDialogComponent;
-  constructor(private insideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+  constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
    // this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;
