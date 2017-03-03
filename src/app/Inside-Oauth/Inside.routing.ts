@@ -21,6 +21,7 @@ import {SelectEditComponent} from "./select-edit/select-edit.component";
 import {SelectSyubetuComponent} from "./select-edit/select-syubetu/select-syubetu.component";
 import {SelectTaisakuComponent} from "./select-edit/select-taisaku/select-taisaku.component";
 import {SelectTaiouComponent} from "./select-edit/select-taiou/select-taiou.component";
+import {EDIT_CLAIM_ROUTES} from "./claim-info/edit-claim/edit-claim-routing";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -39,7 +40,7 @@ const IN_ROUTES: Routes = [
     { path: 'selectedit',component:SelectSyubetuComponent},
     { path: 'selecttaiouedit',component:SelectTaiouComponent},
     { path: 'selecttaisakuedit',component:SelectTaisakuComponent},
-    { path: 'editclaim',component:EditClaimComponent},
+    { path: 'editclaim',component:EditClaimComponent,children:EDIT_CLAIM_ROUTES},
 
 
 

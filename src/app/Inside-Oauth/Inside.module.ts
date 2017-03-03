@@ -75,6 +75,13 @@ import { ImageTopComponent } from './claim-info/image-info/image-top/image-top.c
 import { ProgressDialogComponent } from './Dialog/progress-dialog/progress-dialog.component';
 import { PasswordDialogComponent } from './Dialog/password-dialog/password-dialog.component';
 import { ImageEditDialogComponent } from './Dialog/image-edit-dialog/image-edit-dialog.component';
+import { SelectEditClaimComponent } from './claim-info/edit-claim/select-edit-claim/select-edit-claim.component';
+import { ChangeClaimComponent } from './claim-info/edit-claim/change-claim/change-claim.component';
+import { CommentDeleteDialogComponent } from './Dialog/delete-dialog/comment-delete-dialog/comment-delete-dialog.component';
+import { GeninDeleteDialogComponent } from './Dialog/delete-dialog/genin-delete-dialog/genin-delete-dialog.component';
+import { KoukaDeleteDialogComponent } from './Dialog/delete-dialog/kouka-delete-dialog/kouka-delete-dialog.component';
+import { TaiouDeleteDialogComponent } from './Dialog/delete-dialog/taiou-delete-dialog/taiou-delete-dialog.component';
+import { TaisakuDeleteDialogComponent } from './Dialog/delete-dialog/taisaku-delete-dialog/taisaku-delete-dialog.component';
 
 
 /**
@@ -154,7 +161,14 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ImageTopComponent,
     ProgressDialogComponent,
     PasswordDialogComponent,
-    ImageEditDialogComponent
+    ImageEditDialogComponent,
+    SelectEditClaimComponent,
+    ChangeClaimComponent,
+    CommentDeleteDialogComponent,
+    GeninDeleteDialogComponent,
+    KoukaDeleteDialogComponent,
+    TaiouDeleteDialogComponent,
+    TaisakuDeleteDialogComponent
 
 
 

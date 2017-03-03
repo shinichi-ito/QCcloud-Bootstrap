@@ -52,6 +52,7 @@ password:any[]=[];
       flag => {
        this.jyoukyoukey=this.insideMainService.jyoukyoukey
         this.jyoukyouData2=this.insideMainService.jyoukyouData;
+       console.log(this.jyoukyouData2)
      for(let key in this.jyoukyouData2){
         if(this.jyoukyouData2[key].key==this.jyoukyoukey){
           this.jyoukyouData2.splice(Number(key),1);

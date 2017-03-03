@@ -1,0 +1,68 @@
+
+<div class="panel panel-default" style="width: 80%;margin: 0 auto;">
+  <div class="panel-heading">
+    投稿前情報編集
+  </div>
+  <div class="panel-body">
+
+    <div class="form-group">
+      <label for="toukousya">投稿者</label>
+      <select (change)="setMember($event.target.value)" class="form-control" id="toukousya" [(ngModel)]="toukousyaData" name="toukousya">
+        <option *ngFor="let item of memberList" [value]="item.key">{{item.name}}</option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label for="InputPassword">パスワード</label>
+      <input type="password" [(ngModel)]="password" name="password" class="form-control" id="InputPassword" placeholder="編集用パスワード。">
+    </div>
+
+    <button type="button" (click)="getData()" class="btn btn-primary btn-block">投稿前情報取得</button>
+  </div>
+</div>
+
+
+<div *ngIf="OnOff" class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    情報仮登録一覧
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <table class="table table-striped">
+        <thead>
+
+        <tr>
+          <th></th>
+
+          <th >
+            概要　　　　　　　　　　　　
+          </th>
+          <th >
+            種別
+          </th>
+          <th >
+            編集
+          </th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of newclaimList let idx = index;">
+          <td>{{idx+1}}</td>
+          <td>{{item.gaiyou}}</td>
+          <td>{{item.syubetu}}</td>
+
+          <td>
+            <button type="button" class="btn btn-primary" (click)="setEdit(idx)">編集</button>
+            <button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

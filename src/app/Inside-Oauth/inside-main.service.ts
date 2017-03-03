@@ -5,7 +5,15 @@ import {AngularFire} from "angularfire2";
 export class InsideMainService {
   jyoukyouData:any[]=[];//対応や対策の　対象のFileDataの一覧が入る
   jyoukyoukey:string;//これは画像を削除したとき削除した画像の対象のキー(データベース内の)
-
+  claimData:any;
+taiouData:any[]=[];
+taioukey:string;
+  taisakuData:any[]=[];
+  taisakukey:string;
+  koukaData:any[]=[];
+  koukakey:string;
+  geninData:any[]=[];
+  geninkey:string;
 
   constructor(private af : AngularFire) { }
 

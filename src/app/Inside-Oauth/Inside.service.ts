@@ -62,6 +62,18 @@ key:string;//各登録情報のユニークなキー
   flagChangeFileDelete$: Observable<number>;
   private _observerFileDelete;
 
+  flagChangeTaiouDelete$: Observable<number>;
+  private _observerTaiouDelete;
+
+  flagChangeTaisakuDelete$: Observable<number>;
+  private _observerTaisakuDelete;
+
+  flagChangeGeninDelete$: Observable<number>;
+  private _observerGeninDelete;
+
+  flagChangeKoukaDelete$: Observable<number>;
+  private _observerKoukaDelete;
+
  // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
   imageInfo: FirebaseListObservable<any[]>;
 public claimitem:any;
@@ -87,7 +99,17 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.flagChangeFileDelete$ = new Observable(observer =>
     this._observerFileDelete = observer).share();
 
+  this.flagChangeTaiouDelete$ = new Observable(observer =>
+    this._observerTaiouDelete = observer).share();
 
+  this.flagChangeTaisakuDelete$ = new Observable(observer =>
+    this._observerTaisakuDelete = observer).share();
+
+  this.flagChangeKoukaDelete$ = new Observable(observer =>
+    this._observerKoukaDelete = observer).share();
+
+  this.flagChangeGeninDelete$ = new Observable(observer =>
+    this._observerGeninDelete = observer).share();
 
 
   this.uid=this.oauthInfoService.uid;
@@ -341,7 +363,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
    // console.log("taiou追加"+value.val().claimkey)
        this.taiouList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
          siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
-         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+         password:value.val().password,startAt:value.val().startAt})
     })
   }
   taiouChangeTrigger(uid){
@@ -353,7 +375,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
           this._observerTaiou.next(this.taiouList);
            this.taiouList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
              siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
-             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+             password:value.val().password,startAt:value.val().startAt}
          }
        }
     })
@@ -361,9 +383,10 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   taiouRemoveTrigger(uid){
     let commentsRef = firebase.database().ref('TaiouData/'+uid);
     commentsRef.on('child_removed', (value)=> {
-      //  console.log("claim削除"+value)
+      //  console.log("taiou削除"+value.key)
        for(let key in this.taiouList){
         if(this.taiouList[key].key==value.key){
+          this._observerTaiouDelete.next(this.taiouList);
           this.taiouList.splice(Number(key),1);
         }
       }
@@ -404,6 +427,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       //  console.log("claim削除"+value)
       for(let key in this.taisakuList){
         if(this.taisakuList[key].key==value.key){
+          this._observerTaisakuDelete.next(this.taisakuList);
           this.taisakuList.splice(Number(key),1);
         }
       }
@@ -439,6 +463,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       //  console.log("claim削除"+value)
       for(let key in this.geninList){
         if(this.geninList[key].key==value.key){
+          this._observerGeninDelete.next(this.geninList);
           this.geninList.splice(Number(key),1);
         }
       }
@@ -476,6 +501,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       //  console.log("claim削除"+value)
       for(let key in this.koukaList){
         if(this.koukaList[key].key==value.key){
+          this._observerKoukaDelete.next(this.koukaList);
           this.koukaList.splice(Number(key),1);
         }
       }

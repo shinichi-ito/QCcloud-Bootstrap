@@ -101,7 +101,7 @@ export class AddClaimComponent  {
       syousai:this.syousai,
       seihininfo:this.seihininfo,
       yosoukoutei:this.yosoukoutei,
-      koukai:this.model.label,
+      koukai:this.model.label
      // updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.insideService.key)

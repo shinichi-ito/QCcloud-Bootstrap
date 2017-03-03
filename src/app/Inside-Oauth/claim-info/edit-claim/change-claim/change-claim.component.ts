@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {InsideMainService} from "../../../inside-main.service";
 import {FirebaseListObservable, FirebaseObjectObservable, AngularFire} from "angularfire2";
 import {InsideService} from "../../../Inside.service";
 import {OauthInfoService} from "../../../oauth-info.service";
 import * as firebase from 'firebase'
-
 @Component({
-  selector: 'app-top-claim-edit',
-  templateUrl: './top-claim-edit.component.html',
-  styleUrls: ['./top-claim-edit.component.css']
+  selector: 'app-change-claim',
+  templateUrl: './change-claim.component.html',
+  styleUrls: ['./change-claim.component.css']
 })
-export class TopClaimEditComponent implements OnInit{
+export class ChangeClaimComponent implements OnInit {
+
+
   public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
@@ -35,15 +37,18 @@ export class TopClaimEditComponent implements OnInit{
   seihininfo:string='';
   yosoukoutei:string='';
   model;
-check:boolean=false;
-key:string;
+  check:boolean=false;
+  key:string;
   claimInfo: FirebaseListObservable<any[]>;
   claimInfo2: FirebaseObjectObservable<any[]>;
-  public constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
-  this.uid=this.oauthInfoService.uid;
+
+  public constructor(private insideMainService:InsideMainService,private insideService:InsideService,
+                     private oauthInfoService:OauthInfoService,private af : AngularFire) {
+    this.uid=this.oauthInfoService.uid;
     this.model = {
       label: "kari"
     };
+
     (this.tomorrow = new Date()).setDate(this.tomorrow.getDate() + 1);
     (this.afterTomorrow = new Date()).setDate(this.tomorrow.getDate() + 2);
     (this.minDate = new Date()).setDate(this.minDate.getDate() - 1000);
@@ -52,8 +57,7 @@ key:string;
       {date: this.tomorrow, status: 'full'},
       {date: this.afterTomorrow, status: 'partially'}
     ];
-
-    this.claimitem=this.insideService.claimitem;
+    this.claimitem=this.insideMainService.claimData;
     this.key=this.claimitem.key;
     this.syubetu=this.claimitem.syubetu;
     this.seihin=this.claimitem.seihin;
@@ -72,13 +76,13 @@ key:string;
 
 
   }
- ngOnInit(){}
+  ngOnInit(){}
 
 
   onEdit(){
     if(this.password==this.password2){
       this.check=false;
-     }else{
+    }else{
       this.check=true;
     }
 
@@ -174,6 +178,7 @@ key:string;
   public open(): void {
     this.opened = !this.opened;
   }
+
 
 
 

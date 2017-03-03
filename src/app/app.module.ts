@@ -17,6 +17,9 @@ import { RiyouKiyakuComponent } from './Outside-Oauth/riyou-kiyaku/riyou-kiyaku.
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 
+
+
+
 export const firebaseConfig = {                     //対象は　qccloud-asia-northeast1
   apiKey: "AIzaSyDCIMKBP2jorKKBJaCXtm3024C1IHD-UCA",
   authDomain: "qccloud-asia-northeast1.firebaseapp.com",
