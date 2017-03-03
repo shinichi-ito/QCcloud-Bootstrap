@@ -14,7 +14,8 @@ taioukey:string;
   koukakey:string;
   geninData:any[]=[];
   geninkey:string;
-
+  commentData:any[]=[];
+  commentkey:string;
   constructor(private af : AngularFire) { }
 
 

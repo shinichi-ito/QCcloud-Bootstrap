@@ -6,14 +6,16 @@ import {FirebaseObjectObservable, AngularFire} from "angularfire2";
 import {PasswordDialogComponent} from "../../Dialog/password-dialog/password-dialog.component";
 import {InsideMainService} from "../../inside-main.service";
 import {ImageEditDialogComponent} from "../../Dialog/image-edit-dialog/image-edit-dialog.component";
+import {ImageDeleteDialogComponent} from "../../Dialog/delete-dialog/image-delete-dialog/image-delete-dialog.component";
+import {ImageDialogComponent} from "../../Dialog/edit-dialog/image-dialog/image-dialog.component";
 @Component({
   selector: 'app-view-image',
   templateUrl: './view-image.component.html',
   styleUrls: ['./view-image.component.css']
 })
 export class ViewImageComponent implements OnInit {
-  @ViewChild("passwordDialog") passwordDialogComponent: PasswordDialogComponent;
-  @ViewChild("imageeditDialog") imageeditDialogComponent: ImageEditDialogComponent;
+  @ViewChild("imageDeleteDialog") imageDeleteDialogComponent: ImageDeleteDialogComponent;
+  @ViewChild("imageEditDialog") imageEditDialogComponent: ImageDialogComponent;
 @Input() jyoukyouData;
   @Input() passwordData;
 password:any[]=[];
@@ -32,17 +34,19 @@ password:any[]=[];
 
         this.jyoukyoukey=this.insideMainService.jyoukyoukey
          this.jyoukyouData2=this.insideMainService.jyoukyouData;
+        console.log(this.jyoukyoukey)
+        console.log(this.jyoukyouData2)
         for(let key in this.jyoukyouData2) {
-          if (this.jyoukyouData2[key].key == this.jyoukyoukey) {
-            this.jyoukyouData2[key]={
-              claimkey:flag[0].claimkey,key:flag[0].key,imageAnalysis:flag[0].imageAnalysis,downloadURL:flag[0].downloadURL,
+           if (this.jyoukyouData2[key].key == this.jyoukyoukey) {
+             this.jyoukyouData2[key]={
+               claimkey:flag[0].claimkey,key:flag[0].key,imageAnalysis:flag[0].imageAnalysis,downloadURL:flag[0].downloadURL,
               jyoukyoukey:flag[0].jyoukyoukey, type:flag[0].type, comment:flag[0].comment,toukousya:flag[0].toukousya,
               siten:flag[0].siten,busyo:flag[0].busyo,doko:flag[0].doko,filename:flag[0].filename,
-              startAt:flag[0].startAt
+               startAt:flag[0].startAt
             }
-          }
-        }
-     this.jyoukyouData=this.jyoukyouData2;
+           }
+         }
+      this.jyoukyouData=this.jyoukyouData2;
       });
 
 
@@ -52,7 +56,7 @@ password:any[]=[];
       flag => {
        this.jyoukyoukey=this.insideMainService.jyoukyoukey
         this.jyoukyouData2=this.insideMainService.jyoukyouData;
-       console.log(this.jyoukyouData2)
+      // console.log(this.jyoukyouData2)
      for(let key in this.jyoukyouData2){
         if(this.jyoukyouData2[key].key==this.jyoukyoukey){
           this.jyoukyouData2.splice(Number(key),1);
@@ -78,7 +82,7 @@ password:any[]=[];
     this.password['uid']=this.uid;
     this.password['password']=this.passwordData[0];
     this.password['key']=this.jyoukyouData[idx].key;
-    this.passwordDialogComponent.openDialog();
+    this.imageDeleteDialogComponent.openDialog();
   }
   setEditPassword(idx){
     this.password2['uid']=this.uid;
@@ -88,7 +92,7 @@ password:any[]=[];
     this.password2['siten']=this.jyoukyouData[idx].siten;
     this.password2['busyo']=this.jyoukyouData[idx].busyo;
     this.password2['comment']=this.jyoukyouData[idx].comment;
-    this.imageeditDialogComponent.openDialog();
+    this.imageEditDialogComponent.openDialog();
   }
 
 

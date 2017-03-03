@@ -29,7 +29,13 @@
           <input type="text" class="form-control" id="busyo"  [(ngModel)]="busyo" name="busyo" value="{{commentData?.busyo}}" placeholder="部署名を入力して下さい。">
         </div>
 
-
+        <div class="form-group">
+          <label for="password">パスワード</label>
+          <input type="text" class="form-control" id="password"  [(ngModel)]="pass" name="pass"  placeholder="パスワードを入力して下さい。">
+        </div>
+        <div *ngIf="OnOff">
+          <div class="alert alert-danger" role="alert">パスワードが一致しません</div>
+        </div>
 
       </div>
       <div class="modal-footer">

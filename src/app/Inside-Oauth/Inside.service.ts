@@ -74,6 +74,10 @@ key:string;//各登録情報のユニークなキー
   flagChangeKoukaDelete$: Observable<number>;
   private _observerKoukaDelete;
 
+  flagChangeCommentDelete$: Observable<number>;
+  private _observerCommentDelete;
+
+
  // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
   imageInfo: FirebaseListObservable<any[]>;
 public claimitem:any;
@@ -111,6 +115,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.flagChangeGeninDelete$ = new Observable(observer =>
     this._observerGeninDelete = observer).share();
 
+  this.flagChangeCommentDelete$ = new Observable(observer =>
+    this._observerCommentDelete = observer).share();
 
   this.uid=this.oauthInfoService.uid;
   this.busyoAddTrigger(this.uid);
@@ -538,6 +544,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       //  console.log("claim削除"+value)
       for(let key in this.commentList){
         if(this.commentList[key].key==value.key){
+          this._observerCommentDelete.next(this.commentList);
           this.commentList.splice(Number(key),1);
         }
       }

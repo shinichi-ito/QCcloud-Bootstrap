@@ -18,6 +18,8 @@ export class CommentDialogComponent implements OnInit {
   siten:string='';
   busyo:string='';
   naiyou:string='';
+  pass:string;
+  OnOff:boolean=false;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
   }
@@ -28,7 +30,7 @@ export class CommentDialogComponent implements OnInit {
     this.modalRef.show();
   }
   onEdit(){
-
+    if(this.commentData.password==this.pass){
     if(this.name==''){
       this.name=this.commentData.name
       //console.log(this.syubetu)
@@ -59,6 +61,11 @@ export class CommentDialogComponent implements OnInit {
       this.modalRef.hide()
     }).catch(error=>{
     })
+  }else{
+
+  this.OnOff=true;
+
+}
   }
 
 }

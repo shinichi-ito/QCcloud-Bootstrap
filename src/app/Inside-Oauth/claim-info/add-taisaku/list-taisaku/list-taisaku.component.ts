@@ -6,6 +6,7 @@ import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
 import {Router} from "@angular/router";
 import {InsideMainService} from "../../../inside-main.service";
+import {TaisakuDeleteDialogComponent} from "../../../Dialog/delete-dialog/taisaku-delete-dialog/taisaku-delete-dialog.component";
 @Component({
   selector: 'app-list-taisaku',
   templateUrl: './list-taisaku.component.html',
@@ -36,7 +37,10 @@ export class ListTaisakuComponent implements OnInit {
   jyoukyouData;
 //key:string;
   passwordData:any[]=[];
+  key:string;
+  Data2:any[]=[];
   @ViewChild("editTaisakuDialog") taisakuDialogComponent: TaisakuDialogComponent;
+  @ViewChild("deleteTaisakuDialog") taisakuDeleteDialogComponent: TaisakuDeleteDialogComponent;
   constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     //this.key=this.insideService.claimitem.key;
@@ -54,6 +58,20 @@ export class ListTaisakuComponent implements OnInit {
           }
         }
 
+      })
+    this.insideService.flagChangeTaisakuDelete$.subscribe(
+      flag => {
+        this.key=this.insideMainService.taisakukey
+        this.Data2=this.insideMainService.taisakuData;
+        //console.log(this.Data2)
+        for(let key in this.Data2){
+
+          //  console.log(this.Data2[key])
+          if(this.Data2[key].key==this.key){
+            this.Data2.splice(Number(key),1);
+          }
+        }
+        this.newtaisakuList=this.Data2;
       })
 
   }
@@ -132,23 +150,6 @@ export class ListTaisakuComponent implements OnInit {
 
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   setEdit(index){
 
     this.index=index
@@ -157,56 +158,58 @@ export class ListTaisakuComponent implements OnInit {
   }
 
   Delete(index){
-    this.index=index
-    this.taisakuData=this.taisakuList[index];
-    this.deleteTaisaku(this.taisakuData.key,this.uid)
+    this.index=index;
+    this.taisakuData=this.newtaisakuList[index];
+    this.insideMainService.taisakuData=this.newtaisakuList;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
+    this.taisakuDeleteDialogComponent.openDialog();
+    //  this.deleteTaiou(this.taiouData.key,this.uid)
   }
 
-  deleteTaisaku(key:string,uid:string){
-    this.taisakus=this.af.database.list('TaisakuData/'+this.uid)
-    this.taisakus.remove(key)
-      .then(data=>{
-        this.taisakuList=[];
-        this.newtaisakuList=[];
-        this.taisakuList=this.insideService.taisakuList
-        for(let key in this.taisakuList){
-          if(this.claimitem.key==this.taisakuList[key].claimkey){
-            this.newtaisakuList.push(this.taisakuList[key])
-          }
-        }
-        this.minusTaisakuSu()
-      })
-      .catch(error=>{
-
-
-      });
-  }
-
-
-  minusTaisakuSu(){//クレーム情報の対応数をマイナス
-
-    this.claimList=this.insideService.claimList
-    for(let key in this.claimList) {
-      if (this.claimList[key].key == this.claimitem.key) {
-        let su:number;
-        su=this.claimList[key].taisaku-1
-        if(su<0){
-          su=0;
-        }
-        const claimInfo = {
-          taisaku:su,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
-        };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
-        this.claimInfo.update(claimInfo).then(data=>{
-
-        }).catch(error=>{
-
-        })
-      }
-    }
-  }
-
+  // deleteTaisaku(key:string,uid:string){
+  //   this.taisakus=this.af.database.list('TaisakuData/'+this.uid)
+  //   this.taisakus.remove(key)
+  //     .then(data=>{
+  //       this.taisakuList=[];
+  //       this.newtaisakuList=[];
+  //       this.taisakuList=this.insideService.taisakuList
+  //       for(let key in this.taisakuList){
+  //         if(this.claimitem.key==this.taisakuList[key].claimkey){
+  //           this.newtaisakuList.push(this.taisakuList[key])
+  //         }
+  //       }
+  //       this.minusTaisakuSu()
+  //     })
+  //     .catch(error=>{
+  //
+  //
+  //     });
+  // }
+  //
+  //
+  // minusTaisakuSu(){//クレーム情報の対応数をマイナス
+  //
+  //   this.claimList=this.insideService.claimList
+  //   for(let key in this.claimList) {
+  //     if (this.claimList[key].key == this.claimitem.key) {
+  //       let su:number;
+  //       su=this.claimList[key].taisaku-1
+  //       if(su<0){
+  //         su=0;
+  //       }
+  //       const claimInfo = {
+  //         taisaku:su,
+  //         updateAt: firebase.database.ServerValue.TIMESTAMP
+  //       };
+  //       this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+  //       this.claimInfo.update(claimInfo).then(data=>{
+  //
+  //       }).catch(error=>{
+  //
+  //       })
+  //     }
+  //   }
+  // }
+  //
 
 
 }

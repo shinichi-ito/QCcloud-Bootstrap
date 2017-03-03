@@ -82,6 +82,8 @@ import { GeninDeleteDialogComponent } from './Dialog/delete-dialog/genin-delete-
 import { KoukaDeleteDialogComponent } from './Dialog/delete-dialog/kouka-delete-dialog/kouka-delete-dialog.component';
 import { TaiouDeleteDialogComponent } from './Dialog/delete-dialog/taiou-delete-dialog/taiou-delete-dialog.component';
 import { TaisakuDeleteDialogComponent } from './Dialog/delete-dialog/taisaku-delete-dialog/taisaku-delete-dialog.component';
+import { ImageDeleteDialogComponent } from './Dialog/delete-dialog/image-delete-dialog/image-delete-dialog.component';
+import { ImageDialogComponent } from './Dialog/edit-dialog/image-dialog/image-dialog.component';
 
 
 /**
@@ -168,7 +170,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     GeninDeleteDialogComponent,
     KoukaDeleteDialogComponent,
     TaiouDeleteDialogComponent,
-    TaisakuDeleteDialogComponent
+    TaisakuDeleteDialogComponent,
+    ImageDeleteDialogComponent,
+    ImageDialogComponent
 
 
 

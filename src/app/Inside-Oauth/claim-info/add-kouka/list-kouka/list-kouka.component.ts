@@ -6,6 +6,7 @@ import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
 import {Router} from "@angular/router";
 import {InsideMainService} from "../../../inside-main.service";
+import {KoukaDeleteDialogComponent} from "../../../Dialog/delete-dialog/kouka-delete-dialog/kouka-delete-dialog.component";
 
 @Component({
   selector: 'app-list-kouka',
@@ -35,7 +36,10 @@ export class ListKoukaComponent implements OnInit {
   fileList:any[]=[];
   newfileList:any[]=[];
   passwordData:any[]=[];
+  key:string;
+  Data2:any[]=[];
   @ViewChild("editKoukaDialog") koukaDialogComponent: KoukaDialogComponent;
+  @ViewChild("deleteKoukaDialog") koukaDeleteDialogComponent: KoukaDeleteDialogComponent;
   constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     //this.key=this.insideService.claimitem.key;
@@ -53,7 +57,20 @@ export class ListKoukaComponent implements OnInit {
         }
 
       })
+    this.insideService.flagChangeKoukaDelete$.subscribe(
+      flag => {
+        this.key=this.insideMainService.koukakey
+        this.Data2=this.insideMainService.koukaData;
+        //console.log(this.Data2)
+        for(let key in this.Data2){
 
+          //  console.log(this.Data2[key])
+          if(this.Data2[key].key==this.key){
+            this.Data2.splice(Number(key),1);
+          }
+        }
+        this.newkoukaList=this.Data2;
+      })
 
   }
 
@@ -153,57 +170,68 @@ export class ListKoukaComponent implements OnInit {
   }
 
   Delete(index){
-    this.index=index
-    this.koukaData=this.koukaList[index];
-    this.deleteKouka(this.koukaData.key,this.uid)
-   }
-
-
-
-  deleteKouka(key:string,uid:string){
-    this.koukas=this.af.database.list('KoukaData/'+this.uid)
-    this.koukas.remove(key)
-      .then(data=>{
-        this.koukaList=[];
-        this.newkoukaList=[];
-        this.koukaList=this.insideService.koukaList
-        for(let key in this.koukaList){
-          if(this.claimitem.key==this.koukaList[key].claimkey){
-            this.newkoukaList.push(this.koukaList[key])
-          }
-        }
-        this.minusKoukaSu()
-      })
-      .catch(error=>{
-
-
-      });
+    this.index=index;
+    this.koukaData=this.newkoukaList[index];
+    this.insideMainService.koukaData=this.newkoukaList;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
+    this.koukaDeleteDialogComponent.openDialog();
+    //  this.deleteTaiou(this.taiouData.key,this.uid)
   }
 
-  minusKoukaSu(){//クレーム情報の対応数をマイナス
 
-    this.claimList=this.insideService.claimList
-    for(let key in this.claimList) {
-      if (this.claimList[key].key == this.claimitem.key) {
-        let su:number;
-        su=this.claimList[key].kouka-1
-        if(su<0){
-          su=0;
-        }
-        const claimInfo = {
-          kouka:su,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
-        };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
-        this.claimInfo.update(claimInfo).then(data=>{
 
-        }).catch(error=>{
 
-        })
-      }
-    }
-  }
-
+  // Delete(index){
+  //   this.index=index
+  //   this.koukaData=this.koukaList[index];
+  //   this.deleteKouka(this.koukaData.key,this.uid)
+  //  }
+  //
+  //
+  //
+  // deleteKouka(key:string,uid:string){
+  //   this.koukas=this.af.database.list('KoukaData/'+this.uid)
+  //   this.koukas.remove(key)
+  //     .then(data=>{
+  //       this.koukaList=[];
+  //       this.newkoukaList=[];
+  //       this.koukaList=this.insideService.koukaList
+  //       for(let key in this.koukaList){
+  //         if(this.claimitem.key==this.koukaList[key].claimkey){
+  //           this.newkoukaList.push(this.koukaList[key])
+  //         }
+  //       }
+  //       this.minusKoukaSu()
+  //     })
+  //     .catch(error=>{
+  //
+  //
+  //     });
+  // }
+  //
+  // minusKoukaSu(){//クレーム情報の対応数をマイナス
+  //
+  //   this.claimList=this.insideService.claimList
+  //   for(let key in this.claimList) {
+  //     if (this.claimList[key].key == this.claimitem.key) {
+  //       let su:number;
+  //       su=this.claimList[key].kouka-1
+  //       if(su<0){
+  //         su=0;
+  //       }
+  //       const claimInfo = {
+  //         kouka:su,
+  //         updateAt: firebase.database.ServerValue.TIMESTAMP
+  //       };
+  //       this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+  //       this.claimInfo.update(claimInfo).then(data=>{
+  //
+  //       }).catch(error=>{
+  //
+  //       })
+  //     }
+  //   }
+  // }
+  //
 
 
 }

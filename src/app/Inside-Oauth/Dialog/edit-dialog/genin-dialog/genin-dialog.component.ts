@@ -19,6 +19,8 @@ export class GeninDialogComponent implements OnInit {
   busyo:string='';
   syubetu:string='';
   naiyou:string='';
+  pass:string;
+  OnOff:boolean=false;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
   }
@@ -29,7 +31,7 @@ export class GeninDialogComponent implements OnInit {
     this.modalRef.show();
   }
   onEdit(){
-
+    if(this.geninData.password==this.pass){
     if(this.name==''){
       this.name=this.geninData.name
     //  console.log(this.name)
@@ -59,6 +61,11 @@ export class GeninDialogComponent implements OnInit {
       this.modalRef.hide()
     }).catch(error=>{
     })
+  }else{
+
+  this.OnOff=true;
+
+}
   }
 
 

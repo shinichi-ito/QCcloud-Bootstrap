@@ -23,6 +23,8 @@ export class KoukaDialogComponent implements OnInit {
   bb:number=0;
   cc:number=0;
   dd:number=0;
+  pass:string;
+  OnOff:boolean=false;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
 
@@ -34,7 +36,7 @@ export class KoukaDialogComponent implements OnInit {
     this.modalRef.show();
   }
   onEdit(){
-
+    if(this.koukaData.password==this.pass){
     if(this.name==''){
       this.name=this.koukaData.name
       //console.log(this.syubetu)
@@ -85,5 +87,10 @@ export class KoukaDialogComponent implements OnInit {
       this.modalRef.hide()
      }).catch(error=>{
      })
+    }else{
+
+      this.OnOff=true;
+
+    }
   }
 }

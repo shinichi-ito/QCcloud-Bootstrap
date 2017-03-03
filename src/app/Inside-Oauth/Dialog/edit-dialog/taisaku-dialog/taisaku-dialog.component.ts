@@ -19,6 +19,8 @@ export class TaisakuDialogComponent implements OnInit {
   busyo:string='';
   syubetu:string='';
   naiyou:string='';
+  pass:string;
+  OnOff:boolean=false;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
   }
@@ -29,6 +31,8 @@ export class TaisakuDialogComponent implements OnInit {
     this.modalRef.show();
   }
   onEdit(){
+    if(this.taisakuData.password==this.pass){
+
     if(this.syubetu==''){
       this.syubetu=this.taisakuData.syubetu
      // console.log(this.syubetu)
@@ -65,6 +69,13 @@ export class TaisakuDialogComponent implements OnInit {
        this.modalRef.hide()
      }).catch(error=>{
      })
+  }else{
+
+  this.OnOff=true;
+
+}
+
+
   }
 
 }

@@ -6,6 +6,7 @@ import {GeninDialogComponent} from "../../../Dialog/edit-dialog/genin-dialog/gen
 import * as firebase from 'firebase'
 import {Router} from "@angular/router";
 import {InsideMainService} from "../../../inside-main.service";
+import {GeninDeleteDialogComponent} from "../../../Dialog/delete-dialog/genin-delete-dialog/genin-delete-dialog.component";
 
 @Component({
   selector: 'app-list-genin',
@@ -34,8 +35,11 @@ export class ListGeninComponent implements OnInit {
   jyoukyouData;
   InfoData:any[]=[];
   passwordData:any[]=[];
+  key:string;
+  Data2:any[]=[];
 //key:string;
   @ViewChild("editGeninDialog") geninDialogComponent: GeninDialogComponent;
+  @ViewChild("deleteGeninDialog") geninDeleteDialogComponent: GeninDeleteDialogComponent;
   constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
    // this.key=this.insideService.claimitem.key;
@@ -54,6 +58,20 @@ export class ListGeninComponent implements OnInit {
 
       })
 
+    this.insideService.flagChangeGeninDelete$.subscribe(
+      flag => {
+        this.key=this.insideMainService.geninkey
+        this.Data2=this.insideMainService.geninData;
+        //console.log(this.Data2)
+        for(let key in this.Data2){
+
+          //  console.log(this.Data2[key])
+          if(this.Data2[key].key==this.key){
+            this.Data2.splice(Number(key),1);
+          }
+        }
+        this.newgeninList=this.Data2;
+      })
 
 
   }
@@ -148,53 +166,63 @@ export class ListGeninComponent implements OnInit {
   }
 
   Delete(index){
-    this.index=index
-    this.geninData=this.geninList[index];
-    this.deleteGenin(this.geninData.key,this.uid)
-
-  }
-  deleteGenin(key:string,uid:string){
-    this.genins=this.af.database.list('GeninData/'+this.uid)
-    this.genins.remove(key)
-      .then(data=>{
-        this.geninList=[];
-        this.newgeninList=[];
-        this.geninList=this.insideService.geninList
-        for(let key in this.geninList){
-          if(this.claimitem.key==this.geninList[key].claimkey){
-            this.newgeninList.push(this.geninList[key])
-          }
-        }
-       this.minusGeninSu()
-      })
-      .catch(error=>{
-
-
-      });
-  }
-  minusGeninSu(){//クレーム情報の対応数をマイナス
-    this.claimList=this.insideService.claimList
-    for(let key in this.claimList) {
-      if (this.claimList[key].key == this.claimitem.key) {
-         let su:number;
-        su=this.claimList[key].genin-1
-        if(su<0){
-          su=0;
-        }
-        const claimInfo = {
-          genin:su,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
-        };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
-        this.claimInfo.update(claimInfo).then(data=>{
-
-        }).catch(error=>{
-
-        })
-      }
-    }
+    this.index=index;
+    this.geninData=this.newgeninList[index];
+    this.insideMainService.geninData=this.newgeninList;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
+    this.geninDeleteDialogComponent.openDialog();
+    //  this.deleteTaiou(this.taiouData.key,this.uid)
   }
 
 
+
+  // Delete(index){
+  //   this.index=index
+  //   this.geninData=this.geninList[index];
+  //   this.deleteGenin(this.geninData.key,this.uid)
+  //
+  // }
+  // deleteGenin(key:string,uid:string){
+  //   this.genins=this.af.database.list('GeninData/'+this.uid)
+  //   this.genins.remove(key)
+  //     .then(data=>{
+  //       this.geninList=[];
+  //       this.newgeninList=[];
+  //       this.geninList=this.insideService.geninList
+  //       for(let key in this.geninList){
+  //         if(this.claimitem.key==this.geninList[key].claimkey){
+  //           this.newgeninList.push(this.geninList[key])
+  //         }
+  //       }
+  //      this.minusGeninSu()
+  //     })
+  //     .catch(error=>{
+  //
+  //
+  //     });
+  // }
+  // minusGeninSu(){//クレーム情報の対応数をマイナス
+  //   this.claimList=this.insideService.claimList
+  //   for(let key in this.claimList) {
+  //     if (this.claimList[key].key == this.claimitem.key) {
+  //        let su:number;
+  //       su=this.claimList[key].genin-1
+  //       if(su<0){
+  //         su=0;
+  //       }
+  //       const claimInfo = {
+  //         genin:su,
+  //         updateAt: firebase.database.ServerValue.TIMESTAMP
+  //       };
+  //       this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+  //       this.claimInfo.update(claimInfo).then(data=>{
+  //
+  //       }).catch(error=>{
+  //
+  //       })
+  //     }
+  //   }
+  // }
+  //
+  //
 
 }
