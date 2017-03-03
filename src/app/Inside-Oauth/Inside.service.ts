@@ -56,7 +56,11 @@ key:string;//各登録情報のユニークなキー
   flagChangeKouka$: Observable<number>;
   private _observerKouka;
 
+  flagChangeFileEdit$: Observable<number>;
+  private _observerFileEdit;
 
+  flagChangeFileDelete$: Observable<number>;
+  private _observerFileDelete;
 
  // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
   imageInfo: FirebaseListObservable<any[]>;
@@ -77,7 +81,11 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.flagChangeKouka$ = new Observable(observer =>
     this._observerKouka = observer).share();
 
+  this.flagChangeFileEdit$ = new Observable(observer =>
+    this._observerFileEdit = observer).share();
 
+  this.flagChangeFileDelete$ = new Observable(observer =>
+    this._observerFileDelete = observer).share();
 
 
 
@@ -233,7 +241,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   claimChangeTrigger(uid){
     let commentsRef = firebase.database().ref('ClaimData/'+uid);
     commentsRef.on('child_changed', (value)=> {
-      console.log("claim変更"+value.val().taiou)
+    //  console.log("claim変更"+value.val().taiou)
        for(let index in this.claimList){
          if(this.claimList[index].key==value.key){
            this.claimList[index]={key:value.key,syubetu:value.val().syubetu,siten:value.val().siten
@@ -302,7 +310,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       // console.log("claim変更"+value.val().busyo)
       for(let index in this.fileList){
         if(this.fileList[index].key==value.key){
-
+          this._observerFileEdit.next(this.fileList);
           this.fileList[index]={claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
             jyoukyoukey:value.val().jyoukyoukey, type:value.val().type, comment:value.val().comment,toukousya:value.val().toukousya,
             siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,filename:value.val().filename,
@@ -314,7 +322,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   fileRemoveTrigger(uid){
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_removed', (value)=> {
-      //  console.log("claim削除"+value)
+     //  console.log("claim削除"+value)
+      this._observerFileDelete.next(this.fileList);
       for(let key in this.fileList){
         if(this.fileList[key].key==value.key){
           this.fileList.splice(Number(key),1);

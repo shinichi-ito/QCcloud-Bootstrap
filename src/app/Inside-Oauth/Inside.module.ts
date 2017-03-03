@@ -74,6 +74,7 @@ import { ViewImageComponent } from './claim-info/view-image/view-image.component
 import { ImageTopComponent } from './claim-info/image-info/image-top/image-top.component';
 import { ProgressDialogComponent } from './Dialog/progress-dialog/progress-dialog.component';
 import { PasswordDialogComponent } from './Dialog/password-dialog/password-dialog.component';
+import { ImageEditDialogComponent } from './Dialog/image-edit-dialog/image-edit-dialog.component';
 
 
 /**
@@ -152,7 +153,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ViewImageComponent,
     ImageTopComponent,
     ProgressDialogComponent,
-    PasswordDialogComponent
+    PasswordDialogComponent,
+    ImageEditDialogComponent
 
 
 

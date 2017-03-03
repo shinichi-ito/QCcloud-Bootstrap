@@ -1,16 +1,17 @@
 
 <ul class="list-group" >
-  <li class="list-group-item" *ngFor="let item of jyoukyouData">
+  <li class="list-group-item" *ngFor="let item of jyoukyouData let idx = index;">
     <div style="width: 200px" class="thumbnail">
-      <img style="height: 150px" src="{{item.downloadURL}}">
+      <img style="height: 150px" src="{{item?.downloadURL}}">
       <div class="caption">
         <p>備考</p>
-        <p>{{item.comment}}</p>
-        <p>{{item.toukousya}}</p>
-        <p>{{item.siten}}　{{item.busyo}}</p>
+        <p>{{item?.comment}}</p>
+        <p>{{item?.toukousya}}</p>
+        <p>{{item?.siten}}　{{item?.busyo}}</p>
         <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>
-          <a  (click)="setPassword()" class="btn btn-default" role="button" target="_blank">削除</a>
-
+          <a  (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
+          <a  (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
+        </p>
       </div>
     </div>
 
@@ -18,3 +19,4 @@
 </ul>
 
 <app-password-dialog  [password]="password"  #passwordDialog></app-password-dialog>
+<app-image-edit-dialog  [password2]="password2"  #imageeditDialog></app-image-edit-dialog>

@@ -33,8 +33,9 @@ export class ListKoukaComponent implements OnInit {
   OnOff:boolean=false;
   fileList:any[]=[];
   newfileList:any[]=[];
+  passwordData:any[]=[];
   @ViewChild("editKoukaDialog") koukaDialogComponent: KoukaDialogComponent;
-  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+  constructor(private insideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     //this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;
@@ -80,15 +81,19 @@ export class ListKoukaComponent implements OnInit {
     this.koukaData=this.newkoukaList[index];
     // console.log(this.taiouData.key)
     let jyoukyouData:any[]=[];
+    let passwordData:any[]=[];
     for(let key in this.newfileList){
 
       // console.log(this.newfileList[key].jyoukyoukey)
       if(this.newfileList[key].jyoukyoukey==this.koukaData.key){
         //  console.log(this.newfileList[key].jyoukyoukey)
         jyoukyouData.push(this.newfileList[key]);
+        passwordData.push(this.koukaData.password)
       }
     }
-    this.jyoukyouData=jyoukyouData
+    this.jyoukyouData=jyoukyouData;
+    this.insideMainService.jyoukyouData=this.jyoukyouData;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
+    this.passwordData=passwordData
   }
   addImage(index){
     this.index=index;

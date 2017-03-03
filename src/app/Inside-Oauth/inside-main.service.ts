@@ -3,6 +3,9 @@ import {AngularFire} from "angularfire2";
 
 @Injectable()
 export class InsideMainService {
+  jyoukyouData:any[]=[];//対応や対策の　対象のFileDataの一覧が入る
+  jyoukyoukey:string;//これは画像を削除したとき削除した画像の対象のキー(データベース内の)
+
 
   constructor(private af : AngularFire) { }
 

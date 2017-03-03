@@ -4,6 +4,8 @@ import * as firebase from 'firebase'
 import {InsideService} from "../../Inside.service";
 import {FirebaseObjectObservable, AngularFire} from "angularfire2";
 import {PasswordDialogComponent} from "../../Dialog/password-dialog/password-dialog.component";
+import {InsideMainService} from "../../inside-main.service";
+import {ImageEditDialogComponent} from "../../Dialog/image-edit-dialog/image-edit-dialog.component";
 @Component({
   selector: 'app-view-image',
   templateUrl: './view-image.component.html',
@@ -11,30 +13,81 @@ import {PasswordDialogComponent} from "../../Dialog/password-dialog/password-dia
 })
 export class ViewImageComponent implements OnInit {
   @ViewChild("passwordDialog") passwordDialogComponent: PasswordDialogComponent;
-
+  @ViewChild("imageeditDialog") imageeditDialogComponent: ImageEditDialogComponent;
 @Input() jyoukyouData;
   @Input() passwordData;
 password:any[]=[];
+  password2:any[]=[];
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
   uid:string;
-  constructor(private af : AngularFire,private insideService:InsideService,private oauthInfoService:OauthInfoService) {
+  jyoukyouData2:any[]=[];
+  jyoukyoukey:string;
+  constructor(private insideMainService:InsideMainService,private af : AngularFire,private insideService:InsideService,private oauthInfoService:OauthInfoService) {
     this.uid=this.oauthInfoService.uid
+
+    this.insideService.flagChangeFileEdit$.subscribe(
+      flag => {
+
+        this.jyoukyoukey=this.insideMainService.jyoukyoukey
+         this.jyoukyouData2=this.insideMainService.jyoukyouData;
+        for(let key in this.jyoukyouData2) {
+          if (this.jyoukyouData2[key].key == this.jyoukyoukey) {
+            this.jyoukyouData2[key]={
+              claimkey:flag[0].claimkey,key:flag[0].key,imageAnalysis:flag[0].imageAnalysis,downloadURL:flag[0].downloadURL,
+              jyoukyoukey:flag[0].jyoukyoukey, type:flag[0].type, comment:flag[0].comment,toukousya:flag[0].toukousya,
+              siten:flag[0].siten,busyo:flag[0].busyo,doko:flag[0].doko,filename:flag[0].filename,
+              startAt:flag[0].startAt
+            }
+          }
+        }
+     this.jyoukyouData=this.jyoukyouData2;
+      });
+
+
+
+
+    this.insideService.flagChangeFileDelete$.subscribe(
+      flag => {
+       this.jyoukyoukey=this.insideMainService.jyoukyoukey
+        this.jyoukyouData2=this.insideMainService.jyoukyouData;
+     for(let key in this.jyoukyouData2){
+        if(this.jyoukyouData2[key].key==this.jyoukyoukey){
+          this.jyoukyouData2.splice(Number(key),1);
+        }
+        }
+        this.jyoukyouData=this.jyoukyouData2;
+      })
+
+
+
+
+
   }
 
   ngOnInit() {
-
+//console.log(this.jyoukyouData[0].doko)
+  //  console.log(this.passwordData[0])
+   // console.log(this.jyoukyouData)
   }
 
-  setPassword(){
-   // hashColor2['red'] = "赤";
-    this.password['filename']=this.jyoukyouData[0].filename;
+  setPassword(idx){
+     this.password['filename']=this.jyoukyouData[idx].filename;
     this.password['uid']=this.uid;
     this.password['password']=this.passwordData[0];
- //  console.log(this.passwordData[0])
-  //  console.log(this.passwordData[0].password)
-   this.passwordDialogComponent.openDialog();
+    this.password['key']=this.jyoukyouData[idx].key;
+    this.passwordDialogComponent.openDialog();
+  }
+  setEditPassword(idx){
+    this.password2['uid']=this.uid;
+    this.password2['password']=this.passwordData[0];
+    this.password2['key']=this.jyoukyouData[idx].key;
+    this.password2['toukousya']=this.jyoukyouData[idx].toukousya;
+    this.password2['siten']=this.jyoukyouData[idx].siten;
+    this.password2['busyo']=this.jyoukyouData[idx].busyo;
+    this.password2['comment']=this.jyoukyouData[idx].comment;
+    this.imageeditDialogComponent.openDialog();
   }
 
 
@@ -56,7 +109,7 @@ delete(){
     this.claimList=this.insideService.claimList
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
-        console.log(this.claimList[key].file)
+      //  console.log(this.claimList[key].file)
 
         let su:number;
         su=this.claimList[key].file-1

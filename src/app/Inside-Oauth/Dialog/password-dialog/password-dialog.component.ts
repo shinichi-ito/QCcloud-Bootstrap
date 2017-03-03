@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild, Input} from '@angular/core';
 import {ModalDirective} from "ng2-bootstrap";
 import * as firebase from 'firebase'
-import {OauthInfoService} from "../../oauth-info.service";
-import {FirebaseObjectObservable, AngularFire} from "angularfire2";
+import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "angularfire2";
 import {InsideService} from "../../Inside.service";
+import {InsideMainService} from "../../inside-main.service";
 @Component({
   selector: 'app-password-dialog',
   templateUrl: './password-dialog.component.html',
@@ -18,9 +18,9 @@ pass:string;
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  info: FirebaseListObservable<any[]>;
 
-
-  constructor(private af : AngularFire,private insideService:InsideService) {
+  constructor(private insideMainService:InsideMainService,private af : AngularFire,private insideService:InsideService) {
 
   }
 
@@ -32,15 +32,15 @@ pass:string;
   }
 
   delete(){
-
-   // console.log(this.password)
 if(this.password.password==this.pass){
-//console.log("一致")
+  this.insideMainService.jyoukyoukey=this.password.key;//削除するFileDataのキーを別に保管して　画像一覧の表示をオぶサーバ使って削除
    let storage = firebase.storage();
     let storageRef = storage.ref();
     let desertRef = storageRef.child('FileData/'+this.password.uid+'/'+this.password.filename);
     desertRef.delete().then(()=> {
-     this.minusImageSu(this.password.uid)
+
+      this.Delete(this.password.key,this.password.uid)
+
 
    }).catch((error)=> {
 
@@ -58,6 +58,20 @@ this.OnOff=true;
 
 
   }
+
+  Delete(key:string,uid:string){
+    this.info=this.af.database.list('FileData/'+uid)
+    this.info.remove(key)
+      .then(data=>{
+        this.minusImageSu(this.password.uid)
+
+      })
+      .catch(error=>{
+
+
+      });
+  }
+
    minusImageSu(uid:string){//クレーム情報の対応数をマイナス
      this.claimitem=this.insideService.claimitem;
     this.claimList=this.insideService.claimList
@@ -76,7 +90,7 @@ this.OnOff=true;
          };
          this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
-
+          this.modalRef.hide()
         }).catch(error=>{
 
          })

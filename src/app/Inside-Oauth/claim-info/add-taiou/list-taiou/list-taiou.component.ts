@@ -5,6 +5,7 @@ import * as firebase from 'firebase'
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
 import {TaiouDialogComponent} from "../../../Dialog/edit-dialog/taiou-dialog/taiou-dialog.component";
 import {Router} from "@angular/router";
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-list-taiou',
   templateUrl: './list-taiou.component.html',
@@ -35,7 +36,8 @@ taiouList:any[]=[];
    OnOff:boolean=false;
    passwordData:any[]=[];
   @ViewChild("editTaiouDialog") taiouDialogComponent: TaiouDialogComponent;
- constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+ constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,
+             private insideService:InsideService,private insideMainService:InsideMainService) {
     this.uid=this.oauthInfoService.uid;
   // this.key=this.insideService.claimitem.key;
    this.claimitem=this.insideService.claimitem;
@@ -87,7 +89,7 @@ taiouList:any[]=[];
     this.deleteTaiou(this.taiouData.key,this.uid)
    }
   View(index){
-    this.OnOff=true;
+    this.OnOff=true;//対象の画像の一覧を表示
     this.index=index;
     this.taiouData=this.newtaiouList[index];
     console.log(this.taiouData)
@@ -102,8 +104,9 @@ taiouList:any[]=[];
         passwordData.push(this.taiouData.password)
        }
      }
-       this.jyoukyouData=jyoukyouData
-       this.passwordData=passwordData
+       this.jyoukyouData=jyoukyouData;
+    this.insideMainService.jyoukyouData=this.jyoukyouData;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
+       this.passwordData=passwordData;
   }
   addImage(index){
     this.index=index;
