@@ -30,6 +30,14 @@ export class ImageService {
 
 
   }
+
+  setFile():void {
+
+    this.imagedetail=[];
+
+
+  }
+
   loadImage(file:File){
     let base64:string;
     let filename:string;

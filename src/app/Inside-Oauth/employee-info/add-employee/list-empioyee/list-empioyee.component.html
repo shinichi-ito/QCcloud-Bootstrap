@@ -31,7 +31,7 @@
 
         </thead>
         <tbody>
-        <tr *ngFor="let item of memberList let idx = index;">
+        <tr *ngFor="let item of memberList |orderby:'startAt';let idx = index;">
           <td>{{idx+1}}</td>
           <td>{{item.name}}</td>
           <td>{{item.siten}}</td>

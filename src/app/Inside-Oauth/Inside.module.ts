@@ -73,8 +73,6 @@ import { SelectTaisakuComponent } from './select-edit/select-taisaku/select-tais
 import { ViewImageComponent } from './claim-info/view-image/view-image.component';
 import { ImageTopComponent } from './claim-info/image-info/image-top/image-top.component';
 import { ProgressDialogComponent } from './Dialog/progress-dialog/progress-dialog.component';
-import { PasswordDialogComponent } from './Dialog/password-dialog/password-dialog.component';
-import { ImageEditDialogComponent } from './Dialog/image-edit-dialog/image-edit-dialog.component';
 import { SelectEditClaimComponent } from './claim-info/edit-claim/select-edit-claim/select-edit-claim.component';
 import { ChangeClaimComponent } from './claim-info/edit-claim/change-claim/change-claim.component';
 import { CommentDeleteDialogComponent } from './Dialog/delete-dialog/comment-delete-dialog/comment-delete-dialog.component';
@@ -162,8 +160,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ViewImageComponent,
     ImageTopComponent,
     ProgressDialogComponent,
-    PasswordDialogComponent,
-    ImageEditDialogComponent,
     SelectEditClaimComponent,
     ChangeClaimComponent,
     CommentDeleteDialogComponent,

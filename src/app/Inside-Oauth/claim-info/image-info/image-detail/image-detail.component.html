@@ -9,7 +9,7 @@
   <h4>ファイル名:　{{file.name}}</h4>
   <p>サイズ:　{{file.size}}　|　タイプ:　 {{file.type}}</p>
   <p *ngIf="flag"><button class="btn btn-primary" (click)="imageUpload(file)">アップロード</button></p>
-  <p *ngIf="flagOK"><button class="btn btn-success">アップロード済</button></p>
-  <p *ngIf="flagNG"><button class="btn btn-danger">アップロード失敗</button></p>
+  <div  *ngIf="flagOK" class="alert alert-success" role="alert">アップロード成功</div>
+  <div  *ngIf="flagNG" class="alert alert-danger" role="alert">失敗!!時間をおいて再アップロードください</div>
     </div>
 <hr>

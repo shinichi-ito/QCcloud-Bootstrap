@@ -12,7 +12,8 @@ export class ImageListComponent implements OnInit {
   imagedetail: ImageDetail[];
 
   constructor(private imageService: ImageService) {
-    this.imagedetail = this.imageService.imagedetail
+   // this.imagedetail = this.imageService.imagedetail
+    this.imageService.setFile()
   }
 
   ngOnInit() {

@@ -13,7 +13,7 @@ import * as firebase from 'firebase'
   templateUrl: './image-detail.component.html',
   styleUrls: ['./image-detail.component.css']
 })
-export class ImageDetailComponent implements OnInit,OnDestroy {
+export class ImageDetailComponent implements OnInit ,OnDestroy{
   @Input() file:ImageDetail;
   @Input() fileId:number;
   comment:string='';

@@ -173,7 +173,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   busyoAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
       commentsRef.on('child_added', (value)=> {
-        this.busyoList.push({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
+       // console.log('busyo追加')
+        this.busyoList.unshift({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
   busyoChangeTrigger(uid){
@@ -200,7 +201,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   sitenAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/SitenInfo');
       commentsRef.on('child_added', (value) =>{
-        this.sitenList.push({key:value.key,siten:value.val().siten,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
+        this.sitenList.unshift({key:value.key,siten:value.val().siten,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
   sitenChangeTrigger(uid){
@@ -228,7 +229,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
       commentsRef.on('child_added', (value)=> {
         console.log()
-        this.memberList.push({key:value.key,name:value.val().name,siten:value.val().siten,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
+        this.memberList.unshift({key:value.key,name:value.val().name,siten:value.val().siten,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
   memberChangeTrigger(uid){

@@ -3,9 +3,7 @@ import {OauthInfoService} from "../../oauth-info.service";
 import * as firebase from 'firebase'
 import {InsideService} from "../../Inside.service";
 import {FirebaseObjectObservable, AngularFire} from "angularfire2";
-import {PasswordDialogComponent} from "../../Dialog/password-dialog/password-dialog.component";
 import {InsideMainService} from "../../inside-main.service";
-import {ImageEditDialogComponent} from "../../Dialog/image-edit-dialog/image-edit-dialog.component";
 import {ImageDeleteDialogComponent} from "../../Dialog/delete-dialog/image-delete-dialog/image-delete-dialog.component";
 import {ImageDialogComponent} from "../../Dialog/edit-dialog/image-dialog/image-dialog.component";
 @Component({

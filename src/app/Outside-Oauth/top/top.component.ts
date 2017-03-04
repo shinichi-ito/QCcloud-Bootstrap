@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
+import {NotificationType, NotificationBarService} from "angular2-notification-bar";
 
 @Component({
   selector: 'app-top',
@@ -8,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class TopComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private notificationBarService:NotificationBarService,private router: Router) {
 
 
   }
@@ -22,6 +23,6 @@ signIn(){
 
 }
 test(){
-
+  this.notificationBarService.create({ message: 'アップロード成功', type: NotificationType.Error});
 }
 }
