@@ -22,7 +22,6 @@ export class ImageDialogComponent implements OnInit {
   pass:string;
   constructor(private insideMainService:InsideMainService,private af : AngularFire) {
 
-
   }
 
   ngOnInit() {}
@@ -56,20 +55,20 @@ export class ImageDialogComponent implements OnInit {
       // console.log(this.password2.key)
       this.insideMainService.jyoukyoukey=this.password2.key;//削除するFileDataのキーを別に保管して　画像一覧の表示をオぶサーバ使って削除
       // console.log( this.insideMainService.jyoukyoukey)
-
-      const Info = {
-        toukousya:this.toukousya,
-        siten:this.siten,
-        busyo:this.busyo,
-        comment:this.comment,
-        updateAt: firebase.database.ServerValue.TIMESTAMP,
-      };
-      this.value = this.af.database.object('FileData/' + this.password2.uid + '/'+this.password2.key);
-      this.value.update(Info).then(data=>{
-
-        this.modalRef.hide()
-      }).catch(error=>{
-      })
+this.insideMainService.fileDataUp(this.toukousya,this.siten,this.busyo,this.comment,this.password2.uid,this.password2.key)
+//       const Info = {
+//         toukousya:this.toukousya,
+//         siten:this.siten,
+//         busyo:this.busyo,
+//         comment:this.comment,
+//         updateAt: firebase.database.ServerValue.TIMESTAMP,
+//       };
+//       this.value = this.af.database.object('FileData/' + this.password2.uid + '/'+this.password2.key);
+//       this.value.update(Info).then(data=>{
+// this.insideMainService.imageData=data;
+         this.modalRef.hide()
+//       }).catch(error=>{
+//       })
     }else{
       this.OnOff=true;
     }

@@ -1,3 +1,10 @@
+<div class="container">
+
+  <!-- content -->
+  <div class="row" style="padding:60px 0 0 0">
+    <!-- left -->
+    <div class="col-md-9">
+
 <div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
   <div class="panel-heading">
     原因分析情報一覧
@@ -14,11 +21,7 @@
           <th >
             編集
           </th>
-          <th >
-            関連ファイル
-          </th>
-
-        </tr>
+            </tr>
         </thead>
         <tbody>
         <tr *ngFor="let item of newgeninList let idx = index;">
@@ -29,15 +32,11 @@
             {{item.naiyou}}
           </td>
           <td>
-            <button type="button" class="btn btn-primary" (click)="setEdit(idx)">編集</button>
-            <button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>
-
-          </td>
-
-          <td>
-            <button type="button" class="btn btn-primary" (click)="addImage(idx)">関連ファイル登録</button>
-            <button type="button" class="btn btn-primary" (click)="View(idx)">関連ファイル</button>
-          </td>
+            <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="編集" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="削除" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="関連ファイル登録" (click)="addImage(idx)"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-primary"  data-toggle="tooltip" data-placement="right" title="関連ファイル表示" (click)="View(idx)"><i class="fa fa-list" aria-hidden="true"></i></button>
+      </td>
 
         </tr>
         </tbody>
@@ -45,12 +44,18 @@
     </div>
   </div>
 </div>
+    </div>
+
+    <div  class="col-md-3">
+
+      <app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData"></app-view-image>
+      <button  *ngIf="OnOff" type="button" class="btn btn-primary" (click)="Close()">閉じる</button>
+    </div>
+
+  </div>
+</div>
 
 
-
-
-<button  *ngIf="OnOff" type="button" class="btn btn-primary" (click)="Close()">閉じる</button>
-<app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData"></app-view-image>
 
 
 

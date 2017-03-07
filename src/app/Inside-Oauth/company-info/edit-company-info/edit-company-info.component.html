@@ -1,0 +1,69 @@
+
+  <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
+    <div class="panel-heading">
+      登録会社情報
+    </div>
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label for="companyname">会社名</label>
+        <input type="text" class="form-control" name="companyname" [(ngModel)]="companyname"  id="companyname" placeholder="会社名を入力して下さい。">
+      </div>
+      <div class="form-group">
+        <label for="address">住所</label>
+        <input type="text" class="form-control" name="address" [(ngModel)]="address"  id="address" placeholder="住所を入力して下さい。">
+      </div>
+
+      <div class="form-group">
+        <label for="tel">TEL</label>
+        <input type="text" class="form-control" name="tel" [(ngModel)]="tel"  id="tel" placeholder="電話番号を入力して下さい。">
+      </div>
+
+      <div class="form-group">
+        <label for="daihyouname">代表者名</label>
+        <input type="text" class="form-control" id="daihyouname" name="daihyouname" [(ngModel)]="daihyouname"  placeholder="代表者名を入力して下さい。">
+      </div>
+
+
+      <div class="form-group">
+        <label for="syokusyu">職種</label>
+        <select class="form-control" id="syokusyu" name="occupation"  [(ngModel)]='occupation'>
+          <option *ngFor="let item of occupations" [value]="item.label">
+            {{ item.label }}</option>
+        </select>
+
+      </div>
+
+      <div class="form-group">
+        <label for="jyugyouinsu">従業員数</label>
+        <select class="form-control" id="jyugyouinsu" name="employee"  [(ngModel)]='employee'>
+          <option *ngFor="let item of employees" [value]="item.label">
+            {{ item.label }}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="tantousyaname">担当者名</label>
+        <input type="text" class="form-control" name="tantouname"  [(ngModel)]='tantouname' id="tantousyaname" placeholder="担当者名を入力して下さい。">
+      </div>
+
+      <div class="form-group">
+        <label for="email">メールアドレス</label>
+        <input type="email" class="form-control" name="email"  [(ngModel)]='email' id="email" placeholder="連絡用のメールアドレスを入力ください。">
+      </div>
+
+      <div *ngIf="companyB" class="alert alert-danger" role="alert">会社名を入力ください</div>
+      <div *ngIf="daihyounameB" class="alert alert-danger" role="alert">代表者名を入力ください</div>
+      <div *ngIf="addressB" class="alert alert-danger" role="alert">住所を入力ください</div>
+      <div *ngIf="telB" class="alert alert-danger" role="alert">電話番号を入力ください</div>
+      <div  *ngIf="telB2"class="alert alert-danger" role="alert">電話番号は数字でハイフン無しの10～11桁で入力ください</div>
+      <div *ngIf="tantounameB" class="alert alert-danger" role="alert">担当者名を入力ください</div>
+      <div *ngIf="emailB" class="alert alert-danger" role="alert">メールアドレスを入力ください</div>
+      <div *ngIf="emailB2" class="alert alert-danger" role="alert">メールアドレスのフォーマットに誤りがあります。</div>
+      <button (click)="upCompanyInfo()"  class="btn btn-primary btn-block">編集</button>
+    </div>
+  </div>
+
+

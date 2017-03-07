@@ -16,6 +16,8 @@ import { PrivacyPolicyComponent } from './Outside-Oauth/privacy-policy/privacy-p
 import { RiyouKiyakuComponent } from './Outside-Oauth/riyou-kiyaku/riyou-kiyaku.component';
 import { ModalModule } from 'ng2-bootstrap/modal';
 import {NotificationBarModule} from "angular2-notification-bar";
+import { AskFormComponent } from './Outside-Oauth/ask-form/ask-form.component';
+import { MyCompanyInfoComponent } from './Outside-Oauth/my-company-info/my-company-info.component';
 
 
 
@@ -37,7 +39,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SignInComponent,
     SignUpComponent,
     PrivacyPolicyComponent,
-    RiyouKiyakuComponent
+    RiyouKiyakuComponent,
+    AskFormComponent,
+    MyCompanyInfoComponent
 
 
   ],

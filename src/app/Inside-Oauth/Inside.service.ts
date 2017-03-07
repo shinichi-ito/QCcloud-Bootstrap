@@ -16,6 +16,9 @@ import {Observable} from "rxjs";
  */
 @Injectable()
 export class InsideService {
+  shareData;
+
+
   public file:File;
   busyos: FirebaseListObservable<any[]>;
   sitens: FirebaseListObservable<any[]>;
@@ -56,11 +59,11 @@ key:string;//各登録情報のユニークなキー
   flagChangeKouka$: Observable<number>;
   private _observerKouka;
 
-  flagChangeFileEdit$: Observable<number>;
-  private _observerFileEdit;
-
-  flagChangeFileDelete$: Observable<number>;
-  private _observerFileDelete;
+  //  flagChangeFileEdit$: Observable<number>;
+  //  private _observerFileEdit;
+  // //
+  //  flagChangeFileDelete$: Observable<number>;
+  //  private _observerFileDelete;
 
   flagChangeTaiouDelete$: Observable<number>;
   private _observerTaiouDelete;
@@ -97,11 +100,11 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.flagChangeKouka$ = new Observable(observer =>
     this._observerKouka = observer).share();
 
-  this.flagChangeFileEdit$ = new Observable(observer =>
-    this._observerFileEdit = observer).share();
-
-  this.flagChangeFileDelete$ = new Observable(observer =>
-    this._observerFileDelete = observer).share();
+  // this.flagChangeFileEdit$ = new Observable(observer =>
+  //  this._observerFileEdit = observer).share();
+  //
+  // this.flagChangeFileDelete$ = new Observable(observer =>
+  //  this._observerFileDelete = observer).share();
 
   this.flagChangeTaiouDelete$ = new Observable(observer =>
     this._observerTaiouDelete = observer).share();
@@ -170,6 +173,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
 
 
   //Firebaseのトリガー関連
+
   busyoAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
       commentsRef.on('child_added', (value)=> {
@@ -228,7 +232,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   memberAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/MemberInfo');
       commentsRef.on('child_added', (value)=> {
-        console.log()
+     //   console.log()
         this.memberList.unshift({key:value.key,name:value.val().name,siten:value.val().siten,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }
@@ -320,12 +324,30 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     return  this.imageInfo.push(imageInfo)
 
   }
+  addFileInfoDatabase(downloadURL:string,comment:string,type:string,filename:string){
+    const imageInfo = {
+      doko:this.InfoData[0].doko,
+      downloadURL:downloadURL,
+      type:type,
+      filename:filename,
+      comment:comment,
+      jyoukyoukey:this.InfoData[0].jyoukyoukey,//このキーは対応や対策のキーです。その対応や対策に対応する画像を選別するため必要
+      toukousya:this.InfoData[0].toukousya,
+      siten:this.InfoData[0].siten,
+      busyo:this.InfoData[0].busyo,
+      claimkey:this.InfoData[0].claimkey,
+      startAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    this.imageInfo=this.af.database.list('FileData/'+this.uid)
+    //this.imageInfo=this.af.database.list('FileData/'+this.uid+'/'+this.InfoData[0].key)
+    return  this.imageInfo.push(imageInfo)
 
+  }
 
   fileAddTrigger(uid){
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_added', (value)=> {
-      //console.log("imagefile追加"+value.val())
+     // console.log("imagefile追加"+value.val().downloadURL)
       this.fileList.push({claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
         jyoukyoukey:value.val().jyoukyoukey,type:value.val().type,comment:value.val().comment,toukousya:value.val().toukousya,
         siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,filename:value.val().filename,
@@ -336,15 +358,17 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   fileChangeTrigger(uid){
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_changed', (value)=> {
-      // console.log("claim変更"+value.val().busyo)
+       console.log("claim変更"+value.val())
+    //  this._observerFileEdit.next(this.fileList);
       for(let index in this.fileList){
         if(this.fileList[index].key==value.key){
-          this._observerFileEdit.next(this.fileList);
+
           this.fileList[index]={claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
             jyoukyoukey:value.val().jyoukyoukey, type:value.val().type, comment:value.val().comment,toukousya:value.val().toukousya,
             siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,filename:value.val().filename,
             startAt:value.val().startAt}
         }
+
       }
     })
   }
@@ -352,7 +376,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_removed', (value)=> {
      //  console.log("claim削除"+value)
-      this._observerFileDelete.next(this.fileList);
+   //   this._observerFileDelete.next(this.fileList);
       for(let key in this.fileList){
         if(this.fileList[key].key==value.key){
           this.fileList.splice(Number(key),1);

@@ -100,6 +100,49 @@ export class ImageService {
 
 
   }
+
+  uploadingFile2(file:File,uid:string) {
+    let storageRef = this._firebase.storage().ref('FileData/'+uid+'/'+file.name)
+    let fileUploading =  storageRef.put(file);
+    this._progress$=Observable.create(observer=>{
+      fileUploading.on('state_changed',
+        (snapshot)=> {
+          let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // console.log(percentage)
+          observer.next(percentage)
+        },
+        (error)=> {
+          switch (error.message) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+          observer.error(error.message)
+        },
+        ()=> {
+          let downloadURL = fileUploading.snapshot.downloadURL;
+          console.log(downloadURL)
+          observer.next(downloadURL);
+
+          observer.complete()
+        }
+
+      );
+
+    });
+
+
+  }
+
+
+
+
   imageAnalysis(filename:string){
     let base64:string;
     var VISION_API_URL = "https://vision.googleapis.com/v1/images:annotate?key=";//画像解析

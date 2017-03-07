@@ -5,8 +5,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-taisaku.component.css']
 })
 export class AddTaisakuComponent  {
-  public constructor() {}
+  aa:string;
+  bb:string;
 
+  public constructor() {
+    this.aa='active';
+    this.bb='';
 
+  }
+
+  aaa(){
+    this.aa='active';
+    this.bb=''
+
+  }
+  bbb(){
+    this.bb='active';
+    this.aa=''
+
+  }
 
 }

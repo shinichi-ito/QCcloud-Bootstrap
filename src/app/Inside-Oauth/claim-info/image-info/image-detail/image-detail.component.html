@@ -1,4 +1,12 @@
-    <img [src]="photoURL()" style="height:100px" class="img-rounded">
+
+
+
+
+
+    <img  [src]="photoURL()" style="height:100px" class="img-rounded">
+
+    <img   src="{{fileUrl}}" style="height:100px" class="img-rounded">
+
     <div class="form-group">
       <label for="InputTextarea">画像情報</label>
       <textarea class="form-control" [(ngModel)]="comment" rows="3" id="InputTextarea" placeholder="画像に関して補足情報入力"></textarea>
@@ -11,5 +19,6 @@
   <p *ngIf="flag"><button class="btn btn-primary" (click)="imageUpload(file)">アップロード</button></p>
   <div  *ngIf="flagOK" class="alert alert-success" role="alert">アップロード成功</div>
   <div  *ngIf="flagNG" class="alert alert-danger" role="alert">失敗!!時間をおいて再アップロードください</div>
+      <div  *ngIf="noSupport" class="alert alert-danger" role="alert">サポートされてないファイルです。</div>
     </div>
 <hr>

@@ -1,4 +1,4 @@
-<div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
+<div class="panel panel-default" style="width: 50%;margin: 0 auto;margin-top: 20px">
   <div class="panel-heading">
     対応情報一覧
   </div>
@@ -16,7 +16,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of taiouList let idx = index;">
+        <tr *ngFor="let item of taiouList|orderby:'startAt'; let idx = index;">
           <td>{{idx+1}}</td>
           <td>{{item.syubetu}}</td>
           <td>{{item.name}}　　所属:　{{item.siten}}　{{item.busyo}}<br>

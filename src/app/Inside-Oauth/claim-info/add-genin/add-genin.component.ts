@@ -5,11 +5,22 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './add-genin.component.html',
   styleUrls: ['./add-genin.component.css']
 })
-export class AddGeninComponent implements OnInit {
+export class AddGeninComponent {
+  aa:string;
+  bb:string;
 
-  constructor() { }
+  public constructor() {
+    this.aa='active';
+    this.bb=''
+  }
+  aaa(){
+    this.aa='active';
+    this.bb=''
 
-  ngOnInit() {
+  }
+  bbb(){
+    this.bb='active';
+    this.aa='';
   }
 
 }

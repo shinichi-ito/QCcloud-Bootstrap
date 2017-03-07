@@ -22,7 +22,7 @@ signIn(){
   this.router.navigate(['/signin'])
 
 }
-test(){
-  this.notificationBarService.create({ message: 'アップロード成功', type: NotificationType.Error});
-}
+// test(){
+//   this.notificationBarService.create({ message: 'アップロード成功', type: NotificationType.Error});
+// }
 }

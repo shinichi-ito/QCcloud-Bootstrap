@@ -14,6 +14,8 @@ import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-
 export class ClaimListAllComponent  {
 
   public data;
+  newclaimList;
+  newclaimList2:any[]=[];
   public data2;
   public filterQuery = "";
   public rowsOnPage = 10;
@@ -26,7 +28,19 @@ export class ClaimListAllComponent  {
   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
   Data:string='プログレス内容'
   constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
-      this.data=this.insideService.claimList
+     // this.data=this.insideService.claimList
+    this.newclaimList=this.insideService.claimList
+    for(let key in this.newclaimList){
+      //  console.log(this.fileList[key].doko)
+      if(this.newclaimList[key].koukai=='koukai'){
+        this.newclaimList2.push(this.newclaimList[key])
+      }
+    }
+this.data=this.newclaimList2
+
+
+
+
  }
 
 

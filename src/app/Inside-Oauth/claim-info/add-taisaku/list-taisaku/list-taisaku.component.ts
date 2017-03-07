@@ -39,6 +39,7 @@ export class ListTaisakuComponent implements OnInit {
   passwordData:any[]=[];
   key:string;
   Data2:any[]=[];
+
   @ViewChild("editTaisakuDialog") taisakuDialogComponent: TaisakuDialogComponent;
   @ViewChild("deleteTaisakuDialog") taisakuDeleteDialogComponent: TaisakuDeleteDialogComponent;
   constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
@@ -94,9 +95,10 @@ export class ListTaisakuComponent implements OnInit {
   }
 
   View(index){
-    this.OnOff=true;
+    this.OnOff=!this.OnOff;
     this.index=index;
     this.taisakuData=this.newtaisakuList[index];
+    this.insideService.shareData=this.taisakuData;
     // console.log(this.taiouData.key)
     let jyoukyouData:any[]=[];
     let passwordData:any[]=[];

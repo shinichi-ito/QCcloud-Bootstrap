@@ -97,9 +97,10 @@ export class ListGeninComponent implements OnInit {
 
 
   View(index){
-    this.OnOff=true;
+    this.OnOff=!this.OnOff;
     this.index=index;
     this.geninData=this.newgeninList[index];
+    this.insideService.shareData=this.geninData;
     // console.log(this.taiouData.key)
     let jyoukyouData:any[]=[];
     let passwordData:any[]=[];

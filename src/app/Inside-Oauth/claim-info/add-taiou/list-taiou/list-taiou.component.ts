@@ -110,24 +110,35 @@ taiouList:any[]=[];
     this.taiouDeleteDialogComponent.openDialog();
     //  this.deleteTaiou(this.taiouData.key,this.uid)
    }
+   Edit(){
+
+
+
+
+   }
+
+
+
   View(index){
-    this.OnOff=true;//対象の画像の一覧を表示
+    this.OnOff=!this.OnOff;//対象の画像の一覧を表示
     this.index=index;
     this.taiouData=this.newtaiouList[index];
-    console.log(this.taiouData)
+    this.insideService.shareData=this.taiouData;
+  //  console.log(this.taiouData)
     let jyoukyouData:any[]=[];
     let passwordData:any[]=[];
     for(let key in this.newfileList){
 
-     // console.log(this.newfileList[key].jyoukyoukey)
+    //  console.log(this.newfileList[key].jyoukyoukey)
+    //  console.log(this.taiouData.key)
       if(this.newfileList[key].jyoukyoukey==this.taiouData.key){
-      //  console.log(this.newfileList[key].jyoukyoukey)
+      // console.log(this.newfileList[key].jyoukyoukey)
         jyoukyouData.push(this.newfileList[key]);
         passwordData.push(this.taiouData.password)
        }
      }
        this.jyoukyouData=jyoukyouData;
-    this.insideMainService.jyoukyouData=this.jyoukyouData;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
+ //   this.insideMainService.jyoukyouData=this.jyoukyouData;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
        this.passwordData=passwordData;
   }
   addImage(index){

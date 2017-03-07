@@ -94,9 +94,10 @@ export class ListKoukaComponent implements OnInit {
 
 
   View(index){
-    this.OnOff=true;
+    this.OnOff=!this.OnOff;
     this.index=index;
     this.koukaData=this.newkoukaList[index];
+    this.insideService.shareData=this.koukaData;
     // console.log(this.taiouData.key)
     let jyoukyouData:any[]=[];
     let passwordData:any[]=[];

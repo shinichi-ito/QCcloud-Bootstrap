@@ -1,50 +1,69 @@
 <!--参考サイトhttps://www.softel.co.jp/blogs/tech/archives/2848-->
-<div style="width:90%;margin: auto; border:1px solid #cc0000;">
+<div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    情報一覧
+  </div>
+  <div class="panel-body">
+
+<div style="margin: auto;">
   <table   style="table-layout:fixed;width:100%;" class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
            [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
     <thead>
     <tr>
-      <th style="width: 10%">
+      <th style="width: 7%">
         編集
       </th>
-      <th style="width: 20%">
+      <th style="width: 10%">
         <mfDefaultSorter by="syubetu">情報種別</mfDefaultSorter>
       </th>
-      <th style="width: 20%">
+      <th style="width: 10%">
         <mfDefaultSorter by="seihin">対象製品</mfDefaultSorter>
       </th>
-      <th style="width: 30%">
+      <th style="width: 20%">
         <mfDefaultSorter by="gaiyou">情報概要</mfDefaultSorter>
       </th>
       <th style="width: 10%">
         <mfDefaultSorter by="name">投稿者</mfDefaultSorter>
       </th>
+      <th style="width: 15%">
+       状況
+      </th>
       <th style="width: 10%">
         <mfDefaultSorter by="gaiyou">登録日</mfDefaultSorter>
       </th>
+
+
+
     </tr>
     <tr>
       <th colspan="1">
       </th>
-      <th colspan="1">
+      <th colspan="3">
 
-      </th>
-      <th colspan="1">
-        Filter by name:
-        <input class="form-control" [(ngModel)]="filterQuery"/>
+        <input class="form-control" [(ngModel)]="filterQuery" placeholder="種別、対象製品、概要から検索"/>
       </th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of mf.data">
-      <td>
-        <button (click)="sendEditClaim(item)" class="btn btn-primary"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
-        <button  class="btn btn-warning"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+      <td style="word-wrap:break-word;">
+        <button (click)="sendEditClaim(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　情報登録</button>
+
       </td>
       <td style="word-wrap:break-word;">{{item.syubetu}}</td>
       <td style="word-wrap:break-word;">{{item.seihin}}</td>
       <td  style="word-wrap:break-word;">{{item.gaiyou}}</td>
       <td>{{item.name }}</td>
+      <td  style="word-wrap:break-word;">
+        <button class="btn btn-info btn-xs" type="button">対応数<span class="badge">{{item.taiou}}</span></button>
+        <button class="btn btn-primary  btn-xs" type="button">原因分析数<span class="badge">{{item.genin}}</span></button>
+        <button class="btn btn-success btn-xs" type="button">対策数<span class="badge">{{item.taisaku}}</span></button>
+        <button class="btn btn-primary  btn-xs" type="button">効果確認数<span class="badge">{{item.kouka}}</span></button>
+        <button class="btn btn-info  btn-xs" type="button">関連ファイル数<span class="badge">{{item.file}}</span></button>
+
+      </td>
+
+
       <td>{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST' }}</td>
     </tr>
     </tbody>
@@ -58,7 +77,8 @@
   </table>
 
 </div>
-
+  </div>
+</div>
 
 <button type="button" class="btn btn-primary" (click)="Error()">エラーテスト</button>
 <button type="button" class="btn btn-primary" (click)="Progress()">プログレステスト</button>

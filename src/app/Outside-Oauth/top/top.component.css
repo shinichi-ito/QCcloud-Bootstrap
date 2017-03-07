@@ -1,18 +1,10 @@
-html {
-  position: relative;
-  min-height: 100%;
-}
-body{
-  margin-bottom: 200px;
-  /* footerの高さの最大値 */
-  padding-bottom: 0;
+
+.jumbotron {
+  background-image: url("assets/img/Top4.jpg");
+  background-size: cover;
+
+  background-position: 50% 70%;
+  height: 400px;
+
 }
 
-footer{
-  min-height: 100px;
-  /* footerの最小値 */
-  width:100%;
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 0;
-}

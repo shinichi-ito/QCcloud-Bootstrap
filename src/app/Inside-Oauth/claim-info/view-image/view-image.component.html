@@ -1,8 +1,9 @@
 
 <ul class="list-group" >
-  <li class="list-group-item" *ngFor="let item of jyoukyouData let idx = index;">
+
+  <li class="list-group-item" *ngFor="let item of jyoukyouData2 let idx = index;">
     <div style="width: 200px" class="thumbnail">
-      <img style="height: 150px" src="{{item?.downloadURL}}">
+      <img style="height: 150px" src="{{item?.downloadURL2}}">
       <div class="caption">
         <p>備考</p>
         <p>{{item?.comment}}</p>
@@ -17,6 +18,9 @@
 
   </li>
 </ul>
+
+
+
 <app-image-delete-dialog  [password]="password"  #imageDeleteDialog></app-image-delete-dialog>
 <app-image-dialog  [password2]="password2"  #imageEditDialog></app-image-dialog>
 

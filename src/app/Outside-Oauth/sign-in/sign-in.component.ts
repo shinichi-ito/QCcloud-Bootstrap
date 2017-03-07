@@ -157,7 +157,7 @@ changeTop(){
               if(data.$value===1){
                 console.log("クレームリストへ");
               //  this.router.navigate(['/main/editclaim/selecteditclaim'])
-               this.router.navigate(['/main/list/claimlistall'])
+               this.router.navigate(['/main/topinside'])
                 ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
                 //     this.insideService.addSitenSQLite()
                 //     this.insideService.addBusyoSQLite()

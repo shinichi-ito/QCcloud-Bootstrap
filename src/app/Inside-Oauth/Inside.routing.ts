@@ -22,6 +22,8 @@ import {SelectSyubetuComponent} from "./select-edit/select-syubetu/select-syubet
 import {SelectTaisakuComponent} from "./select-edit/select-taisaku/select-taisaku.component";
 import {SelectTaiouComponent} from "./select-edit/select-taiou/select-taiou.component";
 import {EDIT_CLAIM_ROUTES} from "./claim-info/edit-claim/edit-claim-routing";
+import {TopInsideComponent} from "./top-inside/top-inside.component";
+import {EditCompanyInfoComponent} from "./company-info/edit-company-info/edit-company-info.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -31,7 +33,6 @@ const IN_ROUTES: Routes = [
     { path: 'list',component:ClaimListComponent,children:CLAIMALL_ROUTES},
     { path: 'image',component:ImageInfoComponent},
     { path: 'addclaim',component:AddClaimComponent},
-    { path: 'editclaim',component:EditClaimComponent},
     { path: 'topclaim',component:TopClaimComponent,children:CLAIM_ROUTES},
     { path: 'addemployee',component:AddEmployeeComponent},
     { path: 'addbranchoffice',component:AddBranchOfficeComponent},
@@ -41,7 +42,7 @@ const IN_ROUTES: Routes = [
     { path: 'selecttaiouedit',component:SelectTaiouComponent},
     { path: 'selecttaisakuedit',component:SelectTaisakuComponent},
     { path: 'editclaim',component:EditClaimComponent,children:EDIT_CLAIM_ROUTES},
-
+    { path: 'topinside',component:TopInsideComponent}
 
 
   ]}

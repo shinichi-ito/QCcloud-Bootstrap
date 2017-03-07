@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Menu
+  </div>
+  <!-- 敢えてbodyを作らないことで、メニューを詰める -->
+  <!-- <div class="panel-body"> -->
+  <ul class="nav nav-pills nav-stacked">
+    <li><a [routerLink]="['/main/topinside']" style="cursor:pointer;">トップ</a></li>
+    <li><a href=""><i class="glyphicon glyphicon-pencil"></i> 使い方説明</a></li>
+    <li><a [routerLink]="['/main/addbranchoffice']"><i class="glyphicon glyphicon-download"></i> 支店登録</a></li>
+    <li><a  [routerLink]="['/main/adddepartment']"><i class="glyphicon glyphicon-download"></i> 部署登録</a></li>
+    <li><a [routerLink]="['/main/addemployee']"><i class="glyphicon glyphicon-download"></i> メンバー登録</a></li>
+    <li><a [routerLink]="['/main/companyInfo/editcompanyinfo']"><i class="glyphicon glyphicon-folder-open"></i> 登録会社情報</a></li>
+  </ul>
+  <!-- </div> -->
+</div>

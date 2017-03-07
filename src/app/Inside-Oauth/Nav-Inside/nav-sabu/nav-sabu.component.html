@@ -1,0 +1,30 @@
+<app-nav-main></app-nav-main>
+
+
+
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        操作バー
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarEexample7">
+      <ul class="nav navbar-nav  navbar-right">
+        <li><a [routerLink]="['/main/list/claimlistall']" style="cursor:pointer;">一覧</a></li>
+        <li><a [routerLink]="['/main/addclaim']" style="cursor:pointer;">新規登録</a></li>
+        <li><a [routerLink]="['/main/editclaim/selecteditclaim']" style="cursor:pointer;">公開前</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

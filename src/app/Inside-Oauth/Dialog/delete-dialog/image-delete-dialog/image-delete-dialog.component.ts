@@ -38,8 +38,8 @@ export class ImageDeleteDialogComponent implements OnInit {
       let storageRef = storage.ref();
       let desertRef = storageRef.child('FileData/'+this.password.uid+'/'+this.password.filename);
       desertRef.delete().then(()=> {
-
-        this.Delete(this.password.key,this.password.uid)
+        this.modalRef.hide()
+        this.insideMainService.fileDelete(this.password.key,this.password.uid)
 
 
       }).catch((error)=> {
@@ -59,43 +59,43 @@ export class ImageDeleteDialogComponent implements OnInit {
 
   }
 
-  Delete(key:string,uid:string){
-    this.info=this.af.database.list('FileData/'+uid)
-    this.info.remove(key)
-      .then(data=>{
-        this.minusImageSu(this.password.uid)
-
-      })
-      .catch(error=>{
-
-
-      });
-  }
-
-  minusImageSu(uid:string){//クレーム情報の対応数をマイナス
-    this.claimitem=this.insideService.claimitem;
-    this.claimList=this.insideService.claimList
-    for(let key in this.claimList) {
-      if (this.claimList[key].key == this.claimitem.key) {
-        //  console.log(this.claimList[key].file)
-
-        let su:number;
-        su=this.claimList[key].file-1;
-        if(su<0){
-          su=0;
-        }
-        const claimInfo = {
-          file:su,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
-        };
-        this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key)
-        this.claimInfo.update(claimInfo).then(data=>{
-          this.modalRef.hide()
-        }).catch(error=>{
-
-        })
-      }
-    }
-  }
+  // Delete(key:string,uid:string){
+  //   this.info=this.af.database.list('FileData/'+uid)
+  //   this.info.remove(key)
+  //     .then(data=>{
+  //       this.minusImageSu(this.password.uid)
+  //
+  //     })
+  //     .catch(error=>{
+  //
+  //
+  //     });
+  // }
+  //
+  // minusImageSu(uid:string){//クレーム情報の対応数をマイナス
+  //   this.claimitem=this.insideService.claimitem;
+  //   this.claimList=this.insideService.claimList
+  //   for(let key in this.claimList) {
+  //     if (this.claimList[key].key == this.claimitem.key) {
+  //       //  console.log(this.claimList[key].file)
+  //
+  //       let su:number;
+  //       su=this.claimList[key].file-1;
+  //       if(su<0){
+  //         su=0;
+  //       }
+  //       const claimInfo = {
+  //         file:su,
+  //         updateAt: firebase.database.ServerValue.TIMESTAMP
+  //       };
+  //       this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key)
+  //       this.claimInfo.update(claimInfo).then(data=>{
+  //         this.modalRef.hide()
+  //       }).catch(error=>{
+  //
+  //       })
+  //     }
+  //   }
+  // }
 
 }

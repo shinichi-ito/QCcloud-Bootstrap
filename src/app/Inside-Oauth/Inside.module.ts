@@ -41,7 +41,6 @@ import { AddDepartComponent } from './employee-info/add-department/add-depart/ad
 import { AddEmloyComponent } from './employee-info/add-employee/add-emloy/add-emloy.component';
 import { ListEmpioyeeComponent } from './employee-info/add-employee/list-empioyee/list-empioyee.component';
 import {CompanyInfoService} from "./company-info/company-info.service";
-import { HeaderMainComponent } from './header-main/header-main.component';
 import { TopClaimComponent } from './claim-info/top-claim/top-claim.component';
 import { TopClaimEditComponent } from './claim-info/top-claim/top-claim-edit/top-claim-edit.component';
 import { ListTaiouComponent } from './claim-info/add-taiou/list-taiou/list-taiou.component';
@@ -82,6 +81,12 @@ import { TaiouDeleteDialogComponent } from './Dialog/delete-dialog/taiou-delete-
 import { TaisakuDeleteDialogComponent } from './Dialog/delete-dialog/taisaku-delete-dialog/taisaku-delete-dialog.component';
 import { ImageDeleteDialogComponent } from './Dialog/delete-dialog/image-delete-dialog/image-delete-dialog.component';
 import { ImageDialogComponent } from './Dialog/edit-dialog/image-dialog/image-dialog.component';
+import { TopInsideComponent } from './top-inside/top-inside.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+import { EditCompanyInfoComponent } from './company-info/edit-company-info/edit-company-info.component';
+import { NavMainComponent } from './Nav-Inside/nav-main/nav-main.component';
+import { NavSabuComponent } from './Nav-Inside/nav-sabu/nav-sabu.component';
+
 
 
 /**
@@ -129,7 +134,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AddDepartComponent,
     AddEmloyComponent,
     ListEmpioyeeComponent,
-    HeaderMainComponent,
     TopClaimComponent,
     TopClaimEditComponent,
     ListTaiouComponent,
@@ -168,7 +172,12 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TaiouDeleteDialogComponent,
     TaisakuDeleteDialogComponent,
     ImageDeleteDialogComponent,
-    ImageDialogComponent
+    ImageDialogComponent,
+    TopInsideComponent,
+    SideMenuComponent,
+    EditCompanyInfoComponent,
+    NavMainComponent,
+    NavSabuComponent
 
 
 
