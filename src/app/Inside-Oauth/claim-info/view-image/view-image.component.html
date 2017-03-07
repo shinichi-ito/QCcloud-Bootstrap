@@ -1,4 +1,10 @@
+<div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    関連ファイル一覧
+  </div>
+  <div class="panel-body">
 
+    <div style="height:500px;width:240px;overflow-y:auto;">
 <ul class="list-group" >
 
   <li class="list-group-item" *ngFor="let item of jyoukyouData2 let idx = index;">
@@ -18,8 +24,9 @@
 
   </li>
 </ul>
-
-
+    </div>
+  </div>
+</div>
 
 <app-image-delete-dialog  [password]="password"  #imageDeleteDialog></app-image-delete-dialog>
 <app-image-dialog  [password2]="password2"  #imageEditDialog></app-image-dialog>
