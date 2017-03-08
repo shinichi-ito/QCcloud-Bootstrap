@@ -76,14 +76,14 @@ export class ListKoukaComponent implements OnInit {
 
 
   ngOnInit() {
-    this.koukaList=this.insideService.koukaList
+    this.koukaList=this.insideService.koukaList;
 
     for(let key in this.koukaList){
-      if(this.claimitem.key==this.koukaList[key].claimkey){
+      if(this.claimitem.key==this.koukaList[key].claimkey&&this.insideMainService.koukaFromTaisakudata.key==this.koukaList[key].taisakukey){
           this.newkoukaList.push(this.koukaList[key])
       }
     }
-    this.fileList=this.insideService.fileList
+    this.fileList=this.insideService.fileList;
     for(let key in this.fileList){
       //  console.log(this.fileList[key].doko)
       if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='効果'){

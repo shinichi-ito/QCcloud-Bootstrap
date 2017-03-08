@@ -25,12 +25,29 @@ export class KoukaDialogComponent implements OnInit {
   dd:number=0;
   pass:string;
   OnOff:boolean=false;
+  no:any[]=[];
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
 
   }
 
   ngOnInit() {
+
+    this.no = [
+      {value: ''},
+      {value: '1'},
+      {value: '2'},
+      {value: '3'},
+      {value: '4'},
+      {value: '5'},
+      {value: '6'},
+      {value: '7'},
+      {value: '8'},
+      {value: '9'},
+      {value: '10'}
+    ];
+
+
   }
   openDialog() {
     this.modalRef.show();
@@ -92,5 +109,19 @@ export class KoukaDialogComponent implements OnInit {
       this.OnOff=true;
 
     }
+  }
+  setAA(value){
+    console.log(value)
+  }
+
+  setBB(value){
+    console.log(value)
+  }
+  setCC(value){
+    console.log(value)
+  }
+
+  setDD(value){
+    console.log(value)
   }
 }

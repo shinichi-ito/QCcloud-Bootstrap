@@ -4,19 +4,20 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-input-kouka',
   templateUrl: './input-kouka.component.html',
   styleUrls: ['./input-kouka.component.css']
 })
 export class InputKoukaComponent  {
-  name:string;
-  siten:string;
-  busyo:string;
+  name:string='';
+  siten:string='';
+  busyo:string='';
 
 
-  naiyou:string;
-  password:string;
+  naiyou:string='';
+  password:string='';
 
   model;
   Info: FirebaseObjectObservable<any[]>;
@@ -30,45 +31,32 @@ export class InputKoukaComponent  {
   memberList:any[]=[];
   InfoData:any[]=[];
   uid:string;
-  myForm: FormGroup;
   koukaInfo: FirebaseListObservable<any[]>;
   aa:number=5;
   bb:number=5;
   cc:number=5;
   dd:number=5;
+  aanaiyou:string='';
+  bbnaiyou:string='';
+  ccnaiyou:string='';
+  ddnaiyou:string='';
 //key:string;
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
   claimList:any[]=[];
-  public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,
-                     private af : AngularFire,private insideService:InsideService) {
-    //this.key=this.insideService.claimitem.key;
+  koukaFromTaisakudata:any;
+  public constructor(private oauthInfoService:OauthInfoService,
+                     private af : AngularFire,private insideService:InsideService,
+                     private insideMainService:InsideMainService) {
+
+
+   this.koukaFromTaisakudata= this.insideMainService.koukaFromTaisakudata;
+ //  console.log(this.koukaFromTaisakudata)
     this.claimitem=this.insideService.claimitem;
     this.model = {
       label: "kari"
     };
-    this.myForm = this.fb.group({
-      "toukousya": ['',
-        Validators.required
-      ],
-      "branch": [''],
-      "dt": [''],
-      "aa": [''],
-      "bb": [''],
-      "cc": [''],
-      "dd": [''],
 
-      "naiyou": ['',Validators.compose([
-          Validators.required
-        ]
-      )],
-      "password": ['',Validators.compose([
-          Validators.required
-        ]
-      )],
-      "label": ['']
-
-    });
 
     this.uid=this.oauthInfoService.uid;
     this.memberList=this.insideService.memberList;
@@ -93,6 +81,11 @@ export class InputKoukaComponent  {
       bb:this.bb,
       cc:this.cc,
       dd:this.dd,
+      aanaiyou:this.aanaiyou,
+      bbnaiyou:this.bbnaiyou,
+      ccnaiyou:this.ccnaiyou,
+      ddnaiyou:this.ddnaiyou,
+      taisakukey:this.koukaFromTaisakudata.key,
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,

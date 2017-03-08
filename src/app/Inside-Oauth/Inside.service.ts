@@ -505,22 +505,28 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   koukaAddTrigger(uid){
     let commentsRef = firebase.database().ref('KoukaData/'+uid);
     commentsRef.on('child_added', (value)=> {
-      //   console.log("taiou追加"+value.val().name)
+         console.log("kouka追加"+value.val())
       this.koukaList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
-        siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,
+        aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
+        taisakukey:value.val().taisakukey,
+        naiyou:value.val().naiyou,koukai:value.val().koukai,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
   }
   koukaChangeTrigger(uid){
     let commentsRef = firebase.database().ref('KoukaData/'+uid);
     commentsRef.on('child_changed', (value)=> {
-      // console.log("claim変更"+value.val().busyo)
+       console.log("kouka変更"+value.val())
       for(let index in this.koukaList){
         if(this.koukaList[index].key==value.key){
           this._observerKouka.next(this.koukaList);
           this.koukaList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,
-            cc:value.val().cc,dd:value.val().dd,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            cc:value.val().cc,dd:value.val().dd,
+            aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
+            taisakukey:value.val().taisakukey,
+            naiyou:value.val().naiyou,koukai:value.val().koukai,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
         }
       }

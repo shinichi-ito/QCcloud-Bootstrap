@@ -20,6 +20,7 @@ taioukey:string;
   commentkey:string;
   imageData:any;
   imageData2:any;
+  koukaFromTaisakudata:any;
   value: FirebaseObjectObservable<any>;
   flagChange$: Observable<number>;
   private _observer;

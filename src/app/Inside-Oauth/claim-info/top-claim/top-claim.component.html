@@ -2,10 +2,14 @@
 
 <div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
   <div class="panel-heading">
-    選択
+    各種情報一覧及び登録
   </div>
   <div class="panel-body">
-<ul class="nav nav-tabs">
+    <div *ngIf="onoffHeader">
+      <app-header-claim></app-header-claim>
+    </div>
+
+<ul style="margin-top: 20px;margin-bottom: 10px" class="nav nav-tabs">
   <li role="presentation"><a (click)="setOffHeader()" routerLink="/main/topclaim/topclaimedit">情報詳細</a></li>
   <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addtaiou/listtaiou">対応情報</a></li>
   <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addgenin/listgenin">原因情報</a></li>
@@ -13,9 +17,7 @@
   <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addkouka/listkouka">効果確認情報</a></li>
   <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addcomment/listcomment">コメント登録</a></li>
 </ul>
-    <div *ngIf="onoffHeader">
-    <app-header-claim></app-header-claim>
-    </div>
+
     <router-outlet></router-outlet>
   </div>
 </div>

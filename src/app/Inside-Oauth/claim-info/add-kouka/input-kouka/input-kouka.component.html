@@ -1,4 +1,4 @@
-<form (ngSubmit)="onAdd()" [formGroup]="myForm">
+
 <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
   <div class="panel-heading">
     効果確認登録
@@ -6,21 +6,15 @@
   <div class="panel-body">
 
     <div class="form-group">
-      <label for="toukousya">投稿者<span *ngIf="myForm.controls.toukousya.dirty &&
-                myForm.controls.toukousya.errors||myForm.controls.toukousya.untouched &&
-           myForm.controls.toukousya.errors">
-      <span class="text-danger"
-            [hidden]="!myForm.controls.toukousya.errors.required ">
-        *</span>
-          </span></label>
-      <select (change)="setMember($event.target.value)" class="form-control" id="toukousya" [(ngModel)]="toukousyaData" formControlName="toukousya">
+      <label for="toukousya">投稿者</label>
+      <select (change)="setMember($event.target.value)" class="form-control" id="toukousya" [(ngModel)]="toukousyaData" name="toukousya">
         <option *ngFor="let item of memberList" [value]="item.key">{{item.name}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="branch">所属</label>
-      <input type="text" class="form-control" id="branch" value="{{siten}}　{{busyo}}" [(ngModel)]="branch" formControlName="branch">
+      <input type="text" class="form-control" id="branch" value="{{siten}}　{{busyo}}" [(ngModel)]="branch" name="branch">
     </div>
 
     <div class="form-group">
@@ -28,7 +22,7 @@
       <input type="text" id="hasseibi" class="form-control" (click)="open()" placeholder="確認日を入力ください" value="{{ getDate() | date:'yyyy/MM/dd'}}">
       <div *ngIf="opened">
         <div style="display:inline-block; min-height:290px;">
-          <datepicker  [(ngModel)]="dt" formControlName="dt"></datepicker>
+          <datepicker  [(ngModel)]="dt" name="dt"></datepicker>
           <button type="button" class="btn btn-warning" (click)="open()">閉じる</button>
         </div>
       </div>
@@ -41,65 +35,71 @@
         <label for="rating1">以前の状態より改善されたか</label>
       </div>
       <div>
-        <rating id="rating1"  [(ngModel)]="aa" formControlName="aa"  max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
-                style="color: #0275d8; font-size: 20px;"></rating>
-      </div>
+        <rating id="rating1"  [(ngModel)]="aa" name="aa"  max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+                style="color: #0275d8; font-size: 20px;"></rating><b>(<i>達成率:</i> {{aa}}0%)</b>
+          <textarea type="text" style="margin-bottom: 10px" class="form-control"  [(ngModel)]="aanaiyou" name="aanaiyou"
+                    placeholder="追加情報があれを入力ください。"></textarea>
+        </div>
+
+
+
 
       <div>
         <label for="rating2">対策の狙いは達成できたか</label>
       </div>
       <div>
-        <rating id="rating2"  [(ngModel)]="bb" formControlName="bb" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
-                style="color: #0275d8; font-size: 20px;"></rating>
+        <rating id="rating2"  [(ngModel)]="bb" name="bb" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+                style="color: #0275d8; font-size: 20px;"></rating><b>(<i>達成率:</i> {{bb}}0%)</b>
+        <textarea type="text" style="margin-bottom: 10px" class="form-control"  [(ngModel)]="bbnaiyou" name="bbnaiyou"
+                  placeholder="追加情報があれを入力ください。"></textarea>
       </div>
 
       <div>
         <label for="rating3">副作用は発生してないか</label>
       </div>
       <div>
-        <rating id="rating3"  [(ngModel)]="cc" formControlName="cc" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
-                style="color: #0275d8; font-size: 20px;"></rating>
+        <rating id="rating3"  [(ngModel)]="cc" name="cc" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+                style="color: #0275d8; font-size: 20px;"></rating><b>(<i>達成率:</i> {{cc}}0%)</b>
+        <textarea type="text" style="margin-bottom: 10px" class="form-control"  [(ngModel)]="ccnaiyou" name="ccnaiyou"
+                  placeholder="追加情報があれを入力ください。"></textarea>
       </div>
 
       <div>
         <label for="rating4">水平展開はできているか</label>
       </div>
       <div>
-        <rating id="rating4"  [(ngModel)]="dd" formControlName="dd" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
-                style="color: #0275d8; font-size: 20px;"></rating>
+        <rating id="rating4"  [(ngModel)]="dd" name="dd" max="10" stateOn="glyphicon-ok-sign" stateOff="glyphicon-ok-circle"
+                style="color: #0275d8; font-size: 20px;"></rating><b>(<i>達成率:</i> {{dd}}0%)</b>
+        <textarea type="text" style="margin-bottom: 10px" class="form-control"  [(ngModel)]="ddnaiyou" name="ddnaiyou"
+                  placeholder="追加情報があれを入力ください。"></textarea>
       </div>
     </div>
 
 
     <div class="form-group">
-      <label for="tuika">追加情報</label>
-      <textarea type="text" class="form-control"  [(ngModel)]="naiyou" formControlName="naiyou" rows="3" id="tuika" placeholder="追加情報があれを入力ください。"></textarea>
+      <label for="tuika">総合評価</label>
+      <textarea type="text" class="form-control"  [(ngModel)]="naiyou" name="naiyou" rows="3" id="tuika"
+                placeholder="総合的にみて何かあれば記入ください"></textarea>
     </div>
 
     <div class="form-group">
-      <label for="InputPassword">パスワード<span *ngIf="myForm.controls.password.dirty &&
-                myForm.controls.password.errors||myForm.controls.password.untouched &&
-           myForm.controls.password.errors">
-      <span class="text-danger"
-            [hidden]="!myForm.controls.password.errors.required ">
-        *</span>
-          </span></label>
-      <input type="password" class="form-control"  [(ngModel)]="password" formControlName="password" id="InputPassword" placeholder="編集用パスワード。">
+      <label for="InputPassword">パスワード</label>
+      <input type="password" class="form-control"  [(ngModel)]="password" name="password" id="InputPassword" placeholder="編集用パスワード。">
     </div>
 
 
     <div class="form-group">
       <label class="control-label col-xs-3">公開しますか?</label>
       <label class="radio-inline">
-        <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="kari">仮登録
+        <input type="radio" [(ngModel)]="model.label"  name="label" value="kari">仮登録
       </label>
       <label class="radio-inline">
-        <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="koukai">公開
+        <input type="radio" [(ngModel)]="model.label"  name="label" value="koukai">公開
       </label>
 
     </div>
 
-    <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
+    <button  (click)="onAdd()" class="btn btn-primary btn-block">登録</button>
 
 
 
@@ -108,7 +108,7 @@
   </div>
 </div>
 
-</form>
+
 
 
 

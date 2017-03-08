@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {ImageDetail} from "./ImageDetail";
 import {FirebaseApp} from "angularfire2";
 import {Http} from "@angular/http";
-
+import * as firebase from 'firebase';
 @Injectable()
 export class ImageService {
   flagChange$: Observable<any>;
@@ -61,10 +61,16 @@ export class ImageService {
 
 
   }
+test(){
 
+
+
+
+}
   uploadingFile(file:File,uid:string) {
-    let storageRef = this._firebase.storage().ref('FileData/'+uid+'/'+file.name)
-    let fileUploading =  storageRef.put(file);
+    let storage = firebase.storage();
+    let Ref = storage.ref();
+    let fileUploading = Ref.child('FileData/'+uid+'/' + new Date().getTime()+'<>'+file.name).put(file);
     this._progress$=Observable.create(observer=>{
       fileUploading.on('state_changed',
         (snapshot)=> {

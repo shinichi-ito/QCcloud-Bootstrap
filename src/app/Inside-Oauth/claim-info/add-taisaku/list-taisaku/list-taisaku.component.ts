@@ -166,6 +166,15 @@ export class ListTaisakuComponent implements OnInit {
     this.taisakuDeleteDialogComponent.openDialog();
     //  this.deleteTaiou(this.taiouData.key,this.uid)
   }
+  addKouka(index){
+    this.index=index;
+    this.taisakuData=this.newtaisakuList[index];
+this.insideMainService.koukaFromTaisakudata=this.taisakuData;
+    this.router.navigate(['/main/topclaim/addkouka/listkouka'])
+
+  }
+
+
 
   // deleteTaisaku(key:string,uid:string){
   //   this.taisakus=this.af.database.list('TaisakuData/'+this.uid)

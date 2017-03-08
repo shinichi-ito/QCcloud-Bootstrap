@@ -1,45 +1,53 @@
+
 <div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
-        <h4 class="modal-title">タイトル</h4>
+        <h4 class="modal-title">効果確認編集</h4>
       </div>
       <div class="modal-body">
 
 
 
 
-
+        <div style="height:500px;overflow-y:auto;">
 
         <p class="help-block">効果確認</p>
-        <div class="form-group">
-          <label for="rating1">以前の状態より改善されたか</label>
-          <input type="text" class="form-control" id="rating1"  [(ngModel)]="aa" name="name" value="{{koukaData?.aa}}" placeholder="投稿者名を入力して下さい。">
 
-        </div>
-
-        <div class="form-group">
-          <label for="rating2">対策の狙いは達成できたか</label>
-          <input type="text" class="form-control" id="rating2"  [(ngModel)]="bb" name="name" value="{{koukaData?.bb}}" placeholder="投稿者名を入力して下さい。">
-     </div>
-
-        <div class="form-group">
-          <label for="rating3">副作用は発生してないか</label>
-          <input type="text" class="form-control" id="rating3"  [(ngModel)]="cc" name="name" value="{{koukaData?.cc}}" placeholder="投稿者名を入力して下さい。">
-
-        </div>
-
-        <div class="form-group">
-          <label for="rating4">水平展開はできているか</label>
-          <input type="text" class="form-control" id="rating4"  [(ngModel)]="dd" name="name" value="{{koukaData?.dd}}" placeholder="投稿者名を入力して下さい。">
-
-        </div>
+          <div class="form-group">
+            <label for="aa">以前の状態より改善されたか【達成率】</label>
+            <select (change)="setAA($event.target.value)" class="form-control" id="aa"
+                    [(ngModel)]="aa" name="aa" value="{{koukaData?.aa}}" name="aa">
+              <option *ngFor="let item of no" [value]="item.value">{{item.value}}0%</option>
+            </select>
+          </div>
 
 
+          <div class="form-group">
+            <label for="bb">対策の狙いは達成できたか【達成率】</label>
+            <select (change)="setBB($event.target.value)" class="form-control" id="bb"
+                    [(ngModel)]="bb" name="bb" value="{{koukaData?.bb}}" name="bb">
+              <option *ngFor="let item of no" [value]="item.value">{{item.value}}0%</option>
+            </select>
+          </div>
 
 
+          <div class="form-group">
+            <label for="cc">副作用は発生してないか【達成率】</label>
+            <select (change)="setCC($event.target.value)" class="form-control" id="cc"
+                    [(ngModel)]="cc" name="cc" value="{{koukaData?.cc}}" name="cc">
+              <option *ngFor="let item of no" [value]="item.value">{{item.value}}0%</option>
+            </select>
+          </div>
 
+          <div class="form-group">
+            <label for="dd">水平展開はできているか【達成率】</label>
+            <select (change)="setDD($event.target.value)" class="form-control" id="dd"
+                    [(ngModel)]="dd" name="dd" value="{{koukaData?.dd}}" name="dd">
+              <option *ngFor="let item of no" [value]="item.value">{{item.value}}0%</option>
+            </select>
+          </div>
 
 
 
@@ -79,6 +87,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
         <button type="button" class="btn btn-primary" (click)="onEdit()">編集</button>
+      </div>
       </div>
     </div>
   </div>

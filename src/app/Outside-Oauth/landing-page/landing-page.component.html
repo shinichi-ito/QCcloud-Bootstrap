@@ -1,0 +1,175 @@
+<div class="nav-container" [class.fixed]="navIsFixed">
+  <app-header></app-header>
+
+<!-- main1 app -->
+<div class="main1-app">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+
+        <h1>The Simple Groupware</h1>
+        <p>いつでもどこからでも情報共有<br>
+          使い方も簡単、すぐ出来る。<br>
+          要望をもとに業務効率化の為に創り出されたグループウェアです。</p>
+
+        <p><a style="cursor: pointer" (click)="login()" class="button btn btn-success btn-lg">無料で試す</a></p>
+
+      </div><!-- col -->
+      <div class="col-sm-4">
+
+        <img src="assets/img/pc3.png" alt="" class="img-responsive center-block">
+
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container -->
+</div>
+
+
+
+<!-- main2-app -->
+<div class="main2-app text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <h2>シンプルな３つの機能！</h2>
+        <p>The Simple Groupwareは簡単に使えます。<br>他機能が欲しくなったら追加するだけで多機能グループウェアに変身！</p>
+
+        <div class="row">
+
+          <div class="col-sm-4">
+            <div class="main2-sub">
+              <img src="assets/img/Excel.png" alt="" class="img-circle center-block">
+              <h3>ファイル共有サービス</h3>
+              <p>ファイル・フォルダの共有やインターネット公開ができ、ファイルをアップロード、ダウンロードすることができます。</p>
+            </div>
+          </div><!-- col -->
+
+          <div class="col-sm-4">
+            <div class="main2-sub">
+              <img src="assets/img/Oexcel.png" alt="" class="img-circle center-block">
+              <h3>Webメール</h3>
+              <p>ブラウザからメールを利用できる機能です。普段ご利用されているメールの送受信などをアプリ上から行うことができます。</p>
+            </div>
+          </div><!-- col -->
+
+          <div class="col-sm-4">
+            <div class="main2-sub">
+              <img src="assets/img/pdf.png" alt="" class="img-circle center-block">
+              <h3>スケジューラ</h3>
+              <p>ドラッグ＆ドロップで簡単に予定を登録。参加者の予定を一覧で確認でき、簡単に予定を調整することが可能です。</p>
+            </div>
+          </div><!-- col -->
+
+        </div><!-- row -->
+
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container -->
+</div>
+
+
+<!-- main3-app -->
+<div class="main3-app">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+
+        <img src="assets/img/Oword.png" alt="" class="img-responsive center-block">
+
+      </div><!-- col -->
+      <div class="col-sm-7">
+
+        <h2>とにかく見やすいスケジュール。<br>予定の作成も簡単！</h2>
+
+        <p>カレンダー形式/時間形式で見ることが出来ます。他の社員のスケジュールを閲覧・共有することもできるので、無駄なくスケジュール管理を行うことができます。</p>
+        <p>予定作成は登録したい日時を押すだけ！もちろんすべての端末にすぐ同期するので大変便利です。</p>
+
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container -->
+</div>
+
+
+<!-- main4-app -->
+<div class="main4-app">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7">
+
+        <h2>社外からファイルの確認も簡単に出来ます。</h2>
+
+        <p>社内の文書やファイルを部署ごとにフォルダ分けして保管共有できます。
+        <p>シンプルな画面で見やすい！アクセス制限、閲覧記録などのセキュリティも万全です。</p>
+
+      </div><!-- col -->
+      <div class="col-sm-5">
+
+        <img src="assets/img/Word.png" alt="" class="img-responsive center-block">
+
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container -->
+</div>
+
+
+<!-- footer -->
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+
+        <h3>TheSimpleWare株式会社</h3>
+
+        <address>
+          000-0000 日本県日本市日本町 日本ビル100F
+        </address>
+
+        <p class="tel">Tel.00-0000-0000
+          Fax.00-0000-0000</p>
+
+      </div><!-- col -->
+
+      <div class="col-sm-7 formarea">
+
+        <div class="form-group form-inline">
+          <label for="Namae" class="form"><span class="essential">*</span>お名前（漢字）</label>
+          <input name="name" class="form-control" size="10" placeholder="(例)日本" type="text" id="Namae" required="required"/>
+          <input name="name2" class="form-control" size="10" placeholder="(例)太郎" type="text" id="Namae2" required="required"/>
+        </div>
+
+        <div class="form-group form-inline">
+          <label for="kana" class="form"><span class="essential">*</span>お名前（カナ）</label>
+          <input name="kana" class="form-control" size="10" placeholder="(例)ニホン" type="text" id="Kana" required="required"/>
+          <input name="kana2" class="form-control" size="10" placeholder="(例)タロウ" type="text" id="Kana2" required="required"/>
+        </div>
+
+        <div class="form-group form-inline">
+          <label for="email" class="form"><span class="essential">*</span>メールアドレス</label>
+          <input name="email" class="form-control" size="27" placeholder="(例)simple@simple.com" type="email" id="Email" required="required"/>
+        </div>
+
+        <div class="form-group form-inline">
+          <label for="message" class="form"><span class="essential">*</span>お問合わせ内容</label>
+          <textarea name="message" cols="28" rows="3" class="form-control" placeholder="お問合せ内容をご入力してください。 "id="Message"></textarea>
+        </div>
+
+        <div class="regist_button">
+          <input  class="btn btn-primary btn-lg" name="next" type="submit" value="入力内容を送信する"/>
+        </div>
+
+      </div><!-- col -->
+    </div><!-- row -->
+
+    <div class="row copyarea text-center">
+      <div class="col-sm-12">
+        <p class="copy">Copyright &copy; The Simple Ware inc.</p>
+
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container -->
+</div>
+
+</div>
+
+<p *ngIf="OnOff" id="page-top"><a style="cursor: pointer" (click)="top()">PAGE TOP</a></p>
