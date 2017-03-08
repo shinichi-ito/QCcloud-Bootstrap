@@ -19,6 +19,11 @@ export class KoukaDialogComponent implements OnInit {
   busyo:string='';
   syubetu:string='';
   naiyou:string='';
+  aanaiyou:string='';
+  bbnaiyou:string='';
+  ccnaiyou:string='';
+  ddnaiyou:string='';
+
   aa:number=0;
   bb:number=0;
   cc:number=0;
@@ -70,6 +75,24 @@ export class KoukaDialogComponent implements OnInit {
       this.naiyou=this.koukaData.naiyou
       //console.log(this.syubetu)
     }
+      if(this.aanaiyou==''){
+        this.aanaiyou=this.koukaData.aanaiyou
+        //console.log(this.syubetu)
+      }
+      if(this.bbnaiyou==''){
+        this.bbnaiyou=this.koukaData.bbnaiyou
+        //console.log(this.syubetu)
+      }
+      if(this.ccnaiyou==''){
+        this.ccnaiyou=this.koukaData.ccnaiyou
+        //console.log(this.syubetu)
+      }
+      if(this.ddnaiyou==''){
+        this.ddnaiyou=this.koukaData.ddnaiyou
+        //console.log(this.syubetu)
+      }
+
+
     if(this.aa===0){
       this.aa=this.koukaData.aa;
       //console.log(this.aa)
@@ -95,7 +118,12 @@ export class KoukaDialogComponent implements OnInit {
       bb:this.bb,
       cc:this.cc,
       dd:this.dd,
-       naiyou:this.naiyou,
+      naiyou:this.naiyou,
+      aanaiyou:this.aanaiyou,
+      bbnaiyou:this.bbnaiyou,
+      ccnaiyou:this.ccnaiyou,
+      ddnaiyou:this.ddnaiyou,
+
       updateAt: firebase.database.ServerValue.TIMESTAMP,
      };
      this.value = this.af.database.object('KoukaData/' + this.uid + '/'+this.koukaData.key);

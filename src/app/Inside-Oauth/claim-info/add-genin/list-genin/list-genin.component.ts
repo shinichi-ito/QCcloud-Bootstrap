@@ -97,6 +97,7 @@ export class ListGeninComponent implements OnInit {
 
 
   View(index){
+
     this.OnOff=!this.OnOff;
     this.index=index;
     this.geninData=this.newgeninList[index];
@@ -118,6 +119,7 @@ export class ListGeninComponent implements OnInit {
     this.passwordData=passwordData
   }
   addImage(index){
+    this.insideMainService.setActive(false);
     this.index=index;
     this.geninData=this.newgeninList[index];
     let jyoukyouData:any[]=[];

@@ -1,6 +1,14 @@
-<div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
+<div class="container">
+
+  <!-- content -->
+  <div class="row" style="padding:10px 0 0 0">
+    <!-- left -->
+    <div class="col-md-9">
+
+
+<div class="panel panel-default" style="width: 100%;margin: 0 auto">
   <div class="panel-heading">
-    対応情報一覧
+    効果確認情報一覧
   </div>
   <div class="panel-body">
     <div class="form-group">
@@ -14,9 +22,6 @@
           <th >
             編集
           </th>
-          <th >
-            関連ファイル
-          </th>
         </tr>
         </thead>
         <tbody>
@@ -25,62 +30,75 @@
           <td>{{item.name}}　　所属:　{{item.siten}}　{{item.busyo}}<br>
             登録日:　{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}
             <hr>
-
-
-
-
-
-
-
-            <p class="help-block">効果確認</p>
+       <p class="help-block">効果確認</p>
             <div>
-              <label>以前の状態より改善されたか{{item.aa}}</label>
+              <label>以前の状態より改善されたか　/【達成率】{{item.aa}}0%</label>
             </div>
-
+            <div style="margin-bottom: 20px"> {{item.aanaiyou}}</div>
 
             <div>
-              <label>対策の狙いは達成できたか  {{item.bb}}</label>
+              <label>対策の狙いは達成できたか　/ 【達成率】 {{item.bb}}0%</label>
             </div>
-
+            <div style="margin-bottom: 20px"> {{item.bbnaiyou}}</div>
 
             <div>
-              <label>副作用は発生してないか {{item.cc}}</label>
+              <label>副作用は発生してないか　/ 【達成率】{{item.cc}}0%</label>
             </div>
-
+            <div style="margin-bottom: 20px"> {{item.ccnaiyou}}</div>
 
             <div>
-              <label >水平展開はできているか {{item.dd}}</label>
+              <label >水平展開はできているか　/【達成率】 {{item.dd}}0%</label>
             </div>
+            <div style="margin-bottom: 20px"> {{item.ddnaiyou}}</div>
 
 
-
-            {{item.naiyou}}
+            <div style="margin-top: 10px;margin-bottom: 20px">   {{item.naiyou}}</div>
           </td>
           <td>
-            <button type="button" class="btn btn-primary" (click)="setEdit(idx)">編集</button>
-            <button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>
+            <!--<button type="button" class="btn btn-primary" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>-->
+            <!--<button type="button" class="btn btn-danger" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
+            <!--<button type="button" class="btn btn-primary" (click)="addImage(idx)"><i class="fa fa-picture-o" aria-hidden="true"></i></button>-->
+            <!--<button type="button" class="btn btn-primary" (click)="View(idx)"><i class="fa fa-list" aria-hidden="true"></i></button>-->
+            <div class="btn-group" dropdown>
+              <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+                <i class="fa fa-list" aria-hidden="true"></i>　各種設定変更<span class="caret"></span>
+              </button>
+              <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a class="dropdown-item" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>　編集</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i>　削除</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="addImage(idx)"><i class="fa fa-picture-o" aria-hidden="true"></i>　関連ファイル登録</a></li>
+                <li role="menuitem"><a class="dropdown-item"  (click)="View(idx)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>
+
+
+              </ul>
+            </div>
+
+
+
+
+
 
           </td>
-
-          <td>
-            <button type="button" class="btn btn-primary" (click)="addImage(idx)">関連ファイル登録</button>
-            <button type="button" class="btn btn-primary" (click)="View(idx)">関連ファイル</button>
-          </td>
-
-
-        </tr>
+              </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+    </div>
+
+
+    <div  class="col-md-3">
+
+
+
+<app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData" [passwordData]="passwordData"></app-view-image>
     </div>
   </div>
 </div>
 
 
 
-
-
-
-<app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData" [passwordData]="passwordData"></app-view-image>
 
 <!--編集ダイアログ-->
 <app-kouka-dialog [koukaData]="koukaData"  #editKoukaDialog></app-kouka-dialog>

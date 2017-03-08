@@ -142,6 +142,7 @@ taiouList:any[]=[];
        this.passwordData=passwordData;
   }
   addImage(index){
+    this.insideMainService.setActive(false);
     this.index=index;
     this.taiouData=this.newtaiouList[index];
     let jyoukyouData:any[]=[];

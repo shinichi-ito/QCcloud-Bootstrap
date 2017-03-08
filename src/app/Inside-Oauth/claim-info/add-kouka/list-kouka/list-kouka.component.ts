@@ -115,6 +115,7 @@ export class ListKoukaComponent implements OnInit {
     this.passwordData=passwordData
   }
   addImage(index){
+    this.insideMainService.setActive(false);
     this.index=index;
     this.koukaData=this.newkoukaList[index];
     let jyoukyouData:any[]=[];

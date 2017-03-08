@@ -1,28 +1,35 @@
 import { Component } from '@angular/core';
+import {InsideMainService} from "../../inside-main.service";
 @Component({
   selector: 'app-add-taisaku',
   templateUrl: './add-taisaku.component.html',
   styleUrls: ['./add-taisaku.component.css']
 })
 export class AddTaisakuComponent  {
-  aa:string;
-  bb:string;
+  aa:string='active';
+  bb:string='';
+cc:string="disabled";
+  public constructor(private insideMainService:InsideMainService) {
+    this.insideMainService.flagChangeActive$.subscribe(
+      flag => {
+        this.aa='';
+        this.bb='';
+        this.cc="active";
+      })
 
-  public constructor() {
-    this.aa='active';
-    this.bb='';
+
 
   }
 
   aaa(){
     this.aa='active';
-    this.bb=''
-
+    this.bb='';
+    this.cc='disabled'
   }
   bbb(){
     this.bb='active';
-    this.aa=''
-
+    this.aa='';
+    this.cc='disabled'
   }
 
 }

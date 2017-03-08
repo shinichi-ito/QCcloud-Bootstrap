@@ -116,6 +116,9 @@ export class ListTaisakuComponent implements OnInit {
     this.passwordData=passwordData
   }
   addImage(index){
+
+   this.insideMainService.setActive(false);
+
     this.index=index;
     this.taisakuData=this.newtaisakuList[index];
     let jyoukyouData:any[]=[];
@@ -147,10 +150,7 @@ export class ListTaisakuComponent implements OnInit {
 
   }
 
-  Close(){
-    this.OnOff=false;
 
-  }
 
   setEdit(index){
 

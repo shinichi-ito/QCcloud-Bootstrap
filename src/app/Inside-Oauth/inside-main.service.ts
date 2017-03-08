@@ -20,6 +20,7 @@ taioukey:string;
   commentkey:string;
   imageData:any;
   imageData2:any;
+  active:any;
   koukaFromTaisakudata:any;
   value: FirebaseObjectObservable<any>;
   flagChange$: Observable<number>;
@@ -27,6 +28,9 @@ taioukey:string;
 
   flagChangeDelete$: Observable<number>;
   private _observerdelete;
+
+  flagChangeActive$: Observable<string>;
+  private _observeractive;
 
   claimInfo: FirebaseObjectObservable<any[]>;
   info: FirebaseListObservable<any[]>;
@@ -38,7 +42,22 @@ taioukey:string;
       this._observer = observer).share();
     this.flagChangeDelete$ = new Observable(observer =>
       this._observerdelete = observer).share();
+
+    this.flagChangeActive$ = new Observable((observer) =>{
+      this._observeractive= observer
+    }).share()
+
+
   }
+
+  setActive(data){
+    this.active=data;
+    this._observeractive.next(this.active);
+  }
+
+
+
+
 
 fileDataUp(toukousya:string,siten:string,busyo:string,comment:string,uid:string,key:string){
   const Info = {

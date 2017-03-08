@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {InsideMainService} from "../../inside-main.service";
 
 @Component({
   selector: 'app-add-genin',
@@ -6,21 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-genin.component.css']
 })
 export class AddGeninComponent {
-  aa:string;
-  bb:string;
+  aa:string='active';
+  bb:string='';
+  cc:string="disabled";
 
-  public constructor() {
-    this.aa='active';
-    this.bb=''
+  public constructor(private insideMainService:InsideMainService) {
+    this.insideMainService.flagChangeActive$.subscribe(
+      flag => {
+        console.log('ここ')
+        this.aa='';
+        this.bb='';
+        this.cc="active";
+      })
+
   }
   aaa(){
     this.aa='active';
-    this.bb=''
+    this.bb='';
+    this.cc='disabled'
 
   }
   bbb(){
     this.bb='active';
     this.aa='';
+    this.cc='disabled'
   }
 
 }
