@@ -4,6 +4,16 @@
   </div>
   <div class="panel-body">
 
+    <div class="container">
+
+      <!-- content -->
+      <div class="row" style="padding:10px 0 0 0">
+        <!-- left -->
+        <div class="col-md-9">
+
+
+
+
     <div class="form-group">
     <label for="syubetu">情報種別</label>
     <input type="text" class="form-control" [(ngModel)]="syubetu" id="syubetu" value="{{syubetu}}">
@@ -18,6 +28,9 @@
    <label for="gaiyou">情報概要</label>
    <input type="text" class="form-control" [(ngModel)]="gaiyou" id="gaiyou" value="{{gaiyou}}">
    </div>
+          <button type="button" class="btn btn-primary btn-block" (click)="getFile()">関連ファイル一覧</button>
+
+
 
    <div class="form-group">
       <label for="syousai">情報詳細</label>
@@ -100,6 +113,19 @@
     <div *ngIf="check" class="alert alert-danger" role="alert">パスワードが違います。</div>
 
     <button type="button" (click)="onEdit()" class="btn btn-primary btn-block">編集</button>
+
+        </div>
+        <div  class="col-md-3">
+
+
+          <app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData"  [passwordData]="passwordData"></app-view-image>
+
+
+        </div>
+
+      </div>
+    </div>
+
 
 
 

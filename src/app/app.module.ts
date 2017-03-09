@@ -19,6 +19,7 @@ import {NotificationBarModule} from "angular2-notification-bar";
 import { AskFormComponent } from './Outside-Oauth/ask-form/ask-form.component';
 import { MyCompanyInfoComponent } from './Outside-Oauth/my-company-info/my-company-info.component';
 import { LandingPageComponent } from './Outside-Oauth/landing-page/landing-page.component';
+import { PriceInfoComponent } from './Outside-Oauth/price-info/price-info.component';
 
 
 
@@ -43,7 +44,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     RiyouKiyakuComponent,
     AskFormComponent,
     MyCompanyInfoComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    PriceInfoComponent
 
 
   ],

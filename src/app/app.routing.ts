@@ -11,6 +11,7 @@ import {RiyouKiyakuComponent} from "./Outside-Oauth/riyou-kiyaku/riyou-kiyaku.co
 import {AskFormComponent} from "./Outside-Oauth/ask-form/ask-form.component";
 import {MyCompanyInfoComponent} from "./Outside-Oauth/my-company-info/my-company-info.component";
 import {LandingPageComponent} from "./Outside-Oauth/landing-page/landing-page.component";
+import {PriceInfoComponent} from "./Outside-Oauth/price-info/price-info.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -28,6 +29,7 @@ const APP_ROUTES: Routes = [
   { path: 'lotsjoys', component: MyCompanyInfoComponent},
   { path: 'main',loadChildren:'app/Inside-Oauth/Inside.module#InsideModule',canActivate: [SignInGuard]},
   { path: 'landing', component: LandingPageComponent},
+  { path: 'priceinfo', component: PriceInfoComponent},
 
 
 ];

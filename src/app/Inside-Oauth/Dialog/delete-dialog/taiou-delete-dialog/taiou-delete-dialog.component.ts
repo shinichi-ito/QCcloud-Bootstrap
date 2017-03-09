@@ -4,7 +4,7 @@ import {FirebaseObjectObservable, FirebaseListObservable, AngularFire} from "ang
 import {InsideMainService} from "../../../inside-main.service";
 import {InsideService} from "../../../Inside.service";
 import {OauthInfoService} from "../../../oauth-info.service";
-
+import * as firebase from 'firebase'
 @Component({
   selector: 'app-taiou-delete-dialog',
   templateUrl: './taiou-delete-dialog.component.html',
@@ -24,6 +24,7 @@ export class TaiouDeleteDialogComponent implements OnInit {
   taious: FirebaseListObservable<any[]>;
   constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
+    this.claimitem=this.insideService.claimitem;
   }
 
   ngOnInit() {
@@ -64,29 +65,63 @@ export class TaiouDeleteDialogComponent implements OnInit {
       });
   }
   minusTaiouSu(){//クレーム情報の対応数をマイナス
-
+//console.log('ここ')
+  //  console.log(this.claimitem)
     this.claimList=this.insideService.claimList
-    for(let key in this.claimList) {
+    console.log(this.claimList)
+     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
-        console.log(this.claimList[key].taiou)
-
         let su:number;
         su=this.claimList[key].taiou-1
-        if(su<0){
-          su=0;
-        }
-        const claimInfo = {
-          taiou:su,
+            if(su<0){
+              su=0;}
+
+         const claimInfo = {
+           taiou:su,
           updateAt: firebase.database.ServerValue.TIMESTAMP
-        };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+         };
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
 
-        }).catch(error=>{
+         }).catch(error=>{
 
-        })
-      }
-    }
+         })
+
+
+     }
+   }
+
+
+
+
+
+    // this.claimList=this.insideService.claimList
+    // let su:number;
+    // for(let key in this.claimList) {
+    //   if (this.claimList[key].key == this.claimitem.key) {
+    //     console.log(this.claimList[key].taiou)
+    //
+    //
+    //     su=this.claimList[key].taiou-1
+    //     if(su<0){
+    //       su=0;
+    //     }
+    //
+    //   }
+    // }
+    //
+    // const claimInfo = {
+    //   taiou:su,
+    //   updateAt: firebase.database.ServerValue.TIMESTAMP
+    // };
+    // this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+    // this.claimInfo.update(claimInfo).then(data=>{
+    //
+    // }).catch(error=>{
+    //
+    // })
+    //
+
   }
 
 

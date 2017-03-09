@@ -42,6 +42,7 @@ export class InsideService {
   geninList:any[]=[];
   koukaList:any[]=[];
   commentList:any[]=[];
+  filename:string
 uid:string;//会社を振り分けるログイン時に受け取るユニークの値
 key:string;//各登録情報のユニークなキー
   InfoData:any;//対策や対応情報を選択した際そのデータを入れておく key name siten busyo
@@ -304,13 +305,13 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   }
 
 
-  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string,type:string,filename:string){
+  addImageInfoDatabase(jsonData:any,downloadURL:string,comment:string,type:string){
     const imageInfo = {
       doko:this.InfoData[0].doko,
       imageAnalysis:jsonData,
       downloadURL:downloadURL,
       type:type,
-      filename:filename,
+      filename:this.filename,
       comment:comment,
       jyoukyoukey:this.InfoData[0].jyoukyoukey,//このキーは対応や対策のキーです。その対応や対策に対応する画像を選別するため必要
       toukousya:this.InfoData[0].toukousya,
@@ -324,12 +325,12 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     return  this.imageInfo.push(imageInfo)
 
   }
-  addFileInfoDatabase(downloadURL:string,comment:string,type:string,filename:string){
+  addFileInfoDatabase(downloadURL:string,comment:string,type:string){
     const imageInfo = {
       doko:this.InfoData[0].doko,
       downloadURL:downloadURL,
       type:type,
-      filename:filename,
+      filename:this.filename,
       comment:comment,
       jyoukyoukey:this.InfoData[0].jyoukyoukey,//このキーは対応や対策のキーです。その対応や対策に対応する画像を選別するため必要
       toukousya:this.InfoData[0].toukousya,
@@ -430,7 +431,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       //   console.log("taiou追加"+value.val().name)
 
       this.taisakuList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
-        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
+        koukai:value.val().koukai,koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
 
@@ -443,7 +445,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
         if(this.taisakuList[index].key==value.key){
           this._observerTaisaku.next(this.taisakuList);
           this.taisakuList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
-            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
+            koukai:value.val().koukai,koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
         }
       }

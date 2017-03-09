@@ -37,10 +37,20 @@ export class TopClaimEditComponent implements OnInit{
   model;
 check:boolean=false;
 key:string;
+claimList:any;
   claimInfo: FirebaseListObservable<any[]>;
   claimInfo2: FirebaseObjectObservable<any[]>;
+  OnOff:boolean=false;
+  fileList:any;
+  newfileList:any;
+  jyoukyouData:any;
+
   public constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
+
+
+
   this.uid=this.oauthInfoService.uid;
+  this.claimList=this.insideService.claimList;
     this.model = {
       label: "kari"
     };
@@ -55,23 +65,27 @@ key:string;
 
     this.claimitem=this.insideService.claimitem;
     this.key=this.claimitem.key;
-    this.syubetu=this.claimitem.syubetu;
-    this.seihin=this.claimitem.seihin;
-    this.gaiyou=this.claimitem.gaiyou;
-    this.syousai=this.claimitem.syousai;
-    this.moto=this.claimitem.moto;
-    this.basyo=this.claimitem.basyo;
-    this.seihininfo=this.claimitem.seihininfo;
-    this.yosoukoutei=this.claimitem.yosoukoutei;
-    this.name=this.claimitem.name;
-    this.siten=this.claimitem.siten;
-    this.busyo=this.claimitem.busyo;
-    this.password2=this.claimitem.password;
-    this.dt=this.claimitem.hasseibi;
-    this.mytime=this.claimitem.hasseiji;
 
-
-  }
+    for(let key in this.claimList){
+      if(this.claimList[key].key==this.key){
+       // console.log(this.key)
+        this.syubetu=this.claimList[key].syubetu;
+        this.seihin=this.claimList[key].seihin;
+        this.gaiyou=this.claimList[key].gaiyou;
+        this.syousai=this.claimList[key].syousai;
+        this.moto=this.claimList[key].moto;
+        this.basyo=this.claimList[key].basyo;
+        this.seihininfo=this.claimList[key].seihininfo;
+        this.yosoukoutei=this.claimList[key].yosoukoutei;
+        this.name=this.claimList[key].name;
+        this.siten=this.claimList[key].siten;
+        this.busyo=this.claimList[key].busyo;
+        this.password2=this.claimList[key].password;
+        this.dt=this.claimList[key].hasseibi;
+        this.mytime=this.claimList[key].hasseiji;
+    }
+    }
+ }
  ngOnInit(){}
 
 
@@ -162,8 +176,20 @@ key:string;
 
   }
 
-
-
+getFile(){
+  let jyoukyouData:any[]=[];
+  let passwordData:any[]=[];
+    this.OnOff=!this.OnOff;
+  this.fileList=this.insideService.fileList
+  for(let key in this.fileList){
+    //  console.log(this.fileList[key].claimkey)
+   // console.log(this.claimitem.key)
+    if(this.claimitem.key==this.fileList[key].claimkey){
+      jyoukyouData.push(this.fileList[key])
+    }
+  }
+this.jyoukyouData=jyoukyouData
+}
 
 
 

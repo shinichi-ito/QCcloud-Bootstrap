@@ -40,9 +40,11 @@ export class InputKoukaComponent  {
   bbnaiyou:string='';
   ccnaiyou:string='';
   ddnaiyou:string='';
+  taisakuList:any;
 //key:string;
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  taisakuInfo: FirebaseObjectObservable<any[]>;
   claimList:any[]=[];
   koukaFromTaisakudata:any;
   public constructor(private oauthInfoService:OauthInfoService,
@@ -72,11 +74,13 @@ export class InputKoukaComponent  {
 
 
   onAdd(){
+    let time=this.dt.getTime()
+
     const Info = {
       name:this.name,
       siten:this.siten,
       busyo:this.busyo,
-      kakuninbi:this.dt,
+      kakuninbi:time,
       aa:this.aa,
       bb:this.bb,
       cc:this.cc,
@@ -93,10 +97,10 @@ export class InputKoukaComponent  {
       startAt: firebase.database.ServerValue.TIMESTAMP,
      // updateAt: firebase.database.ServerValue.TIMESTAMP
     };
-    this.koukaInfo=this.af.database.list('KoukaData/'+this.uid)
+    this.koukaInfo=this.af.database.list('KoukaData/'+this.uid);
     this.koukaInfo.push(Info).then(data=>{
-      this.addKoukaSu()
-      this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
+      this.addKoukaSu();
+      this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,});
       this.insideService.InfoData=this.InfoData
 
     }).catch(error=>{
@@ -104,15 +108,37 @@ export class InputKoukaComponent  {
     })
   }
   addKoukaSu(){//クレーム情報の対応数をプラス
-    this.claimList=this.insideService.claimList
+    this.claimList=this.insideService.claimList;
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
         const claimInfo = {
           kouka:this.claimList[key].kouka+1,
           updateAt: firebase.database.ServerValue.TIMESTAMP
         };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
+         this.addTaisakusu()
+        }).catch(error=>{
+
+        })
+
+      }
+
+    }
+
+  }
+  addTaisakusu(){//効果をインプットしたとき対策内のkoukasuに件数を入れる。あとでその対策で効果が入っているかチェックするため
+  //  console.log(this.koukaFromTaisakudata.key)
+    this.taisakuList=this.insideService.taisakuList;
+    for(let key in this.taisakuList) {
+   //   console.log(this.taisakuList[key].koukasu);
+      if (this.taisakuList[key].key == this.koukaFromTaisakudata.key) {
+        const Info = {
+          koukasu:this.taisakuList[key].koukasu+1,
+          updateAt: firebase.database.ServerValue.TIMESTAMP
+        };
+        this.taisakuInfo=this.af.database.object('TaisakuData/'+this.uid+'/'+this.koukaFromTaisakudata.key);
+        this.taisakuInfo.update(Info).then(data=>{
 
         }).catch(error=>{
 
@@ -123,7 +149,6 @@ export class InputKoukaComponent  {
     }
 
   }
-
 
   setMember(value){
     for(let key in this.memberList){

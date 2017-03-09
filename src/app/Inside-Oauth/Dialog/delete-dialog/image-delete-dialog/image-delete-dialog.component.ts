@@ -4,6 +4,7 @@ import {FirebaseObjectObservable, FirebaseListObservable, AngularFire} from "ang
 import {InsideMainService} from "../../../inside-main.service";
 import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
+import {OauthInfoService} from "../../../oauth-info.service";
 @Component({
   selector: 'app-image-delete-dialog',
   templateUrl: './image-delete-dialog.component.html',
@@ -16,12 +17,13 @@ export class ImageDeleteDialogComponent implements OnInit {
   uid:string;
   OnOff:boolean=false;
   claimList:any[]=[];
-  claimitem:any;
+//  claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
   info: FirebaseListObservable<any[]>;
-
-  constructor(private insideMainService:InsideMainService,private af : AngularFire,private insideService:InsideService) {
-
+ // Info2: FirebaseObjectObservable<any[]>;
+  constructor(private insideMainService:InsideMainService,private af : AngularFire,private oauthInfoService:OauthInfoService) {
+    this.uid=this.oauthInfoService.uid
+  //  this.claimitem=this.insideService.claimitem;
   }
 
   ngOnInit() {
@@ -32,14 +34,18 @@ export class ImageDeleteDialogComponent implements OnInit {
   }
 
   delete(){
+   // console.log(this.password.key)
+   // console.log(this.password.uid)
     if(this.password.password==this.pass){
       this.insideMainService.jyoukyoukey=this.password.key;//削除するFileDataのキーを別に保管して　画像一覧の表示をオぶサーバ使って削除
       let storage = firebase.storage();
       let storageRef = storage.ref();
+
       let desertRef = storageRef.child('FileData/'+this.password.uid+'/'+this.password.filename);
       desertRef.delete().then(()=> {
-        this.modalRef.hide()
-        this.insideMainService.fileDelete(this.password.key,this.password.uid)
+       this.modalRef.hide()
+
+       this.insideMainService.fileDelete(this.password.key,this.password.uid)
 
 
       }).catch((error)=> {

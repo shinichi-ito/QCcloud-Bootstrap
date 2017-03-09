@@ -82,16 +82,20 @@ InfoData:any[]=[];
 
 
   onAdd(){
+    let time=this.dt.getTime()
+    console.log(this.dt)
+    console.log(time)
     const Info = {
       syubetu:this.taisakusyubetu,
       name:this.name,
       siten:this.siten,
       busyo:this.busyo,
-      taisakubi:this.dt,
+      taisakubi:time,
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,
       claimkey:this.claimitem.key,
+      koukasu:0,
       startAt: firebase.database.ServerValue.TIMESTAMP,
      // updateAt: firebase.database.ServerValue.TIMESTAMP
     };

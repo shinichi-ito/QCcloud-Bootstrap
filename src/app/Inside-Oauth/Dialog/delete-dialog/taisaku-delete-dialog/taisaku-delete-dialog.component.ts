@@ -24,6 +24,7 @@ export class TaisakuDeleteDialogComponent implements OnInit {
   taisakus: FirebaseListObservable<any[]>;
   constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
+    this.claimitem=this.insideService.claimitem;
   }
 
   ngOnInit() {

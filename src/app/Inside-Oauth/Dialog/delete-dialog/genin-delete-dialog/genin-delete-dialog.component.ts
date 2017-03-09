@@ -23,6 +23,7 @@ export class GeninDeleteDialogComponent implements OnInit {
   genins: FirebaseListObservable<any[]>;
   constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService,
               private af : AngularFire,private insideService:InsideService) {
+    this.claimitem=this.insideService.claimitem;
     this.uid=this.oauthInfoService.uid;
   }
 

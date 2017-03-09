@@ -16,8 +16,8 @@
         <p>{{item?.toukousya}}</p>
         <p>{{item?.siten}}　{{item?.busyo}}</p>
         <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>
-          <a  (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
-          <a  (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
+          <a *ngIf="OnOff2" (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
+          <a *ngIf="OnOff2" (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
         </p>
       </div>
     </div>

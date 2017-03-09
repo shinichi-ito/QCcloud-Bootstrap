@@ -4,7 +4,9 @@
     情報一覧
   </div>
   <div class="panel-body">
-
+    <div *ngIf="OnOff">
+      <div class="alert alert-danger" role="alert">三か月が経過しました。効果確認を行ってください。<a (click)="checkKouka()" style="cursor: pointer">対象の対策{{addKouka}}件</a></div>
+    </div>
 <div style="margin: auto;">
   <table   style="table-layout:fixed;width:100%;" class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
            [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
@@ -87,6 +89,9 @@
 <app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
 <!--プログレスダイアログ-->
 <app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
+<!--効果チェックダイアログ-->
+<app-check-kouka [koukakakuninTaisaku]="koukakakuninTaisaku"  #checkKoukaDialog></app-check-kouka>
+
 
 
 

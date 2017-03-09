@@ -119,7 +119,7 @@ this.flag=false;
         //  console.log(data.json().responses[0].labelAnnotations[key].description)
            }
        //   console.log(this.insideService.InfoData[0].claimkey)
-           this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment,fileDetail.type,fileDetail.name).then(data=>{
+           this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment,fileDetail.type).then(data=>{
            this.addImageSu()
             this.flag=false;
             this.flagOK=true;
@@ -152,7 +152,7 @@ this.flag=false;
       },
       ()=>{
         //   console.log(this.insideService.InfoData[0].claimkey)
-            this.insideService.addFileInfoDatabase(this.downloadURL,this.comment,fileDetail.type,fileDetail.name).then(data=>{
+            this.insideService.addFileInfoDatabase(this.downloadURL,this.comment,fileDetail.type).then(data=>{
               this.addImageSu()
               this.flag=false;
               this.flagOK=true;

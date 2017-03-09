@@ -4,6 +4,7 @@ import {ImageDetail} from "./ImageDetail";
 import {FirebaseApp} from "angularfire2";
 import {Http} from "@angular/http";
 import * as firebase from 'firebase';
+import {InsideService} from "../../Inside.service";
 @Injectable()
 export class ImageService {
   flagChange$: Observable<any>;
@@ -16,7 +17,7 @@ export class ImageService {
   public imagedetail:ImageDetail[]=[];
   public base64:any[]=[];
 
-  constructor(private http:Http,@Inject(FirebaseApp) firebaseApp: any) {
+  constructor(private insideService:InsideService,private http:Http,@Inject(FirebaseApp) firebaseApp: any) {
     this._firebase = firebaseApp;
     this.percentage = 0;
     this.flagChange$ = new Observable(observer =>
@@ -70,7 +71,9 @@ test(){
   uploadingFile(file:File,uid:string) {
     let storage = firebase.storage();
     let Ref = storage.ref();
-    let fileUploading = Ref.child('FileData/'+uid+'/' + new Date().getTime()+'<>'+file.name).put(file);
+    let filename= new Date().getTime()+'<>'+file.name;
+    this.insideService.filename=filename;
+    let fileUploading = Ref.child('FileData/'+uid+'/' + filename).put(file);
     this._progress$=Observable.create(observer=>{
       fileUploading.on('state_changed',
         (snapshot)=> {

@@ -47,7 +47,7 @@ taioukey:string;
       this._observeractive= observer
     }).share()
 
-
+    this.claimitem=this.insideService.claimitem;
   }
 
   setActive(data){
@@ -79,7 +79,7 @@ this.imageData=data;
 
 
   fileDelete(key:string,uid:string){
-    this.info=this.af.database.list('FileData/'+uid)
+    this.info=this.af.database.list('FileData/'+uid);
     this.info.remove(key)
       .then(data=>{
 
@@ -93,29 +93,25 @@ this.imageData=data;
 
   minusImageSu(uid:string){//クレーム情報の対応数をマイナス
     this.claimitem=this.insideService.claimitem;
-    this.claimList=this.insideService.claimList
+    this.claimList=this.insideService.claimList;
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
-        //  console.log(this.claimList[key].file)
-
         let su:number;
         su=this.claimList[key].file-1;
         if(su<0){
           su=0;
         }
-        const claimInfo = {
-          file:su,
+         const claimInfo = {
+           file:su,
           updateAt: firebase.database.ServerValue.TIMESTAMP
         };
-        this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key)
-        this.claimInfo.update(claimInfo).then(data=>{
+         this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key);
+         this.claimInfo.update(claimInfo).then(data=>{
+           this._observerdelete.next(this.imageData2);
+           this.imageData2=data;
 
-          this._observerdelete.next(this.imageData2);
-          this.imageData2=data;
-
-        }).catch(error=>{
-
-        })
+         }).catch(error=>{
+         })
       }
     }
   }

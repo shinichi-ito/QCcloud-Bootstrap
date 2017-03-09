@@ -108,12 +108,14 @@ this.claimitem=this.insideService.claimitem;
   // }
 
   onAdd(){
+    console.log(this.dt)
+    let time=this.dt.getTime()
     const claimInfo = {
       syubetu:this.taiousyubetu,
       name:this.name,
       siten:this.siten,
       busyo:this.busyo,
-      taioubi:this.dt,
+      taioubi:time,
       naiyou:this.naiyou,
       password:this.password,
       koukai:this.model.label,

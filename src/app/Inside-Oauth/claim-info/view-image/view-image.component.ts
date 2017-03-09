@@ -28,7 +28,7 @@ password:any[]=[];
   fileList:any[]=[];
   taiouData;
   typeData:any;
-
+OnOff2:boolean;
   constructor(private insideMainService:InsideMainService,private af : AngularFire,private insideService:InsideService,private oauthInfoService:OauthInfoService) {
     this.uid=this.oauthInfoService.uid
     this.insideMainService.flagChange$.subscribe(
@@ -37,9 +37,7 @@ password:any[]=[];
         this.taiouData=this.insideService.shareData;
         this.fileList=this.insideService.fileList;
         for(let key in this.fileList){
-          //  console.log(this.fileList[key].doko)
           if(this.jyoukyouData[0]){
-            //  console.log(this.jyoukyouData[0].doko)
             if(this.fileList[key].claimkey==this.taiouData.claimkey&&this.fileList[key].doko==this.jyoukyouData[0].doko)
             this.typeData=this.fileList[key].type;
             if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
@@ -153,46 +151,71 @@ password:any[]=[];
   }
 
   ngOnInit() {
-     this.jyoukyouData2=[];
-     this.taiouData=this.insideService.shareData;
-     this.fileList=this.insideService.fileList;
-     for(let key in this.fileList){
-    //  console.log(this.fileList[key].doko)
-       if(this.jyoukyouData[0]){
-       //  console.log(this.jyoukyouData[0].doko)
-         if(this.fileList[key].claimkey==this.taiouData.claimkey&&this.fileList[key].doko==this.jyoukyouData[0].doko)
-
-
-   // console.log(this.fileList[key].type)
+    if(!this.passwordData){//passwordDataがない時とはつまり　クレーム情報から来た時はパスワードがない
+this.OnOff2=false;
+      this.fileList=this.jyoukyouData
+    //  console.log(this.fileList)
+      for(let key in this.fileList){
         this.typeData=this.fileList[key].type;
-         if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
-           this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
-         }else  if (this.typeData.match('application/pdf')) {
-           this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
+        if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
+          this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
+        }else  if (this.typeData.match('application/pdf')) {
+          this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
 
-         }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
-           this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
-         }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
-           this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
-         }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
-           this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
-         }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
-           this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
-         } else {
+        }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+          this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+        }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+          this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
+        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+          this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
+        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+          this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
+        } else {
 
-           return
-         }
- //     //   //  console.log(this.jyoukyoukey)
-           this.jyoukyouData2.push(this.fileList[key])
-    //
-    //
-    //
-       }else{
-    //     console.log('対象のデータがない')
-       }
-    //
-    //
-     }
+          return
+        }
+        this.jyoukyouData2.push(this.fileList[key])
+
+
+
+      }
+    }else{//passwordDataがある時とはつまり　対応やから来た時はパスワードがないある
+      this.OnOff2=true;
+      this.jyoukyouData2=[];
+      this.taiouData=this.insideService.shareData;
+      this.fileList=this.insideService.fileList;
+      for(let key in this.fileList){
+        if(this.jyoukyouData[0]){
+          if(this.fileList[key].claimkey==this.taiouData.claimkey&&this.fileList[key].doko==this.jyoukyouData[0].doko)
+       this.typeData=this.fileList[key].type;
+          if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
+            this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
+          }else  if (this.typeData.match('application/pdf')) {
+            this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
+
+          }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+            this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+          }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+            this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
+          }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+            this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
+          }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+            this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
+          } else {
+
+            return
+          }
+
+          this.jyoukyouData2.push(this.fileList[key])
+         }else{
+          //     console.log('対象のデータがない')
+        }
+      }
+
+
+
+    }
+
 
   }
 Up(){

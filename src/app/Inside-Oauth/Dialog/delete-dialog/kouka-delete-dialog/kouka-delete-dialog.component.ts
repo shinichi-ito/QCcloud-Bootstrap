@@ -4,6 +4,7 @@ import {FirebaseObjectObservable, FirebaseListObservable, AngularFire} from "ang
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideMainService} from "../../../inside-main.service";
 import {InsideService} from "../../../Inside.service";
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-kouka-delete-dialog',
@@ -20,11 +21,16 @@ export class KoukaDeleteDialogComponent implements OnInit {
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  taisakuInfo: FirebaseObjectObservable<any[]>;
+  taisakuList:any;
   info: FirebaseListObservable<any[]>;
   koukas: FirebaseListObservable<any[]>;
+  koukaFromTaisakudata:any;
   constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService,
               private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
+    this.claimitem=this.insideService.claimitem;
+    this.koukaFromTaisakudata= this.insideMainService.koukaFromTaisakudata;
   }
 
   ngOnInit() {
@@ -56,8 +62,8 @@ export class KoukaDeleteDialogComponent implements OnInit {
     this.koukas.remove(key)
       .then(data=>{
 
-        this.minusKoukaSu()
-
+        this.minusKoukaSu();
+        this.mainusTaisakusu()
       })
       .catch(error=>{
 
@@ -80,7 +86,7 @@ export class KoukaDeleteDialogComponent implements OnInit {
           kouka:su,
           updateAt: firebase.database.ServerValue.TIMESTAMP
         };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
 
         }).catch(error=>{
@@ -89,6 +95,35 @@ export class KoukaDeleteDialogComponent implements OnInit {
       }
     }
   }
+  mainusTaisakusu(){//効果をインプットしたとき対策内のkoukasuに件数を入れる。あとでその対策で効果が入っているかチェックするため
+    this.taisakuList=this.insideService.taisakuList;
+    // console.log(this.koukaFromTaisakudata.key)
 
+    for(let key in this.taisakuList) {
+
+       console.log(this.taisakuList[key].koukasu);
+      if (this.taisakuList[key].key == this.koukaFromTaisakudata.key) {
+        let su:number;
+        su=this.taisakuList[key].koukasu-1;
+        if(su<0){
+          su=0;
+        }
+console.log(su)
+
+         const Info = {
+          koukasu:su,
+           updateAt: firebase.database.ServerValue.TIMESTAMP
+         };
+        console.log('ここ')
+          this.taisakuInfo=this.af.database.object('TaisakuData/'+this.uid+'/'+this.koukaFromTaisakudata.key);
+          this.taisakuInfo.update(Info).then(data=>{
+         }).catch(error=>{
+         })
+
+      }
+
+    }
+
+  }
 
 }
