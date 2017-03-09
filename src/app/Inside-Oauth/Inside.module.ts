@@ -87,6 +87,7 @@ import { EditCompanyInfoComponent } from './company-info/edit-company-info/edit-
 import { NavMainComponent } from './Nav-Inside/nav-main/nav-main.component';
 import { NavSabuComponent } from './Nav-Inside/nav-sabu/nav-sabu.component';
 import { CheckKoukaComponent } from './Dialog/check-kouka/check-kouka.component';
+import { ViewFileComponent } from './Dialog/view-file/view-file.component';
 
 
 
@@ -179,7 +180,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     EditCompanyInfoComponent,
     NavMainComponent,
     NavSabuComponent,
-    CheckKoukaComponent
+    CheckKoukaComponent,
+    ViewFileComponent
 
 
 

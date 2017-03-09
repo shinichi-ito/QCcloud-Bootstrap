@@ -6,6 +6,7 @@ import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 import {CheckKoukaComponent} from "../../../Dialog/check-kouka/check-kouka.component";
+import {ViewFileComponent} from "../../../Dialog/view-file/view-file.component";
 
 @Component({
   selector: 'app-claim-list-all',
@@ -13,7 +14,7 @@ import {CheckKoukaComponent} from "../../../Dialog/check-kouka/check-kouka.compo
   styleUrls: ['./claim-list-all.component.css']
 })
 export class ClaimListAllComponent  {
-
+  fileList:any;
   public data;
   newclaimList;
   newclaimList2:any[]=[];
@@ -29,17 +30,19 @@ koukakakuninTaisaku:any[]=[];
   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
   Data:string='プログレス内容'
   @ViewChild("checkKoukaDialog") checkKoukaComponent: CheckKoukaComponent;
-
-
+  @ViewChild("fileDialog") viewFileComponent: ViewFileComponent;
+  fileData:any[]=[];
   date :Date= new Date() ;
   unixTimestampmill:any;
   unixTimestamp:any;
   taisakubi:any;
   OnOff:boolean=false;
   addKouka:number=0;
+  claimitem:any;
+  typeData:any;
   constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.taisakuList=this.insideService.taisakuList;
-
+    this.claimitem=this.insideService.claimitem;
     this.unixTimestampmill = this.date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
     this.unixTimestamp = this.setTimeChange(this.unixTimestampmill)// 現在のUNIX時間を取得する (秒単位)
    let term:number;
@@ -78,6 +81,50 @@ this.data=this.newclaimList2
 
 
  }
+
+setFile(item){
+   this.getFile(item)
+  this.viewFileComponent.openDialog();
+
+
+
+}
+
+  getFile(item){
+    let jyoukyouData:any[]=[];
+    let passwordData:any[]=[];
+    this.OnOff=!this.OnOff;
+    this.fileList=this.insideService.fileList
+    console.log(this.fileList)
+     for(let key in this.fileList){
+     // console.log(this.fileList[key].claimkey)
+  //  console.log(item.key)
+       if(item.key==this.fileList[key].claimkey){
+           this.typeData=this.fileList[key].type;
+           if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
+             this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
+           }else  if (this.typeData.match('application/pdf')) {
+             this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
+
+           }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+             this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+           }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+             this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
+           }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+             this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
+           }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+             this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
+           } else {
+
+             return
+           }
+              jyoukyouData.push(this.fileList[key])
+       }
+     }
+
+     this.fileData=jyoukyouData
+  //  console.log(this.fileData)
+  }
 
 
 

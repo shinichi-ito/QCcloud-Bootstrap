@@ -17,6 +17,9 @@ export class ViewImageComponent implements OnInit {
 @Input() jyoukyouData;
   @Input() passwordData;
   @Input() OnOff;
+  newLines:any;
+  newData:any[]=[];
+  newData2:any[]=[];
 password:any[]=[];
   password2:any[]=[];
   claimList:any[]=[];
@@ -180,11 +183,19 @@ this.OnOff2=false;
 
       }
     }else{//passwordDataがある時とはつまり　対応やから来た時はパスワードがないある
+
+
+this.getFilterFile()
+
+
       this.OnOff2=true;
       this.jyoukyouData2=[];
       this.taiouData=this.insideService.shareData;
       this.fileList=this.insideService.fileList;
       for(let key in this.fileList){
+       // console.log(this.fileList[key].imageAnalysis.length)
+      //  console.log(this.fileList[key].imageAnalysis[0])
+
         if(this.jyoukyouData[0]){
           if(this.fileList[key].claimkey==this.taiouData.claimkey&&this.fileList[key].doko==this.jyoukyouData[0].doko)
        this.typeData=this.fileList[key].type;
@@ -218,6 +229,32 @@ this.OnOff2=false;
 
 
   }
+
+
+  getFilterFile(){
+    let array = ['hair','face', 'hairstyle'];
+let newLine:any[]=[];
+
+    for(let key in array){
+    //  console.log(array[key])
+      newLine= this.insideService.fileList.filter((item)=>{
+        if ((item.imageAnalysis).indexOf(array[key]) >= 0) return true;
+      });
+     // console.log(newLine[0].busyo)
+      this.newData.push(newLine[0]);
+//console.log(newLine)
+    }
+// 重複削除
+
+   let b1 = this.newData.filter((x, i, self) => self.indexOf(x) === i);
+ for(let key in b1) {
+    console.log(b1[key].busyo)
+
+ }
+  }
+
+
+
 Up(){
   this.jyoukyouData2=[];
   this.taiouData=this.insideService.shareData;
