@@ -3,13 +3,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
-        <h4 class="modal-title">タイトル</h4>
+        <h4 class="modal-title">対象のファイル一覧</h4>
       </div>
       <div class="modal-body">
 
 
 
-        <div style=" margin: 0 auto;height:400px;width:900px;overflow:auto">
+        <div style=" margin: 0 auto;height:500px;width:900px;overflow:auto">
 
 
           <ul class="list-inline" >
@@ -19,10 +19,16 @@
                 <img style="height: 150px" src="{{item?.downloadURL2}}">
                 <div class="caption">
                   <p>備考</p>
+                  <div style=" margin: 0 auto;height:150px;width:130px;overflow:auto">
                   <p>{{item?.comment}}</p>
+                  </div>
                   <p>{{item?.toukousya}}</p>
                   <p>{{item?.siten}}　{{item?.busyo}}</p>
                   <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>
+                    <a *ngIf="onoffData" (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
+                    <a *ngIf="onoffData" (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
+
+
                   </p>
                 </div>
               </div>
@@ -40,3 +46,5 @@
   </div>
 </div>
 
+<app-image-delete-dialog  [password]="password"  #imageDeleteDialog></app-image-delete-dialog>
+<app-image-dialog  [password2]="password2"  #imageEditDialog></app-image-dialog>

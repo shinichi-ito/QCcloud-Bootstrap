@@ -7,6 +7,8 @@ import {TaiouDialogComponent} from "../../../Dialog/edit-dialog/taiou-dialog/tai
 import {Router} from "@angular/router";
 import {InsideMainService} from "../../../inside-main.service";
 import {TaiouDeleteDialogComponent} from "../../../Dialog/delete-dialog/taiou-delete-dialog/taiou-delete-dialog.component";
+import {ViewFileComponent} from "../../../Dialog/view-file/view-file.component";
+import {NoFileListComponent} from "../../../Dialog/no-file-list/no-file-list.component";
 @Component({
   selector: 'app-list-taiou',
   templateUrl: './list-taiou.component.html',
@@ -40,6 +42,15 @@ taiouList:any[]=[];
    Data2:any[]=[];
   @ViewChild("editTaiouDialog") taiouDialogComponent: TaiouDialogComponent;
   @ViewChild("deleteTaiouDialog") taiouDeleteDialogComponent: TaiouDeleteDialogComponent;
+
+
+  @ViewChild("noFileListDialog") noFileListComponent: NoFileListComponent;
+  @ViewChild("fileDialog") viewFileComponent: ViewFileComponent;
+  fileData:any[]=[];
+  typeData:any;
+   onoffData:boolean;
+
+
  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,
              private insideService:InsideService,private insideMainService:InsideMainService) {
     this.uid=this.oauthInfoService.uid;
@@ -119,28 +130,90 @@ taiouList:any[]=[];
 
 
 
-  View(index){
-    this.OnOff=!this.OnOff;//対象の画像の一覧を表示
+ //  View(index){
+ //    this.OnOff=!this.OnOff;//対象の画像の一覧を表示
+ //    this.index=index;
+ //    this.taiouData=this.newtaiouList[index];
+ //    this.insideService.shareData=this.taiouData;//shareDataは対応や対策で表示されている一覧が入っている
+ //  //  console.log(this.taiouData)
+ //    let jyoukyouData:any[]=[];
+ //    let passwordData:any[]=[];
+ //    for(let key in this.newfileList){
+ //
+ //    //  console.log(this.newfileList[key].jyoukyoukey)
+ //    //  console.log(this.taiouData.key)
+ //      if(this.newfileList[key].jyoukyoukey==this.taiouData.key){//jyoukyoukeyとはそのファイルがどの対応や対策に紐づいてるかの対応や対策のキー
+ //      // console.log(this.newfileList[key].jyoukyoukey)
+ //        jyoukyouData.push(this.newfileList[key]);
+ //        passwordData.push(this.taiouData.password)
+ //       }
+ //     }
+ //       this.jyoukyouData=jyoukyouData;
+ // //   this.insideMainService.jyoukyouData=this.jyoukyouData;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
+ //       this.passwordData=passwordData;
+ //  }
+
+  setFile(index){
+
+    this.getFile(index);
+
+  }
+
+  getFile(index){
+    this.fileList=[];
+    this.newfileList=[];
+    this.fileList=this.insideService.fileList;//再度開きなおしたときFileDataを最新のものを取得したい
+    for(let key in this.fileList){
+      //  console.log(this.fileList[key].doko)
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対応'){
+        this.newfileList.push(this.fileList[key])
+      }
+    }
     this.index=index;
     this.taiouData=this.newtaiouList[index];
-    this.insideService.shareData=this.taiouData;
-  //  console.log(this.taiouData)
-    let jyoukyouData:any[]=[];
+    this.insideService.shareData=this.taiouData;//shareDataは対応や対策で表示されている一覧が入っている
+     let jyoukyouData:any[]=[];
     let passwordData:any[]=[];
     for(let key in this.newfileList){
+      if(this.newfileList[key].jyoukyoukey==this.taiouData.key){//jyoukyoukeyとはそのファイルがどの対応や対策に紐づいてるかの対応や対策のキー
+        this.typeData=this.newfileList[key].type;
+        if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
+          this.newfileList[key]["downloadURL2"] = this.newfileList[key].downloadURL;
+        }else  if (this.typeData.match('application/pdf')) {
+          this.newfileList[key]["downloadURL2"] = 'assets/img/pdf.png';
 
-    //  console.log(this.newfileList[key].jyoukyoukey)
-    //  console.log(this.taiouData.key)
-      if(this.newfileList[key].jyoukyoukey==this.taiouData.key){
-      // console.log(this.newfileList[key].jyoukyoukey)
+        }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+          this.newfileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+        }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+          this.newfileList[key]["downloadURL2"] = 'assets/img/Oword.png';
+        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+          this.newfileList[key]["downloadURL2"] = 'assets/img/Excel.png';
+        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+          this.newfileList[key]["downloadURL2"] = 'assets/img/Word.png';
+        } else {
+
+          return
+        }
         jyoukyouData.push(this.newfileList[key]);
         passwordData.push(this.taiouData.password)
-       }
-     }
-       this.jyoukyouData=jyoukyouData;
- //   this.insideMainService.jyoukyouData=this.jyoukyouData;//jyoukyoData内にはFileDataの更に対応や対策等に絞り込んだデータが入っている　それを一旦別に保管
-       this.passwordData=passwordData;
+      }
+      }
+   // console.log(jyoukyouData)
+   // console.log(jyoukyouData.length)
+    if(jyoukyouData.length===0){
+      this.noFileListComponent.openDialog();
+    }else{
+      this.fileData=jyoukyouData;
+      this.onoffData=true;
+      this.passwordData=passwordData;
+      this.viewFileComponent.openDialog();
+    }
+
+
+//console.log(this.fileData)
   }
+
+
   addImage(index){
     this.insideMainService.setActive(false);
     this.index=index;
@@ -149,11 +222,11 @@ taiouList:any[]=[];
     let taiouData:any[]=[];
     for(let key in this.newfileList){
       if(this.newfileList[key].jyoukyoukey==this.taiouData.key){
-         jyoukyouData.push(this.newfileList[key]);
-         taiouData.push(this.taiouData)
+        jyoukyouData.push(this.newfileList[key]);
+        taiouData.push(this.taiouData)
       }
     }
-   // console.log(taiouData[0])
+    // console.log(taiouData[0])
     if(!jyoukyouData[0]){
       this.InfoData.push({jyoukyoukey:this.taiouData.key,toukousya:this.taiouData.name,
         siten:this.taiouData.siten,busyo:this.taiouData.busyo,
@@ -174,56 +247,21 @@ taiouList:any[]=[];
     }
   }
 
+
+
+
+
+
+
+
   Close(){
     this.OnOff=false;
 
   }
 
-  // deleteTaiou(key:string,uid:string){
-  //   this.taious=this.af.database.list('TaiouData/'+this.uid)
-  //   this.taious.remove(key)
-  //     .then(data=>{
-  //       this.taiouList=[];
-  //       this.newtaiouList=[];
-  //       this.taiouList=this.insideService.taiouList
-  //       for(let key in this.taiouList){
-  //         if(this.claimitem.key==this.taiouList[key].claimkey){
-  //           this.newtaiouList.push(this.taiouList[key])
-  //         }
-  //       }
-  //   this.minusTaiouSu()
-  //
-  //     })
-  //     .catch(error=>{
-  //
-  //
-  //     });
-  // }
-  // minusTaiouSu(){//クレーム情報の対応数をマイナス
-  //
-  //   this.claimList=this.insideService.claimList
-  //   for(let key in this.claimList) {
-  //     if (this.claimList[key].key == this.claimitem.key) {
-  //       console.log(this.claimList[key].taiou)
-  //
-  //       let su:number;
-  //       su=this.claimList[key].taiou-1
-  //       if(su<0){
-  //         su=0;
-  //       }
-  //       const claimInfo = {
-  //         taiou:su,
-  //         updateAt: firebase.database.ServerValue.TIMESTAMP
-  //       };
-  //       this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
-  //       this.claimInfo.update(claimInfo).then(data=>{
-  //
-  //       }).catch(error=>{
-  //
-  //       })
-  //   }
-  //   }
-  // }
+
+
+
 
 
 }

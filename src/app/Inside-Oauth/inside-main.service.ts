@@ -23,11 +23,11 @@ taioukey:string;
   active:any;
   koukaFromTaisakudata:any;
   value: FirebaseObjectObservable<any>;
-  flagChange$: Observable<number>;
-  private _observer;
+  // flagChange$: Observable<number>;
+  // private _observer;
 
-  flagChangeDelete$: Observable<number>;
-  private _observerdelete;
+  // flagChangeDelete$: Observable<number>;
+  // private _observerdelete;
 
   flagChangeActive$: Observable<string>;
   private _observeractive;
@@ -38,10 +38,10 @@ taioukey:string;
   claimitem:any;
 
   constructor(private insideService:InsideService,private af : AngularFire) {
-    this.flagChange$ = new Observable(observer =>
-      this._observer = observer).share();
-    this.flagChangeDelete$ = new Observable(observer =>
-      this._observerdelete = observer).share();
+    // this.flagChange$ = new Observable(observer =>
+    //   this._observer = observer).share();
+    // this.flagChangeDelete$ = new Observable(observer =>
+    //   this._observerdelete = observer).share();
 
     this.flagChangeActive$ = new Observable((observer) =>{
       this._observeractive= observer
@@ -69,7 +69,7 @@ fileDataUp(toukousya:string,siten:string,busyo:string,comment:string,uid:string,
   };
   this.value = this.af.database.object('FileData/' + uid + '/'+key);
   this.value.update(Info).then(data=>{
-    this._observer.next(this.imageData);
+   // this._observer.next(this.imageData);
 this.imageData=data;
 
   }).catch(error=>{
@@ -107,7 +107,7 @@ this.imageData=data;
         };
          this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key);
          this.claimInfo.update(claimInfo).then(data=>{
-           this._observerdelete.next(this.imageData2);
+       //    this._observerdelete.next(this.imageData2);
            this.imageData2=data;
 
          }).catch(error=>{

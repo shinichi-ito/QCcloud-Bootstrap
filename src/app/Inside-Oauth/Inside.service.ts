@@ -16,7 +16,7 @@ import {Observable} from "rxjs";
  */
 @Injectable()
 export class InsideService {
-  shareData;
+  shareData;//shareDataは対応や対策で表示されている一覧が入っている
 
 
   public file:File;

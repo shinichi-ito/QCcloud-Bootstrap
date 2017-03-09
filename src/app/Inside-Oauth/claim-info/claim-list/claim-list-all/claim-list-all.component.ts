@@ -40,6 +40,7 @@ koukakakuninTaisaku:any[]=[];
   addKouka:number=0;
   claimitem:any;
   typeData:any;
+  onoffData:boolean;
   constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.taisakuList=this.insideService.taisakuList;
     this.claimitem=this.insideService.claimitem;
@@ -122,7 +123,8 @@ setFile(item){
        }
      }
 
-     this.fileData=jyoukyouData
+     this.fileData=jyoukyouData;
+    this.onoffData=false;
   //  console.log(this.fileData)
   }
 

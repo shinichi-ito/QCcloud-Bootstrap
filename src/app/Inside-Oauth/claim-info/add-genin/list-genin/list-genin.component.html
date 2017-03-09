@@ -1,9 +1,9 @@
-<div class="container">
+<!--<div class="container">-->
 
-  <!-- content -->
-  <div class="row" style="padding:10px 0 0 0">
-    <!-- left -->
-    <div class="col-md-9">
+  <!--&lt;!&ndash; content &ndash;&gt;-->
+  <!--<div class="row" style="padding:10px 0 0 0">-->
+    <!--&lt;!&ndash; left &ndash;&gt;-->
+    <!--<div class="col-md-9">-->
 
 <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
   <div class="panel-heading">
@@ -44,7 +44,7 @@
                 <li role="menuitem"><a class="dropdown-item" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>　編集</a></li>
                 <li role="menuitem"><a class="dropdown-item" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i>　削除</a></li>
                 <li role="menuitem"><a class="dropdown-item" (click)="addImage(idx)"><i class="fa fa-picture-o" aria-hidden="true"></i>　関連ファイル登録</a></li>
-                <li role="menuitem"><a class="dropdown-item"  (click)="View(idx)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>
+                <li role="menuitem"><a class="dropdown-item"  (click)="setFile(idx)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>
 
 
               </ul>
@@ -60,15 +60,15 @@
     </div>
   </div>
 </div>
-    </div>
+    <!--</div>-->
 
-    <div  class="col-md-3">
+    <!--<div  class="col-md-3">-->
 
-      <app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData"></app-view-image>
-    </div>
+      <!--<app-view-image *ngIf="OnOff"  [jyoukyouData]="jyoukyouData"></app-view-image>-->
+    <!--</div>-->
 
-  </div>
-</div>
+  <!--</div>-->
+<!--</div>-->
 
 
 
@@ -78,3 +78,6 @@
 <!--編集ダイアログ-->
 <app-genin-dialog [geninData]="geninData"  #editGeninDialog></app-genin-dialog>
 <app-genin-delete-dialog  [geninData]="geninData" #deleteGeninDialog></app-genin-delete-dialog>
+<!--ファイル一覧ダイアログ-->
+<app-view-file [fileData]="fileData"  [onoffData]="onoffData" [passwordData]="passwordData" #fileDialog></app-view-file>
+<app-no-file-list #noFileListDialog></app-no-file-list>

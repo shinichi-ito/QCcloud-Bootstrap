@@ -88,6 +88,7 @@ import { NavMainComponent } from './Nav-Inside/nav-main/nav-main.component';
 import { NavSabuComponent } from './Nav-Inside/nav-sabu/nav-sabu.component';
 import { CheckKoukaComponent } from './Dialog/check-kouka/check-kouka.component';
 import { ViewFileComponent } from './Dialog/view-file/view-file.component';
+import { NoFileListComponent } from './Dialog/no-file-list/no-file-list.component';
 
 
 
@@ -181,7 +182,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     NavMainComponent,
     NavSabuComponent,
     CheckKoukaComponent,
-    ViewFileComponent
+    ViewFileComponent,
+    NoFileListComponent
 
 
 
