@@ -121,6 +121,7 @@ this.flag=false;
        //   console.log(this.insideService.InfoData[0].claimkey)
            this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment,fileDetail.type).then(data=>{
            this.addImageSu()
+             console.log('ここ')
             this.flag=false;
             this.flagOK=true;
              this.flagNG=false;

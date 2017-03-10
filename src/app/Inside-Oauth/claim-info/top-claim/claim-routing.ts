@@ -10,11 +10,12 @@ import {COMMENT_ROUTES} from "../add-comment/comment-routing";
 import {GENIN_ROUTES} from "../add-genin/genin-routing";
 import {KOUKA_ROUTES} from "../add-kouka/kouka-routing";
 import {TAISAKU_ROUTES} from "../add-taisaku/taisaku-routing";
+import {EditClaimMainComponent} from "./edit-claim-main/edit-claim-main.component";
 /**
  * Created by hp on 2017/02/25.
  */
 export const CLAIM_ROUTES: Routes = [
-  { path: 'topclaimedit',component:TopClaimEditComponent},
+  { path: 'editclaimmain',component:EditClaimMainComponent},
   { path: 'addtaiou',component:AddTaiouComponent,children: TAIOU_ROUTES},
   { path: 'addcomment',component:AddCommentComponent,children: COMMENT_ROUTES},
   { path: 'addgenin',component:AddGeninComponent,children: GENIN_ROUTES},

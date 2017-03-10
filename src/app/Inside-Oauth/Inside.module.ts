@@ -69,7 +69,6 @@ import { SelectEditComponent } from './select-edit/select-edit.component';
 import { SelectSyubetuComponent } from './select-edit/select-syubetu/select-syubetu.component';
 import { SelectTaiouComponent } from './select-edit/select-taiou/select-taiou.component';
 import { SelectTaisakuComponent } from './select-edit/select-taisaku/select-taisaku.component';
-import { ViewImageComponent } from './claim-info/view-image/view-image.component';
 import { ImageTopComponent } from './claim-info/image-info/image-top/image-top.component';
 import { ProgressDialogComponent } from './Dialog/progress-dialog/progress-dialog.component';
 import { SelectEditClaimComponent } from './claim-info/edit-claim/select-edit-claim/select-edit-claim.component';
@@ -89,6 +88,9 @@ import { NavSabuComponent } from './Nav-Inside/nav-sabu/nav-sabu.component';
 import { CheckKoukaComponent } from './Dialog/check-kouka/check-kouka.component';
 import { ViewFileComponent } from './Dialog/view-file/view-file.component';
 import { NoFileListComponent } from './Dialog/no-file-list/no-file-list.component';
+import { EditClaimMainComponent } from './claim-info/top-claim/edit-claim-main/edit-claim-main.component';
+import { EditClaimDataComponent } from './claim-info/top-claim/edit-claim-main/edit-claim-data/edit-claim-data.component';
+import { SameImageComponent } from './Dialog/same-image/same-image.component';
 
 
 
@@ -164,7 +166,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SelectSyubetuComponent,
     SelectTaiouComponent,
     SelectTaisakuComponent,
-    ViewImageComponent,
     ImageTopComponent,
     ProgressDialogComponent,
     SelectEditClaimComponent,
@@ -183,7 +184,10 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     NavSabuComponent,
     CheckKoukaComponent,
     ViewFileComponent,
-    NoFileListComponent
+    NoFileListComponent,
+    EditClaimMainComponent,
+    EditClaimDataComponent,
+    SameImageComponent
 
 
 

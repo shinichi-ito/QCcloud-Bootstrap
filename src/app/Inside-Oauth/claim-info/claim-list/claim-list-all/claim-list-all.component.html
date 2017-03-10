@@ -66,8 +66,30 @@
       </td>
 
 
-      <td> <button (click)="setFile(item)" class="btn btn-primary"><i class="fa fa-file-code-o" aria-hidden="true"></i>　取得</button></td>
-    </tr>
+      <td>
+        <div class="btn-group" dropdown>
+          <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+            <i class="fa fa-list" aria-hidden="true"></i>　各種編集追加<span class="caret"></span>
+          </button>
+          <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a class="dropdown-item" (click)="setEdit(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　編集</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="addImage(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　関連ファイル登録</a></li>
+            <li role="menuitem"><a class="dropdown-item"  (click)="setFile(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>
+            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeTaiou(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　対応関連ファイル表示</a></li>
+            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeTaisaku(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　対策関連ファイル表示</a></li>
+            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeGenin(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　原因分析関連ファイル表示</a></li>
+            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeKouka(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　効果確認関連ファイル表示</a></li>
+            <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　タイムライン表示</a></li>
+
+
+
+
+
+
+          </ul>
+        </div>
+     </tr>
+
     </tbody>
     <tfoot>
     <tr>
@@ -92,8 +114,7 @@
 <!--効果チェックダイアログ-->
 <app-check-kouka [koukakakuninTaisaku]="koukakakuninTaisaku"  #checkKoukaDialog></app-check-kouka>
 <!--ファイル一覧ダイアログ-->
-<app-view-file [fileData]="fileData"  #fileDialog></app-view-file>
-
-
-
+<!--<app-view-file [fileData]="fileData"  #fileDialog></app-view-file>-->
+<app-view-file [fileData]="fileData"  [onoffData]="onoffData" [passwordData]="passwordData" #fileDialog></app-view-file>
+<app-no-file-list #noFileListDialog></app-no-file-list>
 

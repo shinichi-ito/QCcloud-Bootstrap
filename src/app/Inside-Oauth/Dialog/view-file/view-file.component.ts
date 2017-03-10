@@ -5,6 +5,7 @@ import {ImageDeleteDialogComponent} from "../delete-dialog/image-delete-dialog/i
 import {ImageDialogComponent} from "../edit-dialog/image-dialog/image-dialog.component";
 import {InsideMainService} from "../../inside-main.service";
 import {InsideService} from "../../Inside.service";
+import {SameImageComponent} from "../same-image/same-image.component";
 
 @Component({
   selector: 'app-view-file',
@@ -14,7 +15,7 @@ import {InsideService} from "../../Inside.service";
 export class ViewFileComponent implements OnInit {
   @ViewChild("imageDeleteDialog") imageDeleteDialogComponent: ImageDeleteDialogComponent;
   @ViewChild("imageEditDialog") imageEditDialogComponent: ImageDialogComponent;
-
+  @ViewChild("imageSameDialog") sameImageComponent: SameImageComponent;
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
   @Input() fileData;//親コンポーネントから受取る属性
   @Input() onoffData;//親コンポーネントから受取る属性
@@ -22,18 +23,50 @@ export class ViewFileComponent implements OnInit {
   password:any[]=[];
   password2:any[]=[];
   uid:string;
+  syubetus:Array<any>;
+  typeData:any;
+  fileList:any;
+  newData:any[]=[];
+  fileSameList:any[]=[];
   constructor(private insideService:InsideService,private insideMainService:InsideMainService,private oauthInfoService:OauthInfoService) {
     this.uid=this.oauthInfoService.uid;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.syubetus = [
+      {value: '0', label: '対応関連'},
+      {value: '1', label: '対策関連'},
+      {value: '2', label: '原因分析関連'},
+      {value: '3', label: '効果確認関連'},
+      {value: '4', label: '情報関連'},
+      {value: '5', label: 'すべて'},
+    ];
+
+
+  }
 
 
 
-
-
-
-
+  getFilterFile(itemData){
+    this.fileSameList=[];
+    let fileSameList:any[]=[];
+    let array = itemData.imageAnalysis;
+    let newLine:any[]=[];
+this.newData=[]
+ fileSameList=this.insideService.fileList;
+    for(let key in array) {
+      for (let key2 in fileSameList) {
+        if (fileSameList[key2].imageAnalysis.indexOf(array[key]) >= 0) {
+          this.newData.push(fileSameList[key2]);
+        }
+      }
+    }
+    // 重複削除
+    let bb = this.newData.filter((x, i, self) => self.indexOf(x) === i);
+    this.fileSameList=bb;
+this.sameImageComponent.openDialog();
+ this.modalRef.hide()
+  }
 
   //ダイアログを開く
   openDialog() {

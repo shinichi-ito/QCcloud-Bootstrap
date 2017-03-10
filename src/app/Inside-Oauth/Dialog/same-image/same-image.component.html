@@ -14,18 +14,17 @@
 
           <ul class="list-inline" >
 
-            <li  *ngFor="let item of fileData let idx = index;">
+            <li  *ngFor="let item of fileSameList let idx = index;">
               <div style="width: 200px" class="thumbnail">
-                <img style="height: 150px" src="{{item?.downloadURL2}}">
+                <img style="height: 150px" src="{{item?.downloadURL}}">
                 <div class="caption">
                   <p>備考</p>
                   <div style=" margin: 0 auto;height:150px;width:130px;overflow:auto">
-                  <p>{{item?.comment}}</p>
+                    <p>{{item?.comment}}</p>
                   </div>
                   <p>{{item?.toukousya}}</p>
                   <p>{{item?.siten}}　{{item?.busyo}}</p>
                   <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>
-                    <a  (click)="getFilterFile(item)" class="btn btn-default" role="button" target="_blank">似た画像検索</a>
                     <a *ngIf="onoffData" (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
                     <a *ngIf="onoffData" (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
 
@@ -41,7 +40,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-default"   (click)="reset()" data-dismiss="modal">閉じる</button>
       </div>
     </div>
   </div>
@@ -50,4 +49,3 @@
 <app-image-delete-dialog  [password]="password"  #imageDeleteDialog></app-image-delete-dialog>
 <app-image-dialog  [password2]="password2"  #imageEditDialog></app-image-dialog>
 
-<app-same-image [fileSameList]="fileSameList"  #imageSameDialog></app-same-image>

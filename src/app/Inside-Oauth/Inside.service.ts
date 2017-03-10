@@ -84,7 +84,7 @@ key:string;//各登録情報のユニークなキー
 
  // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
   imageInfo: FirebaseListObservable<any[]>;
-public claimitem:any;
+public claimitem:any;//claim-list-allで情報を選択した際　クレーム情報がはいってくる
 
 constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
   this.flagChangeTaisaku$ = new Observable(observer =>
@@ -508,7 +508,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   koukaAddTrigger(uid){
     let commentsRef = firebase.database().ref('KoukaData/'+uid);
     commentsRef.on('child_added', (value)=> {
-         console.log("kouka追加"+value.val())
+        // console.log("kouka追加"+value.val())
       this.koukaList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,
         aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
