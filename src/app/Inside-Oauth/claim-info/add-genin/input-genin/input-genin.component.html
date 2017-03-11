@@ -25,6 +25,18 @@
     </div>
 
     <div class="form-group">
+      <label for="hasseibi">原因分析日</label>
+      <input type="text" id="hasseibi" class="form-control" (click)="open()" placeholder="確認日を入力ください" value="{{ getDate() | date:'yyyy/MM/dd'}}">
+      <div *ngIf="opened">
+        <div style="display:inline-block; min-height:290px;">
+          <datepicker  [(ngModel)]="dt" formControlName="dt"></datepicker>
+          <button type="button" class="btn btn-warning" (click)="open()">閉じる</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
       <label for="taiou">原因分析内容<span *ngIf="myForm.controls.naiyou.dirty &&
                 myForm.controls.naiyou.errors||myForm.controls.naiyou.untouched &&
            myForm.controls.naiyou.errors">

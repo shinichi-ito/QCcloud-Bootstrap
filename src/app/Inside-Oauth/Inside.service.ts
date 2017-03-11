@@ -394,7 +394,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
    // console.log("taiou追加"+value.val().claimkey)
        this.taiouList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
-         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
          password:value.val().password,startAt:value.val().startAt})
     })
   }
@@ -406,7 +406,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
         if(this.taiouList[index].key==value.key){
           this._observerTaiou.next(this.taiouList);
            this.taiouList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
-             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
              password:value.val().password,startAt:value.val().startAt}
          }
        }
@@ -473,7 +473,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
     commentsRef.on('child_added', (value)=> {
       //  console.log("taiou追加"+value.val().name)
       this.geninList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
-        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,kakuninbi:value.val().kakuninbi,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
   }
@@ -485,7 +485,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
         if(this.geninList[index].key==value.key){
           this._observerGenin.next(this.geninList);
           this.geninList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
-            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,kakuninbi:value.val().kakuninbi,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
         }
       }
@@ -512,7 +512,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
       this.koukaList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,
         aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
-        taisakukey:value.val().taisakukey,
+        taisakukey:value.val().taisakukey,kakuninbi:value.val().kakuninbi,
         naiyou:value.val().naiyou,koukai:value.val().koukai,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
@@ -528,7 +528,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
             siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,
             cc:value.val().cc,dd:value.val().dd,
             aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
-            taisakukey:value.val().taisakukey,
+            taisakukey:value.val().taisakukey,kakuninbi:value.val().kakuninbi,
             naiyou:value.val().naiyou,koukai:value.val().koukai,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
         }

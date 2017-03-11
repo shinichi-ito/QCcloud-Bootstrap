@@ -8,6 +8,9 @@ import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-
 import {CheckKoukaComponent} from "../../../Dialog/check-kouka/check-kouka.component";
 import {ViewFileComponent} from "../../../Dialog/view-file/view-file.component";
 import {NoFileListComponent} from "../../../Dialog/no-file-list/no-file-list.component";
+import {InsideMainService} from "../../../inside-main.service";
+import {ViewSyousaiComponent} from "../../../Dialog/view-syousai/view-syousai.component";
+
 
 @Component({
   selector: 'app-claim-list-all',
@@ -34,7 +37,9 @@ koukakakuninTaisaku:any[]=[];
   @ViewChild("checkKoukaDialog") checkKoukaComponent: CheckKoukaComponent;
   @ViewChild("fileDialog") viewFileComponent: ViewFileComponent;
   @ViewChild("noFileListDialog") noFileListComponent: NoFileListComponent;
+  @ViewChild("syousaiDialog") viewSyousaiComponent: ViewSyousaiComponent;
 
+  timeLineData:any[]=[];
   fileData:any[]=[];
   typeData:any;
   onoffData:boolean;
@@ -46,14 +51,13 @@ koukakakuninTaisaku:any[]=[];
   addKouka:number=0;
   claimitem:any;
   InfoData:any[]=[];
-  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+  claimItem:any;
+  constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.taisakuList=this.insideService.taisakuList;
     this.claimitem=this.insideService.claimitem;
     this.unixTimestampmill = this.date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
     this.unixTimestamp = this.setTimeChange(this.unixTimestampmill)// 現在のUNIX時間を取得する (秒単位)
    let term:number;
-
-
     for(let key in this.taisakuList){
       //1分のタイムスタンプ絶対値（秒）＝60
       //1時間のタイムスタンプ絶対値（秒）＝3600
@@ -69,14 +73,9 @@ koukakakuninTaisaku:any[]=[];
      if(this.koukakakuninTaisaku.length>0){
         this.OnOff=true;
         this.addKouka=this.koukakakuninTaisaku.length
-
 }
     }
-
-
-
-     // this.data=this.insideService.claimList
-    this.newclaimList=this.insideService.claimList
+   this.newclaimList=this.insideService.claimList
     for(let key in this.newclaimList){
       //  console.log(this.fileList[key].doko)
       if(this.newclaimList[key].koukai=='koukai'){
@@ -84,17 +83,18 @@ koukakakuninTaisaku:any[]=[];
       }
     }
 this.data=this.newclaimList2
+}
+  viewSyousai(claimitem){
+    //console.log(claimitem)
+    this.claimItem=claimitem;
+    this.viewSyousaiComponent.openDialog();
 
-
-
-
- }
-
+  }
 
 
  setEdit(claimitem){
    this.insideService.claimitem=claimitem;
-   this.oauthInfoService.onoffHeader=false;
+ //  this.oauthInfoService.onoffHeader=false;
    this.router.navigate(['/main/editclaimmain/editclaimdata'])
 
  }
@@ -142,188 +142,14 @@ setFile(item){
     if(jyoukyouData.length===0){
       this.noFileListComponent.openDialog();
     }else{
+
+
       this.fileData=jyoukyouData;
+      this.insideMainService.fileData=this.fileData;//ファイル一覧のダイアログで対応や対策のファイルを絞り込むために一旦　べつに保管
       this.onoffData=false;
       this.viewFileComponent.openDialog();
     }
   }
-  setChangeTaiou(item){
-    let jyoukyouData:any[]=[];
-    let passwordData:any[]=[];
-    this.OnOff=!this.OnOff;
-    this.fileList=this.insideService.fileList
-    // console.log(this.fileList)
-    for(let key in this.fileList){
-      // console.log(this.fileList[key].claimkey)
-      //  console.log(item.key)
-      if(item.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対応'){
-        this.typeData=this.fileList[key].type;
-        if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
-          this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
-        }else  if (this.typeData.match('application/pdf')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
-
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
-        } else {
-
-          return
-        }
-        jyoukyouData.push(this.fileList[key])
-      }
-    }
-    if(jyoukyouData.length===0){
-      this.noFileListComponent.openDialog();
-    }else{
-      this.fileData=jyoukyouData;
-      this.onoffData=false;
-      this.viewFileComponent.openDialog();
-    }
-  }
-
-
-
-
-
-  setChangeTaisaku(item){
-    let jyoukyouData:any[]=[];
-    let passwordData:any[]=[];
-    this.OnOff=!this.OnOff;
-    this.fileList=this.insideService.fileList
-    // console.log(this.fileList)
-    for(let key in this.fileList){
-      // console.log(this.fileList[key].claimkey)
-      //  console.log(item.key)
-      if(item.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対策'){
-        this.typeData=this.fileList[key].type;
-        if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
-          this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
-        }else  if (this.typeData.match('application/pdf')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
-
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
-        } else {
-
-          return
-        }
-        jyoukyouData.push(this.fileList[key])
-      }
-    }
-    if(jyoukyouData.length===0){
-      this.noFileListComponent.openDialog();
-    }else{
-      this.fileData=jyoukyouData;
-      this.onoffData=false;
-      this.viewFileComponent.openDialog();
-    }
-  }
-
-  setChangeGenin(item){
-    let jyoukyouData:any[]=[];
-    let passwordData:any[]=[];
-    this.OnOff=!this.OnOff;
-    this.fileList=this.insideService.fileList
-    // console.log(this.fileList)
-    for(let key in this.fileList){
-      // console.log(this.fileList[key].claimkey)
-      //  console.log(item.key)
-      if(item.key==this.fileList[key].claimkey&&this.fileList[key].doko=='原因'){
-        this.typeData=this.fileList[key].type;
-        if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
-          this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
-        }else  if (this.typeData.match('application/pdf')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
-
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
-        } else {
-
-          return
-        }
-        jyoukyouData.push(this.fileList[key])
-      }
-    }
-    if(jyoukyouData.length===0){
-      this.noFileListComponent.openDialog();
-    }else{
-      this.fileData=jyoukyouData;
-      this.onoffData=false;
-      this.viewFileComponent.openDialog();
-    }
-  }
-
-
-  setChangeKouka(item){
-    let jyoukyouData:any[]=[];
-    let passwordData:any[]=[];
-    this.OnOff=!this.OnOff;
-    this.fileList=this.insideService.fileList
-    // console.log(this.fileList)
-    for(let key in this.fileList){
-      // console.log(this.fileList[key].claimkey)
-      //  console.log(item.key)
-      if(item.key==this.fileList[key].claimkey&&this.fileList[key].doko=='効果'){
-        this.typeData=this.fileList[key].type;
-        if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
-          this.fileList[key]["downloadURL2"] = this.fileList[key].downloadURL;
-        }else  if (this.typeData.match('application/pdf')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/pdf.png';
-
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oexcel.png';
-        }else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Oword.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Excel.png';
-        }else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
-          this.fileList[key]["downloadURL2"] = 'assets/img/Word.png';
-        } else {
-
-          return
-        }
-        jyoukyouData.push(this.fileList[key])
-      }
-    }
-    if(jyoukyouData.length===0){
-      this.noFileListComponent.openDialog();
-    }else{
-      this.fileData=jyoukyouData;
-      this.onoffData=false;
-      this.viewFileComponent.openDialog();
-    }
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   addImage(index){
@@ -346,6 +172,7 @@ setFile(item){
 
 
 setTimeLine(item){
+  this.insideService.claimitem=item;
  //   console.log(item.key)
   let timeLineData:any[]=[];
     let taiouList:any[]=[];
@@ -363,6 +190,9 @@ setTimeLine(item){
   for(let key in taiouList){
     if(item.key==taiouList[key].claimkey){
       taiouList[key]['doko']='対応';
+      taiouList[key]['check']='';
+      taiouList[key]['color']='timeline-badge warning';
+      taiouList[key]['icon']="fa fa-university";
       taiouList[key]['sort']=taiouList[key].taioubi;
       newtaiouList.push(taiouList[key])
     }
@@ -370,6 +200,9 @@ setTimeLine(item){
   for(let key in taisakuList){
     if(item.key==taisakuList[key].claimkey){
       taisakuList[key]['doko']='対策';
+      taisakuList[key]['check']='';
+      taisakuList[key]['color']='timeline-badge primary';
+      taisakuList[key]['icon']="fa fa-thermometer-three-quarters";
       taisakuList[key]['sort']=taisakuList[key].taisakubi;
       newtaisakuList.push(taisakuList[key])
     }
@@ -378,6 +211,10 @@ setTimeLine(item){
   for(let key in geninList){
     if(item.key==geninList[key].claimkey){
       geninList[key]['doko']='原因';
+      geninList[key]['check']='timeline-inverted';
+      geninList[key]['color']='timeline-badge success';
+      geninList[key]['icon']="fa fa-id-card";
+      geninList[key]['sort']=geninList[key].kakuninbi;
       newgeninList.push(geninList[key])
     }
   }
@@ -385,18 +222,24 @@ setTimeLine(item){
   for(let key in koukaList){
     if(item.key==koukaList[key].claimkey){
       koukaList[key]['doko']='効果';
+      koukaList[key]['check']='timeline-inverted';
+      koukaList[key]['color']='timeline-badge info';
+      koukaList[key]['icon']="fa fa-check-square-o";
       koukaList[key]['sort']=koukaList[key].kakuninbi;
       newkoukaList.push(koukaList[key])
     }
   }
-
+//配列つないで
   let array = newtaiouList.concat(newtaisakuList).concat(newgeninList).concat(newkoukaList);
   array.sort((a,b)=>{
     if(a.sort<b.sort) return -1;
     if(a.sort > b.sort) return 1;
     return 0;
   });
-  console.log(array)
+this.insideMainService.timelineData=array;
+  this.router.navigate(['/main/viewtimeline'])
+
+
 
 
 
@@ -423,12 +266,35 @@ setTimeLine(item){
   Progress(){
     this.progressDialogComponent.openDialog();
   }
+
+
   sendEditClaim(claimitem){
     this.insideService.claimitem=claimitem;
   //  console.log(claimitem)
     //this.oauthInfoService.onoffHeader=false;
    this.router.navigate(['/main/topclaim/addtaiou/listtaiou'])
    }
+
+  sendEditTaiou(claimitem){
+    this.insideService.claimitem=claimitem;
+    //  console.log(claimitem)
+    //this.oauthInfoService.onoffHeader=false;
+    this.router.navigate(['/main/topclaim/addtaiou/listtaiou'])
+  }
+  sendEditTaisaku(claimitem){
+    this.insideService.claimitem=claimitem;
+    //  console.log(claimitem)
+    //this.oauthInfoService.onoffHeader=false;
+    this.router.navigate(['/main/topclaim/addtaisaku/listtaisaku'])
+  }
+  sendEditGenin(claimitem){
+    this.insideService.claimitem=claimitem;
+    //  console.log(claimitem)
+    //this.oauthInfoService.onoffHeader=false;
+    this.router.navigate(['/main/topclaim/addgenin/listgenin'])
+  }
+
+
 
   onDetailClick() {
 

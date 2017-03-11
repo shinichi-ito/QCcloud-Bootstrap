@@ -91,6 +91,8 @@ import { NoFileListComponent } from './Dialog/no-file-list/no-file-list.componen
 import { EditClaimMainComponent } from './claim-info/top-claim/edit-claim-main/edit-claim-main.component';
 import { EditClaimDataComponent } from './claim-info/top-claim/edit-claim-main/edit-claim-data/edit-claim-data.component';
 import { SameImageComponent } from './Dialog/same-image/same-image.component';
+import { ViewSyousaiComponent } from './Dialog/view-syousai/view-syousai.component';
+import { ViewTimeLineComponent } from './claim-info/view-time-line/view-time-line.component';
 
 
 
@@ -187,7 +189,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     NoFileListComponent,
     EditClaimMainComponent,
     EditClaimDataComponent,
-    SameImageComponent
+    SameImageComponent,
+    ViewSyousaiComponent,
+    ViewTimeLineComponent
 
 
 

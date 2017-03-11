@@ -8,7 +8,7 @@ export class OauthInfoService {
 public uid:string;
 public displayName:string;
 public photoURL:string;
-public onoffHeader:boolean=false;
+//public onoffHeader:boolean=false;
   public syubetu:any[]=[];
 
   companyname:string;

@@ -5,17 +5,17 @@
     各種情報一覧及び登録
   </div>
   <div class="panel-body">
-    <div *ngIf="onoffHeader">
+    <!--<div *ngIf="onoffHeader">-->
       <app-header-claim></app-header-claim>
-    </div>
+    <!--</div>-->
 
-<ul style="margin-top: 20px;margin-bottom: 10px" class="nav nav-tabs">
-  <!--<li role="presentation"><a (click)="setOffHeader()" routerLink="/main/topclaim/topclaimedit">情報詳細</a></li>-->
-  <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addtaiou/listtaiou">対応情報</a></li>
-  <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addgenin/listgenin">原因情報</a></li>
-  <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addtaisaku/listtaisaku">対策情報</a></li>
-  <li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addcomment/listcomment">コメント登録</a></li>
-</ul>
+<!--<ul style="margin-top: 20px;margin-bottom: 10px" class="nav nav-tabs">-->
+  <!--&lt;!&ndash;<li role="presentation"><a (click)="setOffHeader()" routerLink="/main/topclaim/topclaimedit">情報詳細</a></li>&ndash;&gt;-->
+  <!--<li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addtaiou/listtaiou">対応情報</a></li>-->
+  <!--<li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addgenin/listgenin">原因情報</a></li>-->
+  <!--<li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addtaisaku/listtaisaku">対策情報</a></li>-->
+  <!--<li role="presentation"><a (click)="setOnHeader()" routerLink="/main/topclaim/addcomment/listcomment">コメント登録</a></li>-->
+<!--</ul>-->
 
     <router-outlet></router-outlet>
   </div>

@@ -49,18 +49,21 @@
     <tbody>
     <tr *ngFor="let item of mf.data">
       <td style="word-wrap:break-word;">
-        <button (click)="sendEditClaim(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　情報登録</button>
-
+        <!--<button (click)="sendEditClaim(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　情報登録</button>-->
+        <button type="button" (click)="viewSyousai(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　詳細表示</button>
       </td>
       <td style="word-wrap:break-word;">{{item.syubetu}}</td>
       <td style="word-wrap:break-word;">{{item.seihin}}</td>
-      <td  style="word-wrap:break-word;">{{item.gaiyou}}</td>
+      <td  style="word-wrap:break-word;">{{item.gaiyou}}
+
+
+      </td>
       <td>{{item.name }}&#13;{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST' }}</td>
       <td  style="word-wrap:break-word;">
-        <button class="btn btn-info btn-xs" type="button">対応数<span class="badge">{{item.taiou}}</span></button>
-        <button class="btn btn-primary  btn-xs" type="button">原因分析数<span class="badge">{{item.genin}}</span></button>
-        <button class="btn btn-success btn-xs" type="button">対策数<span class="badge">{{item.taisaku}}</span></button>
-        <button class="btn btn-primary  btn-xs" type="button">効果確認数<span class="badge">{{item.kouka}}</span></button>
+        <button (click)="sendEditTaiou(item)" class="btn btn-info btn-xs" type="button">対応数<span class="badge">{{item.taiou}}</span></button>
+        <button (click)="sendEditGenin(item)" class="btn btn-primary  btn-xs" type="button">原因分析数<span class="badge">{{item.genin}}</span></button>
+        <button (click)="sendEditTaisaku(item)" class="btn btn-success btn-xs" type="button">対策数<span class="badge">{{item.taisaku}}</span></button>
+        <button  class="btn btn-primary  btn-xs" type="button">効果確認数<span class="badge">{{item.kouka}}</span></button>
         <button class="btn btn-info  btn-xs" type="button">関連ファイル数<span class="badge">{{item.file}}</span></button>
 
       </td>
@@ -75,11 +78,7 @@
             <li role="menuitem"><a class="dropdown-item" (click)="setEdit(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　編集</a></li>
             <li role="menuitem"><a class="dropdown-item" (click)="addImage(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　関連ファイル登録</a></li>
             <li role="menuitem"><a class="dropdown-item"  (click)="setFile(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>
-            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeTaiou(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　対応関連ファイル表示</a></li>
-            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeTaisaku(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　対策関連ファイル表示</a></li>
-            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeGenin(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　原因分析関連ファイル表示</a></li>
-            <li role="menuitem"><a class="dropdown-item"  (click)="setChangeKouka(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　効果確認関連ファイル表示</a></li>
-            <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　タイムライン表示</a></li>
+             <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　タイムライン表示</a></li>
 
 
 
@@ -114,7 +113,8 @@
 <!--効果チェックダイアログ-->
 <app-check-kouka [koukakakuninTaisaku]="koukakakuninTaisaku"  #checkKoukaDialog></app-check-kouka>
 <!--ファイル一覧ダイアログ-->
-<!--<app-view-file [fileData]="fileData"  #fileDialog></app-view-file>-->
 <app-view-file [fileData]="fileData"  [onoffData]="onoffData" [passwordData]="passwordData" #fileDialog></app-view-file>
 <app-no-file-list #noFileListDialog></app-no-file-list>
+<!--詳細ダイアログ-->
+<app-view-syousai [claimItem]="claimItem"  #syousaiDialog></app-view-syousai>
 

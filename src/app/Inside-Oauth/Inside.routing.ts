@@ -27,6 +27,7 @@ import {EditCompanyInfoComponent} from "./company-info/edit-company-info/edit-co
 import {TopClaimEditComponent} from "./claim-info/top-claim/top-claim-edit/top-claim-edit.component";
 import {EditClaimMainComponent} from "./claim-info/top-claim/edit-claim-main/edit-claim-main.component";
 import {EDITCLAIMMAIN_ROUTES} from "./claim-info/top-claim/edit-claim-main/edit-claim-main.routing";
+import {ViewTimeLineComponent} from "./claim-info/view-time-line/view-time-line.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -47,6 +48,7 @@ const IN_ROUTES: Routes = [
     { path: 'editclaim',component:EditClaimComponent,children:EDIT_CLAIM_ROUTES},
     { path: 'topinside',component:TopInsideComponent},
    { path: 'editclaimmain',component:EditClaimMainComponent,children:EDITCLAIMMAIN_ROUTES},
+    { path: 'viewtimeline',component:ViewTimeLineComponent},
 
   ]}
 

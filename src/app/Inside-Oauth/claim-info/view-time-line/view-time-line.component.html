@@ -1,0 +1,38 @@
+
+<div class="container">
+  <div class="page-header ">
+
+      <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{claimitem?.hasseibi | date:'yyyy/MM/dd'}}</small></p>
+    <p >
+      {{claimitem?.name}}{{claimitem?.siten}}{{claimitem?.busyo}}
+    </p>
+    <h2 id="timeline">
+      {{claimitem?.syubetu}}
+    </h2>
+    <h3>
+      {{claimitem?.gaiyou}}
+    </h3>
+
+
+
+
+
+  </div>
+  <ul class="timeline">
+    <li [ngClass]=item?.check *ngFor="let item of timeLineData">
+      <div class={{item?.color}}><i class={{item?.icon}} aria-hidden="true"></i></div>
+      <div class="timeline-panel">
+        <div class="timeline-heading">
+          <h4 class="timeline-title">{{item?.doko}}</h4>
+          <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{item?.sort | date:'yyyy/MM/dd'}}</small></p>
+        </div>
+        <div class="timeline-body">
+{{item?.naiyou}}
+          <p>{{item?.name}}  {{item?.siten}} {{item?.busyo}}</p>
+
+        </div>
+      </div>
+    </li>
+  </ul>
+
+</div>

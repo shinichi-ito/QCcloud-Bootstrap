@@ -28,6 +28,7 @@ export class ViewFileComponent implements OnInit {
   fileList:any;
   newData:any[]=[];
   fileSameList:any[]=[];
+  newfileData:any[]=[];
   constructor(private insideService:InsideService,private insideMainService:InsideMainService,private oauthInfoService:OauthInfoService) {
     this.uid=this.oauthInfoService.uid;
   }
@@ -44,7 +45,165 @@ export class ViewFileComponent implements OnInit {
 
 
   }
+  setChange(value){
+    if(value=='対応関連'){
+      ///////////////////////////
+      this.newfileData=this.insideMainService.fileData
+      let jyoukyouData:any[]=[];
+      for(let key in this.newfileData) {
+        if (this.newfileData[key].doko == '対応') {
+          this.typeData = this.newfileData[key].type;
+          if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
+            this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
+          } else if (this.typeData.match('application/pdf')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/pdf.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oword.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Excel.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Word.png';
+          } else {
 
+            return
+          }
+          jyoukyouData.push(this.newfileData[key])
+        }
+      }
+      this.fileData=jyoukyouData
+      ///////////////////////////
+    }else if(value=='対策関連'){
+      ///////////////////////////
+      this.newfileData=this.insideMainService.fileData
+      let jyoukyouData:any[]=[];
+      for(let key in this.newfileData) {
+        if (this.newfileData[key].doko == '対策') {
+          this.typeData = this.newfileData[key].type;
+          if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
+            this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
+          } else if (this.typeData.match('application/pdf')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/pdf.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oword.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Excel.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Word.png';
+          } else {
+
+            return
+          }
+          jyoukyouData.push(this.newfileData[key])
+        }
+      }
+      this.fileData=jyoukyouData
+      ///////////////////////////
+
+    }else if(value=='原因分析関連'){
+      ///////////////////////////
+      this.newfileData=this.insideMainService.fileData
+      let jyoukyouData:any[]=[];
+      for(let key in this.newfileData) {
+        if (this.newfileData[key].doko == '原因') {
+          this.typeData = this.newfileData[key].type;
+          if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
+            this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
+          } else if (this.typeData.match('application/pdf')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/pdf.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oword.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Excel.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Word.png';
+          } else {
+
+            return
+          }
+          jyoukyouData.push(this.newfileData[key])
+        }
+      }
+      this.fileData=jyoukyouData
+      ///////////////////////////
+
+    }else if(value=='効果確認関連'){
+      ///////////////////////////
+      this.newfileData=this.insideMainService.fileData
+      let jyoukyouData:any[]=[];
+      for(let key in this.newfileData) {
+        if (this.newfileData[key].doko == '効果') {
+          this.typeData = this.newfileData[key].type;
+          if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
+            this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
+          } else if (this.typeData.match('application/pdf')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/pdf.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oword.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Excel.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Word.png';
+          } else {
+
+            return
+          }
+          jyoukyouData.push(this.newfileData[key])
+        }
+      }
+      this.fileData=jyoukyouData
+      ///////////////////////////
+
+    }else if(value=='情報関連'){
+      ///////////////////////////
+      this.newfileData=this.insideMainService.fileData
+      let jyoukyouData:any[]=[];
+      for(let key in this.newfileData) {
+        if (this.newfileData[key].doko == 'クレーム') {
+          this.typeData = this.newfileData[key].type;
+          if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
+            this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
+          } else if (this.typeData.match('application/pdf')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/pdf.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oexcel.png';
+          } else if (this.typeData.match('application/vnd.oasis.opendocument.text')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Oword.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Excel.png';
+          } else if (this.typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+            this.newfileData[key]["downloadURL2"] = 'assets/img/Word.png';
+          } else {
+
+            return
+          }
+          jyoukyouData.push(this.newfileData[key])
+        }
+      }
+      this.fileData=jyoukyouData
+      ///////////////////////////
+
+    }
+
+
+
+
+    else if(value=='すべて'){
+this.fileData=this.insideMainService.fileData
+
+    }
+
+
+
+
+  }
 
 
   getFilterFile(itemData){

@@ -44,7 +44,7 @@ this.data=this.insideService.claimList
 
   sendEditClaim(claimitem){
     this.insideService.claimitem=claimitem;
-    this.oauthInfoService.onoffHeader=false;
+  //  this.oauthInfoService.onoffHeader=false;
  //   console.log(this.insideService.claimitem)
  //  console.log(this.insideService.claimitem.key)
 
