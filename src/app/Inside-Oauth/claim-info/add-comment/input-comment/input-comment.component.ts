@@ -85,7 +85,7 @@ export class InputCommentComponent  {
       if (this.claimList[key].key == this.claimitem.key) {
         const claimInfo = {
           comment:this.claimList[key].comment+1,
-           updateAt: firebase.database.ServerValue.TIMESTAMP
+           commentUp: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

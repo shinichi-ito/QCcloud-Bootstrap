@@ -105,7 +105,7 @@ export class InputGeninComponent {
       if (this.claimList[key].key == this.claimitem.key) {
         const claimInfo = {
           genin:this.claimList[key].genin+1,
-           updateAt: firebase.database.ServerValue.TIMESTAMP
+           geninUp: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

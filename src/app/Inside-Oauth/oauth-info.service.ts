@@ -10,7 +10,7 @@ public displayName:string;
 public photoURL:string;
 //public onoffHeader:boolean=false;
   public syubetu:any[]=[];
-
+check:boolean=false;//これは　claimalllistでログインの回数をカウントしている。その際これがtrueに変更になると一度ログインしてるので　カウントを増やさないようにしている
   companyname:string;
   daihyouname:string;
   address:string;

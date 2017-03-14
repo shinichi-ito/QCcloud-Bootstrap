@@ -19,12 +19,16 @@ export class TaiouDialogComponent implements OnInit {
   busyo:string='';
   syubetu:string='';
   naiyou:string='';
-  key:string;
+//  key:string;
   pass:string;
   OnOff:boolean=false;
+  claimList:any[]=[];
+  claimitem:any;
+  claimInfo: FirebaseObjectObservable<any[]>;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
-    this.key=this.insideService.claimitem.key;
+    this.claimitem=this.insideService.claimitem;
+    //this.key=this.insideService.claimitem.key;
   }
 
   ngOnInit() {
@@ -66,8 +70,8 @@ export class TaiouDialogComponent implements OnInit {
       };
       this.value = this.af.database.object('TaiouData/' + this.uid + '/'+this.taiouData.key);
       this.value.update(taiouInfo).then(data=>{
+        this.editTaiouTime()
 
-        this.modalRef.hide()
       }).catch(error=>{
       })
     }else{
@@ -78,4 +82,29 @@ export class TaiouDialogComponent implements OnInit {
 
 
   }
+
+  editTaiouTime() {////クレーム情報に対応した対応や対策のデータが編集されたときタイムをアップする
+//console.log('ここ')
+    //  console.log(this.claimitem)
+    this.claimList = this.insideService.claimList;
+    //   console.log(this.claimList)
+    for (let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
+
+        const claimInfo = {
+          taiouUp: firebase.database.ServerValue.TIMESTAMP
+        };
+        this.claimInfo = this.af.database.object('ClaimData/' + this.uid + '/' + this.claimitem.key);
+        this.claimInfo.update(claimInfo).then(data => {
+          this.modalRef.hide()
+        }).catch(error => {
+
+        })
+
+
+      }
+    }
+
+  }
+
 }

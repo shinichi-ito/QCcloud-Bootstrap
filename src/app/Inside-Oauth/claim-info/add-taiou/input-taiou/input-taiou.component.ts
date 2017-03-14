@@ -138,16 +138,17 @@ this.claimitem=this.insideService.claimitem;
 
 
   addTaiouSu(){//クレーム情報の対応数をプラス
-    this.claimList=this.insideService.claimList
+    this.claimList=this.insideService.claimList;
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
       //  console.log(this.claimList[key].taiou)
 
         const claimInfo = {
           taiou:this.claimList[key].taiou+1,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
+          taiouUp:firebase.database.ServerValue.TIMESTAMP
+         // updateAt: firebase.database.ServerValue.TIMESTAMP
         };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
 
         }).catch(error=>{

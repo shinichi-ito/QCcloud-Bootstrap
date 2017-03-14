@@ -78,7 +78,7 @@ export class GeninDeleteDialogComponent implements OnInit {
         }
         const claimInfo = {
           genin:su,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
+          geninUp: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

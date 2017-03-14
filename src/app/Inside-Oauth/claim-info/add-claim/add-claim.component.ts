@@ -140,17 +140,22 @@ setMember(value){
       password:this.password,
       koukai:this.model.label,
       taiou:0,
+      taiouUp:'start',
       genin:0,
+      geninUp:'start',
       taisaku:0,
+      taisakuUp:'start',
       kouka:0,
+      koukaUp:'start',
       comment:0,
+      commentUp:'start',
       file:0,
-
+      fileUp:'start',
       startAt: firebase.database.ServerValue.TIMESTAMP,
     //  updateAt: firebase.database.ServerValue.TIMESTAMP
     };
 
-    this.claimInfo=this.af.database.list('ClaimData/'+this.uid)
+    this.claimInfo=this.af.database.list('ClaimData/'+this.uid);
     this.claimInfo.push(claimInfo).then(data=>{
      // console.log(data.key)
       this.insideService.key=data.key

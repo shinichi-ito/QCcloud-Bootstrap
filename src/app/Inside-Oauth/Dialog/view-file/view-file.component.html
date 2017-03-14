@@ -31,7 +31,7 @@
                   <p>{{item?.toukousya}}</p>
                   <p>{{item?.siten}}　{{item?.busyo}}</p>
                   <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>
-                    <a  (click)="getFilterFile(item)" class="btn btn-default" role="button" target="_blank">似た画像検索</a>
+                    <a  (click)="getFilterFile(item)" class="btn btn-default" role="button" target="_blank">似画像</a>
                     <a *ngIf="onoffData" (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
                     <a *ngIf="onoffData" (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
 

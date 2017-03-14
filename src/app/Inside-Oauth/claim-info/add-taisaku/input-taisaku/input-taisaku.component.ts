@@ -116,7 +116,7 @@ InfoData:any[]=[];
        // console.log(this.claimList[key].taiou)
         const claimInfo = {
           taisaku:this.claimList[key].taisaku+1,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
+          taisakuUp: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

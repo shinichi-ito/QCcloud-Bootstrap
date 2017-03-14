@@ -31,9 +31,12 @@ export class KoukaDialogComponent implements OnInit {
   pass:string;
   OnOff:boolean=false;
   no:any[]=[];
+  claimList:any[]=[];
+  claimitem:any;
+  claimInfo: FirebaseObjectObservable<any[]>;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
-
+    this.claimitem=this.insideService.claimitem;
   }
 
   ngOnInit() {
@@ -129,7 +132,7 @@ export class KoukaDialogComponent implements OnInit {
      this.value = this.af.database.object('KoukaData/' + this.uid + '/'+this.koukaData.key);
      this.value.update(Info).then(data=>{
 
-      this.modalRef.hide()
+      this.editKoukaTime();
      }).catch(error=>{
      })
     }else{
@@ -138,6 +141,34 @@ export class KoukaDialogComponent implements OnInit {
 
     }
   }
+
+  editKoukaTime() {////クレーム情報に対応した対応や対策のデータが編集されたときタイムをアップする
+//console.log('ここ')
+    //  console.log(this.claimitem)
+    this.claimList = this.insideService.claimList;
+    //   console.log(this.claimList)
+    for (let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
+
+        const claimInfo = {
+          koukaUp: firebase.database.ServerValue.TIMESTAMP
+        };
+        this.claimInfo = this.af.database.object('ClaimData/' + this.uid + '/' + this.claimitem.key);
+        this.claimInfo.update(claimInfo).then(data => {
+          this.modalRef.hide()
+        }).catch(error => {
+
+        })
+
+
+      }
+    }
+
+  }
+
+
+
+
   setAA(value){
     console.log(value)
   }
@@ -152,4 +183,8 @@ export class KoukaDialogComponent implements OnInit {
   setDD(value){
     console.log(value)
   }
+
+
+
+
 }

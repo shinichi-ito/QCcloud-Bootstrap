@@ -78,7 +78,7 @@ export class CommentDeleteDialogComponent implements OnInit {
         }
         const claimInfo = {
           comment:su,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
+          commentUp: firebase.database.ServerValue.TIMESTAMP
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{

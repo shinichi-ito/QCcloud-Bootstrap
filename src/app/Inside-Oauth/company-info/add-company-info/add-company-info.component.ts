@@ -79,7 +79,7 @@ uid:string;
 
   onAdd(){
       this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
-        console.log('会社詳細情報登録成功')
+      //  console.log('会社詳細情報登録成功')
       }).catch((error)=>{
    });
   }

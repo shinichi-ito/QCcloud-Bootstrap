@@ -78,7 +78,7 @@ export class KoukaDeleteDialogComponent implements OnInit {
        // console.log(this.claimList[key].taiou)
 
         let su:number;
-        su=this.claimList[key].kouka-1
+        su=this.claimList[key].kouka-1;
         if(su<0){
           su=0;
         }
@@ -101,20 +101,20 @@ export class KoukaDeleteDialogComponent implements OnInit {
 
     for(let key in this.taisakuList) {
 
-       console.log(this.taisakuList[key].koukasu);
+     //  console.log(this.taisakuList[key].koukasu);
       if (this.taisakuList[key].key == this.koukaFromTaisakudata.key) {
         let su:number;
         su=this.taisakuList[key].koukasu-1;
         if(su<0){
           su=0;
         }
-console.log(su)
+//console.log(su)
 
          const Info = {
           koukasu:su,
-           updateAt: firebase.database.ServerValue.TIMESTAMP
+           koukaUp: firebase.database.ServerValue.TIMESTAMP
          };
-        console.log('ここ')
+       // console.log('ここ')
           this.taisakuInfo=this.af.database.object('TaisakuData/'+this.uid+'/'+this.koukaFromTaisakudata.key);
           this.taisakuInfo.update(Info).then(data=>{
          }).catch(error=>{

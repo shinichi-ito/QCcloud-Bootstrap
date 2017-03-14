@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
 import {Router} from "@angular/router";
-import {AngularFire} from "angularfire2";
+import {AngularFire, FirebaseObjectObservable} from "angularfire2";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
@@ -52,7 +52,27 @@ koukakakuninTaisaku:any[]=[];
   claimitem:any;
   InfoData:any[]=[];
   claimItem:any;
+  Info2: FirebaseObjectObservable<any[]>;
+  uid:string;
+  check:boolean;
   constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+this.uid=this.oauthInfoService.uid;
+this.check=this.oauthInfoService.check;
+
+if(this.check){
+  //既に一度ログインしているのでこれ以上カウントを増やさない
+}else{
+  if(this.insideService.checkList.length==0){//まだ　登録がされてないケース月初めとか
+    this.onAdd(1,this.uid);
+    this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
+  }else{
+    this.onAdd(this.insideService.checkList[0].count+1,this.uid);
+    this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
+  }
+
+}
+
+
     this.taisakuList=this.insideService.taisakuList;
     this.claimitem=this.insideService.claimitem;
     this.unixTimestampmill = this.date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
@@ -90,7 +110,19 @@ this.data=this.newclaimList2
     this.viewSyousaiComponent.openDialog();
 
   }
+  onAdd(count:number,uid:string){//これはログインした際その月のログイン回数を数える
+  const Info = {
+      login:count
+    };
+    this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
+    this.Info2.set(Info).then(data=>{
+      //   console.log(data.key)
 
+
+    }).catch(error=>{
+
+    })
+  }
 
  setEdit(claimitem){
    this.insideService.claimitem=claimitem;

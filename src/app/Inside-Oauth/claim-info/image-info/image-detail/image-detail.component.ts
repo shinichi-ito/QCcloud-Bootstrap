@@ -121,7 +121,7 @@ this.flag=false;
        //   console.log(this.insideService.InfoData[0].claimkey)
            this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment,fileDetail.type).then(data=>{
            this.addImageSu()
-             console.log('ここ')
+            // console.log('ここ')
             this.flag=false;
             this.flagOK=true;
              this.flagNG=false;
@@ -154,7 +154,7 @@ this.flag=false;
       ()=>{
         //   console.log(this.insideService.InfoData[0].claimkey)
             this.insideService.addFileInfoDatabase(this.downloadURL,this.comment,fileDetail.type).then(data=>{
-              this.addImageSu()
+              this.addImageSu();
               this.flag=false;
               this.flagOK=true;
               this.flagNG=false;
@@ -177,7 +177,7 @@ this.flag=false;
 
         const claimInfo = {
           file:this.claimList[key].file+1,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
+          fileUp: firebase.database.ServerValue.TIMESTAMP
         };
         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.Info.update(claimInfo).then(data=>{

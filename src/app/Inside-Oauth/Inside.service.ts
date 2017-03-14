@@ -42,7 +42,11 @@ export class InsideService {
   geninList:any[]=[];
   koukaList:any[]=[];
   commentList:any[]=[];
-  filename:string
+  checkList:any[]=[];
+  filename:string;
+  date:Date = new Date();
+date2:any;
+  //console.log(this.date.toISOString().split('-')[0])
 uid:string;//会社を振り分けるログイン時に受け取るユニークの値
 key:string;//各登録情報のユニークなキー
   InfoData:any;//対策や対応情報を選択した際そのデータを入れておく key name siten busyo
@@ -87,6 +91,7 @@ key:string;//各登録情報のユニークなキー
 public claimitem:any;//claim-list-allで情報を選択した際　クレーム情報がはいってくる
 
 constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
+  this.date2=this.date.toISOString().split('-')[0]+'-'+this.date.toISOString().split('-')[1];
   this.flagChangeTaisaku$ = new Observable(observer =>
     this._observerTaisaku = observer).share();
   this.flagChangeTaiou$ = new Observable(observer =>
@@ -162,7 +167,7 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.fileAddTrigger(this.uid);
   this.fileChangeTrigger(this.uid);
   this.fileRemoveTrigger(this.uid);
-
+this.checkLoginTrigger(this.uid);
 
 }
 
@@ -171,14 +176,29 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
 
 
 
-
-
   //Firebaseのトリガー関連
+
+
+  checkLoginTrigger(uid){
+
+    let commentsRef = firebase.database().ref('Check/'+uid+'/'+this.date2);
+    commentsRef.on('child_added', (value)=> {
+    //  console.log(value.val());
+
+      this.checkList.unshift({count:value.val()})
+    })
+  }
+
+
+
+
+
 
   busyoAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
       commentsRef.on('child_added', (value)=> {
        // console.log('busyo追加')
+
         this.busyoList.unshift({key:value.key,busyo:value.val().busyo,tourokusya:value.val().tourokusya,startAt:value.val().startAt})
     })
   }

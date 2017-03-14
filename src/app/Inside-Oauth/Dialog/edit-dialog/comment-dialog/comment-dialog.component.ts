@@ -20,8 +20,12 @@ export class CommentDialogComponent implements OnInit {
   naiyou:string='';
   pass:string;
   OnOff:boolean=false;
+  claimList:any[]=[];
+  claimitem:any;
+  claimInfo: FirebaseObjectObservable<any[]>;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
+    this.claimitem=this.insideService.claimitem;
   }
 
   ngOnInit() {
@@ -58,7 +62,7 @@ export class CommentDialogComponent implements OnInit {
     this.value = this.af.database.object('CommentData/' + this.uid + '/'+this.commentData.key);
     this.value.update(Info).then(data=>{
 
-      this.modalRef.hide()
+      this.editCommentTime();
     }).catch(error=>{
     })
   }else{
@@ -67,5 +71,27 @@ export class CommentDialogComponent implements OnInit {
 
 }
   }
+  editCommentTime() {////クレーム情報に対応した対応や対策のデータが編集されたときタイムをアップする
+//console.log('ここ')
+    //  console.log(this.claimitem)
+    this.claimList = this.insideService.claimList;
+    //   console.log(this.claimList)
+    for (let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
 
+        const claimInfo = {
+          commentUp: firebase.database.ServerValue.TIMESTAMP
+        };
+        this.claimInfo = this.af.database.object('ClaimData/' + this.uid + '/' + this.claimitem.key);
+        this.claimInfo.update(claimInfo).then(data => {
+          this.modalRef.hide()
+        }).catch(error => {
+
+        })
+
+
+      }
+    }
+
+  }
 }

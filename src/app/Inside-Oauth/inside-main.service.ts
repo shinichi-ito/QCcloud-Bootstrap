@@ -71,13 +71,31 @@ fileDataUp(toukousya:string,siten:string,busyo:string,comment:string,uid:string,
   this.value = this.af.database.object('FileData/' + uid + '/'+key);
   this.value.update(Info).then(data=>{
    // this._observer.next(this.imageData);
-this.imageData=data;
+this.editImageTime(uid)
 
   }).catch(error=>{
   })
 
 }
+  editImageTime(uid:string){//クレーム情報の対応数をマイナス
+    this.claimitem=this.insideService.claimitem;
+    this.claimList=this.insideService.claimList;
+    for(let key in this.claimList) {
+      if (this.claimList[key].key == this.claimitem.key) {
 
+        const claimInfo = {
+          fileUp: firebase.database.ServerValue.TIMESTAMP
+        };
+        this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key);
+        this.claimInfo.update(claimInfo).then(data=>{
+          //    this._observerdelete.next(this.imageData2);
+          //this.imageData2=data;
+          this.imageData=data;
+        }).catch(error=>{
+        })
+      }
+    }
+  }
 
   fileDelete(key:string,uid:string){
     this.info=this.af.database.list('FileData/'+uid);
@@ -104,7 +122,7 @@ this.imageData=data;
         }
          const claimInfo = {
            file:su,
-          updateAt: firebase.database.ServerValue.TIMESTAMP
+          fileUp: firebase.database.ServerValue.TIMESTAMP
         };
          this.claimInfo=this.af.database.object('ClaimData/'+uid+'/'+this.claimitem.key);
          this.claimInfo.update(claimInfo).then(data=>{

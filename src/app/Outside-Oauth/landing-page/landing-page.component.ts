@@ -10,10 +10,15 @@ import {Router} from "@angular/router";
 export class LandingPageComponent implements OnInit {
   public navIsFixed: boolean = false;
   OnOff:boolean;
+
+
   constructor(private router: Router,@Inject(DOCUMENT) private document: Document) { }
 
 
   ngOnInit() {
+
+
+
   }
   top(){
     this.document.body.scrollTop=0
@@ -33,4 +38,8 @@ export class LandingPageComponent implements OnInit {
   login(){
     this.router.navigate(['/signin'])
   }
+
+
+
+
 }
