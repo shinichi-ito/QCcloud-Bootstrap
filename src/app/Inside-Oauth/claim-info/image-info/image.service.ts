@@ -205,6 +205,24 @@ test(){
 
 
   }
+  textAnalysis(inputData:string){
+    var VISION_API_URL = "https://language.googleapis.com/v1beta1/documents:analyzeEntities?key=";//固有名詞抽出
+    var apiKey = "AIzaSyDCIMKBP2jorKKBJaCXtm3024C1IHD-UCA";
+    var data = {
+      "document":{
+        "type":"PLAIN_TEXT",
+        "content":inputData//この文字内の固有名詞を抽出
+      },
+      "encodingType":"UTF8"
+    };
+    this.http.post(VISION_API_URL + apiKey, data).subscribe((value:any)=>{
+      for(let key in value.json().entities){
+        console.log( value.json().entities[key].name)
+      }
+
+    })
+
+  }
 
 
 }

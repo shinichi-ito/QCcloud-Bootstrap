@@ -1,5 +1,8 @@
 
-
+/*　ナビゲーションバー　navbar-static */
+.menu{
+  margin: 0
+}
 /* main1-app */
 .main1-app {
   padding: 110px 0 0 0;
@@ -207,4 +210,9 @@
 #page-top a:hover {
   text-decoration: none;
   background: #999;
+}
+.main5-app	{
+  padding: 70px 0 70px 0;
+  background-color: #5bc0de;
+  color: #fff;
 }

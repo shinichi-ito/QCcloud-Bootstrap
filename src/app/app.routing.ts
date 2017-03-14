@@ -12,6 +12,8 @@ import {AskFormComponent} from "./Outside-Oauth/ask-form/ask-form.component";
 import {MyCompanyInfoComponent} from "./Outside-Oauth/my-company-info/my-company-info.component";
 import {LandingPageComponent} from "./Outside-Oauth/landing-page/landing-page.component";
 import {PriceInfoComponent} from "./Outside-Oauth/price-info/price-info.component";
+import {UsageComponent} from "./usage/usage.component";
+import {USAGE_ROUTES} from "./usage/usage.routing";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -30,7 +32,7 @@ const APP_ROUTES: Routes = [
   { path: 'main',loadChildren:'app/Inside-Oauth/Inside.module#InsideModule',canActivate: [SignInGuard]},
   { path: 'landing', component: LandingPageComponent},
   { path: 'priceinfo', component: PriceInfoComponent},
-
+  { path: 'usage', component: UsageComponent,children: USAGE_ROUTES},
 
 ];
 export const routing : ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

@@ -20,6 +20,11 @@ import { AskFormComponent } from './Outside-Oauth/ask-form/ask-form.component';
 import { MyCompanyInfoComponent } from './Outside-Oauth/my-company-info/my-company-info.component';
 import { LandingPageComponent } from './Outside-Oauth/landing-page/landing-page.component';
 import { PriceInfoComponent } from './Outside-Oauth/price-info/price-info.component';
+import { UsageComponent } from './usage/usage.component';
+import { UsageSidemenuComponent } from './usage/usage-sidemenu/usage-sidemenu.component';
+import { SoftInfoComponent } from './usage/soft-info/soft-info.component';
+import { AddMemberComponent } from './usage/add-member/add-member.component';
+import { UsageLoginComponent } from './usage/usage-login/usage-login.component';
 
 
 
@@ -45,7 +50,12 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AskFormComponent,
     MyCompanyInfoComponent,
     LandingPageComponent,
-    PriceInfoComponent
+    PriceInfoComponent,
+    UsageComponent,
+    UsageSidemenuComponent,
+    SoftInfoComponent,
+    AddMemberComponent,
+    UsageLoginComponent
 
 
   ],

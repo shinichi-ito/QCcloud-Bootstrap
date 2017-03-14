@@ -1,17 +1,24 @@
 <div class="nav-container" [class.fixed]="navIsFixed">
   <app-header></app-header>
 
+
 <!-- main1 app -->
 <div class="main1-app">
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
 
-        <h1>The Simple Groupware</h1>
-        <p>いつでもどこからでも情報共有<br>
-          使い方も簡単、すぐ出来る。<br>
-          要望をもとに業務効率化の為に創り出されたグループウェアです。</p>
+        <h1>品質管理とは</h1>
+        <p>顧客の要求を満たす品質の製品あるいはサービスを<br>
+          経済的に作り出すための管理技法です。</p>
+        <p>そして品質管理の最も大きな目的は、<br>
+          製品やサービスの品質を一定以上の水準に確保して顧客に提供することです。</p>
 
+
+
+        <!--<p>いつでもどこからでも情報共有<br>-->
+          <!--使い方も簡単、すぐ出来る。<br>-->
+          <!--要望をもとに業務効率化の為に創り出されたグループウェアです。</p>-->
         <p><a style="cursor: pointer" (click)="login()" class="button btn btn-success btn-lg">無料で試す</a></p>
 
       </div><!-- col -->
@@ -25,6 +32,36 @@
 </div>
 
 
+  <!-- Static navbar -->
+  <nav class="menu navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">メニュー</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand text-primary" style="font-family:'Arial Black';font-size: 30px;color: darkblue" routerLink="/usage/softinfo">QCクラウド</a>
+
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink="/usage/softinfo">アプリについて</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
 
 <!-- main2-app -->
 <div class="main2-app text-center">
@@ -32,32 +69,46 @@
     <div class="row">
       <div class="col-sm-12">
 
-        <h2>シンプルな３つの機能！</h2>
-        <p>The Simple Groupwareは簡単に使えます。<br>他機能が欲しくなったら追加するだけで多機能グループウェアに変身！</p>
+        <h2>御社では　品質管理上手く機能してますか?</h2>
+        <h4>言い換えれば、品質管理が機能するように情報を上手く利用できてますか</h4>
 
         <div class="row">
 
           <div class="col-sm-4">
             <div class="main2-sub">
-              <img src="assets/img/Excel.png" alt="" class="img-circle center-block">
-              <h3>ファイル共有サービス</h3>
-              <p>ファイル・フォルダの共有やインターネット公開ができ、ファイルをアップロード、ダウンロードすることができます。</p>
+              <img src="assets/img/seiri.jpg" style="height: 100px" alt="" class="img-circle center-block">
+              <h3>情報の整理</h3>
+
+            <div class="text-left">
+              <p>◎クレーム報告書等のファイルが 時間の経過とともにたまり　過去の情報を引っ張り出すのに時間がかかってませんか？</p>
+              <P>◎情報を記録する際　記録する人によって内容にバラツキがあって統一感がないなって感じませんか？　これも情報の整理の一つですね</P>
+            </div>
             </div>
           </div><!-- col -->
 
           <div class="col-sm-4">
             <div class="main2-sub">
-              <img src="assets/img/Oexcel.png" alt="" class="img-circle center-block">
-              <h3>Webメール</h3>
-              <p>ブラウザからメールを利用できる機能です。普段ご利用されているメールの送受信などをアプリ上から行うことができます。</p>
+              <img src="assets/img/kyouyu.png" style="height: 100px" alt="" class="img-circle center-block">
+              <h3>情報の共有</h3>
+              <div class="text-left">
+              <p>◎情報の共有はしっかりできてますか？　同じ会社で働いているのに　今社内で発生しているクレームや、それに対してどんな対策が取られているか
+                わからない人がいたりしませんか？</p>
+              <p>◎クレーム発生時の当事者は　まだ覚えているほうです。しかし　当事者ではないと　すぐに忘れてしまうものですよね。
+            さらに言えば当事者でもあっても、時間の経過とともに忘れてしまうものです。人間は　忘れる生き物とも言われますからね。未来の自分との情報共有もできてますか?
+                </p>
+              </div>
             </div>
           </div><!-- col -->
 
           <div class="col-sm-4">
             <div class="main2-sub">
-              <img src="assets/img/pdf.png" alt="" class="img-circle center-block">
-              <h3>スケジューラ</h3>
-              <p>ドラッグ＆ドロップで簡単に予定を登録。参加者の予定を一覧で確認でき、簡単に予定を調整することが可能です。</p>
+              <img src="assets/img/kati.jpg" alt="" style="height: 100px" class="img-circle center-block">
+              <h3>情報の価値</h3>
+              <div class="text-left">
+              <p>◎クレームが発生したら　対応に当たる時間やそれに興じる費用が発生してしまいますよね。その情報を次にもっと生かし切れてますか？</p>
+              <p>◎クレーム情報や客先からの要望、社内での不具合情報など大切な情報なのに　その場限りであったり
+                　色々なところで保管されいたりして　その情報を上手く再利用できていますか？</p>
+              </div>
             </div>
           </div><!-- col -->
 
@@ -75,15 +126,17 @@
     <div class="row">
       <div class="col-sm-5">
 
-        <img src="assets/img/Oword.png" alt="" class="img-responsive center-block">
+        <img src="assets/img/cloud2.png" alt="" class="img-responsive center-block">
 
       </div><!-- col -->
       <div class="col-sm-7">
 
-        <h2>とにかく見やすいスケジュール。<br>予定の作成も簡単！</h2>
-
-        <p>カレンダー形式/時間形式で見ることが出来ます。他の社員のスケジュールを閲覧・共有することもできるので、無駄なくスケジュール管理を行うことができます。</p>
-        <p>予定作成は登録したい日時を押すだけ！もちろんすべての端末にすぐ同期するので大変便利です。</p>
+        <h2>クラウドファーストとは</h2>
+        <p>クラウドファーストという言葉が　ビジネスの世界で言われるようになり久しいです。
+          クラウドファーストとは　企業が情報システムの設計や移行に際してクラウドサービスの採用を第一に検討する方針のことです。</p>
+        <p>つまり　ある場所(クラウド)に情報を集めておいて　そこにアクセスすれば最新の情報が誰でも見られるようになっていて、
+          まず初めに(ファースト)、その仕組みを利用して何か出来ないかと考えることです。</p>
+        <p>クラウドを利用すると、情報の整理や　情報の共有がしやすく　それが上手くできれば　情報の価値も上がるのです。</p>
 
       </div><!-- col -->
     </div><!-- row -->
@@ -97,20 +150,150 @@
     <div class="row">
       <div class="col-sm-7">
 
-        <h2>社外からファイルの確認も簡単に出来ます。</h2>
+        <h2>そこでQCクラウド!!</h2>
+        <h4>QCクラウドって何?</h4>
+        <p>品質管理を担当していた人間が,現場で経験してこんなものがあったら良いなっと思い作った仕組みです。</p>
+         <p> もちろんクラウドの仕組みを利用してます。</p>
 
-        <p>社内の文書やファイルを部署ごとにフォルダ分けして保管共有できます。
-        <p>シンプルな画面で見やすい！アクセス制限、閲覧記録などのセキュリティも万全です。</p>
+
+
 
       </div><!-- col -->
       <div class="col-sm-5">
 
-        <img src="assets/img/Word.png" alt="" class="img-responsive center-block">
+        <img src="assets/img/cloud.jpg" alt="" class="img-responsive center-block">
 
       </div><!-- col -->
     </div><!-- row -->
   </div><!-- container -->
 </div>
+
+
+  <!-- main3-app -->
+  <div class="main5-app">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-5">
+
+          <img src="assets/img/sagyou.png" alt="" class="img-responsive center-block">
+
+        </div><!-- col -->
+        <div class="col-sm-7">
+
+          <h3>現場で感じていたことって?　</h3>
+          <p>◎クレームに関連した情報や　製品に関しの情報　顧客の要望　社内において不具合に関しての情報を社内でどう整理しようか　
+            どのように社員間で共有すればよいか？　書類に閉じて保管しても増えれば保管場所も確保しないといけないし、
+            後で必要な情報を探し出すのに時間がかかるのを何とかしたいな。　</p>
+          <p>◎いま会社内でどんな対策が取られているか　一覧があったら、　人の入れ替わりや新人が加わっても　説明しやすいのにな。</p>
+          <p> ◎客先の要望　クレーム情報　社内の不具合情報は　財産です。もっとこの財産を価値あるものにしたいな。</p>
+          <p>◎財産である客先の要望　クレーム情報　社内の不具合情報を　記録する人によって内容がバラバラで統一できたらいいな</p>
+
+        </div><!-- col -->
+      </div><!-- row -->
+    </div><!-- container -->
+  </div>
+
+
+  <!-- main2-app -->
+  <div class="main2-app text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+
+          <h2>QCクラウドを利用するメリットは?</h2>
+          <h3><a routerLink="/usage/softinfo" >QCcloudの使い方</a></h3>
+          <div class="row">
+
+            <div class="col-sm-4">
+              <div class="main2-sub">
+                <img src="assets/img/search.png" style="height: 100px" alt="" class="img-circle center-block">
+                <h3>あらゆる検索</h3>
+
+                <div class="text-left">
+                  <p>◎情報は,すぐに検索出来て　引っぱり出せることです。関連した情報をも素早く引っ張りだせて初めて　価値が生まれます</p>
+                  <p>◎ある画像に対して過去に登録した画像の中から似た画像を検索できます。</p>
+                </div>
+              </div>
+            </div><!-- col -->
+
+            <div class="col-sm-4">
+              <div class="main2-sub">
+                <img src="assets/img/check.png" style="height: 100px" alt="" class="img-circle center-block">
+                <h3>素早く確認</h3>
+                <div class="text-left">
+                  <p>◎過去にどんな対策があったのか　どんな対応がとられてきたのか一覧で表示できます。いま社内でどんなことが行われているか一目でわかります。</p>
+                  <p>◎関連した画像やファイルが確認できます。画像やPDFファイルは表示し確認できます。</p>
+                </div>
+              </div>
+            </div><!-- col -->
+
+            <div class="col-sm-4">
+              <div class="main2-sub">
+                <img src="assets/img/touitu.jpeg" style="height: 100px" alt="" class="img-circle center-block">
+                <h3>情報の統一化</h3>
+                <div class="text-left">
+                  <p>◎QCクラウドは情報においてのフレームワークでもあります。 【フレームワークとは 骨組み、構造の意味】<br>
+                    このフレームワークを使用すれば　ある一定のクレーム情報や客先の要望　社内不具合情報の内容に関しての
+                    情報の統一化できます。
+                  </p>
+                </div>
+              </div>
+            </div><!-- col -->
+
+          </div><!-- row -->
+
+          <div class="row">
+
+            <div class="col-sm-4">
+              <div class="main2-sub">
+                <img src="assets/img/kati.jpg" style="height: 100px" alt="" class="img-circle center-block">
+                <h3>情報の品質向上</h3>
+
+                <div class="text-left">
+                  <p>◎このフレームワークの登録の流れは、クレーム発生や　客先からの要望　社内での不具合の報告があった場合　その情報に対して<br>
+                    ➀どう対応したか　<br>
+                    ②原因の分析(クレーム情報等)<br>
+                    ③今後どう対策していくか<br>
+                    ④効果があったか確認を行う<br>
+                    といった流れで登録していくようにしました。</p>
+                </div>
+              </div>
+            </div><!-- col -->
+
+            <div class="col-sm-4">
+              <div class="main2-sub">
+                <img src="assets/img/jyunan.jpeg" style="height: 100px" alt="" class="img-circle center-block">
+                <h3>情報に柔軟に対応</h3>
+                <div class="text-left">
+                  <p>◎一つのクレーム情報や客先要望等であっても　対応しなくてはならない部署は　複数にわたることもあるので、複数登録できるようにしました。
+                    例えば　発生原因は製造工程であり　流失原因は出荷時の工程である場合　対応や対策する部署が二か所のため部署によって
+                    どんな対応や対策をとったか登録できるようにしました。</p>
+                 </div>
+              </div>
+            </div><!-- col -->
+
+            <div class="col-sm-4">
+              <div class="main2-sub">
+                <img src="assets/img/pdf.png" style="height: 100px" alt="" class="img-circle center-block">
+                <h3>関連ファイルの登録</h3>
+                <div class="text-left">
+                  <p>◎画像や関連ファイルを共に保存できます。画像、PDFファイルに関しては拡大表示できます。</p>
+                </div>
+              </div>
+            </div><!-- col -->
+
+          </div><!-- row -->
+    </div><!-- col -->
+      </div><!-- row -->
+    </div><!-- container -->
+  </div>
+
+
+
+
+
+
+
 
 
 <!-- footer -->
@@ -119,51 +302,27 @@
     <div class="row">
       <div class="col-sm-5">
 
-        <h3>TheSimpleWare株式会社</h3>
+        <h3>LotsJOY【ロッツジョイ】</h3>
 
         <address>
-          000-0000 日本県日本市日本町 日本ビル100F
+          〒501-2105 岐阜県山県市高富2778-14
         </address>
 
-        <p class="tel">Tel.00-0000-0000
-          Fax.00-0000-0000</p>
 
       </div><!-- col -->
-
-      <div class="col-sm-7 formarea">
-
-        <div class="form-group form-inline">
-          <label for="Namae" class="form"><span class="essential">*</span>お名前（漢字）</label>
-          <input name="name" class="form-control" size="10" placeholder="(例)日本" type="text" id="Namae" required="required"/>
-          <input name="name2" class="form-control" size="10" placeholder="(例)太郎" type="text" id="Namae2" required="required"/>
-        </div>
-
-        <div class="form-group form-inline">
-          <label for="kana" class="form"><span class="essential">*</span>お名前（カナ）</label>
-          <input name="kana" class="form-control" size="10" placeholder="(例)ニホン" type="text" id="Kana" required="required"/>
-          <input name="kana2" class="form-control" size="10" placeholder="(例)タロウ" type="text" id="Kana2" required="required"/>
-        </div>
-
-        <div class="form-group form-inline">
-          <label for="email" class="form"><span class="essential">*</span>メールアドレス</label>
-          <input name="email" class="form-control" size="27" placeholder="(例)simple@simple.com" type="email" id="Email" required="required"/>
-        </div>
-
-        <div class="form-group form-inline">
-          <label for="message" class="form"><span class="essential">*</span>お問合わせ内容</label>
-          <textarea name="message" cols="28" rows="3" class="form-control" placeholder="お問合せ内容をご入力してください。 "id="Message"></textarea>
-        </div>
-
-        <div class="regist_button">
-          <input  class="btn btn-primary btn-lg" name="next" type="submit" value="入力内容を送信する"/>
-        </div>
-
-      </div><!-- col -->
+      <div class="col-sm-5">
+        <ul style="margin-top: 20px">
+          <li ><a HREF="/riyoukiyaku" TARGET="_blank">利用規約確認</a></li>
+          <li ><a HREF="/privacypolicy" TARGET="_blank">プライバシーポリシー</a></li>
+          <li ><a routerLink="/askform" >問い合わせ</a></li>
+          <li ><a routerLink="/lotsjoys" >運営会社</a></li>
+        </ul>
+      </div>
     </div><!-- row -->
 
     <div class="row copyarea text-center">
       <div class="col-sm-12">
-        <p class="copy">Copyright &copy; The Simple Ware inc.</p>
+        <p class="copy">Copyright &copy; LotJOY,all rights reserved.</p>
 
       </div><!-- col -->
     </div><!-- row -->
