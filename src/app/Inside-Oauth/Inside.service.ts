@@ -43,7 +43,8 @@ export class InsideService {
   koukaList:any[]=[];
   commentList:any[]=[];
   checkList:any[]=[];
-  companyDataList:any[]=[];
+  fileupList:any[]=[];
+  dataupList:any[]=[];
   filename:string;
   date:Date = new Date();
 date2:any;
@@ -169,7 +170,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.fileChangeTrigger(this.uid);
   this.fileRemoveTrigger(this.uid);
 this.checkTrigger(this.uid);
-this.checkPlanTrigger(this.uid);
+  this.fileupTrigger(this.uid);
+  this.dataupTrigger(this.uid);
 }
 
 
@@ -178,30 +180,29 @@ this.checkPlanTrigger(this.uid);
 
 
   //Firebaseのトリガー関連
-  checkPlanTrigger(uid){//その会社のログイン回数やアップロード数をもらう
-    let commentsRef = firebase.database().ref('companyData/'+uid+'/'+'companyInfo');
-    commentsRef.on('child_added', (value)=> {
-      let companyDataList:any[]=[];
-      if(value.val().label=='スタンダード'){
-        companyDataList.push({login:200,dataup:200,fileup:200})
-      }else  if(value.val().label=='プレミアム'){
-        companyDataList.push({login:300,dataup:300,fileup:300})
-      }else  if(value.val().label=='エキスパート'){
-        companyDataList.push({login:400,dataup:400,fileup:400})
-      }
 
-
-
-      this.companyDataList=companyDataList
-    })
-  }
-
-  checkTrigger(uid){//その会社のログイン回数やアップロード数をもらう
+  checkTrigger(uid){//クレーム一覧でログインの回数を加算してく際にこのデータが必要
     let commentsRef = firebase.database().ref('Check/'+uid+'/'+this.date2);
     commentsRef.on('child_added', (value)=> {
        this.checkList.unshift({count:value.val()})
     })
   }
+  fileupTrigger(uid){//データアップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
+    let commentsRef = firebase.database().ref('FileUpCheck/'+uid+'/'+this.date2);
+    commentsRef.on('child_added', (value)=> {
+      this.fileupList.unshift({count:value.val()})
+    })
+  }
+
+  dataupTrigger(uid){//画像アップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
+    let commentsRef = firebase.database().ref('DataUpCheck/'+uid+'/'+this.date2);
+    commentsRef.on('child_added', (value)=> {
+      this.dataupList.unshift({count:value.val()})
+    })
+  }
+
+
+
  busyoAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
       commentsRef.on('child_added', (value)=> {

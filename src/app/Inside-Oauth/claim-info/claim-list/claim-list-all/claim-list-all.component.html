@@ -1,3 +1,6 @@
+
+
+
 <!--参考サイトhttps://www.softel.co.jp/blogs/tech/archives/2848-->
 <div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
   <div class="panel-heading">
@@ -5,9 +8,7 @@
   </div>
   <div class="panel-body">
 
-    <div *ngIf="countOnOff">
-      <div class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
-    </div>
+
 
     <div *ngIf="OnOff">
       <div class="alert alert-danger" role="alert">三か月が経過しました。効果確認を行ってください。<a (click)="checkKouka()" style="cursor: pointer">対象の対策{{addKouka}}件</a></div>

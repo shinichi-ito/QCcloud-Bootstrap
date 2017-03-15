@@ -57,11 +57,12 @@ koukakakuninTaisaku:any[]=[];
   check:boolean;
   countOnOff:boolean=false;
   checkList:any[]=[];
+ // checkPlan:any[]=[];
   constructor(private insideMainService:InsideMainService,private router: Router,
               private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
 this.uid=this.oauthInfoService.uid;
 this.check=this.oauthInfoService.check;
-this.checkList=this.insideService.checkList;
+this.checkList=this.insideService.checkList;//その会社のログイン回数やアップロード数をもらう
 
 if(this.check){
   //既に一度ログインしているのでこれ以上カウントを増やさない
@@ -76,23 +77,7 @@ if(this.check){
 
 }
 
-if(this.checkList[0].count>100){//現在のログイン回数とプランの限度回数を比較してリストを表示するかしらべている
-  this.countOnOff=true;
-
-
-}else{
-
 this.topWork()
-
-}
-
-
-
-
-
-
-
-
 
 }
 

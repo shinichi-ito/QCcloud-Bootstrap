@@ -158,7 +158,9 @@ changeTop(){
               if(data.$value===1){
                 console.log("クレームリストへ");
               //  this.router.navigate(['/main/editclaim/selecteditclaim'])
+             //   this.oauthInfoService.setOnOff();//これはmainからmainに移るので　observerで観察している
                this.router.navigate(['/main/topinside'])
+
                 ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
                 //     this.insideService.addSitenSQLite()
                 //     this.insideService.addBusyoSQLite()
@@ -174,7 +176,8 @@ changeTop(){
                 console.log('最初の会社情報登録成功2')
                 console.log(data)
                 console.log("クレームリストへ");
-                this.router.navigate(['/main/list'])
+              //  this.oauthInfoService.OnOff=true;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
+                this.router.navigate(['/main/topinside'])
               })
             }
           },
@@ -260,11 +263,14 @@ changeTop(){
       console.log(term)
       if (term >2) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
-this.oauthInfoService.OnOff=false;
+//this.oauthInfoService.OnOff=false;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
         this.router.navigate(['/main/companyInfo/addCompanyInfo'])
       }else{
         console.log("クレームリストへ");
+
+      //  this.oauthInfoService.OnOff=true;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
         this.router.navigate(['/main/topinside'])
+
 
       //    this.router.navigate(['/main/companyInfo/addCompanyInfo'])
       }

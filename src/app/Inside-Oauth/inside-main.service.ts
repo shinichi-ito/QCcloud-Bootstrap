@@ -25,7 +25,7 @@ taioukey:string;
   value: FirebaseObjectObservable<any>;
   // flagChange$: Observable<number>;
   // private _observer;
-
+  Info2: FirebaseObjectObservable<any[]>;
   // flagChangeDelete$: Observable<number>;
   // private _observerdelete;
 
@@ -38,8 +38,15 @@ taioukey:string;
   claimitem:any;
 fileData:any[]=[];
 timelineData:any;
+//companyDataList:any[]=[];//これは　プランの情報が入っている　ログイン回数　ファイルアップロード数の限度数
+  date:Date = new Date();
+  date2:any;
 
+  login:boolean=true;
+  dataup:boolean=true;
+  fileup:boolean=true;
   constructor(private insideService:InsideService,private af : AngularFire) {
+    this.date2=this.date.toISOString().split('-')[0]+'-'+this.date.toISOString().split('-')[1];
     // this.flagChange$ = new Observable(observer =>
     //   this._observer = observer).share();
     // this.flagChangeDelete$ = new Observable(observer =>
@@ -52,15 +59,80 @@ timelineData:any;
     this.claimitem=this.insideService.claimitem;
   }
 
+
+  onFileUpSuMain(uid){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+    let fileupList=this.insideService.fileupList;
+
+    if(fileupList.length==0){//まだ　登録がされてないケース月初めとか
+   //   console.log('ない')
+      this.onFileupSuAdd(1,uid)
+    }else{
+    //  console.log('ある')
+      this.onFileupSuAdd(fileupList[0].count+1,uid)
+    }
+
+  }
+  onFileupSuAdd(count:number,uid:string){//これはログインした際その月のログイン回数を数える
+    const Info = {
+      fileup:count
+    };
+    this.Info2=this.af.database.object('FileUpCheck/'+uid+'/'+this.insideService.date2);
+    this.Info2.set(Info).then(data=>{
+      //   console.log(data.key)
+
+
+    }).catch(error=>{
+
+    })
+  }
+
+  onDataUpSuMain(uid){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+    let dataupList=this.insideService.dataupList;
+
+    if(dataupList.length==0){//まだ　登録がされてないケース月初めとか
+      //   console.log('ない')
+      this.onDataupSuAdd(1,uid)
+    }else{
+      //  console.log('ある')
+      this.onDataupSuAdd(dataupList[0].count+1,uid)
+    }
+
+  }
+  onDataupSuAdd(count:number,uid:string){//これはログインした際その月のログイン回数を数える
+    const Info = {
+      dataup:count
+    };
+    this.Info2=this.af.database.object('DataUpCheck/'+uid+'/'+this.insideService.date2);
+    this.Info2.set(Info).then(data=>{
+      //   console.log(data.key)
+
+
+    }).catch(error=>{
+
+    })
+  }
+
+
+
+
   setActive(data){
     this.active=data;
     this._observeractive.next(this.active);
   }
 
 
+  getCheckSu(uid:string): FirebaseListObservable<any> {//その月のログイン回数やファイルアップ数を取得
 
+    return this.af.database.list('/Check/' + uid + '/'+this.date2);
+  }
+  getFileUpSu(uid:string): FirebaseListObservable<any> {//その月のログイン回数やファイルアップ数を取得
 
+    return this.af.database.list('/FileUpCheck/' + uid + '/'+this.date2);
+  }
+  getDataUpSu(uid:string): FirebaseListObservable<any> {//その月のログイン回数やファイルアップ数を取得
 
+    return this.af.database.list('/DataUpCheck/' + uid + '/'+this.date2);
+  }
 fileDataUp(toukousya:string,siten:string,busyo:string,comment:string,uid:string,key:string){
   const Info = {
     toukousya:toukousya,

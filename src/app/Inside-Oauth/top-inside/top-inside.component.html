@@ -1,3 +1,7 @@
+<app-nav-main></app-nav-main>
+
+<app-nav-sabu></app-nav-sabu>
+
 <div class="container">
 
   <!-- content -->
@@ -9,7 +13,25 @@
 
     <!-- center -->
     <div class="col-md-9" style="background-color:#0ff000">
-      center
+
+      <div>
+        <div class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
+      </div>
+
+
+      <progressbar [max]="max" [value]="loginPa">
+        <span style="color:white; white-space:nowrap;">{{loginPa}}% / {{max}}</span>
+      </progressbar>
+
+      <progressbar [max]="max" [value]="fileupPa">
+        <span style="color:white; white-space:nowrap;">{{fileupPa}}% / {{max}}</span>
+      </progressbar>
+
+      <progressbar [max]="max" [value]="dataupPa">
+        <span style="color:white; white-space:nowrap;">{{dataupPa}}% / {{max}}</span>
+      </progressbar>
+
+
     </div>
 
     <!-- right -->

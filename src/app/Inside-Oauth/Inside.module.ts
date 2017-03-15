@@ -28,7 +28,7 @@ import { AddBranchOfficeComponent } from './employee-info/add-branch-office/add-
 import { AddDepartmentComponent } from './employee-info/add-department/add-department.component';
 import { InformationComponent } from './information/information.component';
 import {
-  DatepickerModule, RatingModule, TimepickerModule, ModalModule, DropdownModule
+  DatepickerModule, RatingModule, TimepickerModule, ModalModule, DropdownModule, ProgressbarModule
 } from "ng2-bootstrap";
 import {CompanyInfoComponent} from "./company-info/company-info.component";
 import {AddCompanyInfoComponent} from "./company-info/add-company-info/add-company-info.component";
@@ -208,6 +208,7 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     DropdownModule.forRoot(),
+    ProgressbarModule.forRoot(),
     ReactiveFormsModule
   ],
 

@@ -8,11 +8,13 @@ import {OauthInfoService} from "../../oauth-info.service";
   styleUrls: ['./nav-sabu.component.css']
 })
 export class NavSabuComponent implements OnInit {
-OnOff:boolean=true;
+//OnOff:any;
   constructor(private oauthInfoService:OauthInfoService) {
-
-   this.OnOff=this.oauthInfoService.OnOff;
-   // console.log(this.OnOff)
+    // this.oauthInfoService.flagChange$.subscribe(
+    //   flag => {
+    //   this.OnOff=flag;
+    //   });
+  // this.OnOff=this.oauthInfoService.OnOff;
   }
 
   ngOnInit() {

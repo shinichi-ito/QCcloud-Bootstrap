@@ -36,11 +36,22 @@ InfoData:any[]=[];
   uid:string;
   myForm: FormGroup;
   claimList:any[]=[];
-
+  fileupList:any[]=[];
  // key:string;
   claimitem:any;
+  Info2: FirebaseObjectObservable<any[]>;
+
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService) {
+    this.uid=this.oauthInfoService.uid;
+    this.fileupList=this.insideService.fileupList;//その会社のログイン回数やアップロード数をもらう
+
+
+
+
+
+
+
     this.model = {
       label: "kari"
     };
@@ -83,29 +94,6 @@ this.claimitem=this.insideService.claimitem;
     ];
   }
 
-  // addTaiouSyubetu(){
-  //   this.taiouSyubetu=[];
-  //   // console.log(this.syubetuvalue)
-  //   this.taiouSyubetu.push(this.syubetuvalue)
-  //   for(let key in this.taiouSyubetuList){
-  //     this.taiouSyubetu.push(this.taiouSyubetuList[key].taiou)
-  //     // console.log(this.taiouSyubetuList[key].taiou)
-  //   }
-  //
-  //   // console.log(this.taiouSyubetu)
-  //
-  //
-  //   const taiouInfo = {
-  //     taiouInfo:this.taiouSyubetu
-  //
-  //   };
-  //   this.claimInfo=this.af.database.object('selectData/'+this.uid+'/')
-  //   this.claimInfo.update(taiouInfo).then(data=>{
-  //     console.log('success')
-  //   }).catch(error=>{
-  //
-  //   })
-  // }
 
   onAdd(){
     console.log(this.dt)
@@ -150,19 +138,19 @@ this.claimitem=this.insideService.claimitem;
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
-
+        this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })
-
-
       }
     }
-
-
-
-
   }
+
+
+
+
+
+
 
   addTaiouSyubetu(){
 

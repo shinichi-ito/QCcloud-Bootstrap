@@ -23,8 +23,12 @@ check:boolean=false;//これは　claimalllistでログインの回数をカウ�
   privacypolicy:boolean;
   public busyoAdd: Observable<any>;
   newsList:any[]=[];
-  OnOff:boolean;//これは　インサイド内でのナビゲーションの二段目を表示するかどうか。　一覧　新規登録　投稿前とかのナビ
+ // OnOff:boolean;//これは　インサイド内でのナビゲーションの二段目を表示するかどうか。　一覧　新規登録　投稿前とかのナビ
+  // private _observer;
+  // flagChange$: Observable<number>;
   constructor(private af : AngularFire) {
+     // this.flagChange$ = new Observable(observer =>
+     //  this._observer= observer).share();
     this.checkNewsTrigger()
   }
 
@@ -37,7 +41,12 @@ check:boolean=false;//これは　claimalllistでログインの回数をカウ�
     })
   }
 
-
+// setOnOff(){
+//     this.OnOff=true;
+// this._observer.next(this.OnOff)
+//
+//
+// }
 
 
 }

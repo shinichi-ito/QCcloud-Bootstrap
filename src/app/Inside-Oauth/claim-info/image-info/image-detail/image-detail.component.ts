@@ -8,6 +8,7 @@ import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {AngularFire,  FirebaseObjectObservable} from "angularfire2";
 import * as firebase from 'firebase'
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-image-detail',
   templateUrl: './image-detail.component.html',
@@ -32,7 +33,8 @@ export class ImageDetailComponent implements OnDestroy{
   Info: FirebaseObjectObservable<any[]>;
 
 fileUrl:string;
-  constructor( private af : AngularFire,private insideService:InsideService,private oauthInfoService:OauthInfoService,private imageService:ImageService,private sanitizer: DomSanitizer) {
+  constructor( private af : AngularFire,private insideService:InsideService,private oauthInfoService:OauthInfoService,
+               private imageService:ImageService,private sanitizer: DomSanitizer,private insideMainService:InsideMainService) {
     this.uid=this.oauthInfoService.uid;
     this.claimitem=this.insideService.claimitem;
   }
@@ -169,7 +171,7 @@ this.flag=false;
 
 
 
-  addImageSu(){//クレーム情報の対応数をプラス
+  addImageSu(){//クレーム情報のファイル数をプラス
     this.claimList=this.insideService.claimList
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
@@ -181,7 +183,7 @@ this.flag=false;
         };
         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.Info.update(claimInfo).then(data=>{
-
+this.insideMainService.onDataUpSuMain(this.uid)
         }).catch(error=>{
 
         })
