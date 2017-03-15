@@ -25,8 +25,12 @@ export class AddCompanyInfoComponent implements OnInit{
   riyoukiyaku:boolean;
   privacypolicy:boolean;
 uid:string;
-
+model;
   constructor(private router:Router,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
+    this.model = {
+      label: ""
+    };
+
     this.uid=this.oauthInfoService.uid;
     this.myForm = fb.group({
       "companyname": ['', Validators.required],
@@ -36,6 +40,7 @@ uid:string;
        "employee": ['',Validators.required],
       "occupation": ['',Validators.required],
       "tantouname": ['', Validators.required],
+      "label": ['', Validators.required],
       "email": ['test@example.com',Validators.compose([
         Validators.required,
         Validators.pattern('[A-Za-z0-9.\-]+@[A-Za-z0-9\-]+[.][A-Za-z0-9.\-]+')])],
@@ -78,10 +83,12 @@ uid:string;
 
 
   onAdd(){
-      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
-      //  console.log('会社詳細情報登録成功')
-      }).catch((error)=>{
-   });
+
+   // console.log(this.myForm.value.label)
+       this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
+   //    //  console.log('会社詳細情報登録成功')
+       }).catch((error)=>{
+    });
   }
 
 

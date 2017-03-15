@@ -55,55 +55,85 @@ koukakakuninTaisaku:any[]=[];
   Info2: FirebaseObjectObservable<any[]>;
   uid:string;
   check:boolean;
-  constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+  countOnOff:boolean=false;
+  checkList:any[]=[];
+  constructor(private insideMainService:InsideMainService,private router: Router,
+              private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
 this.uid=this.oauthInfoService.uid;
 this.check=this.oauthInfoService.check;
+this.checkList=this.insideService.checkList;
 
 if(this.check){
   //既に一度ログインしているのでこれ以上カウントを増やさない
 }else{
-  if(this.insideService.checkList.length==0){//まだ　登録がされてないケース月初めとか
+  if(this.checkList.length==0){//まだ　登録がされてないケース月初めとか
     this.onAdd(1,this.uid);
     this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
   }else{
-    this.onAdd(this.insideService.checkList[0].count+1,this.uid);
+    this.onAdd(this.checkList[0].count+1,this.uid);
     this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
   }
 
 }
 
+if(this.checkList[0].count>100){//現在のログイン回数とプランの限度回数を比較してリストを表示するかしらべている
+  this.countOnOff=true;
 
-    this.taisakuList=this.insideService.taisakuList;
+
+}else{
+
+this.topWork()
+
+}
+
+
+
+
+
+
+
+
+
+}
+
+
+  topWork(){
+    this.newclaimList=this.insideService.claimList;//クレーム一覧から公開になってるものを選択表示
+    for(let key in this.newclaimList){
+      if(this.newclaimList[key].koukai=='koukai'){
+        this.newclaimList2.push(this.newclaimList[key])
+      }
+    }
+    this.data=this.newclaimList2;
+
+    this.taisakuList=this.insideService.taisakuList;//対策リスト内に　三か月たっても効果確認がされてないものを探し出す
     this.claimitem=this.insideService.claimitem;
     this.unixTimestampmill = this.date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
     this.unixTimestamp = this.setTimeChange(this.unixTimestampmill)// 現在のUNIX時間を取得する (秒単位)
-   let term:number;
-    for(let key in this.taisakuList){
+    let term:number;
+
+    for(let key in this.taisakuList){//対策リスト内に　三か月たっても効果確認がされてないものを探し出す
       //1分のタイムスタンプ絶対値（秒）＝60
       //1時間のタイムスタンプ絶対値（秒）＝3600
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
       //三か月のタイムスタンプ絶対値（秒）＝7776000
-     // console.log(this.taisakuList[key].koukasu)
+      // console.log(this.taisakuList[key].koukasu)
       this.taisakubi=this.setTimeChange(this.taisakuList[key].taisakubi)
-       term=this.unixTimestamp-this.taisakubi;
-       if(term>7&&this.taisakuList[key].koukasu===0){
+      term=this.unixTimestamp-this.taisakubi;
+      if(term>7776000&&this.taisakuList[key].koukasu===0){
         this.koukakakuninTaisaku.push(this.taisakuList[key])
-        }
-     if(this.koukakakuninTaisaku.length>0){
+      }
+      if(this.koukakakuninTaisaku.length>0){
         this.OnOff=true;
         this.addKouka=this.koukakakuninTaisaku.length
-}
-    }
-   this.newclaimList=this.insideService.claimList
-    for(let key in this.newclaimList){
-      //  console.log(this.fileList[key].doko)
-      if(this.newclaimList[key].koukai=='koukai'){
-        this.newclaimList2.push(this.newclaimList[key])
       }
     }
-this.data=this.newclaimList2
-}
+  }
+
+
+
+
   viewSyousai(claimitem){
     //console.log(claimitem)
     this.claimItem=claimitem;

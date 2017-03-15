@@ -9,6 +9,7 @@ export interface CompanyDetail {
   tantouname:string;
   email: string;
   employee:string;
+  label:string;
   occupation:string;
   riyoukiyaku:boolean;
   privacypolicy:boolean;

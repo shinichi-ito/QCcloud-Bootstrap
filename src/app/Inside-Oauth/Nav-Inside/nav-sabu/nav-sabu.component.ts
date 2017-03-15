@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {InsideMainService} from "../../inside-main.service";
+import {OauthInfoService} from "../../oauth-info.service";
 
 @Component({
   selector: 'app-nav-sabu',
@@ -6,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-sabu.component.css']
 })
 export class NavSabuComponent implements OnInit {
+OnOff:boolean=true;
+  constructor(private oauthInfoService:OauthInfoService) {
 
-  constructor() { }
+   this.OnOff=this.oauthInfoService.OnOff;
+   // console.log(this.OnOff)
+  }
 
   ngOnInit() {
   }

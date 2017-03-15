@@ -38,6 +38,7 @@ taioukey:string;
   claimitem:any;
 fileData:any[]=[];
 timelineData:any;
+
   constructor(private insideService:InsideService,private af : AngularFire) {
     // this.flagChange$ = new Observable(observer =>
     //   this._observer = observer).share();

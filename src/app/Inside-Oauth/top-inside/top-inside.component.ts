@@ -13,10 +13,15 @@ export class TopInsideComponent implements OnInit {
   uid:string;
   constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
+    if(this.oauthInfoService.newsList.length===0){
+
+    }else{
+      console.log(this.oauthInfoService.newsList[0].news)
+    }
+
   }
 
   ngOnInit() {
-
 
   }
 

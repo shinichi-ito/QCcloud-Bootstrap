@@ -1,5 +1,5 @@
 
-  <div class="panel panel-default" style="width: 80%;margin: 0 auto;">
+  <div class="panel panel-default" style="width: 50%;margin: 0 auto;margin-top: 30px">
     <div class="panel-heading">
       登録会社情報
     </div>
@@ -53,6 +53,27 @@
         <label for="email">メールアドレス</label>
         <input type="email" class="form-control" name="email"  [(ngModel)]='email' id="email" placeholder="連絡用のメールアドレスを入力ください。">
       </div>
+
+
+
+        <div class="form-group">
+          <label>プラン選択 <a HREF="/priceinfo" TARGET="_blank">【価格プラン確認】</a></label><br>
+
+          <label class="radio-inline">
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="200">　スタンダード
+          </label>
+          <label class="radio-inline">
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="300">　プレミアム
+          </label>
+          <label class="radio-inline">
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="400">　エキスパート
+          </label>
+
+        </div>
+
+
+
+
 
       <div *ngIf="companyB" class="alert alert-danger" role="alert">会社名を入力ください</div>
       <div *ngIf="daihyounameB" class="alert alert-danger" role="alert">代表者名を入力ください</div>

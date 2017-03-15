@@ -31,7 +31,12 @@ tel:string;
   emailB:boolean=false;
   emailB2:boolean=false;
   value: FirebaseObjectObservable<any>;
+  model;
   constructor(private af : AngularFire,private insideMainService:InsideMainService,private oauthInfoService:OauthInfoService) {
+
+    this.model = {
+      label: ""
+    };
     this.uid=this.oauthInfoService.uid;
     this.insideMainService.getCompanyInfo(this.uid).subscribe((data)=>{
         for(let key in data){

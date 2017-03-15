@@ -22,6 +22,22 @@ check:boolean=false;//これは　claimalllistでログインの回数をカウ�
   riyoukiyaku:boolean;
   privacypolicy:boolean;
   public busyoAdd: Observable<any>;
-  constructor(private af : AngularFire) {}
+  newsList:any[]=[];
+  OnOff:boolean;//これは　インサイド内でのナビゲーションの二段目を表示するかどうか。　一覧　新規登録　投稿前とかのナビ
+  constructor(private af : AngularFire) {
+    this.checkNewsTrigger()
+  }
+
+  checkNewsTrigger(){
+
+    let commentsRef = firebase.database().ref('News/');
+    commentsRef.on('child_added', (value)=> {
+      //console.log(value.val())
+      this.newsList.push({news:value.val()})
+    })
+  }
+
+
+
 
 }

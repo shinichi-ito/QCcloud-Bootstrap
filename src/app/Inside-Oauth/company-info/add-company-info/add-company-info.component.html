@@ -1,11 +1,15 @@
+
+
+
+
 <form [formGroup]="myForm"
       (ngSubmit)="onAdd()">
-<div class="panel panel-default" style="width: 80%;margin: 0 auto;">
+<div class="panel panel-default" style="width: 60%;margin: 0 auto;margin-top: 30px">
   <div class="panel-heading">
-    情報概要
+    会社情報詳細登録
   </div>
   <div class="panel-body">
-
+    <div class="alert alert-success" role="alert">30日間ご利用ありがとうございます。<br>引き続きご利用いただくために下記の登録を行ってください。</div>
     <div class="form-group">
       <label for="companyname">会社名<span *ngIf="myForm.controls.companyname.dirty &&
                 myForm.controls.companyname.errors||myForm.controls.companyname.untouched &&
@@ -141,12 +145,29 @@
 
 
 
+<hr>
 
+    <div class="form-group">
+      <label>プラン選択 <a HREF="/priceinfo" TARGET="_blank">【価格プラン確認】</a><span *ngIf="myForm.controls.label.dirty &&
+                myForm.controls.label.errors||myForm.controls.label.untouched &&
+                myForm.controls.label.errors">
+      <span class="text-danger"
+            [hidden]="!myForm.controls.label.errors.required ">*</span></span></label><br>
 
+      <label class="radio-inline">
+        <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="スタンダード">　スタンダード
+      </label>
+      <label class="radio-inline">
+        <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="プレミアム">　プレミアム
+      </label>
+      <label class="radio-inline">
+        <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="エキスパート">　エキスパート
+      </label>
 
+    </div>
 
-
-      <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
+<hr>
+     <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
   </div>
 </div>
 

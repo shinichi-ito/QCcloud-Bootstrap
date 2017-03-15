@@ -43,6 +43,7 @@ export class InsideService {
   koukaList:any[]=[];
   commentList:any[]=[];
   checkList:any[]=[];
+  companyDataList:any[]=[];
   filename:string;
   date:Date = new Date();
 date2:any;
@@ -167,8 +168,8 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.fileAddTrigger(this.uid);
   this.fileChangeTrigger(this.uid);
   this.fileRemoveTrigger(this.uid);
-this.checkLoginTrigger(this.uid);
-
+this.checkTrigger(this.uid);
+this.checkPlanTrigger(this.uid);
 }
 
 
@@ -177,24 +178,31 @@ this.checkLoginTrigger(this.uid);
 
 
   //Firebaseのトリガー関連
-
-
-  checkLoginTrigger(uid){
-
-    let commentsRef = firebase.database().ref('Check/'+uid+'/'+this.date2);
+  checkPlanTrigger(uid){//その会社のログイン回数やアップロード数をもらう
+    let commentsRef = firebase.database().ref('companyData/'+uid+'/'+'companyInfo');
     commentsRef.on('child_added', (value)=> {
-    //  console.log(value.val());
+      let companyDataList:any[]=[];
+      if(value.val().label=='スタンダード'){
+        companyDataList.push({login:200,dataup:200,fileup:200})
+      }else  if(value.val().label=='プレミアム'){
+        companyDataList.push({login:300,dataup:300,fileup:300})
+      }else  if(value.val().label=='エキスパート'){
+        companyDataList.push({login:400,dataup:400,fileup:400})
+      }
 
-      this.checkList.unshift({count:value.val()})
+
+
+      this.companyDataList=companyDataList
     })
   }
 
-
-
-
-
-
-  busyoAddTrigger(uid){
+  checkTrigger(uid){//その会社のログイン回数やアップロード数をもらう
+    let commentsRef = firebase.database().ref('Check/'+uid+'/'+this.date2);
+    commentsRef.on('child_added', (value)=> {
+       this.checkList.unshift({count:value.val()})
+    })
+  }
+ busyoAddTrigger(uid){
       let commentsRef = firebase.database().ref('companyData/'+uid+'/BusyoInfo');
       commentsRef.on('child_added', (value)=> {
        // console.log('busyo追加')

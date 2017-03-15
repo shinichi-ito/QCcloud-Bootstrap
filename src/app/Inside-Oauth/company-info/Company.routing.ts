@@ -5,6 +5,6 @@ import {EditCompanyInfoComponent} from "./edit-company-info/edit-company-info.co
  * Created by hp on 2017/02/18.
  */
 export const COM_ROUTES: Routes = [
-  { path: 'addCompanyInfo', component:AddCompanyInfoComponent},
+ { path: 'addCompanyInfo', component:AddCompanyInfoComponent},
   { path: 'editcompanyinfo',component:EditCompanyInfoComponent},
 ];

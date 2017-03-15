@@ -4,6 +4,11 @@
     情報一覧
   </div>
   <div class="panel-body">
+
+    <div *ngIf="countOnOff">
+      <div class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
+    </div>
+
     <div *ngIf="OnOff">
       <div class="alert alert-danger" role="alert">三か月が経過しました。効果確認を行ってください。<a (click)="checkKouka()" style="cursor: pointer">対象の対策{{addKouka}}件</a></div>
     </div>

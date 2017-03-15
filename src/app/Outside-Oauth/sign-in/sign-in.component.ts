@@ -3,6 +3,7 @@ import {OauthService} from "../oauth.service";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {OauthInfoService} from "../../Inside-Oauth/oauth-info.service";
+import {InsideMainService} from "../../Inside-Oauth/inside-main.service";
 
 
 @Component({
@@ -257,13 +258,15 @@ changeTop(){
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
       console.log(term)
-      if (term >2592000) {//期日を超えたら　会社情報登録画面へ
+      if (term >2) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
-
+this.oauthInfoService.OnOff=false;
         this.router.navigate(['/main/companyInfo/addCompanyInfo'])
       }else{
         console.log("クレームリストへ");
-          this.router.navigate(['/main/companyInfo/addCompanyInfo'])
+        this.router.navigate(['/main/topinside'])
+
+      //    this.router.navigate(['/main/companyInfo/addCompanyInfo'])
       }
 
 
