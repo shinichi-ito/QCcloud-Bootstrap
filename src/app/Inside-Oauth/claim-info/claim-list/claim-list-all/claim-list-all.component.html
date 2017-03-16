@@ -66,12 +66,12 @@
       </td>
       <td>{{item.name }}&#13;{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST' }}</td>
       <td  style="word-wrap:break-word;">
-        <button (click)="sendEditTaiou(item)" class="btn btn-info btn-xs" type="button">対応数<span class="badge">{{item.taiou}}</span></button>
-        <button (click)="sendEditGenin(item)" class="btn btn-primary  btn-xs" type="button">原因分析数<span class="badge">{{item.genin}}</span></button>
-        <button (click)="sendEditTaisaku(item)" class="btn btn-success btn-xs" type="button">対策数<span class="badge">{{item.taisaku}}</span></button>
-        <button  class="btn btn-primary  btn-xs" type="button">効果確認数<span class="badge">{{item.kouka}}</span></button>
-        <button class="btn btn-info  btn-xs" type="button">関連ファイル数<span class="badge">{{item.file}}</span></button>
-
+        <button (click)="sendEditTaiou(item)" class="btn btn-success btn-xs" type="button">応急対応<span class="badge">{{item.taiou}}</span></button>
+        <button (click)="sendEditGenin(item)" class="btn btn-primary  btn-xs" type="button">原因分析<span class="badge">{{item.genin}}</span></button>
+        <button (click)="sendEditTaisaku(item)" class="btn btn-success btn-xs" type="button">恒久対策<span class="badge">{{item.taisaku}}</span></button>
+        <button  class="btn btn-primary  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
+        <button class="btn btn-info  btn-xs" type="button">関連ファイル<span class="badge">{{item.file}}</span></button>
+        <button (click)="sendEditComment(item)" class="btn btn-primary  btn-xs" type="button">コメント<span class="badge">{{item.comment}}</span></button>
       </td>
 
 

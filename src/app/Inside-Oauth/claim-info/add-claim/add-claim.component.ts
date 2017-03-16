@@ -43,10 +43,24 @@ export class AddClaimComponent  {
   claimInfo: FirebaseListObservable<any[]>;
   claimInfo2: FirebaseObjectObservable<any[]>;
   myForm: FormGroup;
-
+  Info2: FirebaseObjectObservable<any[]>;
+  check:boolean;
+  login:number;
   public constructor(private af : AngularFire,private insideService:InsideService,
                      private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                       private insideMainService:InsideMainService) {
+
+    this.uid=this.oauthInfoService.uid;
+    this.check=this.oauthInfoService.check;
+    this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
+    console.log(this.login);
+    if(this.check){
+//   //既に一度ログインしているのでこれ以上カウントを増やさない
+    }else{
+      this.onAddLogin(this.login+1,this.uid);
+      this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
+    }
+
     this.syubetus=this.insideService.syubetuList;
     this.model = {
       label: "kari"
@@ -110,6 +124,24 @@ export class AddClaimComponent  {
 
     })
  }
+
+  onAddLogin(count:number,uid:string){//これはログインした際その月のログイン回数に加算する
+    const Info = {
+      login:count
+    };
+    this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
+    this.Info2.set(Info).then(data=>{
+      //   console.log(data.key)
+
+
+    }).catch(error=>{
+
+    })
+  }
+
+
+
+
 
   getKey(){
     return this.insideService.key;

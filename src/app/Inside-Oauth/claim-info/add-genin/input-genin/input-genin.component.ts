@@ -4,6 +4,7 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
 import {InsideService} from "../../../Inside.service";
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-input-genin',
   templateUrl: './input-genin.component.html',
@@ -36,7 +37,7 @@ export class InputGeninComponent {
 
   InfoData:any[]=[];
   claimList:any[]=[];
-  public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
+  public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.memberList=this.insideService.memberList;
     this.model = {
@@ -109,7 +110,7 @@ export class InputGeninComponent {
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
-
+          this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })

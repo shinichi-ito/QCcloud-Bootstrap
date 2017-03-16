@@ -10,7 +10,17 @@ export class AddKoukaComponent  {
   aa:string='active';
   bb:string='';
   cc:string="disabled";
+  fileupcheck:string='';
   public constructor(private insideMainService:InsideMainService) {
+
+    if(this.insideMainService.fileup==false){//ファイルアップロード数が限度を超えていると登録画面に行かないようにしてある
+      this.fileupcheck='disabled';
+    }else{
+      this.fileupcheck='';
+
+    }
+
+
     this.insideMainService.flagChangeActive$.subscribe(
       flag => {
         this.aa='';

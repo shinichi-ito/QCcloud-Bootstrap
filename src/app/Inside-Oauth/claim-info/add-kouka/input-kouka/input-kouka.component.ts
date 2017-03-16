@@ -139,7 +139,7 @@ export class InputKoukaComponent  {
         };
         this.taisakuInfo=this.af.database.object('TaisakuData/'+this.uid+'/'+this.koukaFromTaisakudata.key);
         this.taisakuInfo.update(Info).then(data=>{
-
+          this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })

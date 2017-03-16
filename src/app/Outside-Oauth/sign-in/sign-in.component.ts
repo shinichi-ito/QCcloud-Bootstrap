@@ -161,11 +161,6 @@ changeTop(){
              //   this.oauthInfoService.setOnOff();//これはmainからmainに移るので　observerで観察している
                this.router.navigate(['/main/topinside'])
 
-                ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
-                //     this.insideService.addSitenSQLite()
-                //     this.insideService.addBusyoSQLite()
-                //     this.insideService.addMemberSQLite()
-                ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
               }else{//termが0であるから　期間をチェック
                 this.startAtCheck(authState.uid)
               }

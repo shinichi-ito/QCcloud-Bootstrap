@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {InsideService} from "../../../Inside.service";
 import {Router} from "@angular/router";
 import {InsideMainService} from "../../../inside-main.service";
+import {FirebaseObjectObservable, AngularFire} from "angularfire2";
+import {OauthInfoService} from "../../../oauth-info.service";
 
 @Component({
   selector: 'app-select-edit-claim',
@@ -22,10 +24,28 @@ export class SelectEditClaimComponent implements OnInit {
   OnOff:boolean=false;
   claimitem:any;
   claimData:any;
-  constructor(private insideMainService:InsideMainService,private router: Router,private insideService:InsideService) {
+  Info2: FirebaseObjectObservable<any[]>;
+  check:boolean;
+  login:number;
+  uid:string;
+  constructor(private af : AngularFire,private insideMainService:InsideMainService,private router: Router,
+              private insideService:InsideService,private oauthInfoService:OauthInfoService) {
     this.claimitem=this.insideService.claimitem;
     this.memberList=this.insideService.memberList;
-    this.claimList=this.insideService.claimList
+    this.claimList=this.insideService.claimList;
+
+    this.uid=this.oauthInfoService.uid;
+    this.check=this.oauthInfoService.check;
+    this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
+    console.log(this.login);
+    if(this.check){
+//   //既に一度ログインしているのでこれ以上カウントを増やさない
+    }else{
+      this.onAddLogin(this.login+1,this.uid);
+      this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
+    }
+
+
 
   }
 
@@ -38,6 +58,20 @@ export class SelectEditClaimComponent implements OnInit {
       }
     }
   }
+  onAddLogin(count:number,uid:string){//これはログインした際その月のログイン回数に加算する
+    const Info = {
+      login:count
+    };
+    this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
+    this.Info2.set(Info).then(data=>{
+      //   console.log(data.key)
+
+
+    }).catch(error=>{
+
+    })
+  }
+
 
 
   getData(){

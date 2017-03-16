@@ -3,6 +3,7 @@ import {InsideService} from "../Inside.service";
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
 import {OauthInfoService} from "../oauth-info.service";
 import {InsideMainService} from "../inside-main.service";
+import {Router, NavigationStart, NavigationEnd} from "@angular/router";
 
 @Component({
   selector: 'app-top-inside',
@@ -10,10 +11,10 @@ import {InsideMainService} from "../inside-main.service";
   styleUrls: ['./top-inside.component.css']
 })
 export class TopInsideComponent implements OnInit {
-max:number=100;
+
   uid:string;
   label:string;
-  check:boolean;
+ // check:boolean;
   login:number=0;
   dataup:number=0;
   fileup:number=0;
@@ -25,21 +26,26 @@ max:number=100;
   dataupPa:number;
   fileupPa:number;
   companyDataList:any[]=[];
-  constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private insideMainService:InsideMainService) {
+ // Info2: FirebaseObjectObservable<any[]>;
+loginCheck:boolean;
+fileupCheck:boolean;
+dataupCheck:boolean;
+
+  constructor(private router:Router,private oauthInfoService:OauthInfoService,private af : AngularFire,
+              private insideMainService:InsideMainService,private insideService:InsideService){
     this.uid=this.oauthInfoService.uid;
     //console.log(this.uid)
-    this.check=this.oauthInfoService.check;
-
-    this.insideMainService.getCheckSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
-      //console.log(data)
-for(let key in data){
-        if(data[key].$key=='login'){
-          this.login=data[key].$value
-        }
+  //  this.check=this.oauthInfoService.check;
+  this.insideMainService.getCheckSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
+      for(let key in data){
+            if(data[key].$key=='login'){
+              this.login=data[key].$value;//その月のログイン回数を取得
+              //console.log(this.login)
+              this.oauthInfoService.login=this.login;
+            }
 }
+   });
 
-
-    });
     this.insideMainService.getFileUpSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
       //console.log(data)
       for (let key in data) {
@@ -78,10 +84,13 @@ for(let key in data){
       }else{
 
       if (this.companyDataList[0].login > this.login) {//ログイン回数がプランの限度内に収まっている
-       // console.log('収まっている')
+      //  console.log('収まっている')
+
+        this.loginCheck=true;
         this.insideMainService.login = true;
       } else {//プランの限度内に収まっていない
        // console.log('収まっていない')
+        this.loginCheck=false;
         this.insideMainService.login = false;
 
       }
@@ -91,9 +100,11 @@ for(let key in data){
       }else{
       if (this.companyDataList[0].dataup > this.dataup) {//アップロード数がプランの限度内に収まっている
        // console.log('収まっている')
+        this.dataupCheck=true;
         this.insideMainService.dataup = true;
       } else {//プランの限度内に収まっていない
       //  console.log('収まっていない')
+        this.dataupCheck=false;
         this.insideMainService.dataup = false;
 
       }
@@ -105,9 +116,11 @@ for(let key in data){
       }else{
         if(this.companyDataList[0].fileup>this.fileup){//アップロード数がプランの限度内に収まっている
           //console.log('収まっている')
+          this.fileupCheck=true;
           this.insideMainService.fileup=true;
         }else{//プランの限度内に収まっていない
-          console.log('収まっていない')
+          //console.log('収まっていない')
+          this.fileupCheck=false;
           this.insideMainService.fileup=false;
 
         }
@@ -117,9 +130,9 @@ for(let key in data){
       this.fileupGenkai=this.companyDataList[0].fileup;
       this.dataupGenkai=this.companyDataList[0].dataup;
 
-this.loginPa=this.login/this.loginGenkai*100;
-      this.fileupPa=this.fileup/this.fileupGenkai*100;
-      this.dataupPa=this.dataup/this.dataupGenkai*100;
+this.loginPa=Math.ceil(this.login/this.loginGenkai*100);
+      this.fileupPa=Math.ceil(this.fileup/this.fileupGenkai*100);
+      this.dataupPa=Math.ceil(this.dataup/this.dataupGenkai*100);
   //   this.insideMainService.companyDataList=this.companyDataList;
      // console.log(companyDataList[0].dataup)
 
@@ -137,4 +150,6 @@ this.loginPa=this.login/this.loginGenkai*100;
   ngOnInit() {
 
   }
+
+
 }

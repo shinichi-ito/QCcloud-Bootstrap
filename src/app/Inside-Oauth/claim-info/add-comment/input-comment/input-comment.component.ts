@@ -4,6 +4,7 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "angularfire2";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-input-comment',
   templateUrl: './input-comment.component.html',
@@ -26,7 +27,7 @@ export class InputCommentComponent  {
   claimitem:any;
   InfoData:any[]=[];
   claimInfo: FirebaseObjectObservable<any[]>;
-  public constructor(private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,
+  public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,
                      private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.memberList=this.insideService.memberList;
@@ -89,7 +90,7 @@ export class InputCommentComponent  {
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
-
+         this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })

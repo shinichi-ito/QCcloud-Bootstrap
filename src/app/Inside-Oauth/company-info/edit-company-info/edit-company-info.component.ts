@@ -18,6 +18,7 @@ tel:string;
   tantouname:string;
   email:string;
   uid:string;
+  label:string;
   occupations:Array<any>;
   employees:Array<any>;
   companyB:boolean=false;
@@ -61,6 +62,11 @@ tel:string;
           if(data[key].$key=='employee'){
             this.employee=data[key].$value;
           }
+          if(data[key].$key=='label'){
+            console.log(data[key].$value)
+            this.model.label=data[key].$value;
+          }
+
           if(data[key].$key=='occupation'){
             this.occupation=data[key].$value;
           }
@@ -107,10 +113,6 @@ tel:string;
   }
 
   upCompanyInfo(){
-
-
-
-
 
     if(this.companyname===''){
  this.companyB=true;
@@ -165,6 +167,7 @@ return
         tantouname:this.tantouname,
         email:this.email,
         employee:this.employee,
+        label:this.model.label,
         occupation:this.occupation,
         updateAt: firebase.database.ServerValue.TIMESTAMP,
       };

@@ -83,8 +83,8 @@ InfoData:any[]=[];
 
   onAdd(){
     let time=this.dt.getTime()
-    console.log(this.dt)
-    console.log(time)
+  //  console.log(this.dt)
+  //  console.log(time)
     const Info = {
       syubetu:this.taisakusyubetu,
       name:this.name,
@@ -120,7 +120,7 @@ InfoData:any[]=[];
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
-
+          this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })

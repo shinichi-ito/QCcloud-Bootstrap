@@ -60,15 +60,15 @@
           <label>プラン選択 <a HREF="/priceinfo" TARGET="_blank">【価格プラン確認】</a></label><br>
 
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="model.label"  name="label" value="200">　スタンダード
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="スタンダード">　スタンダード
           </label>
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="model.label"  name="label" value="300">　プレミアム
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="プレミアム">　プレミアム
           </label>
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="model.label"  name="label" value="400">　エキスパート
+            <input type="radio" [(ngModel)]="model.label"  name="label" value="エキスパート">　エキスパート
           </label>
-
+          <div class="alert alert-danger" role="alert" style="margin-top: 10px">プランを変更された場合再ログインしてください。<br>変更が反映されます。</div>
         </div>
 
 

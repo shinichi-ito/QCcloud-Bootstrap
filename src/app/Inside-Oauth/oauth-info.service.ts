@@ -5,6 +5,7 @@ import * as firebase from 'firebase'
 
 @Injectable()
 export class OauthInfoService {
+  login:number=0;//その月のログイン回数を保管してある
 public uid:string;
 public displayName:string;
 public photoURL:string;

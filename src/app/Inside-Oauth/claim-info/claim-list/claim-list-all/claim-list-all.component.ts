@@ -55,31 +55,40 @@ koukakakuninTaisaku:any[]=[];
   Info2: FirebaseObjectObservable<any[]>;
   uid:string;
   check:boolean;
+  login:number;
   countOnOff:boolean=false;
-  checkList:any[]=[];
+  //checkList:any[]=[];
  // checkPlan:any[]=[];
   constructor(private insideMainService:InsideMainService,private router: Router,
               private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
 this.uid=this.oauthInfoService.uid;
 this.check=this.oauthInfoService.check;
-this.checkList=this.insideService.checkList;//その会社のログイン回数やアップロード数をもらう
-
-if(this.check){
-  //既に一度ログインしているのでこれ以上カウントを増やさない
+    this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
+console.log(this.login);
+ if(this.check){
+//   //既に一度ログインしているのでこれ以上カウントを増やさない
 }else{
-  if(this.checkList.length==0){//まだ　登録がされてないケース月初めとか
-    this.onAdd(1,this.uid);
+   this.onAddLogin(this.login+1,this.uid);
     this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
-  }else{
-    this.onAdd(this.checkList[0].count+1,this.uid);
-    this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
-  }
+   }
 
-}
 
 this.topWork()
 
 }
+  onAddLogin(count:number,uid:string){//これはログインした際その月のログイン回数に加算する
+    const Info = {
+      login:count
+    };
+    this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
+    this.Info2.set(Info).then(data=>{
+      //   console.log(data.key)
+
+
+    }).catch(error=>{
+
+    })
+  }
 
 
   topWork(){
@@ -125,19 +134,19 @@ this.topWork()
     this.viewSyousaiComponent.openDialog();
 
   }
-  onAdd(count:number,uid:string){//これはログインした際その月のログイン回数を数える
-  const Info = {
-      login:count
-    };
-    this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
-    this.Info2.set(Info).then(data=>{
-      //   console.log(data.key)
-
-
-    }).catch(error=>{
-
-    })
-  }
+  // onAdd(count:number,uid:string){//これはログインした際その月のログイン回数を数える
+  // const Info = {
+  //     login:count
+  //   };
+  //   this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
+  //   this.Info2.set(Info).then(data=>{
+  //     //   console.log(data.key)
+  //
+  //
+  //   }).catch(error=>{
+  //
+  //   })
+  // }
 
  setEdit(claimitem){
    this.insideService.claimitem=claimitem;
@@ -148,7 +157,7 @@ this.topWork()
 
 
 setFile(item){
-   this.getFile(item)
+   this.getFile(item);
 //  this.viewFileComponent.openDialog();
 
 
@@ -340,7 +349,12 @@ this.insideMainService.timelineData=array;
     //this.oauthInfoService.onoffHeader=false;
     this.router.navigate(['/main/topclaim/addgenin/listgenin'])
   }
-
+  sendEditComment(claimitem){
+    this.insideService.claimitem=claimitem;
+    //  console.log(claimitem)
+    //this.oauthInfoService.onoffHeader=false;
+    this.router.navigate(['/main/topclaim/addcomment/listcomment'])
+  }
 
 
   onDetailClick() {

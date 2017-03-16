@@ -1,8 +1,8 @@
-<div class="container">
 
 
 
-<div class="panel panel-default" style="width: 100%;padding:10px 0 0 0">
+
+<div class="panel panel-default" style="width: 100%;margin: 0 auto;">
   <div class="panel-heading">
     コメント情報一覧
   </div>
@@ -29,8 +29,23 @@
             {{item.naiyou}}
           </td>
           <td>
-            <button type="button" class="btn btn-primary" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-            <button type="button" class="btn btn-danger" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <!--<button type="button" class="btn btn-primary" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>-->
+            <!--<button type="button" class="btn btn-danger" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
+
+            <div class="btn-group" dropdown>
+              <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+                <i class="fa fa-list" aria-hidden="true"></i>　各種設定変更<span class="caret"></span>
+              </button>
+              <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a class="dropdown-item" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>　編集</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i>　削除</a></li>
+
+
+              </ul>
+            </div>
+
+
+
 
           </td>
         </tr>
@@ -40,7 +55,7 @@
   </div>
 </div>
 
-</div>
+
 
 
 

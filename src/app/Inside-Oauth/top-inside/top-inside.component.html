@@ -1,7 +1,7 @@
 <app-nav-main></app-nav-main>
-
+<div *ngIf="loginCheck">
 <app-nav-sabu></app-nav-sabu>
-
+</div>
 <div class="container">
 
   <!-- content -->
@@ -12,24 +12,30 @@
      </div>
 
     <!-- center -->
-    <div class="col-md-9" style="background-color:#0ff000">
-
-      <div>
-        <div class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
-      </div>
+    <div class="col-md-9" >
 
 
-      <progressbar [max]="max" [value]="loginPa">
-        <span style="color:white; white-space:nowrap;">{{loginPa}}% / {{max}}</span>
-      </progressbar>
+        <div *ngIf="loginCheck==false" class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
 
-      <progressbar [max]="max" [value]="fileupPa">
-        <span style="color:white; white-space:nowrap;">{{fileupPa}}% / {{max}}</span>
-      </progressbar>
 
-      <progressbar [max]="max" [value]="dataupPa">
-        <span style="color:white; white-space:nowrap;">{{dataupPa}}% / {{max}}</span>
-      </progressbar>
+
+        <div *ngIf="fileupCheck==false" class="alert alert-danger" role="alert">データアップロード数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+        <div *ngIf="dataupCheck==false" class="alert alert-danger" role="alert">関連ファイルアップロード数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+      <small><em>アクセス数</em></small>
+      <progressbar [animate]="true" [value]="loginPa" type="success"><b>{{loginPa}}%</b></progressbar>
+
+      <small><em>データアップロード数</em></small>
+      <progressbar [animate]="true" [value]="fileupPa" type="info"><b>{{fileupPa}}%</b></progressbar>
+
+      <small><em>データアップロード数</em></small>
+      <progressbar [animate]="true" [value]="dataupPa" type="warning"><b>{{dataupPa}}%</b></progressbar>
+
 
 
     </div>
