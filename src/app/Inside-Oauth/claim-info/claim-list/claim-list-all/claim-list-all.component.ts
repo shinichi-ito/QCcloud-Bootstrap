@@ -29,10 +29,10 @@ export class ClaimListAllComponent  {
   public sortOrder = "asc";
 taisakuList:any;
 koukakakuninTaisaku:any[]=[];
-  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
-  errorData:string='エラー内容'
-  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
-  Data:string='プログレス内容'
+  // @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  // errorData:string='エラー内容'
+  // @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  // Data:string='プログレス内容'
 
   @ViewChild("checkKoukaDialog") checkKoukaComponent: CheckKoukaComponent;
   @ViewChild("fileDialog") viewFileComponent: ViewFileComponent;
@@ -316,12 +316,12 @@ this.insideMainService.timelineData=array;
   public sortByWordLength = (a: any) => {
     return a.name.length;
   }
-  Error(){
-    this.errorDialogComponent.openDialog();
-  }
-  Progress(){
-    this.progressDialogComponent.openDialog();
-  }
+  // Error(){
+  //   this.errorDialogComponent.openDialog();
+  // }
+  // Progress(){
+  //   this.progressDialogComponent.openDialog();
+  // }
 
 
   sendEditClaim(claimitem){
@@ -357,10 +357,10 @@ this.insideMainService.timelineData=array;
   }
 
 
-  onDetailClick() {
-
-    this.errorDialogComponent.openDialog();
-  }
+  // onDetailClick() {
+  //
+  //   this.errorDialogComponent.openDialog();
+  // }
 checkKouka(){
   this.checkKoukaComponent.openDialog();
 

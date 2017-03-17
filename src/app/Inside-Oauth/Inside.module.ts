@@ -93,6 +93,12 @@ import { EditClaimDataComponent } from './claim-info/top-claim/edit-claim-main/e
 import { SameImageComponent } from './Dialog/same-image/same-image.component';
 import { ViewSyousaiComponent } from './Dialog/view-syousai/view-syousai.component';
 import { ViewTimeLineComponent } from './claim-info/view-time-line/view-time-line.component';
+import { NewsLineComponent } from './Admin/news-line/news-line.component';
+import { AdminComponent } from './Admin/admin.component';
+import { SideNavComponent } from './Admin/side-nav/side-nav.component';
+import { NewsDialogComponent } from './Dialog/edit-dialog/news-dialog/news-dialog.component';
+import { CompanyEditComponent } from './Admin/company-edit/company-edit.component';
+import { CompanyEditDialogComponent } from './Dialog/edit-dialog/company-edit-dialog/company-edit-dialog.component';
 
 
 
@@ -191,7 +197,13 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     EditClaimDataComponent,
     SameImageComponent,
     ViewSyousaiComponent,
-    ViewTimeLineComponent
+    ViewTimeLineComponent,
+    NewsLineComponent,
+    AdminComponent,
+    SideNavComponent,
+    NewsDialogComponent,
+    CompanyEditComponent,
+    CompanyEditDialogComponent
 
 
 

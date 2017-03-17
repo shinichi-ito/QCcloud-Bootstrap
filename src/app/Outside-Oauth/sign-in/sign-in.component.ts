@@ -4,7 +4,7 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {OauthInfoService} from "../../Inside-Oauth/oauth-info.service";
 import {InsideMainService} from "../../Inside-Oauth/inside-main.service";
-
+import * as firebase from 'firebase'
 
 @Component({
   selector: 'app-sign-in',
@@ -140,12 +140,16 @@ changeTop(){
     })
   }
   onSigninGoogle(){
+
+   // firebase.database().goOnline();
     this.oauthService.loginGoogle().then((authState)=>{
       console.log(authState.uid);
       if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
         this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
           if(data){
             //OauthInfoServiceに共通データをいれて使いまわす
+         //   console.log(data.auth.email)
+            this.oauthInfoService.emailMain=data.auth.email;
             this.oauthInfoService.displayName=data.auth.displayName;
             this.oauthInfoService.photoURL=data.auth.photoURL;
             this.oauthInfoService.uid = authState.uid;

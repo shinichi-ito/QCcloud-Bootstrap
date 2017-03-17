@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {HttpModule, JsonpModule} from '@angular/http';
 import { AppComponent } from './app.component';
 import { TopComponent } from './Outside-Oauth/top/top.component';
 import { HeaderComponent } from './header/header.component';
@@ -15,7 +15,6 @@ import {OauthInfoService} from "./Inside-Oauth/oauth-info.service";
 import { PrivacyPolicyComponent } from './Outside-Oauth/privacy-policy/privacy-policy.component';
 import { RiyouKiyakuComponent } from './Outside-Oauth/riyou-kiyaku/riyou-kiyaku.component';
 import { ModalModule } from 'ng2-bootstrap/modal';
-import {NotificationBarModule} from "angular2-notification-bar";
 import { AskFormComponent } from './Outside-Oauth/ask-form/ask-form.component';
 import { MyCompanyInfoComponent } from './Outside-Oauth/my-company-info/my-company-info.component';
 import { LandingPageComponent } from './Outside-Oauth/landing-page/landing-page.component';
@@ -25,6 +24,8 @@ import { UsageSidemenuComponent } from './usage/usage-sidemenu/usage-sidemenu.co
 import { SoftInfoComponent } from './usage/soft-info/soft-info.component';
 import { AddMemberComponent } from './usage/add-member/add-member.component';
 import { UsageLoginComponent } from './usage/usage-login/usage-login.component';
+import { SuccessComponent } from './Outside-Oauth/GmoRedirect/success/success.component';
+import { CancelComponent } from './Outside-Oauth/GmoRedirect/cancel/cancel.component';
 
 
 
@@ -55,7 +56,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     UsageSidemenuComponent,
     SoftInfoComponent,
     AddMemberComponent,
-    UsageLoginComponent
+    UsageLoginComponent,
+    SuccessComponent,
+    CancelComponent
 
 
   ],
@@ -67,7 +70,7 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
     ModalModule.forRoot(),
-     NotificationBarModule
+    JsonpModule,
   ],
 
   providers: [SignInGuard,OauthService,OauthInfoService],

@@ -30,9 +30,21 @@ export class TopInsideComponent implements OnInit {
 loginCheck:boolean;
 fileupCheck:boolean;
 dataupCheck:boolean;
-
+  newsList:any[]=[];
+  email:string;
+  photoURL:string;
   constructor(private router:Router,private oauthInfoService:OauthInfoService,private af : AngularFire,
               private insideMainService:InsideMainService,private insideService:InsideService){
+    this.getNews().subscribe(data=>{
+
+      this.newsList=data;
+     this.email= this.oauthInfoService.emailMain;
+     this.photoURL= this.oauthInfoService.photoURL;
+
+    });
+
+
+
     this.uid=this.oauthInfoService.uid;
     //console.log(this.uid)
   //  this.check=this.oauthInfoService.check;
@@ -150,6 +162,9 @@ this.loginPa=Math.ceil(this.login/this.loginGenkai*100);
   ngOnInit() {
 
   }
+  getNews(): FirebaseListObservable<any> {//お知らせを取得
 
+    return this.af.database.list('/News');
+  }
 
 }

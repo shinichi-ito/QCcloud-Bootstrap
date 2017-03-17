@@ -9,6 +9,7 @@ export class OauthInfoService {
 public uid:string;
 public displayName:string;
 public photoURL:string;
+public emailMain:string;//ここにメール入れて　shinichi-ito@lotsjoys.comを判定
 //public onoffHeader:boolean=false;
   public syubetu:any[]=[];
 check:boolean=false;//これは　claimalllistでログインの回数をカウントしている。その際これがtrueに変更になると一度ログインしてるので　カウントを増やさないようにしている

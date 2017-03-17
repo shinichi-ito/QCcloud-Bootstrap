@@ -1,0 +1,66 @@
+<div class="panel panel-default" style="width: 100%;margin: 0 auto;">
+  <div class="panel-heading">
+    お知らせ登録
+  </div>
+  <div class="panel-body">
+
+    <div class="form-group">
+      <label for="seihinInfo">お知らせ</label>
+      <textarea type="text" class="form-control" [(ngModel)]="news" name="news" rows="4" id="seihinInfo" placeholder="お知らせを入力ください。"></textarea>
+    </div>
+    <button type="button" (click)="onAdd()" class="btn btn-primary btn-block">登録</button>
+
+  </div>
+</div>
+
+
+<div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    お知らせ一覧
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <table class="table table-striped">
+        <thead>
+
+        <tr>
+          <th></th>
+          <th  style="width: 60%">
+           お知らせ
+          </th>
+          <th  style="width: 40%">
+            登録日時
+          </th>
+          <th >
+            削除
+          </th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of newsList|orderby:'startAt'; let idx = index;">
+          <td>{{idx+1}}</td>
+          <td style="word-wrap:break-word;">{{item.news}}</td>
+          <td>{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="setEdit(idx)">編集</button>
+            <button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--プログレスダイアログ-->
+<app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
+<!--エラーダイアログ-->
+<app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
+<!--編集ダイアログ-->
+<app-news-dialog [newsData]="newsData"  #newsDialog></app-news-dialog>

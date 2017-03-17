@@ -17,4 +17,7 @@ export class ProgressDialogComponent implements OnInit {
   openDialog() {
     this.modalRef.show();
   }
+  closeDialog() {
+    this.modalRef.hide();
+  }
 }

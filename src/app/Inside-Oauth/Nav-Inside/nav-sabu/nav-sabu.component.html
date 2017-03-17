@@ -24,6 +24,7 @@
         <li><a  [routerLink]="['/main/list/claimlistall']" style="cursor:pointer;">一覧</a></li>
         <li><a [routerLink]="['/main/addclaim']" style="cursor:pointer;">新規登録</a></li>
         <li><a [routerLink]="['/main/editclaim/selecteditclaim']" style="cursor:pointer;">公開前</a></li>
+        <li *ngIf="OnOff2"><a [routerLink]="['/main/admin']">管理者用</a></li>
       </ul>
 
     </div>

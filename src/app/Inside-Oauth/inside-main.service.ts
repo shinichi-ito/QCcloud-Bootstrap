@@ -3,6 +3,7 @@ import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "ang
 import {Observable} from "rxjs";
 import * as firebase from 'firebase'
 import {InsideService} from "./Inside.service";
+import {Router} from "@angular/router";
 @Injectable()
 export class InsideMainService {
   jyoukyouData:any[]=[];//対応や対策の　対象のFileDataの一覧が入る
@@ -41,16 +42,17 @@ timelineData:any;
 //companyDataList:any[]=[];//これは　プランの情報が入っている　ログイン回数　ファイルアップロード数の限度数
   date:Date = new Date();
   date2:any;
-
+error:any;
   login:boolean=true;
   dataup:boolean=true;
   fileup:boolean=true;
-  constructor(private insideService:InsideService,private af : AngularFire) {
+
+  flagChangeError$: Observable<number>;
+  private _observerError;
+  constructor(private router: Router,private insideService:InsideService,private af : AngularFire) {
     this.date2=this.date.toISOString().split('-')[0]+'-'+this.date.toISOString().split('-')[1];
-    // this.flagChange$ = new Observable(observer =>
-    //   this._observer = observer).share();
-    // this.flagChangeDelete$ = new Observable(observer =>
-    //   this._observerdelete = observer).share();
+    this.flagChangeError$ = new Observable(observer =>
+      this._observerError = observer).share();
 
     this.flagChangeActive$ = new Observable((observer) =>{
       this._observeractive= observer
@@ -58,8 +60,19 @@ timelineData:any;
 
     this.claimitem=this.insideService.claimitem;
   }
+setError(error){
 
+    this.error=error;
+this._observerError.next(this.error);
 
+}
+logout(){
+  firebase.database().goOffline();//なんかパーミッションのエラーがでたので http://stackoverflow.com/questions/40105221/angularfire2-read-data-once
+  //を参考にした　この中に　サインインのさいgoOnlineと書いてあるが　それを設定するとエラーになるので行ってない
+  this.af.auth.logout();
+  this.router.navigate(['/landing'])
+
+}
   onFileUpSuMain(uid){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
     let fileupList=this.insideService.fileupList;
 

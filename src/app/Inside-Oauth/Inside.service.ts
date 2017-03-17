@@ -940,13 +940,13 @@ test(){
       .subscribe(
         res  => {
           console.log(res.json().url);
-          this.sendFileToDrive(res.json().url,this.file).then(data=>{
-            //戻ってくる値
-            //"{\"imageInfoDTOList\":[{\"url\":\"https://docs.google.com/spreadsheets/d/1Edz7mYkVVUllcBl4xA6ikeOKOgsGqw8-lGCztgJkkFM/edit\"}]}"
-            console.log(JSON.stringify(data).split('\\\"')[5])
-          }).catch(error=>{
-
-          })
+          // this.sendFileToDrive(res.json().url,this.file).then(data=>{
+          //   //戻ってくる値
+          //   //"{\"imageInfoDTOList\":[{\"url\":\"https://docs.google.com/spreadsheets/d/1Edz7mYkVVUllcBl4xA6ikeOKOgsGqw8-lGCztgJkkFM/edit\"}]}"
+          //   console.log(JSON.stringify(data).split('\\\"')[5])
+          // }).catch(error=>{
+          //
+          // })
         },
         error => {
         });

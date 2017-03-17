@@ -13,7 +13,13 @@
 
     <!-- center -->
     <div class="col-md-9" >
+      <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
+        <div class="panel-heading">
+          <img alt="Brand" src="{{photoURL}}" class="img-circle" style="height: 40px;">
+          <strong>{{email}}</strong>でログイン中
 
+        </div>
+        <div class="panel-body">
 
         <div *ngIf="loginCheck==false" class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
 
@@ -37,6 +43,46 @@
       <progressbar [animate]="true" [value]="dataupPa" type="warning"><b>{{dataupPa}}%</b></progressbar>
 
 
+      <div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
+        <div class="panel-heading">
+          お知らせ一覧
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <table class="table table-striped">
+              <thead>
+
+              <tr>
+                <th></th>
+                <th  style="width: 60%">
+                  お知らせ
+                </th>
+                <th  style="width: 40%">
+                  登録日時
+                </th>
+
+              </tr>
+
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of newsList|orderby:'startAt'; let idx = index;">
+                <td>{{idx+1}}</td>
+                <td style="word-wrap:break-word;">{{item.news}}</td>
+                <td>{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}</td>
+
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+      </div>
+    </div>
+
+
 
     </div>
 
@@ -46,4 +92,4 @@
     <!--</div>-->
   </div>
 
-</div>
+

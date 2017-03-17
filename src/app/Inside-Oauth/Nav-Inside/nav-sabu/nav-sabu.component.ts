@@ -10,7 +10,15 @@ import {OauthInfoService} from "../../oauth-info.service";
 export class NavSabuComponent implements OnInit {
   @Input() loginCheck;//親コンポーネントから受取る属性
   OnOff:string="";
-  constructor(private insideMainService:InsideMainService) {
+  OnOff2:boolean=false;
+  email:string;
+  constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService) {
+    this.email=this.oauthInfoService.emailMain;
+    if(this.email=='shinichi-ito@lotsjoys.com'){
+      this.OnOff2=true;
+    }else{
+      this.OnOff2=false;
+    }
 // if(this.insideMainService.login == false){
 //  // console.log('ここ')
 //  this.OnOff="disabled";

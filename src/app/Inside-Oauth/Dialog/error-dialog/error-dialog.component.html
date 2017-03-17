@@ -1,11 +1,21 @@
+
+
 <div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
+        <h4 class="modal-title">エラー</h4>
+      </div>
       <div class="modal-body">
-      <h4>エラー</h4>
-       <p> {{errorData}}</p>
+        <p> {{errorData}}</p>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
       </div>
     </div>
   </div>
 </div>
-
