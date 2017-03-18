@@ -19,11 +19,11 @@
         <thead>
         <tr>
           <th></th>
-          <th>状況</th>
-          <th >
+          <th style="width: 30%">状況</th>
+          <th style="width: 45%" >
             対策内容一覧
           </th>
-          <th >
+          <th style="width: 15%" >
             編集
           </th>
           </tr>
@@ -31,9 +31,9 @@
         <tbody>
         <tr *ngFor="let item of newtaisakuList let idx = index;">
           <td>{{idx+1}}</td>
-          <td>{{item.syubetu}}
+          <td style="word-wrap:break-word;">{{item.syubetu}}<br>更新日:　{{item.updateAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}
       </td>
-          <td>{{item.name}}　　所属:　{{item.siten}}　{{item.busyo}}<br>
+          <td style="word-wrap:break-word;">{{item.name}}　　所属:　{{item.siten}}　{{item.busyo}}<br>
             登録日:　{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}
             <hr>
             {{item.naiyou}}
@@ -88,7 +88,7 @@
 
 
 <!--編集ダイアログ-->
-<app-taisaku-dialog [taisakuData]="taisakuData"  #editTaisakuDialog></app-taisaku-dialog>
+<app-taisaku-dialog [taisakuData]="taisakuData" [taisakuSyubetuList]="taisakuSyubetuList"  #editTaisakuDialog></app-taisaku-dialog>
 <app-taisaku-delete-dialog  [taisakuData]="taisakuData" #deleteTaisakuDialog></app-taisaku-delete-dialog>
 <!--ファイル一覧ダイアログ-->
 <app-view-file [fileData]="fileData"  [onoffData]="onoffData" [passwordData]="passwordData" #fileDialog></app-view-file>

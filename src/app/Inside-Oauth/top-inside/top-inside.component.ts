@@ -36,7 +36,6 @@ dataupCheck:boolean;
   constructor(private router:Router,private oauthInfoService:OauthInfoService,private af : AngularFire,
               private insideMainService:InsideMainService,private insideService:InsideService){
     this.getNews().subscribe(data=>{
-
       this.newsList=data;
      this.email= this.oauthInfoService.emailMain;
      this.photoURL= this.oauthInfoService.photoURL;
@@ -151,11 +150,11 @@ this.loginPa=Math.ceil(this.login/this.loginGenkai*100);
     });
 
 
-    if(this.oauthInfoService.newsList.length===0){
-
-    }else{
-      console.log(this.oauthInfoService.newsList[0].news)
-    }
+    // if(this.oauthInfoService.newsList.length===0){
+    //
+    // }else{
+    // //  console.log(this.oauthInfoService.newsList[0].news)
+    // }
 
   }
 

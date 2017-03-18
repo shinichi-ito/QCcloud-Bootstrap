@@ -21,13 +21,12 @@
         </select>
   </div>
 
-      <div class="form-group" >
+
+      <div class="form-group">
         <label for="other">その他</label>
-        <div class="form-inline">
-          <input type="text" style="width: 80%" class="form-control" [(ngModel)]="syubetuvalue" formControlName="syubetuvalue" id="other" placeholder="その他の選択するものがなければ入力ください">
-          <button type="button" (click)="addSyubetu()" class="btn btn-default">選択ボックスに追加</button>
-        </div>
+        <a id="other" class="text-danger" style="cursor: pointer"(click)="addSyubetu()">　選択ボックスに追加【選択ボックス内に該当するものがなければ追加】</a>
       </div>
+
 
 
 
@@ -169,3 +168,6 @@
     </div>
   </div>
 
+
+<!--状況追加ダイアログ-->
+<app-claim-select #selectClaimDialog></app-claim-select>

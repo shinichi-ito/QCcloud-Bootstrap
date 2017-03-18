@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "angularfire2";
 import * as firebase from 'firebase'
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {InsideMainService} from "../../../inside-main.service";
+import {TaiouSelectComponent} from "../../../Dialog/taiou-select/taiou-select.component";
 @Component({
   selector: 'app-input-taiou',
   templateUrl: './input-taiou.component.html',
   styleUrls: ['./input-taiou.component.css']
 })
 export class InputTaiouComponent  {
+  @ViewChild("selectTaiouDialog") taiouSelectComponent: TaiouSelectComponent;
+
+
   name:string;
   siten:string;
   busyo:string;
@@ -96,7 +100,7 @@ this.claimitem=this.insideService.claimitem;
 
 
   onAdd(){
-    console.log(this.dt)
+   // console.log(this.dt)
     let time=this.dt.getTime()
     const claimInfo = {
       syubetu:this.taiousyubetu,
@@ -153,12 +157,8 @@ this.claimitem=this.insideService.claimitem;
 
 
   addTaiouSyubetu(){
+    this.taiouSelectComponent.openDialog();
 
-    this.insideMainService.addTaiouSelect(this.uid,this.syubetuvalue,this.name).then(data=>{
-
-    }).catch(error=>{
-
-    })
   }
 
   setMember(value){

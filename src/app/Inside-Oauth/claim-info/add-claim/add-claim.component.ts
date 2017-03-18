@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {InsideService} from "../../Inside.service";
 import {OauthInfoService} from "../../oauth-info.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "angularfire2";
 import * as firebase from 'firebase'
 import {InsideMainService} from "../../inside-main.service";
+import {ClaimSelectComponent} from "../../Dialog/claim-select/claim-select.component";
 
 @Component({
   selector: 'app-add-claim',
@@ -12,6 +13,9 @@ import {InsideMainService} from "../../inside-main.service";
   styleUrls: ['./add-claim.component.css']
 })
 export class AddClaimComponent  {
+
+
+  @ViewChild("selectClaimDialog") claimSelectComponent: ClaimSelectComponent;
   public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
@@ -53,7 +57,7 @@ export class AddClaimComponent  {
     this.uid=this.oauthInfoService.uid;
     this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
-    console.log(this.login);
+  //  console.log(this.login);
     if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
     }else{
@@ -200,12 +204,8 @@ setMember(value){
 
 
   addSyubetu(){
+    this.claimSelectComponent.openDialog();
 
-    this.insideMainService.addSelect(this.uid,this.syubetuvalue,this.name).then(data=>{
-
-    }).catch(error=>{
-
-    })
  }
 
 

@@ -64,7 +64,7 @@ koukakakuninTaisaku:any[]=[];
 this.uid=this.oauthInfoService.uid;
 this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
-console.log(this.login);
+//console.log(this.login);
  if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
 }else{
@@ -93,6 +93,9 @@ this.topWork()
 
   topWork(){
     this.newclaimList=this.insideService.claimList;//クレーム一覧から公開になってるものを選択表示
+
+
+
     for(let key in this.newclaimList){
       if(this.newclaimList[key].koukai=='koukai'){
         this.newclaimList2.push(this.newclaimList[key])

@@ -1,0 +1,38 @@
+
+<div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
+        <h4 class="modal-title">情報種別追加</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="form-group">
+          <label for="naiyou">種別</label>
+          <input type="text" class="form-control" id="naiyou"  [(ngModel)]="naiyou" name="naiyou"  placeholder="状況内容を入力して下さい。">
+          <div *ngIf="naiyouB" style="margin-top: 10px" class="alert alert-danger" role="alert">情報種別内容を入力ください</div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="name">登録者</label>
+          <input type="text" class="form-control" id="name"  [(ngModel)]="name" name="name" placeholder="登録者名を入力して下さい。">
+          <div *ngIf="nameB" style="margin-top: 10px" class="alert alert-danger" role="alert">登録者を入力ください</div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+
+
+
+        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary" (click)="onAdd()">追加</button>
+      </div>
+    </div>
+  </div>
+</div>

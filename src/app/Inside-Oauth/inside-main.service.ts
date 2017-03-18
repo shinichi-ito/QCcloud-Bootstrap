@@ -60,6 +60,8 @@ error:any;
 
     this.claimitem=this.insideService.claimitem;
   }
+
+
 setError(error){
 
     this.error=error;
@@ -265,6 +267,7 @@ this.editImageTime(uid)
     })
   }
   addTaiouSelect(uid: string,data:string,tourokusya:string) : Promise<any> {
+  // console.log('ここ')
     return new Promise((resolve, reject) => {
       let selectData = this.af.database.list('selectData/' + uid + '/taiouInfo');
       let newRef = selectData.push(
@@ -319,6 +322,48 @@ this.editImageTime(uid)
     })
   }
 
+  getByteLength(str){//取得した文字をバイトに変換
+    // console.log( this.getByteLength(JSON.stringify(this.newclaimList))/1024/1024)  //バイトを　MBに変換
+    str = (str==null)?"":str;
+    return encodeURI(str).replace(/%../g, "*").length;
+  }
+  download(data){//CSVをダウンロード
+    var csvData = this.ConvertToCSV(data);
+    var a = document.createElement("a");
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    var blob = new Blob([csvData], { type: 'text/csv' });
+    var url= window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = 'SampleExport.csv';
+    a.click();
+  }
+
+
+  ConvertToCSV(objArray) {//JSONをCSVに変換
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    var row = "";
+
+    for (var index in objArray[0]) {
+      //Now convert each value to string and comma-separated
+      row += index + ',';
+    }
+    row = row.slice(0, -1);
+    //append Label row with line break
+    str += row + '\r\n';
+
+    for (var i = 0; i < array.length; i++) {
+      var line = '';
+      for (var index in array[i]) {
+        if (line != '') line += ','
+
+        line += '"'+array[i][index]+'"';//ダブル点追加
+      }
+      str += line + '\r\n';
+    }
+    return str;
+  }
 
 
 }

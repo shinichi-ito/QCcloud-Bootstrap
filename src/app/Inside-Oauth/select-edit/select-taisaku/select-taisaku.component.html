@@ -1,14 +1,16 @@
+<app-nav-main></app-nav-main>
 
-<div class="panel panel-default" style="width: 100%;margin: 0 auto;">
+<app-nav-sabu></app-nav-sabu>
+<div class="panel panel-default" style="width: 70%;margin: 0 auto;margin-top: 30px">
   <div class="panel-heading">
-    選択ボックス編集
+    対策状況編集
   </div>
   <div class="panel-body">
 
 
     <div class="form-group">
-      <label for="syubetu">対応状況</label>
-      <input type="text" class="form-control" id="syubetu"  [(ngModel)]="syubetuname" placeholder="種別名を入力して下さい。">
+      <label for="syubetu">状況</label>
+      <input type="text" class="form-control" id="syubetu"  [(ngModel)]="syubetuname" placeholder="状況内容を入力して下さい。">
     </div>
 
     <div class="form-group">
@@ -18,8 +20,14 @@
 
 
 
-    <button   class="btn btn-primary btn-block" (click)="addSyubetu()">登録</button>
-
+    <button   class="btn btn-primary btn-block" (click)="addSyubetu()"><i class="fa fa-plus" aria-hidden="true"></i>登録</button>
+  </div>
+</div>
+<div class="panel panel-default" style="width: 70%;margin: 0 auto;margin-top: 10px">
+  <div class="panel-heading">
+    登録一覧
+  </div>
+  <div class="panel-body">
 
 
 
@@ -30,7 +38,7 @@
         <tr>
           <th></th>
           <th >
-            対応状況
+            状況内容
           </th>
           <th >
             登録者
@@ -47,8 +55,8 @@
           <td>{{item.taisaku}}</td>
           <td>{{item.tourokusya}}</td>
           <td>
-            <button type="button" class="btn btn-primary" (click)="setEdit(idx)">編集</button>
-            <button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>
+            <button type="button" class="btn btn-primary" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>編集</button>
+            <button type="button" class="btn btn-danger" (click)="Delete(idx)"><i class="fa fa-trash" aria-hidden="true"></i>削除</button>
 
           </td>
         </tr>
@@ -68,15 +76,15 @@
 
 
         <div class="form-group">
-          <label for="syubetuname">対応状況</label>
-          <input type="text" class="form-control" id="syubetuname"  [(ngModel)]="syubetuname" name="busyo" value="{{syubetuData?.syubetu}}" placeholder="種別名を入力して下さい。">
+          <label for="syubetuname">状況内容</label>
+          <input type="text" class="form-control" id="syubetuname"  [(ngModel)]="syubetuname" name="busyo" value="{{syubetuData?.syubetu}}" placeholder="状況内容を入力して下さい。">
         </div>
         <div class="form-group">
           <label for="tourokusyaname">登録者</label>
           <input type="text" class="form-control" id="tourokusyaname"  [(ngModel)]="tourokusyaname" name="tourokusya" value="{{syubetuData?.tourokusya}}" placeholder="登録者名を入力して下さい。">
         </div>
-        <button  type="button"  class="btn btn-primary btn-block" (click)="onEdit()">種別編集</button>
-        <button  type="button"  class="btn btn-default btn-block" (click)="lgModal.hide()">キャンセル</button>
+        <button  type="button"  class="btn btn-primary btn-block" (click)="onEdit()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>編集</button>
+        <button  type="button"  class="btn btn-default btn-block" (click)="lgModal.hide()"><i class="fa fa-ban" aria-hidden="true"></i>キャンセル</button>
 
       </div>
     </div>

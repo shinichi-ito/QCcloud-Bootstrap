@@ -18,10 +18,18 @@ id:string;
 param:string;
 param2:string;
   Info2: FirebaseObjectObservable<any[]>;
-
-  constructor(private af : AngularFire,private jsonp: Jsonp,private route:ActivatedRoute,
-              private router: Router) {
-
+private subscription:Subscription;
+  constructor(private af : AngularFire,private jsonp: Jsonp,private route:ActivatedRoute,private activatedRoute:ActivatedRoute
+             ,private router: Router) {
+ this.subscription=this.route.queryParams.subscribe(
+  queryParam=>{this.param=queryParam['test']
+  //  this.param2=queryParam['test2']
+   // console.log(Md5.hashStr("123456"));
+   console.log(this.param)
+   // this.onTest(this.param,this.param2)
+   }
+ )
+//    this.id=activatedRoute.snapshot.params['id'];
 
 
     this.gLines = [
@@ -44,6 +52,20 @@ param2:string;
 
   }
 
+  onTest(data:string,data2:string){
+    const Info = {
+      dataup:data,
+      dataup2:data2
+    };
+    this.Info2=this.af.database.object('test');
+    this.Info2.set(Info).then(data=>{
+      //   console.log(data.key)
+
+
+    }).catch(error=>{
+
+    })
+  }
 
 
 
@@ -68,9 +90,10 @@ signIn(){
 
 }
  test(){
- // this.getStorageUrl()
+//  this.getStorageUrl()
 
 
+  // this.notificationBarService.create({ message: 'アップロード成功', type: NotificationType.Error});
  }
 
   getStorageUrl() {
@@ -95,5 +118,6 @@ signIn(){
         });
 
   }
+
 
 }

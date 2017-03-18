@@ -99,6 +99,9 @@ import { SideNavComponent } from './Admin/side-nav/side-nav.component';
 import { NewsDialogComponent } from './Dialog/edit-dialog/news-dialog/news-dialog.component';
 import { CompanyEditComponent } from './Admin/company-edit/company-edit.component';
 import { CompanyEditDialogComponent } from './Dialog/edit-dialog/company-edit-dialog/company-edit-dialog.component';
+import { TaiouSelectComponent } from './Dialog/taiou-select/taiou-select.component';
+import { TaisakuSelectComponent } from './Dialog/taisaku-select/taisaku-select.component';
+import { ClaimSelectComponent } from './Dialog/claim-select/claim-select.component';
 
 
 
@@ -203,7 +206,10 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SideNavComponent,
     NewsDialogComponent,
     CompanyEditComponent,
-    CompanyEditDialogComponent
+    CompanyEditDialogComponent,
+    TaiouSelectComponent,
+    TaisakuSelectComponent,
+    ClaimSelectComponent
 
 
 

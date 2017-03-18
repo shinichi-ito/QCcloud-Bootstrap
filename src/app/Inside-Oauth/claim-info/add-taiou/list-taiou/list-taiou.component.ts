@@ -49,14 +49,14 @@ taiouList:any[]=[];
   fileData:any[]=[];
   typeData:any;
    onoffData:boolean;
-
+  taiouSyubetuList:any[]=[];
 
  constructor(private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,
              private insideService:InsideService,private insideMainService:InsideMainService) {
     this.uid=this.oauthInfoService.uid;
   // this.key=this.insideService.claimitem.key;
    this.claimitem=this.insideService.claimitem;
-
+   this.taiouSyubetuList=this.insideService.taiouSyubetuList;
 
    this.insideService.flagChangeTaiou$.subscribe(
      flag => {
@@ -107,9 +107,12 @@ taiouList:any[]=[];
   }
 
   setEdit(index){
+  // this.newtaiouList=[];
+ //  this.taiouData=[];
+
     this.index=index;
     this.taiouData=this.newtaiouList[index];
-  //  console.log(this.taiouData)
+  // console.log(this.taiouData)
    this.taiouDialogComponent.openDialog();
   }
 

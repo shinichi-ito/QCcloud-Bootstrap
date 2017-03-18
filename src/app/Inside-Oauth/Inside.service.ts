@@ -424,7 +424,7 @@ this.checkTrigger(this.uid);
    // console.log("taiou追加"+value.val().claimkey)
        this.taiouList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
          siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
-         password:value.val().password,startAt:value.val().startAt})
+         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
     })
   }
   taiouChangeTrigger(uid){
@@ -436,7 +436,7 @@ this.checkTrigger(this.uid);
           this._observerTaiou.next(this.taiouList);
            this.taiouList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
              siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
-             password:value.val().password,startAt:value.val().startAt}
+             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
          }
        }
     })

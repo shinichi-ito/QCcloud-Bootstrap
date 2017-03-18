@@ -12,6 +12,7 @@ import {InsideService} from "../../../Inside.service";
 export class TaiouDialogComponent implements OnInit {
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
   @Input() taiouData;//親コンポーネントから受取る属性
+  @Input() taiouSyubetuList;//親コンポーネントから受取る属性
   value: FirebaseObjectObservable<any>;
   uid:string;
   name:string='';
@@ -25,6 +26,7 @@ export class TaiouDialogComponent implements OnInit {
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  taiousyubetu:string;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
     this.claimitem=this.insideService.claimitem;
@@ -32,7 +34,31 @@ export class TaiouDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
+ close(){
+//     this.syubetu='';
+//     this.name='';
+//   this.siten='';
+//   this.busyo='';
+//   this.naiyou='';
+   this.pass='';
+  this.modalRef.hide()
+//
+ }
+  setChange(value){
+
+   if(this.syubetu==''){
+      this.syubetu=this.taiouData.syubetu
+    }
+    this.syubetu=this.syubetu+'⇒'+value
+
+
+
+  }
+
+
+
   openDialog() {
    this.modalRef.show();
   }
@@ -71,7 +97,7 @@ export class TaiouDialogComponent implements OnInit {
       this.value = this.af.database.object('TaiouData/' + this.uid + '/'+this.taiouData.key);
       this.value.update(taiouInfo).then(data=>{
         this.editTaiouTime()
-
+this.pass='';
       }).catch(error=>{
       })
     }else{

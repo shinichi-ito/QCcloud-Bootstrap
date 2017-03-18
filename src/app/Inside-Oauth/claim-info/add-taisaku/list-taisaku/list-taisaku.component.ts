@@ -39,7 +39,7 @@ export class ListTaisakuComponent implements OnInit {
   passwordData:any[]=[];
   key:string;
   Data2:any[]=[];
-
+  taisakuSyubetuList:any[]=[];
   @ViewChild("editTaisakuDialog") taisakuDialogComponent: TaisakuDialogComponent;
   @ViewChild("deleteTaisakuDialog") taisakuDeleteDialogComponent: TaisakuDeleteDialogComponent;
   @ViewChild("noFileListDialog") noFileListComponent: NoFileListComponent;
@@ -53,7 +53,7 @@ export class ListTaisakuComponent implements OnInit {
     this.uid=this.oauthInfoService.uid;
     //this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;
-
+    this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
     this.insideService.flagChangeTaisaku$.subscribe(
       flag => {
         //  console.log('対策');

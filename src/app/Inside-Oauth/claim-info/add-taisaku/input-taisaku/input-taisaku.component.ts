@@ -1,17 +1,18 @@
-import { Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FirebaseObjectObservable, FirebaseListObservable, AngularFire} from "angularfire2";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
 import {InsideMainService} from "../../../inside-main.service";
+import {TaisakuSelectComponent} from "../../../Dialog/taisaku-select/taisaku-select.component";
 @Component({
   selector: 'app-input-taisaku',
   templateUrl: './input-taisaku.component.html',
   styleUrls: ['./input-taisaku.component.css']
 })
 export class InputTaisakuComponent  {
-
+  @ViewChild("selectTaisakuDialog") taisakuSelectComponent: TaisakuSelectComponent;
   name:string;
   siten:string;
   busyo:string;
@@ -79,7 +80,10 @@ InfoData:any[]=[];
     ];
   }
 
+  addTaisakuSyubetu(){
+    this.taisakuSelectComponent.openDialog();
 
+  }
 
   onAdd(){
     let time=this.dt.getTime()
@@ -129,14 +133,14 @@ InfoData:any[]=[];
 
 
   }
-  addTaisakuSyubetu(){
-
-    this.insideMainService.addTaisakuSelect(this.uid,this.syubetuvalue,this.name).then(data=>{
-
-    }).catch(error=>{
-
-    })
-  }
+  // addTaisakuSyubetu(){
+  //
+  //   this.insideMainService.addTaisakuSelect(this.uid,this.syubetuvalue,this.name).then(data=>{
+  //
+  //   }).catch(error=>{
+  //
+  //   })
+  // }
 
   setMember(value){
     for(let key in this.memberList){

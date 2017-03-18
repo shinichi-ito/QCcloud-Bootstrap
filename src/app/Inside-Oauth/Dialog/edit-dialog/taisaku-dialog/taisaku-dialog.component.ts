@@ -12,6 +12,7 @@ import * as firebase from 'firebase'
 export class TaisakuDialogComponent implements OnInit {
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
   @Input() taisakuData;//親コンポーネントから受取る属性
+  @Input() taisakuSyubetuList;//親コンポーネントから受取る属性
   value: FirebaseObjectObservable<any>;
   uid:string;
   name:string='';
@@ -24,6 +25,7 @@ export class TaisakuDialogComponent implements OnInit {
   claimList:any[]=[];
   claimitem:any;
   claimInfo: FirebaseObjectObservable<any[]>;
+  taisakusyubetu:string;
   constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
     this.claimitem=this.insideService.claimitem;
@@ -31,6 +33,31 @@ export class TaisakuDialogComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  close(){
+//     this.syubetu='';
+//     this.name='';
+//   this.siten='';
+//   this.busyo='';
+//   this.naiyou='';
+    this.pass='';
+    this.modalRef.hide()
+//
+  }
+  setChange(value){
+
+    if(this.syubetu==''){
+      this.syubetu=this.taisakuData.syubetu
+    }
+    this.syubetu=this.syubetu+'⇒'+value
+
+
+
+  }
+
+
+
+
   openDialog() {
     this.modalRef.show();
   }
@@ -69,6 +96,7 @@ export class TaisakuDialogComponent implements OnInit {
     this.value = this.af.database.object('TaisakuData/' + this.uid + '/'+this.taisakuData.key);
     this.value.update(taisakuInfo).then(data=>{
       this.editTaisakuTime()
+      this.pass='';
      }).catch(error=>{
      })
   }else{
