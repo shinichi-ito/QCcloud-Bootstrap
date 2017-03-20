@@ -1,12 +1,12 @@
 <div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" (click)="close()"><span>×</span></button>
         <h4 class="modal-title">恒久対策編集</h4>
       </div>
       <div class="modal-body">
-
+        <div style=" margin: 0 auto;height:500px;overflow:auto">
         <div class="form-group">
           <label for="taisakusyubetu">状況変更</label>
           <select  (change)="setChange($event.target.value)" class="form-control" id="taisakusyubetu" [(ngModel)]="taisakusyubetu" name="taisakusyubetu">
@@ -14,6 +14,12 @@
           </select>
         </div>
 
+        <div class="form-group">
+          <label for="other">その他</label>
+          <a id="other" class="text-danger" style="cursor: pointer"(click)="addTaisakuSyubetu()">　選択ボックスに追加【選択ボックス内に該当するものがなければ追加】</a>
+
+
+        </div>
 
 
         <div class="form-group">
@@ -48,7 +54,7 @@
         <div *ngIf="OnOff">
           <div class="alert alert-danger" role="alert">パスワードが一致しません</div>
         </div>
-
+        </div>
 
       </div>
       <div class="modal-footer">
@@ -59,3 +65,5 @@
   </div>
 </div>
 
+<!--状況追加ダイアログ-->
+<app-taisaku-select #selectTaisakuDialog></app-taisaku-select>

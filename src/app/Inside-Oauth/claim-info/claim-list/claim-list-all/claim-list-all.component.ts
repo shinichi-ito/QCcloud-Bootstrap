@@ -59,16 +59,55 @@ koukakakuninTaisaku:any[]=[];
   countOnOff:boolean=false;
   //checkList:any[]=[];
  // checkPlan:any[]=[];
+  busyoList:any[]=[];
+  sitenList:any[]=[];
+  memberList:any[]=[];
+  syubetuList:any[]=[];
+  taiouSyubetuList:any[]=[];
+  taisakuSyubetuList:any[]=[];
+  claimList:any[]=[];
+  taiouList:any[]=[];
+  geninList:any[]=[];
+  koukaList:any[]=[];
+  commentList:any[]=[];
+
+count:number;
+plusList:number;
+
+
+
   constructor(private insideMainService:InsideMainService,private router: Router,
               private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
-this.uid=this.oauthInfoService.uid;
-this.check=this.oauthInfoService.check;
-    this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
+    this.uid=this.oauthInfoService.uid;
+
+    //ここからログインした際に一気にデータを取得してそのサイズをその月のCheckにプラスしていく
+    this.memberList=this.insideService.memberList;
+    this.sitenList=this.insideService.sitenList;
+    this.busyoList=this.insideService.busyoList;
+this.syubetuList=this.insideService.syubetuList;
+this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+    this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+    this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
+    this.claimList=this.insideService.claimList;
+    this.taiouList=this.insideService.taiouList;
+    this.taisakuList=this.insideService.taisakuList;
+    this.geninList=this.insideService.geninList;
+    this.koukaList=this.insideService.koukaList;
+    this.commentList=this.insideService.commentList;
+    this.fileList=this.insideService.fileList;
+
+this.plusList=this.insideMainService.getByteLength(JSON.stringify(this.memberList.concat(this.sitenList)
+  .concat(this.busyoList).concat(this.syubetuList).concat(this.taiouSyubetuList).concat(this.taisakuSyubetuList)
+  .concat(this.claimList).concat(this.taiouList).concat(this.taisakuList).concat(this.geninList).concat(this.koukaList)
+  .concat(this.commentList).concat(this.fileList)));
+
+this.check=this.oauthInfoService.check;//既にログインしてから一度カウントをアップしたかチェック
+    this.login=this.oauthInfoService.login;//その月のログインした際の一気にファイルを取得した際のサイズが入っている
 //console.log(this.login);
  if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
 }else{
-   this.onAddLogin(this.login+1,this.uid);
+   this.onAddLogin(this.login+this.plusList,this.uid);
     this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
    }
 
@@ -76,7 +115,7 @@ this.check=this.oauthInfoService.check;
 this.topWork()
 
 }
-  onAddLogin(count:number,uid:string){//これはログインした際その月のログイン回数に加算する
+  onAddLogin(count:number,uid:string){//これはログインした際データを一気に取得するので何メガバイト取得し更に保存
     const Info = {
       login:count
     };
@@ -92,7 +131,7 @@ this.topWork()
 
 
   topWork(){
-    this.newclaimList=this.insideService.claimList;//クレーム一覧から公開になってるものを選択表示
+    this.newclaimList=this.claimList;//クレーム一覧から公開になってるものを選択表示
 
 
 
@@ -103,7 +142,7 @@ this.topWork()
     }
     this.data=this.newclaimList2;
 
-    this.taisakuList=this.insideService.taisakuList;//対策リスト内に　三か月たっても効果確認がされてないものを探し出す
+  //  this.taisakuList=this.insideService.taisakuList;//対策リスト内に　三か月たっても効果確認がされてないものを探し出す
     this.claimitem=this.insideService.claimitem;
     this.unixTimestampmill = this.date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
     this.unixTimestamp = this.setTimeChange(this.unixTimestampmill)// 現在のUNIX時間を取得する (秒単位)
@@ -171,7 +210,7 @@ setFile(item){
     let jyoukyouData:any[]=[];
     let passwordData:any[]=[];
     this.OnOff=!this.OnOff;
-    this.fileList=this.insideService.fileList
+ //   this.fileList=this.insideService.fileList
    // console.log(this.fileList)
      for(let key in this.fileList){
      // console.log(this.fileList[key].claimkey)

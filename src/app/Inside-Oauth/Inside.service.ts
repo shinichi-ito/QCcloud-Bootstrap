@@ -171,7 +171,9 @@ constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,p
   this.fileRemoveTrigger(this.uid);
 this.checkTrigger(this.uid);
   this.fileupTrigger(this.uid);
+  this.fileupChangeTrigger(this.uid);
   this.dataupTrigger(this.uid);
+  this.dataupChangeTrigger(this.uid);
 }
 
 
@@ -193,14 +195,25 @@ this.checkTrigger(this.uid);
       this.fileupList.unshift({count:value.val()})
     })
   }
-
+  fileupChangeTrigger(uid){//データアップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
+    let commentsRef = firebase.database().ref('FileUpCheck/'+uid+'/'+this.date2);
+    commentsRef.on('child_changed', (value)=> {
+    //  console.log(value.val())
+      this.fileupList.unshift({count:value.val()})
+    })
+  }
   dataupTrigger(uid){//画像アップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
     let commentsRef = firebase.database().ref('DataUpCheck/'+uid+'/'+this.date2);
     commentsRef.on('child_added', (value)=> {
       this.dataupList.unshift({count:value.val()})
     })
   }
-
+  dataupChangeTrigger(uid){//画像アップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
+    let commentsRef = firebase.database().ref('DataUpCheck/'+uid+'/'+this.date2);
+    commentsRef.on('child_changed', (value)=> {
+      this.dataupList.unshift({count:value.val()})
+    })
+  }
 
 
  busyoAddTrigger(uid){
@@ -287,10 +300,101 @@ this.checkTrigger(this.uid);
     })
   }
 
+  setTimeChange(unixTimestampmill: number) {//(ミリ秒単位)から(秒単位)へ
+    return Math.floor(unixTimestampmill / 1000);
+  }
+
+
+  //1分のタイムスタンプ絶対値（秒）＝60
+  //1時間のタイムスタンプ絶対値（秒）＝3600
+  //1日のタイムスタンプ絶対値（秒）＝86400
+  //7日のタイムスタンプ絶対値（秒）＝604800
+  //30日のタイムスタンプ絶対値（秒）＝2592000
   claimAddTrigger(uid){
     let commentsRef = firebase.database().ref('ClaimData/'+uid);
     commentsRef.on('child_added', (value)=> {
-    //  console.log("claim追加"+value.val().siten)
+      let taiouUp:boolean;
+      let taisakuUp:boolean;
+      let geninUp:boolean;
+      let koukaUp:boolean;
+      let commentUp:boolean;
+      let fileUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+     let taiouUpChange=this.setTimeChange(value.val().taiouUp);
+      let taisakuUpChange=this.setTimeChange(value.val().taisakuUp);
+      let geninUpChange=this.setTimeChange(value.val().geninUp);
+      let koukaUpChange=this.setTimeChange(value.val().koukaUp);
+      let commentUpChange=this.setTimeChange(value.val().commentUp);
+      let fileUpChange=this.setTimeChange(value.val().fileUp);
+      if(value.val().taiouUp=='start'){//startとは　クレーム情報を最初登録したときstartがtaiouUpに入るから
+        taiouUp=false;
+      }else{
+        let taiouUpChange=this.setTimeChange(value.val().taiouUp);
+        if(dateChange-taiouUpChange<604800){//7日以内
+          taiouUp=true;
+        }else{
+          taiouUp=false;
+        }
+      }
+
+      if(value.val().taisakuUp=='start'){
+        taisakuUp=false;
+      }else{
+        let taisakuUpChange=this.setTimeChange(value.val().taisakuUp);
+        if(dateChange-taisakuUpChange<604800){//7日以内
+          taisakuUp=true;
+        }else{
+          taisakuUp=false;
+        }
+
+      }
+
+
+      if(value.val().geninuUp=='start'){
+        geninUp=false;
+      }else{
+        let geninUpChange=this.setTimeChange(value.val().geninUp);
+        if(dateChange-geninUpChange<604800){//7日以内
+          geninUp=true;
+        }else{
+          geninUp=false;
+        }
+      }
+      if(value.val().koukaUp=='start'){
+        koukaUp=false;
+      }else{
+        let koukaUpChange=this.setTimeChange(value.val().koukaUp);
+        if(dateChange-koukaUpChange<604800){//7日以内
+          koukaUp=true;
+        }else{
+          koukaUp=false;
+        }
+      }
+
+      if(value.val().commentUp=='start'){
+        commentUp=false;
+      }else{
+        let commentUpChange=this.setTimeChange(value.val().commentUp);
+        if(dateChange-commentUpChange<604800){//7日以内
+          commentUp=true;
+        }else{
+          commentUp=false;
+        }
+
+      }
+      if(value.val().fileUp=='start'){
+        fileUp=false;
+      }else{
+        let fileUpChange=this.setTimeChange(value.val().fileUp);
+        if(dateChange-fileUpChange<604800){//7日以内
+          fileUp=true;
+        }else{
+          fileUp=false;
+        }
+
+
+      }
+
      this.claimList.push({key:value.key,syubetu:value.val().syubetu,siten:value.val().siten
         ,busyo:value.val().busyo, gaiyou:value.val().gaiyou,seihin:value.val().seihin,
        name:value.val().name,basyo:value.val().basyo,moto:value.val().moto, seihininfo:value.val().seihininfo,
@@ -298,14 +402,94 @@ this.checkTrigger(this.uid);
        password: value.val().password,koukai:value.val().koukai,startAt:value.val().startAt, updateAt: value.val().updateAt,
        hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,
      taisaku:value.val().taisaku,genin:value.val().genin,
-     kouka:value.val().kouka,comment:value.val().comment,file:value.val().file})
+     kouka:value.val().kouka,comment:value.val().comment,file:value.val().file,
+       taiouUp:taiouUp,taisakuUp:taisakuUp,geninUp:geninUp,
+       koukaUp:koukaUp,commentUp:commentUp,fileUp:fileUp
+     })
     })
   }
   claimChangeTrigger(uid){
     let commentsRef = firebase.database().ref('ClaimData/'+uid);
     commentsRef.on('child_changed', (value)=> {
     //  console.log("claim変更"+value.val().taiou)
-       for(let index in this.claimList){
+
+      let taiouUp:boolean;
+      let taisakuUp:boolean;
+      let geninUp:boolean;
+      let koukaUp:boolean;
+      let commentUp:boolean;
+      let fileUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+
+      if(value.val().taiouUp=='start'){
+        taiouUp=false;
+      }else{
+        let taiouUpChange=this.setTimeChange(value.val().taiouUp);
+        if(dateChange-taiouUpChange<604800){//7日以内
+          taiouUp=true;
+        }else{
+          taiouUp=false;
+        }
+      }
+
+      if(value.val().taisakuUp=='start'){
+        taisakuUp=false;
+      }else{
+        let taisakuUpChange=this.setTimeChange(value.val().taisakuUp);
+        if(dateChange-taisakuUpChange<604800){//7日以内
+          taisakuUp=true;
+        }else{
+          taisakuUp=false;
+        }
+
+      }
+
+
+      if(value.val().geninuUp=='start'){
+        geninUp=false;
+      }else{
+        let geninUpChange=this.setTimeChange(value.val().geninUp);
+        if(dateChange-geninUpChange<604800){//7日以内
+          geninUp=true;
+        }else{
+          geninUp=false;
+        }
+      }
+      if(value.val().koukaUp=='start'){
+        koukaUp=false;
+      }else{
+        let koukaUpChange=this.setTimeChange(value.val().koukaUp);
+        if(dateChange-koukaUpChange<604800){//7日以内
+          koukaUp=true;
+        }else{
+          koukaUp=false;
+        }
+      }
+
+      if(value.val().commentUp=='start'){
+        commentUp=false;
+      }else{
+        let commentUpChange=this.setTimeChange(value.val().commentUp);
+        if(dateChange-commentUpChange<604800){//7日以内
+          commentUp=true;
+        }else{
+          commentUp=false;
+        }
+
+      }
+      if(value.val().fileUp=='start'){
+        fileUp=false;
+      }else{
+        let fileUpChange=this.setTimeChange(value.val().fileUp);
+        if(dateChange-fileUpChange<604800){//7日以内
+          fileUp=true;
+        }else{
+          fileUp=false;
+        }
+
+
+      }
+ for(let index in this.claimList){
          if(this.claimList[index].key==value.key){
            this.claimList[index]={key:value.key,syubetu:value.val().syubetu,siten:value.val().siten
              ,busyo:value.val().busyo, gaiyou:value.val().gaiyou,seihin:value.val().seihin,
@@ -314,7 +498,11 @@ this.checkTrigger(this.uid);
              password: value.val().password,koukai:value.val().koukai,startAt:value.val().startAt, updateAt: value.val().updateAt,
              hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,
              taisaku:value.val().taisaku,genin:value.val().genin,
-             kouka:value.val().kouka,comment:value.val().comment,file:value.val().file}
+             kouka:value.val().kouka,comment:value.val().comment,file:value.val().file,
+             taiouUp:taiouUp,taisakuUp:taisakuUp,geninUp:geninUp,
+             koukaUp:koukaUp,commentUp:commentUp,fileUp:fileUp
+
+           }
          }
        }
 
@@ -347,7 +535,8 @@ this.checkTrigger(this.uid);
       siten:this.InfoData[0].siten,
       busyo:this.InfoData[0].busyo,
       claimkey:this.InfoData[0].claimkey,
-      startAt: firebase.database.ServerValue.TIMESTAMP
+      startAt: firebase.database.ServerValue.TIMESTAMP,
+      updateAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.imageInfo=this.af.database.list('FileData/'+this.uid)
     //this.imageInfo=this.af.database.list('FileData/'+this.uid+'/'+this.InfoData[0].key)
@@ -366,7 +555,10 @@ this.checkTrigger(this.uid);
       siten:this.InfoData[0].siten,
       busyo:this.InfoData[0].busyo,
       claimkey:this.InfoData[0].claimkey,
-      startAt: firebase.database.ServerValue.TIMESTAMP
+      startAt: firebase.database.ServerValue.TIMESTAMP,
+      updateAt: firebase.database.ServerValue.TIMESTAMP
+
+
     };
     this.imageInfo=this.af.database.list('FileData/'+this.uid)
     //this.imageInfo=this.af.database.list('FileData/'+this.uid+'/'+this.InfoData[0].key)
@@ -378,25 +570,46 @@ this.checkTrigger(this.uid);
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_added', (value)=> {
      // console.log("imagefile追加"+value.val().downloadURL)
+
+      let fileUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        fileUp=true;
+      }else{
+        fileUp=false;
+      }
+
       this.fileList.push({claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
         jyoukyoukey:value.val().jyoukyoukey,type:value.val().type,comment:value.val().comment,toukousya:value.val().toukousya,
         siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,filename:value.val().filename,
-        startAt:value.val().startAt})
+        startAt:value.val().startAt,updateAt:value.val().updateAt,fileUp:fileUp})
     })
   }
 
   fileChangeTrigger(uid){
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_changed', (value)=> {
-       console.log("claim変更"+value.val())
+      // console.log("claim変更"+value.val())
     //  this._observerFileEdit.next(this.fileList);
+      let fileUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        fileUp=true;
+      }else{
+        fileUp=false;
+      }
+
       for(let index in this.fileList){
         if(this.fileList[index].key==value.key){
 
           this.fileList[index]={claimkey:value.val().claimkey,key:value.key,imageAnalysis:value.val().imageAnalysis,downloadURL:value.val().downloadURL,
             jyoukyoukey:value.val().jyoukyoukey, type:value.val().type, comment:value.val().comment,toukousya:value.val().toukousya,
             siten:value.val().siten,busyo:value.val().busyo,doko:value.val().doko,filename:value.val().filename,
-            startAt:value.val().startAt}
+            startAt:value.val().startAt,updateAt:value.val().updateAt,fileUp:fileUp}
         }
 
       }
@@ -421,22 +634,48 @@ this.checkTrigger(this.uid);
   taiouAddTrigger(uid){
     let commentsRef = firebase.database().ref('TaiouData/'+uid);
     commentsRef.on('child_added', (value)=> {
-   // console.log("taiou追加"+value.val().claimkey)
+
+      let taiouUp:boolean;
+
+      let dateChange=this.setTimeChange(this.date.getTime());
+
+
+        let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+        if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+          taiouUp=true;
+        }else{
+          taiouUp=false;
+        }
+    // console.log("taiou追加"+value.val().claimkey)
        this.taiouList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
          siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
-         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taiouUp:taiouUp})
     })
   }
   taiouChangeTrigger(uid){
     let commentsRef = firebase.database().ref('TaiouData/'+uid);
     commentsRef.on('child_changed', (value)=> {
+
+      let taiouUp:boolean;
+
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        taiouUp=true;
+      }else{
+        taiouUp=false;
+      }
+
+
       // console.log("claim変更"+value.val().busyo)
        for(let index in this.taiouList){
         if(this.taiouList[index].key==value.key){
           this._observerTaiou.next(this.taiouList);
            this.taiouList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
              siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
-             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taiouUp:taiouUp}
          }
        }
     })
@@ -459,10 +698,26 @@ this.checkTrigger(this.uid);
     commentsRef.on('child_added', (value)=> {
       //   console.log("taiou追加"+value.val().name)
 
+      let taisakuUp:boolean;
+
+      let dateChange=this.setTimeChange(this.date.getTime());
+
+
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        taisakuUp=true;
+      }else{
+        taisakuUp=false;
+      }
+
+
+
+
       this.taisakuList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
         koukai:value.val().koukai,koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
-        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taisakuUp:taisakuUp})
     })
 
   }
@@ -470,13 +725,24 @@ this.checkTrigger(this.uid);
     let commentsRef = firebase.database().ref('TaisakuData/'+uid);
     commentsRef.on('child_changed', (value)=> {
       // console.log("claim変更"+value.val().busyo)
+      let taisakuUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        taisakuUp=true;
+      }else{
+        taisakuUp=false;
+      }
+
+
       for(let index in this.taisakuList){
         if(this.taisakuList[index].key==value.key){
           this._observerTaisaku.next(this.taisakuList);
           this.taisakuList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
             koukai:value.val().koukai,koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
-            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taisakuUp:taisakuUp}
         }
       }
     })
@@ -501,21 +767,43 @@ this.checkTrigger(this.uid);
     let commentsRef = firebase.database().ref('GeninData/'+uid);
     commentsRef.on('child_added', (value)=> {
       //  console.log("taiou追加"+value.val().name)
+      let geninUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        geninUp=true;
+      }else{
+        geninUp=false;
+      }
+
+
       this.geninList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,kakuninbi:value.val().kakuninbi,
-        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,geninUp:geninUp})
     })
   }
   geninChangeTrigger(uid){
     let commentsRef = firebase.database().ref('GeninData/'+uid);
     commentsRef.on('child_changed', (value)=> {
       // console.log("claim変更"+value.val().busyo)
+      let geninUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        geninUp=true;
+      }else{
+        geninUp=false;
+      }
+
+
       for(let index in this.geninList){
         if(this.geninList[index].key==value.key){
           this._observerGenin.next(this.geninList);
           this.geninList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,kakuninbi:value.val().kakuninbi,
-            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,geninUp:geninUp}
         }
       }
     })
@@ -538,18 +826,39 @@ this.checkTrigger(this.uid);
     let commentsRef = firebase.database().ref('KoukaData/'+uid);
     commentsRef.on('child_added', (value)=> {
         // console.log("kouka追加"+value.val())
+      let koukaUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        koukaUp=true;
+      }else{
+        koukaUp=false;
+      }
+
+
       this.koukaList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,
         aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
         taisakukey:value.val().taisakukey,kakuninbi:value.val().kakuninbi,
         naiyou:value.val().naiyou,koukai:value.val().koukai,
-        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,koukaUp:koukaUp})
     })
   }
   koukaChangeTrigger(uid){
     let commentsRef = firebase.database().ref('KoukaData/'+uid);
     commentsRef.on('child_changed', (value)=> {
-       console.log("kouka変更"+value.val())
+      // console.log("kouka変更"+value.val())
+      let koukaUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        koukaUp=true;
+      }else{
+        koukaUp=false;
+      }
+
       for(let index in this.koukaList){
         if(this.koukaList[index].key==value.key){
           this._observerKouka.next(this.koukaList);
@@ -559,7 +868,7 @@ this.checkTrigger(this.uid);
             aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
             taisakukey:value.val().taisakukey,kakuninbi:value.val().kakuninbi,
             naiyou:value.val().naiyou,koukai:value.val().koukai,
-            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,koukaUp:koukaUp}
         }
       }
     })
@@ -581,22 +890,43 @@ this.checkTrigger(this.uid);
     let commentsRef = firebase.database().ref('CommentData/'+uid);
     commentsRef.on('child_added', (value)=> {
       //   console.log("taiou追加"+value.val().name)
+      let commentUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        commentUp=true;
+      }else{
+        commentUp=false;
+      }
 
       this.commentList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
-        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt})
+        password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,commentUp:commentUp})
     })
   }
   commentChangeTrigger(uid){
     let commentsRef = firebase.database().ref('CommentData/'+uid);
     commentsRef.on('child_changed', (value)=> {
       // console.log("claim変更"+value.val().busyo)
+      let commentUp:boolean;
+      let dateChange=this.setTimeChange(this.date.getTime());
+      let startAt=this.setTimeChange(value.val().startAt);
+      let updateAt=this.setTimeChange(value.val().updateAt);
+      if(dateChange-startAt<604800||dateChange-updateAt<604800){//7日以内
+        commentUp=true;
+      }else{
+        commentUp=false;
+      }
+
+
+
       for(let index in this.commentList){
         if(this.commentList[index].key==value.key){
           this._observerComment.next(this.commentList);
           this.commentList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
-            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt}
+            password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,commentUp:commentUp}
         }
       }
     })

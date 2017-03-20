@@ -4,6 +4,7 @@ import {FirebaseObjectObservable, AngularFire} from "angularfire2";
 import {OauthInfoService} from "../../../oauth-info.service";
 import * as firebase from 'firebase'
 import {InsideService} from "../../../Inside.service";
+import {TaiouSelectComponent} from "../../taiou-select/taiou-select.component";
 @Component({
   selector: 'app-taiou-dialog',
   templateUrl: './taiou-dialog.component.html',
@@ -13,6 +14,9 @@ export class TaiouDialogComponent implements OnInit {
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
   @Input() taiouData;//親コンポーネントから受取る属性
   @Input() taiouSyubetuList;//親コンポーネントから受取る属性
+  @ViewChild("selectTaiouDialog") taiouSelectComponent: TaiouSelectComponent;
+
+
   value: FirebaseObjectObservable<any>;
   uid:string;
   name:string='';
@@ -132,5 +136,9 @@ this.pass='';
     }
 
   }
+  addTaiouSyubetu(){
+   // this.modalRef.hide()
+    this.taiouSelectComponent.openDialog();
 
+  }
 }

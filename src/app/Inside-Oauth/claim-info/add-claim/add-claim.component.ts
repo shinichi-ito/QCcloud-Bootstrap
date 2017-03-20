@@ -24,7 +24,7 @@ export class AddClaimComponent  {
   public afterTomorrow: Date;
   public dateDisabled: {date: Date, mode: string}[];
   private opened: boolean = false;
-  memberList:any[]=[];
+//  memberList:any[]=[];
   syubetus:any[]=[];
   syubetu:string;
   seihin:string;
@@ -50,26 +50,69 @@ export class AddClaimComponent  {
   Info2: FirebaseObjectObservable<any[]>;
   check:boolean;
   login:number;
+
+  busyoList:any[]=[];
+  sitenList:any[]=[];
+  memberList:any[]=[];
+  syubetuList:any[]=[];
+  taiouSyubetuList:any[]=[];
+  taisakuSyubetuList:any[]=[];
+  claimList:any[]=[];
+  taiouList:any[]=[];
+  geninList:any[]=[];
+  koukaList:any[]=[];
+  commentList:any[]=[];
+  taisakuList:any[]=[];
+  fileList:any[]=[];
+  count:number;
+  plusList:number;
   public constructor(private af : AngularFire,private insideService:InsideService,
                      private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                       private insideMainService:InsideMainService) {
 
     this.uid=this.oauthInfoService.uid;
+
+    //ここからログインした際に一気にデータを取得してそのサイズをその月のCheckにプラスしていく
+    this.memberList=this.insideService.memberList;
+    this.sitenList=this.insideService.sitenList;
+    this.busyoList=this.insideService.busyoList;
+    this.syubetuList=this.insideService.syubetuList;
+    this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+    this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+    this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
+    this.claimList=this.insideService.claimList;
+    this.taiouList=this.insideService.taiouList;
+    this.taisakuList=this.insideService.taisakuList;
+    this.geninList=this.insideService.geninList;
+    this.koukaList=this.insideService.koukaList;
+    this.commentList=this.insideService.commentList;
+    this.fileList=this.insideService.fileList;
+
+    this.plusList=this.insideMainService.getByteLength(JSON.stringify(this.memberList.concat(this.sitenList)
+      .concat(this.busyoList).concat(this.syubetuList).concat(this.taiouSyubetuList).concat(this.taisakuSyubetuList)
+      .concat(this.claimList).concat(this.taiouList).concat(this.taisakuList).concat(this.geninList).concat(this.koukaList)
+      .concat(this.commentList).concat(this.fileList)));
+
+
+
+
+
+
     this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
-  //  console.log(this.login);
+    //console.log(this.login);
     if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
     }else{
-      this.onAddLogin(this.login+1,this.uid);
+      this.onAddLogin(this.login+this.plusList,this.uid);
       this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
     }
 
-    this.syubetus=this.insideService.syubetuList;
+    this.syubetus=this.syubetuList;
     this.model = {
       label: "kari"
     };
-    this.memberList=this.insideService.memberList;
+   // this.memberList=this.insideService.memberList;
     this.uid=this.oauthInfoService.uid;
     this.getKey();
     this.myForm = this.fb.group({

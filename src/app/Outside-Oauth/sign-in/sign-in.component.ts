@@ -251,7 +251,7 @@ changeTop(){
       let startAt:number=this.oauthService.setTimeChange(data.$value)
       let date = new Date() ;
       let unixTimestampmill = date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
-      let unixTimestamp = this.oauthService.setTimeChange(unixTimestampmill)// 現在のUNIX時間を取得する (秒単位)
+      let unixTimestamp = this.oauthService.setTimeChange(unixTimestampmill);// 現在のUNIX時間を取得する (秒単位)
       //console.log(unixTimestamp)//現在秒
       // console.log(startAt)//登録時秒
       let term:number=unixTimestamp-startAt;

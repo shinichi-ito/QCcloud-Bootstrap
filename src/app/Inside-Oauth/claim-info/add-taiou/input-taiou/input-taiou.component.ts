@@ -13,7 +13,7 @@ import {TaiouSelectComponent} from "../../../Dialog/taiou-select/taiou-select.co
 })
 export class InputTaiouComponent  {
   @ViewChild("selectTaiouDialog") taiouSelectComponent: TaiouSelectComponent;
-
+  mb:number;
 
   name:string;
   siten:string;
@@ -101,6 +101,7 @@ this.claimitem=this.insideService.claimitem;
 
   onAdd(){
    // console.log(this.dt)
+
     let time=this.dt.getTime()
     const claimInfo = {
       syubetu:this.taiousyubetu,
@@ -113,19 +114,21 @@ this.claimitem=this.insideService.claimitem;
       koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-   //   updateAt: firebase.database.ServerValue.TIMESTAMP
+      updateAt: firebase.database.ServerValue.TIMESTAMP
     };
-    this.claimInfo2=this.af.database.list('TaiouData/'+this.uid)
-    this.claimInfo2.push(claimInfo).then(data=>{
-   //   console.log(data.key)
-     this.addTaiouSu()
-     this.InfoData.push({jyoukyoukey:data.key,toukousya:this.name,siten:this.siten,busyo:this.busyo,claimkey:this.claimitem.key,doko:'対応',naiyou:this.naiyou})
-     this.insideService.InfoData=this.InfoData;
-     // console.log(this.insideService.InfoData[0])
+  //  console.log(this.insideMainService.getByteLength(JSON.stringify(claimInfo)))
+       this.mb=this.insideMainService.getByteLength(JSON.stringify(claimInfo));//アップするデータをメガバイトで取得
 
+    this.claimInfo2=this.af.database.list('TaiouData/'+this.uid)
+     this.claimInfo2.push(claimInfo).then(data=>{
+   // //   console.log(data.key)
+       this.addTaiouSu()
+      this.InfoData.push({jyoukyoukey:data.key,toukousya:this.name,siten:this.siten,busyo:this.busyo,claimkey:this.claimitem.key,doko:'対応',naiyou:this.naiyou});
+      this.insideService.InfoData=this.InfoData;
+   //   // console.log(this.insideService.InfoData[0])
     }).catch(error=>{
 
-    })
+     })
   }
 
 
@@ -142,7 +145,7 @@ this.claimitem=this.insideService.claimitem;
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
-        this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+        this.insideMainService.onFileUpSuMain(this.uid,this.mb);//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })

@@ -4,6 +4,7 @@ import {FirebaseObjectObservable, AngularFire} from "angularfire2";
 import {InsideService} from "../../../Inside.service";
 import {OauthInfoService} from "../../../oauth-info.service";
 import * as firebase from 'firebase'
+import {TaisakuSelectComponent} from "../../taisaku-select/taisaku-select.component";
 @Component({
   selector: 'app-taisaku-dialog',
   templateUrl: './taisaku-dialog.component.html',
@@ -13,6 +14,7 @@ export class TaisakuDialogComponent implements OnInit {
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
   @Input() taisakuData;//親コンポーネントから受取る属性
   @Input() taisakuSyubetuList;//親コンポーネントから受取る属性
+  @ViewChild("selectTaisakuDialog") taisakuSelectComponent: TaisakuSelectComponent;
   value: FirebaseObjectObservable<any>;
   uid:string;
   name:string='';
@@ -130,5 +132,9 @@ export class TaisakuDialogComponent implements OnInit {
     }
 
   }
+  addTaisakuSyubetu(){
+    // this.modalRef.hide()
+    this.taisakuSelectComponent.openDialog();
 
+  }
 }

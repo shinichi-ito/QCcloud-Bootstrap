@@ -38,6 +38,7 @@ export class InputTaisakuComponent  {
   public dateDisabled: {date: Date, mode: string}[];
   private opened: boolean = false;
 InfoData:any[]=[];
+mb:number;
 //key:string;
   claimitem:any;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
@@ -101,8 +102,10 @@ InfoData:any[]=[];
       claimkey:this.claimitem.key,
       koukasu:0,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-     // updateAt: firebase.database.ServerValue.TIMESTAMP
+      updateAt: firebase.database.ServerValue.TIMESTAMP
     };
+    this.mb=this.insideMainService.getByteLength(JSON.stringify(Info));//アップするデータをメガバイトで取得
+
     this.Info=this.af.database.list('TaisakuData/'+this.uid)
     this.Info.push(Info).then(data=>{
       this.addTaisakuSu();
@@ -124,7 +127,7 @@ InfoData:any[]=[];
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
-          this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+          this.insideMainService.onFileUpSuMain(this.uid,this.mb)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })

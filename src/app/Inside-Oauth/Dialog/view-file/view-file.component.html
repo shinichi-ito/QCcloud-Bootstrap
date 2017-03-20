@@ -34,7 +34,7 @@
                     <a  (click)="getFilterFile(item)" class="btn btn-default" role="button" target="_blank">似画像</a>
                     <a *ngIf="onoffData" (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
                     <a *ngIf="onoffData" (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
-
+                    <a href="{{item.downloadURL}}" download  class="btn btn-default" role="button" target="_blank">ダウンロード</a>
 
                   </p>
                 </div>

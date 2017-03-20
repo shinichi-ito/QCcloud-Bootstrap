@@ -75,18 +75,33 @@ logout(){
   this.router.navigate(['/landing'])
 
 }
-  onFileUpSuMain(uid){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+  // onFileUpSuMain(uid){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+  //   let fileupList=this.insideService.fileupList;
+  //
+  //   if(fileupList.length==0){//まだ　登録がされてないケース月初めとか
+  //  //   console.log('ない')
+  //     this.onFileupSuAdd(1,uid)
+  //   }else{
+  //   //  console.log('ある')
+  //     this.onFileupSuAdd(fileupList[0].count+1,uid)
+  //   }
+  //
+  // }
+
+  onFileUpSuMain(uid,mb){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
     let fileupList=this.insideService.fileupList;
 
     if(fileupList.length==0){//まだ　登録がされてないケース月初めとか
-   //   console.log('ない')
-      this.onFileupSuAdd(1,uid)
+      //   console.log('ない')
+      this.onFileupSuAdd(mb,uid)
     }else{
-    //  console.log('ある')
-      this.onFileupSuAdd(fileupList[0].count+1,uid)
+      // console.log(fileupList[0].count)
+   //   console.log(mb)
+      this.onFileupSuAdd(fileupList[0].count+mb,uid)
     }
 
   }
+
   onFileupSuAdd(count:number,uid:string){//これはログインした際その月のログイン回数を数える
     const Info = {
       fileup:count
@@ -101,15 +116,17 @@ logout(){
     })
   }
 
-  onDataUpSuMain(uid){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+  onDataUpSuMain(uid,size){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+    let sizeMB:number;
+    sizeMB=size/1024;
     let dataupList=this.insideService.dataupList;
 
     if(dataupList.length==0){//まだ　登録がされてないケース月初めとか
       //   console.log('ない')
-      this.onDataupSuAdd(1,uid)
+      this.onDataupSuAdd(sizeMB,uid)
     }else{
       //  console.log('ある')
-      this.onDataupSuAdd(dataupList[0].count+1,uid)
+      this.onDataupSuAdd(dataupList[0].count+sizeMB,uid)
     }
 
   }
@@ -322,10 +339,10 @@ this.editImageTime(uid)
     })
   }
 
-  getByteLength(str){//取得した文字をバイトに変換
-    // console.log( this.getByteLength(JSON.stringify(this.newclaimList))/1024/1024)  //バイトを　MBに変換
+  getByteLength(str){//取得した文字をMBに変換
+    // console.log( this.getByteLength(JSON.stringify(this.newclaimList)))
     str = (str==null)?"":str;
-    return encodeURI(str).replace(/%../g, "*").length;
+    return encodeURI(str).replace(/%../g, "*").length/1024/1024;
   }
   download(data){//CSVをダウンロード
     var csvData = this.ConvertToCSV(data);

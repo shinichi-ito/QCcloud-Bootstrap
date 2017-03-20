@@ -105,7 +105,11 @@ this.flag=false;
           this._progress=value;//アップロードの進歩率
          console.log(this._progress)
         }else{
+
+
           this.downloadURL=value
+
+          console.log(this.downloadURL)
         }
       },
       error => {
@@ -122,7 +126,7 @@ this.flag=false;
            }
        //   console.log(this.insideService.InfoData[0].claimkey)
            this.insideService.addImageInfoDatabase(this.imageAnalysis,this.downloadURL,this.comment,fileDetail.type).then(data=>{
-           this.addImageSu()
+           this.addImageSu(fileDetail)
             // console.log('ここ')
             this.flag=false;
             this.flagOK=true;
@@ -156,7 +160,7 @@ this.flag=false;
       ()=>{
         //   console.log(this.insideService.InfoData[0].claimkey)
             this.insideService.addFileInfoDatabase(this.downloadURL,this.comment,fileDetail.type).then(data=>{
-              this.addImageSu();
+              this.addImageSu(fileDetail);
               this.flag=false;
               this.flagOK=true;
               this.flagNG=false;
@@ -171,8 +175,8 @@ this.flag=false;
 
 
 
-  addImageSu(){//クレーム情報のファイル数をプラス
-    this.claimList=this.insideService.claimList
+  addImageSu(fileDetail:FileDetail){//クレーム情報のファイル数をプラス
+    this.claimList=this.insideService.claimList;
     for(let key in this.claimList) {
       if (this.claimList[key].key == this.claimitem.key) {
         //  console.log(this.claimList[key].taiou)
@@ -183,7 +187,9 @@ this.flag=false;
         };
         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.Info.update(claimInfo).then(data=>{
-this.insideMainService.onDataUpSuMain(this.uid)
+
+
+this.insideMainService.onDataUpSuMain(this.uid,fileDetail.size)
         }).catch(error=>{
 
         })

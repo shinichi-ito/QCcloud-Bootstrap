@@ -37,6 +37,7 @@ export class InputGeninComponent {
 
   InfoData:any[]=[];
   claimList:any[]=[];
+  mb:number;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.memberList=this.insideService.memberList;
@@ -88,8 +89,10 @@ export class InputGeninComponent {
       koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
-     // updateAt: firebase.database.ServerValue.TIMESTAMP
+      updateAt: firebase.database.ServerValue.TIMESTAMP
     };
+
+    this.mb=this.insideMainService.getByteLength(JSON.stringify(Info));//アップするデータをメガバイトで取得
     this.Info=this.af.database.list('GeninData/'+this.uid)
     this.Info.push(Info).then(data=>{
       this.addGeninSu()
@@ -110,7 +113,7 @@ export class InputGeninComponent {
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
-          this.insideMainService.onFileUpSuMain(this.uid)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+          this.insideMainService.onFileUpSuMain(this.uid,this.mb)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
 
         })

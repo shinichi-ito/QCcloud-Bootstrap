@@ -48,6 +48,7 @@ dataupCheck:boolean;
     //console.log(this.uid)
   //  this.check=this.oauthInfoService.check;
   this.insideMainService.getCheckSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
+  //  console.log(data)
       for(let key in data){
             if(data[key].$key=='login'){
               this.login=data[key].$value;//その月のログイン回数を取得
@@ -83,15 +84,16 @@ dataupCheck:boolean;
       }
 
       if (this.label == 'スタンダード') {
-        this.companyDataList.push({login: 200, dataup: 200, fileup: 200})
+        this.companyDataList.push({login: 1024, dataup: 1024, fileup: 1024})//月に1GB＝1024MBアップできる
       } else if (this.label == 'プレミアム') {
-        this.companyDataList.push({login: 300, dataup: 300, fileup: 300})
+        this.companyDataList.push({login: 2048, dataup: 2048, fileup: 2048})
       } else if (this.label == 'エキスパート') {
-        this.companyDataList.push({login: 400, dataup: 400, fileup: 400})
+        this.companyDataList.push({login: 3072, dataup: 3072, fileup: 3072})
       }
 
       if(this.login===0){//まだ一度もログインしてない状態
-
+//console.log('ここ')
+        this.loginCheck=true;
       }else{
 
       if (this.companyDataList[0].login > this.login) {//ログイン回数がプランの限度内に収まっている
@@ -108,6 +110,8 @@ dataupCheck:boolean;
     }
       if(this.dataup===0){//まだファイルが一件もアップしてない状態
 //console.log('ないよ＾')
+
+
       }else{
       if (this.companyDataList[0].dataup > this.dataup) {//アップロード数がプランの限度内に収まっている
        // console.log('収まっている')
