@@ -48,14 +48,19 @@ dataupCheck:boolean;
     //console.log(this.uid)
   //  this.check=this.oauthInfoService.check;
   this.insideMainService.getCheckSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
-  //  console.log(data)
+  //  console.log(data.length)
+
+
       for(let key in data){
-            if(data[key].$key=='login'){
-              this.login=data[key].$value;//その月のログイン回数を取得
-              //console.log(this.login)
-              this.oauthInfoService.login=this.login;
-            }
-}
+        if(data[key].$key=='login'){
+          this.login=data[key].$value;//その月のログイン回数を取得
+          //console.log(this.login)
+          this.oauthInfoService.login=this.login;
+        }
+
+    }
+
+
    });
 
     this.insideMainService.getFileUpSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
@@ -63,6 +68,7 @@ dataupCheck:boolean;
       for (let key in data) {
         if (data[key].$key == 'fileup') {
           this.fileup = data[key].$value
+          this.oauthInfoService.fileup=this.fileup;
         }
       }
     });
@@ -71,6 +77,7 @@ dataupCheck:boolean;
         for(let key in data){
           if(data[key].$key=='dataup'){
             this.dataup=data[key].$value
+            this.oauthInfoService.dataup=this.dataup;
           }
         }
 
@@ -141,7 +148,7 @@ dataupCheck:boolean;
         }
 
       }
-      this.loginGenkai=this.companyDataList[0].login;
+     this.loginGenkai=this.companyDataList[0].login;
       this.fileupGenkai=this.companyDataList[0].fileup;
       this.dataupGenkai=this.companyDataList[0].dataup;
 

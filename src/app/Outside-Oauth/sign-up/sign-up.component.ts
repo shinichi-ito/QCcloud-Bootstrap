@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit {
         // console.log(authData)
         this.oauthService.firstCompanyData(this.myForm.value,authData.uid).then(data=>{
           this.oauthInfoService.uid = authData.uid;//inside.serviceのuidにデータを入れて　main.componentの初期化時これをもとにデータを引っ張り出す。　または　会社情報登録ページにてuidあるかチェックする。
-          this.router.navigate(['/main/list'])
+          this.router.navigate(['/main/topinside'])
         //  this.navCtrl.setRoot(ClaimList);
         }).catch(
           (error)=>{

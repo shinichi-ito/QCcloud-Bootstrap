@@ -130,8 +130,10 @@ export class ListTaisakuComponent implements OnInit {
   getFile(index){
     this.fileList=[];
     this.newfileList=[];
+    let count=0;
     this.fileList=this.insideService.fileList;//再度開きなおしたときFileDataを最新のものを取得したい
     for(let key in this.fileList){
+
       //  console.log(this.fileList[key].doko)
       if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対策'){
         this.newfileList.push(this.fileList[key])
@@ -144,6 +146,7 @@ export class ListTaisakuComponent implements OnInit {
     let passwordData:any[]=[];
     for(let key in this.newfileList){
       if(this.newfileList[key].jyoukyoukey==this.taisakuData.key){//jyoukyoukeyとはそのファイルがどの対応や対策に紐づいてるかの対応や対策のキー
+        count=count+this.newfileList[key].size;
         this.typeData=this.newfileList[key].type;
         if (this.typeData.match(/^image\/(png|jpeg|gif)$/)){
           this.newfileList[key]["downloadURL2"] = this.newfileList[key].downloadURL;
@@ -176,7 +179,13 @@ export class ListTaisakuComponent implements OnInit {
       this.passwordData=passwordData;
       this.viewFileComponent.openDialog();
     }
+if(count===0){
+  console.log('ない')
+}else{
+  console.log('ある')
+  this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024+this.oauthInfoService.dataup)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
 
+}
 
   }
 

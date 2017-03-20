@@ -50,32 +50,36 @@ export class SelectEditClaimComponent implements OnInit {
     this.claimitem=this.insideService.claimitem;
    this.uid=this.oauthInfoService.uid;
 
-    //ここからログインした際に一気にデータを取得してそのサイズをその月のCheckにプラスしていく
-    this.memberList=this.insideService.memberList;
-    this.sitenList=this.insideService.sitenList;
-    this.busyoList=this.insideService.busyoList;
-    this.syubetuList=this.insideService.syubetuList;
-    this.taiouSyubetuList=this.insideService.taiouSyubetuList;
-    this.taiouSyubetuList=this.insideService.taiouSyubetuList;
-    this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
-    this.claimList=this.insideService.claimList;
-    this.taiouList=this.insideService.taiouList;
-    this.taisakuList=this.insideService.taisakuList;
-    this.geninList=this.insideService.geninList;
-    this.koukaList=this.insideService.koukaList;
-    this.commentList=this.insideService.commentList;
-    this.fileList=this.insideService.fileList;
 
-    this.plusList=this.insideMainService.getByteLength(JSON.stringify(this.memberList.concat(this.sitenList)
-      .concat(this.busyoList).concat(this.syubetuList).concat(this.taiouSyubetuList).concat(this.taisakuSyubetuList)
-      .concat(this.claimList).concat(this.taiouList).concat(this.taisakuList).concat(this.geninList).concat(this.koukaList)
-      .concat(this.commentList).concat(this.fileList)));
     this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
     //console.log(this.login);
     if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
+      this.memberList=this.insideService.memberList;
+      this.claimList=this.insideService.claimList;
+
     }else{
+      //ここからログインした際に一気にデータを取得してそのサイズをその月のCheckにプラスしていく
+      this.memberList=this.insideService.memberList;
+      this.sitenList=this.insideService.sitenList;
+      this.busyoList=this.insideService.busyoList;
+      this.syubetuList=this.insideService.syubetuList;
+      this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+      this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+      this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
+      this.claimList=this.insideService.claimList;
+      this.taiouList=this.insideService.taiouList;
+      this.taisakuList=this.insideService.taisakuList;
+      this.geninList=this.insideService.geninList;
+      this.koukaList=this.insideService.koukaList;
+      this.commentList=this.insideService.commentList;
+      this.fileList=this.insideService.fileList;
+
+      this.plusList=this.insideMainService.getByteLength(JSON.stringify(this.memberList.concat(this.sitenList)
+        .concat(this.busyoList).concat(this.syubetuList).concat(this.taiouSyubetuList).concat(this.taisakuSyubetuList)
+        .concat(this.claimList).concat(this.taiouList).concat(this.taisakuList).concat(this.geninList).concat(this.koukaList)
+        .concat(this.commentList).concat(this.fileList)));
       this.onAddLogin(this.login+this.plusList,this.uid);
       this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
     }

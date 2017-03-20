@@ -26,6 +26,7 @@ import { AddMemberComponent } from './usage/add-member/add-member.component';
 import { UsageLoginComponent } from './usage/usage-login/usage-login.component';
 import { SuccessComponent } from './Outside-Oauth/GmoRedirect/success/success.component';
 import { CancelComponent } from './Outside-Oauth/GmoRedirect/cancel/cancel.component';
+import { TaikaiComponent } from './Outside-Oauth/taikai/taikai.component';
 
 
 
@@ -58,7 +59,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AddMemberComponent,
     UsageLoginComponent,
     SuccessComponent,
-    CancelComponent
+    CancelComponent,
+    TaikaiComponent
 
 
   ],

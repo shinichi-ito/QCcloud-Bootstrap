@@ -118,7 +118,7 @@ logout(){
 
   onDataUpSuMain(uid,size){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
     let sizeMB:number;
-    sizeMB=size/1024;
+    sizeMB=size/1024/1024;
     let dataupList=this.insideService.dataupList;
 
     if(dataupList.length==0){//まだ　登録がされてないケース月初めとか

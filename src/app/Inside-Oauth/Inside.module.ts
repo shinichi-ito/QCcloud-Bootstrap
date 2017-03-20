@@ -26,7 +26,6 @@ import { EmployeeInfoComponent } from './employee-info/employee-info.component';
 import { AddEmployeeComponent } from './employee-info/add-employee/add-employee.component';
 import { AddBranchOfficeComponent } from './employee-info/add-branch-office/add-branch-office.component';
 import { AddDepartmentComponent } from './employee-info/add-department/add-department.component';
-import { InformationComponent } from './information/information.component';
 import {
   DatepickerModule, RatingModule, TimepickerModule, ModalModule, DropdownModule, ProgressbarModule
 } from "ng2-bootstrap";
@@ -102,6 +101,9 @@ import { CompanyEditDialogComponent } from './Dialog/edit-dialog/company-edit-di
 import { TaiouSelectComponent } from './Dialog/taiou-select/taiou-select.component';
 import { TaisakuSelectComponent } from './Dialog/taisaku-select/taisaku-select.component';
 import { ClaimSelectComponent } from './Dialog/claim-select/claim-select.component';
+import { TaiakiEditComponent } from './taiaki-edit/taiaki-edit.component';
+import { TaikaiCheckComponent } from './Dialog/taikai-check/taikai-check.component';
+
 
 
 
@@ -139,7 +141,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AddEmployeeComponent,
     AddBranchOfficeComponent,
     AddDepartmentComponent,
-    InformationComponent,
     CompanyInfoComponent,
     AddCompanyInfoComponent,
     HeaderClaimComponent,
@@ -209,7 +210,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     CompanyEditDialogComponent,
     TaiouSelectComponent,
     TaisakuSelectComponent,
-    ClaimSelectComponent
+    ClaimSelectComponent,
+    TaiakiEditComponent,
+    TaikaiCheckComponent
 
 
 

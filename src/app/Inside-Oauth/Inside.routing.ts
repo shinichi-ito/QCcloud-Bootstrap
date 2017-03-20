@@ -30,6 +30,7 @@ import {EDITCLAIMMAIN_ROUTES} from "./claim-info/top-claim/edit-claim-main/edit-
 import {ViewTimeLineComponent} from "./claim-info/view-time-line/view-time-line.component";
 import {AdminComponent} from "./Admin/admin.component";
 import {ADMIN_ROUTES} from "./Admin/admin.routing";
+import {TaiakiEditComponent} from "./taiaki-edit/taiaki-edit.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -52,7 +53,7 @@ const IN_ROUTES: Routes = [
    { path: 'editclaimmain',component:EditClaimMainComponent,children:EDITCLAIMMAIN_ROUTES},
     { path: 'viewtimeline',component:ViewTimeLineComponent},
     { path: 'admin',component:AdminComponent,children:ADMIN_ROUTES},
-
+    { path: 'taikaiedit',component:TaiakiEditComponent},
   ]}
 
 ];

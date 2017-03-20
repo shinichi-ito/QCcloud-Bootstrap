@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { InformationComponent } from './information.component';
+import { TaikaiCheckComponent } from './taikai-check.component';
 
-describe('InformationComponent', () => {
-  let component: InformationComponent;
-  let fixture: ComponentFixture<InformationComponent>;
+describe('TaikaiCheckComponent', () => {
+  let component: TaikaiCheckComponent;
+  let fixture: ComponentFixture<TaikaiCheckComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InformationComponent ]
+      declarations: [ TaikaiCheckComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InformationComponent);
+    fixture = TestBed.createComponent(TaikaiCheckComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

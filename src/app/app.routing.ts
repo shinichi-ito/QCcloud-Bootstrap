@@ -16,6 +16,7 @@ import {UsageComponent} from "./usage/usage.component";
 import {USAGE_ROUTES} from "./usage/usage.routing";
 import {SuccessComponent} from "./Outside-Oauth/GmoRedirect/success/success.component";
 import {CancelComponent} from "./Outside-Oauth/GmoRedirect/cancel/cancel.component";
+import {TaikaiComponent} from "./Outside-Oauth/taikai/taikai.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -37,7 +38,7 @@ const APP_ROUTES: Routes = [
   { path: 'usage', component: UsageComponent,children: USAGE_ROUTES},
   { path: 'success', component: SuccessComponent},
   { path: 'cansel', component: CancelComponent},
-
+  { path: 'taikai', component: TaikaiComponent}
 
 ];
 export const routing : ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

@@ -13,7 +13,7 @@ export class CompanyEditDialogComponent implements OnInit {
   @Input() companyData;//親コンポーネントから受取る属性
   companyname:string='';
   label:string='';
-  term:string='';
+  term:number=1;
   value: FirebaseObjectObservable<any>;
 
   constructor(private insideMainService:InsideMainService,private af : AngularFire) { }
@@ -47,36 +47,33 @@ export class CompanyEditDialogComponent implements OnInit {
 
 
     if(this.companyname==''){
-      this.companyname=this.companyData.news;
+      this.companyname=this.companyData.companyname;
       //console.log(this.syubetu)
     }
     if(this.label==''){
       this.label=this.companyData.label;
       //console.log(this.syubetu)
     }
-    if(this.term==''){
-      this.term=this.companyData.term;
+    if(this.term===1){
+      this.term=Number(this.companyData.term);
       //console.log(this.syubetu)
     }
-    if(this.companyname==''){
-      this.companyname=this.companyData.news;
-      //console.log(this.syubetu)
-    }
+
     const Info = {
       companyname:this.companyname,
      label:this.label,
-      term:this.term
+      term:Number(this.term)
     };
     this.value = this.af.database.object('companyData/'+this.companyData.key+'/companyInfo');
-    this.value.update(Info).then(data=>{
-      this.modalRef.hide()
+     this.value.update(Info).then(data=>{
+       this.modalRef.hide()
 
-    }).catch(error=>{
+     }).catch(error=>{
       this.modalRef.hide();
        this.insideMainService.setError(error.message);
 
 
-    })
+     })
 
 
 

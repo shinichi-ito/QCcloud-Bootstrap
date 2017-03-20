@@ -53,27 +53,40 @@ changeTop(){
     this.oauthService.signIn(this.myForm.value).then((authState)=>{
       console.log(authState.uid);
       if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
-       this.oauthInfoService.uid = authState.uid;//inside.serviceのuidにデータを入れて　main.componentの初期化時これをもとにデータを引っ張り出す。　または　会社情報登録ページにてuidあるかチェックする。
+         this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
+          if(data){
+        //     //OauthInfoServiceに共通データをいれて使いまわす
+        //     //   console.log(data.auth.email)
+            this.oauthInfoService.emailMain=data.auth.email;
+          //  this.oauthInfoService.displayName=data.auth.displayName;
+         //   this.oauthInfoService.photoURL=data.auth.photoURL;
+           this.oauthInfoService.uid = authState.uid;
+          }
+         });
         this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
-            console.log(data.$value)
-            if (typeof data.$value=='number') {//data.$valueはterm
+
+console.log(data.$value)
+           if (typeof data.$value=='number') {//data.$valueはterm
               console.log("Yes")//既にcompanyDataに登録がある
               if(data.$value===1){
                 console.log("クレームリストへ");
-                this.router.navigate(['/main/list'])
-
+               // this.router.navigate(['/main/list'])
+                this.router.navigate(['/main/topinside'])
                 ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
                 //     this.insideService.addSitenSQLite()
                 //     this.insideService.addBusyoSQLite()
                 //     this.insideService.addMemberSQLite()
                 ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
-              }else{//termが0であるから　期間をチェック
+              }else if(data.$value===0){//termが0であるから　期間をチェック
                 this.startAtCheck(authState.uid)
+              }else if(data.$value===2){//termが0であるから　期間をチェック
+                console.log('ここ')
+                this.router.navigate(['/taikai'])
               }
-            } else {
-              console.log("No")//まだcompanyDataに登録がないので登録
+           } else {
+            console.log("No")//まだcompanyDataに登録がないので登録
             //signupで既に登録しているから　Noになることは考えられない
-            }
+           }
           },
           (error)=>{
             //   this.showError(this.oauthService.errorChange(error.message))
@@ -156,18 +169,26 @@ changeTop(){
           }
         })
         this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
-            console.log(data.$value)
+         //   console.log(data.$value)
             if (typeof data.$value=='number') {//data.$valueはterm
               console.log("Yes")//既にcompanyDataに登録がある
+
               if(data.$value===1){
                 console.log("クレームリストへ");
               //  this.router.navigate(['/main/editclaim/selecteditclaim'])
              //   this.oauthInfoService.setOnOff();//これはmainからmainに移るので　observerで観察している
                this.router.navigate(['/main/topinside'])
 
-              }else{//termが0であるから　期間をチェック
+              }else if(data.$value===0){//termが0であるから　期間をチェック
                 this.startAtCheck(authState.uid)
+              }else if(data.$value===2){//termが0であるから　期間をチェック
+                this.router.navigate(['/taikai'])
               }
+
+
+
+
+
             } else {
               console.log("No")//まだcompanyDataに登録がないので登録
               this.oauthService.firstCompanyDataTwFaGo(authState.auth.displayName, authState.uid).then((data) => {
@@ -260,7 +281,7 @@ changeTop(){
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
       console.log(term)
-      if (term >2) {//期日を超えたら　会社情報登録画面へ
+      if (term >2592000) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
 //this.oauthInfoService.OnOff=false;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
         this.router.navigate(['/main/companyInfo/addCompanyInfo'])

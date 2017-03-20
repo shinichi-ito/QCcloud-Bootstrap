@@ -1,0 +1,19 @@
+<app-nav-main></app-nav-main>
+
+<app-nav-sabu></app-nav-sabu>
+
+
+
+<div class="panel panel-default" style="width: 60%;margin: 0 auto;margin-top: 200px">
+  <div class="panel-heading">
+    退会を希望する
+  </div>
+  <div class="panel-body">
+
+    ご利用ありがとうがざいまいた。
+    再入会をご希望の場合は上記のお問い合わせより管理者に再入会の旨をご連絡ください。
+    <button type="button" (click)="taikai()" class="btn btn-primary btn-bloc">退会</button>
+  </div>
+</div>
+<!--退会確認ダイアログ-->
+<app-taikai-check [uid]="uid"  #taikaicheckDialog></app-taikai-check>

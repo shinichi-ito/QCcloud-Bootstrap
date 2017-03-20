@@ -56,6 +56,7 @@ export class OauthService {
       let newRef = companyData.set({
         companyname: user.companyname,
         term: 0,
+        label:'スタンダード',
         startAt: firebase.database.ServerValue.TIMESTAMP
       }).then((data) => {
 
@@ -143,6 +144,7 @@ export class OauthService {
       let newRef = companyData.set({
         companyname: displayName,
         term: 0,
+        label:'スタンダード',
         startAt: firebase.database.ServerValue.TIMESTAMP
       }).then((data) => {
         console.log('最初の会社情報登録成功')
