@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {CompanyInfoService} from "../company-info.service";
 import {OauthInfoService} from "../../oauth-info.service";
 import {Subscription} from "rxjs";
+import {Http,Headers, RequestOptions} from "@angular/http";
 
 @Component({
   selector: 'app-add-company-info',
@@ -26,7 +27,7 @@ export class AddCompanyInfoComponent implements OnInit{
   privacypolicy:boolean;
 uid:string;
 model;
-  constructor(private router:Router,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
+  constructor(private _http: Http,private router:Router,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
     this.model = {
       label: ""
     };
@@ -86,11 +87,43 @@ model;
 
    // console.log(this.myForm.value.label)
        this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
+
+//this.GWOaccess()
+
    //    //  console.log('会社詳細情報登録成功')
        }).catch((error)=>{
     });
   }
 
 
+GWOaccess(){
+   // console.log(this.model.label)
+  let price;
+  if(this.model.label=='スタンダード'){
+      price=15000;
+  }else if(this.model.label=='プレミアム'){
+    price=25000;
+  }else if(this.model.label=='エキスパート'){
+price=35000;
+  }
 
+
+
+let postUrl = '../../wp-content/themes/wp/lamp-http_server.php';
+let send_data ={
+    price: price,
+    uid: this.uid
+  };
+
+  let headers = new Headers({ 'Content-Type': 'application/json' });
+  let options = new RequestOptions({ headers: headers });
+  let trans_data = JSON.stringify(send_data);
+  this._http.post(postUrl, trans_data, options)
+    .subscribe(
+      res  => {
+
+      },
+      error => alert(error));
+
+}
 }

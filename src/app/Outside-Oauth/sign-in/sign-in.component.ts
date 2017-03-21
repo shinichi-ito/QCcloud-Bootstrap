@@ -65,8 +65,10 @@ changeTop(){
          });
         this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
 
-console.log(data.$value)
-           if (typeof data.$value=='number') {//data.$valueはterm
+//console.log(data.$value)
+            this.oauthInfoService.term=data.$value;//サインインのさいその時点のtermを保管して　プラン変更時に0なら会社情報はまだ　カード登録もまだ　1の場合は会社情報と　カード情報は登録済み　2は退会済み
+
+            if (typeof data.$value=='number') {//data.$valueはterm
               console.log("Yes")//既にcompanyDataに登録がある
               if(data.$value===1){
                 console.log("クレームリストへ");
@@ -156,7 +158,7 @@ console.log(data.$value)
 
    // firebase.database().goOnline();
     this.oauthService.loginGoogle().then((authState)=>{
-      console.log(authState.uid);
+   //   console.log(authState.uid);
       if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
         this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
           if(data){
@@ -170,6 +172,7 @@ console.log(data.$value)
         })
         this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
          //   console.log(data.$value)
+          this.oauthInfoService.term=data.$value;//サインインのさいその時点のtermを保管して　プラン変更時に0なら会社情報はまだ　カード登録もまだ　1の場合は会社情報と　カード情報は登録済み　2は退会済み
             if (typeof data.$value=='number') {//data.$valueはterm
               console.log("Yes")//既にcompanyDataに登録がある
 
@@ -281,7 +284,7 @@ console.log(data.$value)
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
       console.log(term)
-      if (term >2592000) {//期日を超えたら　会社情報登録画面へ
+      if (term >2) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
 //this.oauthInfoService.OnOff=false;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
         this.router.navigate(['/main/companyInfo/addCompanyInfo'])

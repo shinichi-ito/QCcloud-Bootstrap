@@ -7,6 +7,7 @@ import {OauthInfoService} from "./oauth-info.service";
 import {BranchOffice} from "./employee-info/add-branch-office/BranchOffice.interface";
 import {Employee} from "./employee-info/add-employee/Employee.interface";
 import {Observable} from "rxjs";
+import {InsideMainService} from "./inside-main.service";
 
 
 
@@ -91,8 +92,9 @@ key:string;//各登録情報のユニークなキー
  // syubetukey:string;//対応情報や対策情報などの各ユニークなキー
   imageInfo: FirebaseListObservable<any[]>;
 public claimitem:any;//claim-list-allで情報を選択した際　クレーム情報がはいってくる
-
-constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,private http:Http,private jsonp:Jsonp){
+constructor(private oauthInfoService:OauthInfoService,
+private af : AngularFire,private http:Http,private jsonp:Jsonp){
+ // this.companyDataList=this.insideMainService.companyDataList;
   this.date2=this.date.toISOString().split('-')[0]+'-'+this.date.toISOString().split('-')[1];
   this.flagChangeTaisaku$ = new Observable(observer =>
     this._observerTaisaku = observer).share();
@@ -198,7 +200,8 @@ this.checkTrigger(this.uid);
   fileupChangeTrigger(uid){//データアップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
     let commentsRef = firebase.database().ref('FileUpCheck/'+uid+'/'+this.date2);
     commentsRef.on('child_changed', (value)=> {
-    //  console.log(value.val())
+
+
       this.fileupList.unshift({count:value.val()})
     })
   }
@@ -211,6 +214,7 @@ this.checkTrigger(this.uid);
   dataupChangeTrigger(uid){//画像アップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
     let commentsRef = firebase.database().ref('DataUpCheck/'+uid+'/'+this.date2);
     commentsRef.on('child_changed', (value)=> {
+console.log(value.val())
       this.dataupList.unshift({count:value.val()})
     })
   }

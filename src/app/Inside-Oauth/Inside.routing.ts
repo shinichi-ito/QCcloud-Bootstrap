@@ -31,6 +31,7 @@ import {ViewTimeLineComponent} from "./claim-info/view-time-line/view-time-line.
 import {AdminComponent} from "./Admin/admin.component";
 import {ADMIN_ROUTES} from "./Admin/admin.routing";
 import {TaiakiEditComponent} from "./taiaki-edit/taiaki-edit.component";
+import {PlanChangeComponent} from "./plan-change/plan-change.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -54,6 +55,7 @@ const IN_ROUTES: Routes = [
     { path: 'viewtimeline',component:ViewTimeLineComponent},
     { path: 'admin',component:AdminComponent,children:ADMIN_ROUTES},
     { path: 'taikaiedit',component:TaiakiEditComponent},
+    { path: 'planchange',component:PlanChangeComponent},
   ]}
 
 ];

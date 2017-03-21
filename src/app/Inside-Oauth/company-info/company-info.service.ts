@@ -23,9 +23,9 @@ export class CompanyInfoService {
         riyoukiyaku:companydetail.riyoukiyaku,
         privacypolicy:companydetail.privacypolicy,
         label:companydetail.label,
-
+        planUp: firebase.database.ServerValue.TIMESTAMP,
         updateAt: firebase.database.ServerValue.TIMESTAMP,
-        term:1//1の時は　30日経過して正規の会社情報を登録した
+
       };
       this.Info = this.af.database.object('companyData/' + uid + '/companyInfo');
      return this.Info.update(companyInfo)

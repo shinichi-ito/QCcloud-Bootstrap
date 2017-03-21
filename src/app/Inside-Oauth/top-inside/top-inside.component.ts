@@ -55,7 +55,7 @@ dataupCheck:boolean;
         if(data[key].$key=='login'){
           this.login=data[key].$value;//その月のログイン回数を取得
           //console.log(this.login)
-          this.oauthInfoService.login=this.login;
+         // this.oauthInfoService.login=this.login;
         }
 
     }
@@ -77,7 +77,7 @@ dataupCheck:boolean;
         for(let key in data){
           if(data[key].$key=='dataup'){
             this.dataup=data[key].$value
-        //    this.oauthInfoService.dataup=this.dataup;
+          //  this.oauthInfoService.dataup=this.dataup;
           }
         }
 
@@ -97,7 +97,7 @@ dataupCheck:boolean;
       } else if (this.label == 'エキスパート') {
         this.companyDataList.push({login: 3072, dataup: 3072, fileup: 3072})
       }
-
+this.insideMainService.companyDataList=this.companyDataList
       if(this.login===0){//まだ一度もログインしてない状態
 //console.log('ここ')
         this.loginCheck=true;

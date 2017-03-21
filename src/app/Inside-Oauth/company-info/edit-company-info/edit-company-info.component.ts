@@ -167,7 +167,7 @@ return
         tantouname:this.tantouname,
         email:this.email,
         employee:this.employee,
-        label:this.model.label,
+      //  label:this.model.label,
         occupation:this.occupation,
         updateAt: firebase.database.ServerValue.TIMESTAMP,
       };

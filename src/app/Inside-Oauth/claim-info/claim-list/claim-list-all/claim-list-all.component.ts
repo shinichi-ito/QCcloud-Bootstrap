@@ -81,7 +81,6 @@ plusList:number;
               private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
 
-
 this.check=this.oauthInfoService.check;//既にログインしてから一度カウントをアップしたかチェック
     this.login=this.oauthInfoService.login;//その月のログインした際の一気にファイルを取得した際のサイズが入っている
 //console.log(this.login);

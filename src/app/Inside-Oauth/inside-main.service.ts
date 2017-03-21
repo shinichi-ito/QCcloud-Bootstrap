@@ -6,6 +6,7 @@ import {InsideService} from "./Inside.service";
 import {Router} from "@angular/router";
 @Injectable()
 export class InsideMainService {
+
   jyoukyouData:any[]=[];//対応や対策の　対象のFileDataの一覧が入る
   jyoukyoukey:string;//これは画像を削除したとき削除した画像の対象のキー(データベース内の)
   claimData:any;
@@ -29,7 +30,7 @@ taioukey:string;
   Info2: FirebaseObjectObservable<any[]>;
   // flagChangeDelete$: Observable<number>;
   // private _observerdelete;
-
+  companyDataList:any[]=[];
   flagChangeActive$: Observable<string>;
   private _observeractive;
 
@@ -45,10 +46,10 @@ timelineData:any;
 error:any;
 
 
-  login:boolean=true;//topinsideでぷらんの範囲内かチェックする OKはtrue,Ngはfalse
-  dataup:boolean=true;//topinsideでぷらんの範囲内かチェックする OKはtrue,Ngはfalse
-  fileup:boolean=true;//topinsideでぷらんの範囲内かチェックする OKはtrue,Ngはfalse
-  companyDataList:any[]=[];//this.companyDataList.push({login: 1024, dataup: 1024, fileup: 1024})//月に1GB＝1024MBアップできる.こんなデータが入ってる
+  login:boolean=true;//topinsideでぷらんの範囲内かチェックするOKはtrue,Ngはfalse
+  dataup:boolean=true;
+  fileup:boolean=true;
+
 
 
 
@@ -80,18 +81,32 @@ logout(){
   this.router.navigate(['/landing'])
 
 }
-  // onFileUpSuMain(uid){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
-  //   let fileupList=this.insideService.fileupList;
-  //
-  //   if(fileupList.length==0){//まだ　登録がされてないケース月初めとか
-  //  //   console.log('ない')
-  //     this.onFileupSuAdd(1,uid)
-  //   }else{
-  //   //  console.log('ある')
-  //     this.onFileupSuAdd(fileupList[0].count+1,uid)
-  //   }
-  //
-  // }
+
+
+
+
+  //////////////////////////////////////////////////////////////////
+
+checkDataUp(){//プランの限度額と現在の関連ファイルのバイト数を比較
+  let dataupList=this.insideService.dataupList;//dataupListには変更時トリガーされているので最新情報が入っている 画面偏移時チェックする
+if(this.companyDataList[0].dataup> dataupList[0].count){
+  return false;
+}else{
+  return true;
+}
+}
+
+  checkFileUp() {//プランの限度額と現在のデータのバイト数を比較
+    let fileupList = this.insideService.fileupList;//fileupListには変更時トリガーされているので最新情報が入っている　画面偏移時チェックする
+    if (this.companyDataList[0].fileup > fileupList[0].count) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+//////////////////////////////////////////////////////////////////////
+
 
   onFileUpSuMain(uid,mb){//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
     let fileupList=this.insideService.fileupList;

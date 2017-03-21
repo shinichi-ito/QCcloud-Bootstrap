@@ -109,6 +109,7 @@ import { ClaimListAllSyousaiComponent } from './claim-info/claim-list/claim-list
 import { FileListAllComponent } from './claim-info/claim-list/file-list-all/file-list-all.component';
 import {FileSelectFilterPipe} from "./claim-info/claim-list/fileSelect.pipe";
 import { ViewFileOtherComponent } from './Dialog/view-file-other/view-file-other.component';
+import { PlanChangeComponent } from './plan-change/plan-change.component';
 
 
 
@@ -224,7 +225,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     KoukaSetumeiComponent,
     ClaimListAllSyousaiComponent,
     FileListAllComponent,
-    ViewFileOtherComponent
+    ViewFileOtherComponent,
+    PlanChangeComponent
 
 
 
