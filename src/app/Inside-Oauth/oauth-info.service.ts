@@ -6,8 +6,8 @@ import * as firebase from 'firebase'
 @Injectable()
 export class OauthInfoService {
   login:number=0;//その月のログイン回数を保管してある
-  dataup:number;//その月の関連ファイルのMBが入っている
-  fileup:number;//その月のデータアップのMBが入っている
+ // dataup:number;//その月の関連ファイルのMBが入っている
+ // fileup:number;//その月のデータアップのMBが入っている
 
 
 

@@ -66,7 +66,7 @@ export class ListTaisakuComponent implements OnInit {
           }
         }
 
-      })
+      });
     this.insideService.flagChangeTaisakuDelete$.subscribe(
       flag => {
         this.key=this.insideMainService.taisakukey
@@ -85,16 +85,16 @@ export class ListTaisakuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.taisakuList=this.insideService.taisakuList
+    this.taisakuList=this.insideService.taisakuList;
     for(let key in this.taisakuList){
       if(this.claimitem.key==this.taisakuList[key].claimkey){
         this.newtaisakuList.push(this.taisakuList[key])
       }
     }
-    this.fileList=this.insideService.fileList
+    this.fileList=this.insideService.fileList;
     for(let key in this.fileList){
       //  console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対策'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='恒久対策'){
         this.newfileList.push(this.fileList[key])
       }
     }
@@ -135,7 +135,7 @@ export class ListTaisakuComponent implements OnInit {
     for(let key in this.fileList){
 
       //  console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対策'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='恒久対策'){
         this.newfileList.push(this.fileList[key])
       }
     }
@@ -183,7 +183,8 @@ if(count===0){
   console.log('ない')
 }else{
   console.log('ある')
-  this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024+this.oauthInfoService.dataup)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
+
+  this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
 
 }
 
@@ -211,14 +212,14 @@ if(count===0){
     if(!jyoukyouData[0]){
       this.InfoData.push({jyoukyoukey:this.taisakuData.key,toukousya:this.taisakuData.name,
         siten:this.taisakuData.siten,busyo:this.taisakuData.busyo,
-        claimkey:this.taisakuData.claimkey,doko:'対策',naiyou:this.taisakuData.naiyou})
+        claimkey:this.taisakuData.claimkey,doko:'恒久対策',naiyou:this.taisakuData.naiyou})
       this.insideService.InfoData=this.InfoData
 
       this.router.navigate(['/main/topclaim/addtaisaku/addimagetaisaku']);
     }else{
       this.InfoData.push({jyoukyoukey:jyoukyouData[0].jyoukyoukey,toukousya:jyoukyouData[0].toukousya,
         siten:jyoukyouData[0].siten,busyo:jyoukyouData[0].busyo,
-        claimkey:jyoukyouData[0].claimkey,doko:'対策',naiyou:taisakuData[0].naiyou})
+        claimkey:jyoukyouData[0].claimkey,doko:'恒久対策',naiyou:taisakuData[0].naiyou})
       this.insideService.InfoData=this.InfoData
 
       this.router.navigate(['/main/topclaim/addtaisaku/addimagetaisaku']);
@@ -247,6 +248,7 @@ if(count===0){
   addKouka(index){
     this.index=index;
     this.taisakuData=this.newtaisakuList[index];
+
 this.insideMainService.koukaFromTaisakudata=this.taisakuData;
     this.router.navigate(['/main/topclaim/addkouka/listkouka'])
 

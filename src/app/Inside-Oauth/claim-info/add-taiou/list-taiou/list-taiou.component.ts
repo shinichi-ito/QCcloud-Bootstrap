@@ -98,7 +98,7 @@ taiouList:any[]=[];
     this.fileList=this.insideService.fileList
     for(let key in this.fileList){
     //  console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対応'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='応急対応'){
          this.newfileList.push(this.fileList[key])
       }
     }
@@ -171,7 +171,7 @@ taiouList:any[]=[];
 
 
       //  console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='対応'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='応急対応'){
         this.newfileList.push(this.fileList[key])
       }
     }
@@ -224,10 +224,9 @@ taiouList:any[]=[];
     }else{
       console.log('ある')
 
-      this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024+this.oauthInfoService.dataup)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
-
-
-    }
+      //console.log(count/1024/1024+this.oauthInfoService.dataup)
+      this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
+      }
 
   }
 
@@ -248,7 +247,7 @@ taiouList:any[]=[];
     if(!jyoukyouData[0]){
       this.InfoData.push({jyoukyoukey:this.taiouData.key,toukousya:this.taiouData.name,
         siten:this.taiouData.siten,busyo:this.taiouData.busyo,
-        claimkey:this.taiouData.claimkey,doko:'対応',naiyou:this.taiouData.naiyou})
+        claimkey:this.taiouData.claimkey,doko:'応急対応',naiyou:this.taiouData.naiyou})
       this.insideService.InfoData=this.InfoData
       this.router.navigate(['/main/topclaim/addtaiou/addimagetaiou']);
     }else {
@@ -257,7 +256,7 @@ taiouList:any[]=[];
       this.InfoData.push({
         jyoukyoukey: jyoukyouData[0].jyoukyoukey, toukousya: jyoukyouData[0].toukousya,
         siten: jyoukyouData[0].siten, busyo: jyoukyouData[0].busyo,
-        claimkey: jyoukyouData[0].claimkey, doko: '対応', naiyou: taiouData[0].naiyou
+        claimkey: jyoukyouData[0].claimkey, doko: '応急対応', naiyou: taiouData[0].naiyou
       })
       this.insideService.InfoData = this.InfoData
 

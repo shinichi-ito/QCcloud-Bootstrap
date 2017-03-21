@@ -103,6 +103,12 @@ import { TaisakuSelectComponent } from './Dialog/taisaku-select/taisaku-select.c
 import { ClaimSelectComponent } from './Dialog/claim-select/claim-select.component';
 import { TaiakiEditComponent } from './taiaki-edit/taiaki-edit.component';
 import { TaikaiCheckComponent } from './Dialog/taikai-check/taikai-check.component';
+import { KoukaSetumeiComponent } from './Dialog/kouka-setumei/kouka-setumei.component';
+import {Data2FilterPipe} from "./claim-info/claim-list/data2-filter.pipe";
+import { ClaimListAllSyousaiComponent } from './claim-info/claim-list/claim-list-all-syousai/claim-list-all-syousai.component';
+import { FileListAllComponent } from './claim-info/claim-list/file-list-all/file-list-all.component';
+import {FileSelectFilterPipe} from "./claim-info/claim-list/fileSelect.pipe";
+import { ViewFileOtherComponent } from './Dialog/view-file-other/view-file-other.component';
 
 
 
@@ -125,6 +131,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
   MainComponent,
   ClaimListComponent,
     DataFilterPipe,
+    Data2FilterPipe,
+    FileSelectFilterPipe,
     ImageInfoComponent,
     AddImageFileDirective,
     SetImageFileComponent,
@@ -212,7 +220,11 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TaisakuSelectComponent,
     ClaimSelectComponent,
     TaiakiEditComponent,
-    TaikaiCheckComponent
+    TaikaiCheckComponent,
+    KoukaSetumeiComponent,
+    ClaimListAllSyousaiComponent,
+    FileListAllComponent,
+    ViewFileOtherComponent
 
 
 

@@ -15,10 +15,19 @@
     <div class="form-group">
   <h4>【ファイル情報】</h4>
   <h4>ファイル名:　{{file.name}}</h4>
+
   <p>サイズ:　{{file.size}}　|　タイプ:　 {{file.type}}</p>
+      <div  *ngIf="file.sizecheck" class="alert alert-danger" role="alert">ファイルサイズが大きすぎます。10MB以内です。</div>
+      <div  *ngIf="file.typecheck" class="alert alert-danger" role="alert">サポートされてないファイルです。</div>
+
+      <div *ngIf="!file.sizecheck">
+        <div *ngIf="!file.typecheck">
   <p *ngIf="flag"><button class="btn btn-primary" (click)="imageUpload(file)">アップロード</button></p>
   <div  *ngIf="flagOK" class="alert alert-success" role="alert">アップロード成功</div>
   <div  *ngIf="flagNG" class="alert alert-danger" role="alert">失敗!!時間をおいて再アップロードください</div>
-      <div  *ngIf="noSupport" class="alert alert-danger" role="alert">サポートされてないファイルです。</div>
+      <!--<div  *ngIf="noSupport" class="alert alert-danger" role="alert">サポートされてないファイルです。</div>-->
+      </div>
+      </div>
+
     </div>
 <hr>

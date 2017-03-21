@@ -6,6 +6,7 @@ import {ImageDialogComponent} from "../edit-dialog/image-dialog/image-dialog.com
 import {InsideMainService} from "../../inside-main.service";
 import {InsideService} from "../../Inside.service";
 import {SameImageComponent} from "../same-image/same-image.component";
+import {NoFileListComponent} from "../no-file-list/no-file-list.component";
 
 @Component({
   selector: 'app-view-file',
@@ -17,6 +18,7 @@ export class ViewFileComponent implements OnInit {
   @ViewChild("imageEditDialog") imageEditDialogComponent: ImageDialogComponent;
   @ViewChild("imageSameDialog") sameImageComponent: SameImageComponent;
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
+  @ViewChild("noFileListDialog") noFileListComponent: NoFileListComponent;
   @Input() fileData;//親コンポーネントから受取る属性
   @Input() onoffData;//親コンポーネントから受取る属性
   @Input() passwordData;//親コンポーネントから受取る属性
@@ -207,24 +209,54 @@ this.fileData=this.insideMainService.fileData
 
 
   getFilterFile(itemData){
+    let count=0;
     this.fileSameList=[];
     let fileSameList:any[]=[];
     let array = itemData.imageAnalysis;
     let newLine:any[]=[];
 this.newData=[]
  fileSameList=this.insideService.fileList;
+//console.log(array)
     for(let key in array) {
       for (let key2 in fileSameList) {
-        if (fileSameList[key2].imageAnalysis.indexOf(array[key]) >= 0) {
+      //  console.log(array[key])
+      //  console.log(fileSameList[key2].imageAnalysis)
+        if (typeof fileSameList[key2].imageAnalysis === "undefined") {//undefind 判定は　エクセルデータ等が登録されているとimageAnalysisがないから
+
+        }else{
+          if (fileSameList[key2].imageAnalysis.indexOf(array[key]) >= 0) {
           this.newData.push(fileSameList[key2]);
+          }
         }
-      }
+
+       }
     }
-    // 重複削除
-    let bb = this.newData.filter((x, i, self) => self.indexOf(x) === i);
+//     // 重複削除
+   let bb = this.newData.filter((x, i, self) => self.indexOf(x) === i);
     this.fileSameList=bb;
-this.sameImageComponent.openDialog();
- this.modalRef.hide()
+    for(let key in this.fileSameList){
+      count=count+this.fileSameList[key].size;
+
+    }
+//console.log(count)
+
+    if(bb.length===0){
+      this.noFileListComponent.openDialog();
+      this.modalRef.hide()
+    }else{
+
+
+      this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024);//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
+      this.sameImageComponent.openDialog();
+      this.modalRef.hide()
+
+    }
+
+
+
+
+
+
   }
 
   //ダイアログを開く

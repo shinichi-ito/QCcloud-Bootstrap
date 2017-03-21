@@ -22,7 +22,7 @@ export class ImageDetailComponent implements OnDestroy{
   flag:boolean=true;
   flagOK:boolean=false;
   flagNG:boolean=false;
-  noSupport:boolean=false;
+ // noSupport:boolean=false;
   downloadURL:string;
   imageAnalysis:any[]=[]
   key:string;
@@ -44,6 +44,9 @@ fileUrl:string;
      let typeData=this.file.type;
    //  console.log(typeData)
      let blobUrl;
+
+
+
      if (this.file.type.match(/^image\/(png|jpeg|gif)$/)){
      //  console.log(this.sanitizer.bypassSecurityTrustUrl(this.file.imageUrl))
          return this.sanitizer.bypassSecurityTrustUrl(this.file.imageUrl);
@@ -91,7 +94,7 @@ fileUrl:string;
       this.addFile(fileDetail)
     } else {
 this.flag=false;
-    this.noSupport=true;
+   // this.noSupport=true;
     return
     }
 

@@ -319,13 +319,29 @@ this.checkTrigger(this.uid);
       let koukaUp:boolean;
       let commentUp:boolean;
       let fileUp:boolean;
+      let claimUp:boolean;
       let dateChange=this.setTimeChange(this.date.getTime());
-     let taiouUpChange=this.setTimeChange(value.val().taiouUp);
-      let taisakuUpChange=this.setTimeChange(value.val().taisakuUp);
-      let geninUpChange=this.setTimeChange(value.val().geninUp);
-      let koukaUpChange=this.setTimeChange(value.val().koukaUp);
-      let commentUpChange=this.setTimeChange(value.val().commentUp);
-      let fileUpChange=this.setTimeChange(value.val().fileUp);
+     // let taiouUpChange=this.setTimeChange(value.val().taiouUp);
+     //  let taisakuUpChange=this.setTimeChange(value.val().taisakuUp);
+     //  let geninUpChange=this.setTimeChange(value.val().geninUp);
+     //  let koukaUpChange=this.setTimeChange(value.val().koukaUp);
+     //  let commentUpChange=this.setTimeChange(value.val().commentUp);
+     //  let fileUpChange=this.setTimeChange(value.val().fileUp);
+      let claimUpChange=this.setTimeChange(value.val().startAt);
+
+     // console.log(claimUpChange)
+
+        if(dateChange-claimUpChange<604800){//7日以内
+          claimUp=true;
+        }else{
+          claimUp=false;
+        }
+
+
+
+
+
+
       if(value.val().taiouUp=='start'){//startとは　クレーム情報を最初登録したときstartがtaiouUpに入るから
         taiouUp=false;
       }else{
@@ -404,7 +420,7 @@ this.checkTrigger(this.uid);
      taisaku:value.val().taisaku,genin:value.val().genin,
      kouka:value.val().kouka,comment:value.val().comment,file:value.val().file,
        taiouUp:taiouUp,taisakuUp:taisakuUp,geninUp:geninUp,
-       koukaUp:koukaUp,commentUp:commentUp,fileUp:fileUp
+       koukaUp:koukaUp,commentUp:commentUp,fileUp:fileUp,claimUp:claimUp
      })
     })
   }
@@ -412,7 +428,7 @@ this.checkTrigger(this.uid);
     let commentsRef = firebase.database().ref('ClaimData/'+uid);
     commentsRef.on('child_changed', (value)=> {
     //  console.log("claim変更"+value.val().taiou)
-
+      let claimUp:boolean;
       let taiouUp:boolean;
       let taisakuUp:boolean;
       let geninUp:boolean;
@@ -420,6 +436,16 @@ this.checkTrigger(this.uid);
       let commentUp:boolean;
       let fileUp:boolean;
       let dateChange=this.setTimeChange(this.date.getTime());
+      let claimUpChange=this.setTimeChange(value.val().startAt);
+
+      if(dateChange-claimUpChange<604800){//7日以内
+        claimUp=true;
+      }else{
+        claimUp=false;
+      }
+
+
+
 
       if(value.val().taiouUp=='start'){
         taiouUp=false;
@@ -500,7 +526,7 @@ this.checkTrigger(this.uid);
              taisaku:value.val().taisaku,genin:value.val().genin,
              kouka:value.val().kouka,comment:value.val().comment,file:value.val().file,
              taiouUp:taiouUp,taisakuUp:taisakuUp,geninUp:geninUp,
-             koukaUp:koukaUp,commentUp:commentUp,fileUp:fileUp
+             koukaUp:koukaUp,commentUp:commentUp,fileUp:fileUp,claimUp:claimUp
 
            }
          }
@@ -571,7 +597,7 @@ this.checkTrigger(this.uid);
   fileAddTrigger(uid){
     let commentsRef = firebase.database().ref('FileData/'+uid);
     commentsRef.on('child_added', (value)=> {
-      console.log("imagefile追加"+value.val().size)
+     // console.log("imagefile追加"+value.val().size)
 
       let fileUp:boolean;
       let dateChange=this.setTimeChange(this.date.getTime());

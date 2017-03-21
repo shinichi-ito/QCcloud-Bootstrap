@@ -1,0 +1,28 @@
+<div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
+        <h4 class="modal-title">対象のファイル</h4>
+
+
+      </div>
+      <div class="modal-body">
+
+        <div style="width: 200px" class="thumbnail">
+          <img style="height: 150px" src="{{fileData}}">
+          <div class="caption">
+        <a href="{{fileData}}" class="btn btn-default" role="button" target="_blank">拡大</a>
+        <a href="{{fileData}}" download  class="btn btn-default" role="button" target="_blank">ダウンロード</a>
+      </div>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>

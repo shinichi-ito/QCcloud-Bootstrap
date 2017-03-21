@@ -97,7 +97,7 @@ export class ListKoukaComponent implements OnInit {
     this.fileList=this.insideService.fileList;
     for(let key in this.fileList){
       //  console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='効果'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='効果確認'){
         this.newfileList.push(this.fileList[key])
       }
     }
@@ -144,7 +144,7 @@ export class ListKoukaComponent implements OnInit {
     for(let key in this.fileList){
 
       //  console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='効果'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='効果確認'){
         this.newfileList.push(this.fileList[key])
       }
     }
@@ -191,7 +191,7 @@ export class ListKoukaComponent implements OnInit {
 if(count===0){
 
 }else{
-  this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024+this.oauthInfoService.dataup)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
+  this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
 
 }
 
@@ -214,7 +214,7 @@ if(count===0){
     if(!jyoukyouData[0]){
       this.InfoData.push({jyoukyoukey:this.koukaData.key,toukousya:this.koukaData.name,
         siten:this.koukaData.siten,busyo:this.koukaData.busyo,
-        claimkey:this.koukaData.claimkey,doko:'効果',naiyou:this.koukaData.naiyou})
+        claimkey:this.koukaData.claimkey,doko:'効果確認',naiyou:this.koukaData.naiyou})
       this.insideService.InfoData=this.InfoData
       this.router.navigate(['/main/topclaim/addkouka/addimagekouka']);
     }else {
@@ -223,7 +223,7 @@ if(count===0){
       this.InfoData.push({
         jyoukyoukey: jyoukyouData[0].jyoukyoukey, toukousya: jyoukyouData[0].toukousya,
         siten: jyoukyouData[0].siten, busyo: jyoukyouData[0].busyo,
-        claimkey: jyoukyouData[0].claimkey, doko: '対応', naiyou: koukaData[0].naiyou
+        claimkey: jyoukyouData[0].claimkey, doko: '効果確認', naiyou: koukaData[0].naiyou
       })
       this.insideService.InfoData = this.InfoData
 
@@ -237,7 +237,9 @@ if(count===0){
   }
 
 
-
+ReturnTaisaku(){
+  this.router.navigate(['/main/topclaim/addtaisaku/listtaisaku'])
+}
 
 
 

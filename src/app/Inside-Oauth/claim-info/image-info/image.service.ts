@@ -25,7 +25,36 @@ export class ImageService {
   }
   addFile(file:File):void {//<input type=file  でファイルを選択するとfile-upload.direcitiveを通じてここに入る
     //console.log(file.name)
-    this.imagedetail.push(new ImageDetail(file.name,file.size,file.type,window.URL.createObjectURL(file),file))
+    let sizecheck:boolean;
+    let typecheck:boolean;
+    if(file.size<10 * 1024 * 1024){
+      sizecheck=false;
+    }else{
+      sizecheck=true;
+    }
+    let typeData=file.type;
+    if (file.type.match(/^image\/(png|jpeg|gif)$/)){
+      typecheck=false;
+    }else  if (typeData.match('application/pdf')) {
+       typecheck=false;
+    }else if (typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
+       typecheck=false;
+    }else if (typeData.match('application/vnd.oasis.opendocument.text')) {
+       typecheck=false;
+    }else if (typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+       typecheck=false;
+    }else if (typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+       typecheck=false;
+    } else {
+       typecheck=true;
+    }
+
+
+
+
+
+
+    this.imagedetail.push(new ImageDetail(file.name,file.size,file.type,window.URL.createObjectURL(file),file,sizecheck,typecheck));
      this._observer.next(this.imagedetail);
      this.loadImage(file)//base64:any[]=[];に名前付きの連想配列でbase64を入れる
 
@@ -111,8 +140,13 @@ test(){
   }
 
   uploadingFile2(file:File,uid:string) {
-    let storageRef = this._firebase.storage().ref('FileData/'+uid+'/'+file.name)
-    let fileUploading =  storageRef.put(file);
+    let storage = firebase.storage();
+    let Ref = storage.ref();
+    let filename= new Date().getTime()+'<>'+file.name;
+    this.insideService.filename=filename;
+    let fileUploading = Ref.child('FileData/'+uid+'/' + filename).put(file);
+    // let storageRef = this._firebase.storage().ref('FileData/'+uid+'/'+file.name)
+    // let fileUploading =  storageRef.put(file);
     this._progress$=Observable.create(observer=>{
       fileUploading.on('state_changed',
         (snapshot)=> {

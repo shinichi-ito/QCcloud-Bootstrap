@@ -97,7 +97,7 @@ export class ListGeninComponent implements OnInit {
     this.fileList=this.insideService.fileList
     for(let key in this.fileList){
        // console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='原因'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='原因分析'){
        // console.log(this.fileList[key])
         this.newfileList.push(this.fileList[key])
       }
@@ -147,7 +147,7 @@ export class ListGeninComponent implements OnInit {
     for(let key in this.fileList){
 
       //  console.log(this.fileList[key].doko)
-      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='原因'){
+      if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='原因分析'){
         this.newfileList.push(this.fileList[key])
       }
     }
@@ -194,8 +194,8 @@ export class ListGeninComponent implements OnInit {
 if(count===0){
 
 }else{
-  this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024+this.oauthInfoService.dataup)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
 
+  this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
 }
 
 //console.log(this.fileData)
@@ -217,7 +217,7 @@ if(count===0){
     if(!jyoukyouData[0]){
       this.InfoData.push({jyoukyoukey:this.geninData.key,toukousya:this.geninData.name,
         siten:this.geninData.siten,busyo:this.geninData.busyo,
-        claimkey:this.geninData.claimkey,doko:'原因',naiyou:this.geninData.naiyou})
+        claimkey:this.geninData.claimkey,doko:'原因分析',naiyou:this.geninData.naiyou})
       this.insideService.InfoData=this.InfoData
       this.router.navigate(['/main/topclaim/addgenin/addimagegenin']);
     }else {
@@ -226,7 +226,7 @@ if(count===0){
       this.InfoData.push({
         jyoukyoukey: jyoukyouData[0].jyoukyoukey, toukousya: jyoukyouData[0].toukousya,
         siten: jyoukyouData[0].siten, busyo: jyoukyouData[0].busyo,
-        claimkey: jyoukyouData[0].claimkey, doko: '対応', naiyou: geninData[0].naiyou
+        claimkey: jyoukyouData[0].claimkey, doko: '原因分析', naiyou: geninData[0].naiyou
       })
       this.insideService.InfoData = this.InfoData
 

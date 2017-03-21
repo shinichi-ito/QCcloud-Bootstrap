@@ -10,6 +10,7 @@ import {ViewFileComponent} from "../../../Dialog/view-file/view-file.component";
 import {NoFileListComponent} from "../../../Dialog/no-file-list/no-file-list.component";
 import {InsideMainService} from "../../../inside-main.service";
 import {ViewSyousaiComponent} from "../../../Dialog/view-syousai/view-syousai.component";
+import {KoukaSetumeiComponent} from "../../../Dialog/kouka-setumei/kouka-setumei.component";
 
 
 @Component({
@@ -38,7 +39,7 @@ koukakakuninTaisaku:any[]=[];
   @ViewChild("fileDialog") viewFileComponent: ViewFileComponent;
   @ViewChild("noFileListDialog") noFileListComponent: NoFileListComponent;
   @ViewChild("syousaiDialog") viewSyousaiComponent: ViewSyousaiComponent;
-
+  @ViewChild("koukaSetumeiDialog") koukaSetumeiComponent: KoukaSetumeiComponent;
   timeLineData:any[]=[];
   fileData:any[]=[];
   typeData:any;
@@ -134,7 +135,9 @@ this.topWork()
 
     })
   }
-
+Description(){
+this.koukaSetumeiComponent.openDialog();
+}
 
   topWork(){
     this.newclaimList=this.claimList;//クレーム一覧から公開になってるものを選択表示
@@ -248,16 +251,12 @@ setFile(item){
     if(jyoukyouData.length===0){
       this.noFileListComponent.openDialog();
     }else{
-
-
+      this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
       this.fileData=jyoukyouData;
       this.insideMainService.fileData=this.fileData;//ファイル一覧のダイアログで対応や対策のファイルを絞り込むために一旦　べつに保管
       this.onoffData=false;
       this.viewFileComponent.openDialog();
     }
-
-    //console.log(count/1024/1024+this.oauthInfoService.dataup)
-    this.insideMainService.onDataUpSuMain(this.uid,count/1024/1024+this.oauthInfoService.dataup)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
   }
 
 

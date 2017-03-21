@@ -19,7 +19,7 @@
     <thead>
     <tr>
       <th style="width: 7%">
-        編集
+        詳細
       </th>
       <th style="width: 10%">
         <mfDefaultSorter by="syubetu">情報種別</mfDefaultSorter>
@@ -48,7 +48,7 @@
       </th>
       <th colspan="3">
 
-        <input class="form-control" [(ngModel)]="filterQuery" placeholder="種別、対象製品、概要から検索"/>
+        <input class="form-control" [(ngModel)]="filterQuery" placeholder="種別、対象製品、情報概要から検索"/>
       </th>
     </tr>
     </thead>
@@ -57,6 +57,7 @@
       <td style="word-wrap:break-word;">
         <!--<button (click)="sendEditClaim(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　情報登録</button>-->
         <button type="button" (click)="viewSyousai(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　詳細表示</button>
+       <span *ngIf="item.claimUp" class="label label-success">New</span>
       </td>
       <td style="word-wrap:break-word;">{{item.syubetu}}</td>
       <td style="word-wrap:break-word;">{{item.seihin}}</td>
@@ -79,12 +80,12 @@
         <button *ngIf="item.taisakuUp==true"  (click)="sendEditTaisaku(item)" class="btn btn-danger btn-xs" type="button">恒久対策<span class="badge">{{item.taisaku}}</span></button>
         <button *ngIf="item.taisakuUp==false"  (click)="sendEditTaisaku(item)" class="btn btn-success btn-xs" type="button">恒久対策<span class="badge">{{item.taisaku}}</span></button>
 
-        <button *ngIf="item.koukaUp==true"   class="btn btn-danger  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
-        <button  *ngIf="item.koukaUp==false"  class="btn btn-primary  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
+        <button *ngIf="item.koukaUp==true" (click)="Description()" class="btn btn-danger  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
+        <button  *ngIf="item.koukaUp==false" (click)="Description()" class="btn btn-primary  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
 
 
-        <button  *ngIf="item.fileUp==true"  class="btn btn-danger  btn-xs" type="button">関連ファイル<span class="badge">{{item.file}}</span></button>
-        <button  *ngIf="item.fileUp==false"  class="btn btn-info  btn-xs" type="button">関連ファイル<span class="badge">{{item.file}}</span></button>
+        <button  *ngIf="item.fileUp==true"  (click)="setFile(item)" class="btn btn-danger  btn-xs" type="button">関連ファイル<span class="badge">{{item.file}}</span></button>
+        <button  *ngIf="item.fileUp==false"  (click)="setFile(item)" class="btn btn-info  btn-xs" type="button">関連ファイル<span class="badge">{{item.file}}</span></button>
 
         <button  *ngIf="item.commentUp==true" (click)="sendEditComment(item)" class="btn btn-danger  btn-xs" type="button">コメント<span class="badge">{{item.comment}}</span></button>
         <button   *ngIf="item.commentUp==false"(click)="sendEditComment(item)" class="btn btn-primary  btn-xs" type="button">コメント<span class="badge">{{item.comment}}</span></button>
@@ -99,7 +100,7 @@
           <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
             <li role="menuitem"><a class="dropdown-item" (click)="setEdit(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　編集</a></li>
             <li role="menuitem"><a class="dropdown-item" (click)="addImage(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　関連ファイル登録</a></li>
-            <li role="menuitem"><a class="dropdown-item"  (click)="setFile(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>
+            <!--<li role="menuitem"><a class="dropdown-item"  (click)="setFile(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>-->
              <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　タイムライン表示</a></li>
 
 
@@ -139,4 +140,5 @@
 <app-no-file-list #noFileListDialog></app-no-file-list>
 <!--詳細ダイアログ-->
 <app-view-syousai [claimItem]="claimItem"  #syousaiDialog></app-view-syousai>
-
+<!--効果説明ダイアログ-->
+<app-kouka-setumei #koukaSetumeiDialog></app-kouka-setumei>

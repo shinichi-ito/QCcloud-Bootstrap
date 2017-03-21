@@ -43,9 +43,14 @@ timelineData:any;
   date:Date = new Date();
   date2:any;
 error:any;
-  login:boolean=true;
-  dataup:boolean=true;
-  fileup:boolean=true;
+
+
+  login:boolean=true;//topinsideでぷらんの範囲内かチェックする OKはtrue,Ngはfalse
+  dataup:boolean=true;//topinsideでぷらんの範囲内かチェックする OKはtrue,Ngはfalse
+  fileup:boolean=true;//topinsideでぷらんの範囲内かチェックする OKはtrue,Ngはfalse
+  companyDataList:any[]=[];//this.companyDataList.push({login: 1024, dataup: 1024, fileup: 1024})//月に1GB＝1024MBアップできる.こんなデータが入ってる
+
+
 
   flagChangeError$: Observable<number>;
   private _observerError;
@@ -136,7 +141,6 @@ logout(){
     };
     this.Info2=this.af.database.object('DataUpCheck/'+uid+'/'+this.insideService.date2);
     this.Info2.set(Info).then(data=>{
-      //   console.log(data.key)
 
 
     }).catch(error=>{

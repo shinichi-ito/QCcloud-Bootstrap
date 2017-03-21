@@ -68,7 +68,7 @@ dataupCheck:boolean;
       for (let key in data) {
         if (data[key].$key == 'fileup') {
           this.fileup = data[key].$value
-          this.oauthInfoService.fileup=this.fileup;
+        //  this.oauthInfoService.fileup=this.fileup;
         }
       }
     });
@@ -77,7 +77,7 @@ dataupCheck:boolean;
         for(let key in data){
           if(data[key].$key=='dataup'){
             this.dataup=data[key].$value
-            this.oauthInfoService.dataup=this.dataup;
+        //    this.oauthInfoService.dataup=this.dataup;
           }
         }
 
