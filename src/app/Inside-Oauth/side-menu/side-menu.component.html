@@ -1,25 +1,32 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    Menu
+    情報操作
   </div>
   <!-- 敢えてbodyを作らないことで、メニューを詰める -->
   <!-- <div class="panel-body"> -->
   <ul class="nav nav-pills nav-stacked">
-    <li><a [routerLink]="['/main/topinside']" style="cursor:pointer;">トップ</a></li>
-    <li><a href=""><i class="glyphicon glyphicon-pencil"></i> 使い方説明</a></li>
-    <li><a [routerLink]="['/main/addbranchoffice']"><i class="glyphicon glyphicon-download"></i> 支店登録</a></li>
-    <li><a  [routerLink]="['/main/adddepartment']"><i class="glyphicon glyphicon-download"></i> 部署登録</a></li>
-    <li><a [routerLink]="['/main/addemployee']"><i class="glyphicon glyphicon-download"></i> メンバー登録</a></li>
-    <li><a [routerLink]="['/main/companyInfo/editcompanyinfo']"><i class="glyphicon glyphicon-folder-open"></i> 登録会社情報</a></li>
-    <li><a [routerLink]="['/main/selectedit']"><i class="glyphicon glyphicon-folder-open"></i> 情報種別編集</a></li>
-    <li><a [routerLink]="['/main/selecttaiouedit']"><i class="glyphicon glyphicon-folder-open"></i> 対応状況編集</a></li>
-    <li><a [routerLink]="['/main/selecttaisakuedit']"><i class="glyphicon glyphicon-folder-open"></i> 対策状況編集</a></li>
-    <li><a [routerLink]="['/main/planchange']"><i class="glyphicon glyphicon-folder-open"></i> プラン変更</a></li>
-    <li><a [routerLink]="['/main/taikaiedit']"><i class="glyphicon glyphicon-folder-open"></i> 退会</a></li>
+    <li><a  style="cursor:pointer;" HREF="/usage/softinfo"  TARGET="_blank"> 使い方説明</a></li>
+    <li><a [routerLink]="['/main/addbranchoffice']"><i class="fa fa-building-o" aria-hidden="true"></i> 支店登録</a></li>
+    <li><a  [routerLink]="['/main/adddepartment']"><i class="fa fa-address-book-o" aria-hidden="true"></i> 部署登録</a></li>
+    <li><a [routerLink]="['/main/addemployee']"><i class="fa fa-user-circle-o" aria-hidden="true"></i> メンバー登録</a></li>
+    <li><a [routerLink]="['/main/companyInfo/editcompanyinfo']"><i class="fa fa-info-circle" aria-hidden="true"></i> 登録会社情報</a></li>
+    <li><a [routerLink]="['/main/selectedit']"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 情報種別編集</a></li>
+    <li><a [routerLink]="['/main/selecttaiouedit']"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 対応状況編集</a></li>
+    <li><a [routerLink]="['/main/selecttaisakuedit']"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 対策状況編集</a></li>
+     </ul>
+  <!-- </div> -->
+</div>
 
 
-
-
+<div class="panel panel-default" style="margin-top: 20px">
+  <div class="panel-heading">
+    設定変更
+  </div>
+  <!-- 敢えてbodyを作らないことで、メニューを詰める -->
+  <!-- <div class="panel-body"> -->
+  <ul class="nav nav-pills nav-stacked">
+    <li><a [routerLink]="['/main/planchange']"><i class="fa fa-outdent" aria-hidden="true"></i> プラン変更</a></li>
+    <li><a [routerLink]="['/main/taikaiedit']"><i class="fa fa-sign-out" aria-hidden="true"></i> 退会</a></li>
   </ul>
   <!-- </div> -->
 </div>

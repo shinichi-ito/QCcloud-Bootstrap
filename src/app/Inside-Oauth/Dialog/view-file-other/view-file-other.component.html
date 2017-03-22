@@ -8,14 +8,33 @@
 
       </div>
       <div class="modal-body">
-
-        <div style="width: 200px" class="thumbnail">
           <img style="height: 150px" src="{{fileData}}">
           <div class="caption">
-        <a href="{{fileData}}" class="btn btn-default" role="button" target="_blank">拡大</a>
-        <a href="{{fileData}}" download  class="btn btn-default" role="button" target="_blank">ダウンロード</a>
-      </div>
-        </div>
+        <!--<a href="{{fileData}}" class="btn btn-default" role="button" target="_blank">拡大</a>-->
+        <!--<a href="{{fileData}}" download  class="btn btn-default" role="button" target="_blank">ダウンロード</a>-->
+
+            <div class="btn-group" dropdown>
+              <button style="margin-left: 10px" id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+                <i class="fa fa-list" aria-hidden="true"></i>　各種操作<span class="caret"></span>
+              </button>
+              <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a class="dropdown-item" href="{{fileData}}" target="_blank"><i class="fa fa-picture-o" aria-hidden=" true"></i>　拡大</a></li>
+                <li role="menuitem"><a class="dropdown-item"  href="{{fileData}}" download ><i class="fa fa-download" aria-hidden="true"></i>　ダウンロード</a></li>
+
+
+              </ul>
+            </div>
+
+
+
+
+
+
+
+
+
+          </div>
+
 
 
 

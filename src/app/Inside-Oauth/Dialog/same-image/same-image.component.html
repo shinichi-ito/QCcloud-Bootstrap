@@ -18,18 +18,34 @@
               <div style="width: 200px" class="thumbnail">
                 <img style="height: 150px" src="{{item?.downloadURL}}">
                 <div class="caption">
+                  <p>{{item?.doko}}</p>
                   <p>備考</p>
                   <div style=" margin: 0 auto;height:150px;width:130px;overflow:auto">
                     <p>{{item?.comment}}</p>
                   </div>
                   <p>{{item?.toukousya}}</p>
                   <p>{{item?.siten}}　{{item?.busyo}}</p>
-                  <p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>
-                    <a *ngIf="onoffData" (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>
-                    <a *ngIf="onoffData" (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>
 
 
-                  </p>
+                  <div class="btn-group" dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+                      <i class="fa fa-list" aria-hidden="true"></i>　各種操作<span class="caret"></span>
+                    </button>
+                    <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
+                      <li role="menuitem"><a class="dropdown-item" href="{{item.downloadURL}}"  target="_blank"><i class="fa fa-picture-o" aria-hidden="true"></i>　拡大</a></li>
+                     <!--<li role="menuitem"><a class="dropdown-item"  *ngIf="onoffData" (click)="setEditPassword(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>　編集</a></li>-->
+                      <!--<li role="menuitem"><a class="dropdown-item"  *ngIf="onoffData" (click)="setPassword(idx)"><i class="fa fa-trash" aria-hidden="true"></i>　削除</a></li>-->
+                   </ul>
+                  </div>
+
+
+
+                  <!--<p><a href="{{item.downloadURL}}" class="btn btn-default" role="button" target="_blank">拡大</a>-->
+                    <!--<a *ngIf="onoffData" (click)="setEditPassword(idx)" class="btn btn-default" role="button" target="_blank">編集</a>-->
+                    <!--<a *ngIf="onoffData" (click)="setPassword(idx)" class="btn btn-default" role="button" target="_blank">削除</a>-->
+
+
+                  <!--</p>-->
                 </div>
               </div>
 

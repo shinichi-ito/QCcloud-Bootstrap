@@ -1,5 +1,4 @@
 
-
 <div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -10,8 +9,8 @@
       <div class="modal-body">
 
         <h4><img src="assets/img/ajax-loader.gif">　処理中...お待ちください。</h4>
-        <!--<small><em>進歩率</em></small>-->
-        <!--<progressbar [animate]="true" [value]="Data" type="success"><b>{{Data}}%</b></progressbar>-->
+        <small><em>進歩率</em></small>
+        <progressbar [animate]="true" [value]="Data" type="success"><b>{{Data}}%</b></progressbar>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>

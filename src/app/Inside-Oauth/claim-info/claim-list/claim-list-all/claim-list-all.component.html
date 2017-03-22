@@ -56,10 +56,12 @@
     <tr *ngFor="let item of mf.data">
       <td style="word-wrap:break-word;">
         <!--<button (click)="sendEditClaim(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　情報登録</button>-->
-        <button type="button" (click)="viewSyousai(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　詳細表示</button>
-       <span *ngIf="item.claimUp" class="label label-success">New</span>
+        <button  type="button" (click)="viewSyousai(item)" class="btn btn-info"><i class="fa fa-server" aria-hidden="true"></i>　詳細表示</button>
+
       </td>
-      <td style="word-wrap:break-word;">{{item.syubetu}}</td>
+      <td style="word-wrap:break-word;">
+        <span  *ngIf="item.claimUp" class="label label-danger">New</span>
+        {{item.syubetu}}</td>
       <td style="word-wrap:break-word;">{{item.seihin}}</td>
       <td  style="word-wrap:break-word;">{{item.gaiyou}}
 
@@ -68,27 +70,27 @@
       <td>{{item.name }}&#13;{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST' }}</td>
       <td  style="word-wrap:break-word;">
 
-        <button *ngIf="item.taiouUp==true" (click)="sendEditTaiou(item)" class="btn btn-danger btn-xs" type="button">応急対応<span class="badge">{{item.taiou}}</span></button>
-        <button *ngIf="item.taiouUp==false" (click)="sendEditTaiou(item)" class="btn btn-success btn-xs" type="button">応急対応<span class="badge">{{item.taiou}}</span></button>
+        <button  *ngIf="item.taiouUp==true" (click)="sendEditTaiou(item)" class="btn btn-primary btn-xs" type="button">応急対応<span class="badge">{{item.taiou}}</span></button>
+        <button *ngIf="item.taiouUp==false" (click)="sendEditTaiou(item)" class="btn btn-info btn-xs" type="button">応急対応<span class="badge">{{item.taiou}}</span></button>
 
 
-        <button *ngIf="item.geninUp==true" (click)="sendEditGenin(item)" class="btn btn-danger  btn-xs" type="button">原因分析<span class="badge">{{item.genin}}</span></button>
-        <button  *ngIf="item.geninUp==false" (click)="sendEditGenin(item)" class="btn btn-primary  btn-xs" type="button">原因分析<span class="badge">{{item.genin}}</span></button>
+        <button *ngIf="item.geninUp==true" (click)="sendEditGenin(item)" class="btn btn-primary  btn-xs" type="button">原因分析<span class="badge">{{item.genin}}</span></button>
+        <button  *ngIf="item.geninUp==false" (click)="sendEditGenin(item)" class="btn btn-info  btn-xs" type="button">原因分析<span class="badge">{{item.genin}}</span></button>
 
 
 
-        <button *ngIf="item.taisakuUp==true"  (click)="sendEditTaisaku(item)" class="btn btn-danger btn-xs" type="button">恒久対策<span class="badge">{{item.taisaku}}</span></button>
-        <button *ngIf="item.taisakuUp==false"  (click)="sendEditTaisaku(item)" class="btn btn-success btn-xs" type="button">恒久対策<span class="badge">{{item.taisaku}}</span></button>
+        <button *ngIf="item.taisakuUp==true"  (click)="sendEditTaisaku(item)" class="btn btn-primary btn-xs" type="button">恒久対策<span class="badge">{{item.taisaku}}</span></button>
+        <button *ngIf="item.taisakuUp==false"  (click)="sendEditTaisaku(item)" class="btn btn-info btn-xs" type="button">恒久対策<span class="badge">{{item.taisaku}}</span></button>
 
-        <button *ngIf="item.koukaUp==true" (click)="Description()" class="btn btn-danger  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
-        <button  *ngIf="item.koukaUp==false" (click)="Description()" class="btn btn-primary  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
+        <button *ngIf="item.koukaUp==true" (click)="Description()" class="btn btn-primary  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
+        <button  *ngIf="item.koukaUp==false" (click)="Description()" class="btn btn-info  btn-xs" type="button">効果確認<span class="badge">{{item.kouka}}</span></button>
 
 
-        <button  *ngIf="item.fileUp==true"  (click)="setFile(item)" class="btn btn-danger  btn-xs" type="button">関連ファイル<span class="badge">{{item.file}}</span></button>
-        <button  *ngIf="item.fileUp==false"  (click)="setFile(item)" class="btn btn-info  btn-xs" type="button">関連ファイル<span class="badge">{{item.file}}</span></button>
+        <button  *ngIf="item.fileUp==true"  (click)="setFile(item)" class="btn btn-primary  btn-xs" type="button">ファイル<span class="badge">{{item.file}}</span></button>
+        <button  *ngIf="item.fileUp==false"  (click)="setFile(item)" class="btn btn-info  btn-xs" type="button">ファイル<span class="badge">{{item.file}}</span></button>
 
-        <button  *ngIf="item.commentUp==true" (click)="sendEditComment(item)" class="btn btn-danger  btn-xs" type="button">コメント<span class="badge">{{item.comment}}</span></button>
-        <button   *ngIf="item.commentUp==false"(click)="sendEditComment(item)" class="btn btn-primary  btn-xs" type="button">コメント<span class="badge">{{item.comment}}</span></button>
+        <button  *ngIf="item.commentUp==true" (click)="sendEditComment(item)" class="btn btn-primary  btn-xs" type="button">コメント<span class="badge">{{item.comment}}</span></button>
+        <button   *ngIf="item.commentUp==false"(click)="sendEditComment(item)" class="btn btn-info  btn-xs" type="button">コメント<span class="badge">{{item.comment}}</span></button>
       </td>
 
 
@@ -99,17 +101,12 @@
           </button>
           <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
             <li role="menuitem"><a class="dropdown-item" (click)="setEdit(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　編集</a></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="addImage(item)"><i class="fa fa-picture-o" aria-hidden="true"></i>　関連ファイル登録</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="addImage(item)"><i class="fa fa-plus" aria-hidden="true"></i>　関連ファイル登録</a></li>
             <!--<li role="menuitem"><a class="dropdown-item"  (click)="setFile(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>-->
-             <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　タイムライン表示</a></li>
-
-
-
-
-
-
-          </ul>
+             <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-clock-o" aria-hidden="true"></i>　タイムライン表示</a></li>
+      </ul>
         </div>
+      </td>
      </tr>
 
     </tbody>

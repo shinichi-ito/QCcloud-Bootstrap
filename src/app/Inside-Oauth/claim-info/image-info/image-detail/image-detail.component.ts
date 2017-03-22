@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnDestroy, AfterViewInit} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {ImageDetail} from "../ImageDetail";
 import {Subscription} from "rxjs";
@@ -9,6 +9,9 @@ import {InsideService} from "../../../Inside.service";
 import {AngularFire,  FirebaseObjectObservable} from "angularfire2";
 import * as firebase from 'firebase'
 import {InsideMainService} from "../../../inside-main.service";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
+import {ProgressImageDialogComponent} from "../../../Dialog/progress-image-dialog/progress-image-dialog.component";
 @Component({
   selector: 'app-image-detail',
   templateUrl: './image-detail.component.html',
@@ -17,6 +20,12 @@ import {InsideMainService} from "../../../inside-main.service";
 export class ImageDetailComponent implements OnDestroy{
   @Input() file:ImageDetail;
   @Input() fileId:number;
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssImageDialog") progressImageDialogComponent: ProgressImageDialogComponent;
+  Data:any;
+
+
   comment:string='';
   uid:string;
   flag:boolean=true;
@@ -35,6 +44,12 @@ export class ImageDetailComponent implements OnDestroy{
 fileUrl:string;
   constructor( private af : AngularFire,private insideService:InsideService,private oauthInfoService:OauthInfoService,
                private imageService:ImageService,private sanitizer: DomSanitizer,private insideMainService:InsideMainService) {
+
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    });
+
     this.uid=this.oauthInfoService.uid;
     this.claimitem=this.insideService.claimitem;
   }
@@ -101,12 +116,14 @@ this.flag=false;
   }
 
   addImage(fileDetail:FileDetail){
+    this.progressImageDialogComponent.openDialog();
     this.imageService.uploadingFile(fileDetail.file,this.uid);//storageに入れている
     this.subscription=this.imageService._progress$.subscribe(
       ( value) =>{
         if (typeof value == "number"){
-          this._progress=value;//アップロードの進歩率
-         console.log(this._progress)
+          this.Data= Math.floor(value);
+        //  this._progress=value;//アップロードの進歩率
+        // console.log(this._progress)
         }else{
 
 
@@ -135,9 +152,17 @@ this.flag=false;
             this.flagOK=true;
              this.flagNG=false;
              }).catch(error=>{
+               this.progressImageDialogComponent.closeDialog();
+               this.errorData=error.message;
+               this.errorDialogComponent.openDialog()
+
+
             }
             )
          },(error)=>{
+            this.progressImageDialogComponent.closeDialog();
+            this.errorData=error.message;
+            this.errorDialogComponent.openDialog()
         }
         )
       }
@@ -145,12 +170,14 @@ this.flag=false;
   }
 
   addFile(fileDetail:FileDetail){
+    this.progressImageDialogComponent.openDialog();
     this.imageService.uploadingFile2(fileDetail.file,this.uid);//storageに入れている
     this.subscription=this.imageService._progress$.subscribe(
       ( value) =>{
         if (typeof value == "number"){
-          this._progress=value;//アップロードの進歩率
-          console.log(this._progress)
+          this.Data= Math.floor(value);
+        //  this._progress=value;//アップロードの進歩率
+        //  console.log(this._progress)
         }else{
           this.downloadURL=value
         }
@@ -168,6 +195,10 @@ this.flag=false;
               this.flagOK=true;
               this.flagNG=false;
             }).catch(error=>{
+              this.progressImageDialogComponent.closeDialog();
+              this.errorData=error.message;
+              this.errorDialogComponent.openDialog()
+
               }
             )
 
@@ -191,10 +222,12 @@ this.flag=false;
         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.Info.update(claimInfo).then(data=>{
 
-
+this.progressImageDialogComponent.closeDialog();
 this.insideMainService.onDataUpSuMain(this.uid,fileDetail.size)
         }).catch(error=>{
-
+          this.progressImageDialogComponent.closeDialog();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
 
 
