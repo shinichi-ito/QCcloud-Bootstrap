@@ -6,6 +6,8 @@ import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
 import {InsideMainService} from "../../../inside-main.service";
 import {TaisakuSelectComponent} from "../../../Dialog/taisaku-select/taisaku-select.component";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 @Component({
   selector: 'app-input-taisaku',
   templateUrl: './input-taisaku.component.html',
@@ -13,6 +15,11 @@ import {TaisakuSelectComponent} from "../../../Dialog/taisaku-select/taisaku-sel
 })
 export class InputTaisakuComponent  {
   @ViewChild("selectTaisakuDialog") taisakuSelectComponent: TaisakuSelectComponent;
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
+
   name:string;
   siten:string;
   busyo:string;
@@ -21,7 +28,7 @@ export class InputTaisakuComponent  {
   naiyou:string;
   password:string;
   claimList:any[]=[];
-  model;
+
   claimInfo: FirebaseObjectObservable<any[]>;
   taisakuSyubetu:any[]=[];
   memberList:any[]=[];
@@ -41,15 +48,21 @@ InfoData:any[]=[];
 mb:number;
 //key:string;
   claimitem:any;
+  OnOff:boolean=true;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
+
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    })
+
+
     this.uid=this.oauthInfoService.uid;
     this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
     this.memberList=this.insideService.memberList;
    // this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;
-    this.model = {
-      label: "kari"
-    };
+
     this.myForm = this.fb.group({
       "taisakusyubetu": ['',
         Validators.required
@@ -87,7 +100,8 @@ mb:number;
   }
 
   onAdd(){
-    let time=this.dt.getTime()
+    this.progressDialogComponent.openDialog()
+    let time=this.dt.getTime();
   //  console.log(this.dt)
   //  console.log(time)
     const Info = {
@@ -98,7 +112,6 @@ mb:number;
       taisakubi:time,
       naiyou:this.naiyou,
       password:this.password,
-      koukai:this.model.label,
       claimkey:this.claimitem.key,
       koukasu:0,
       startAt: firebase.database.ServerValue.TIMESTAMP,
@@ -112,7 +125,9 @@ mb:number;
       this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
       this.insideService.InfoData=this.InfoData
     }).catch(error=>{
-
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog()
     })
   }
   addTaisakuSu(){//クレーム情報の対応数をプラス
@@ -127,9 +142,13 @@ mb:number;
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
+          this.OnOff=false;
+          this.progressDialogComponent.closeDialog();
           this.insideMainService.onFileUpSuMain(this.uid,this.mb)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
-
+          this.progressDialogComponent.closeDialog();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
       }
     }

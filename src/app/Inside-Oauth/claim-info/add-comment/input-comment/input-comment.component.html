@@ -47,20 +47,20 @@
       </div>
 
 
-      <div class="form-group">
-        <label class="control-label col-xs-3">公開しますか?</label>
-        <label class="radio-inline">
-          <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="kari">仮登録
-        </label>
-        <label class="radio-inline">
-          <input type="radio" [(ngModel)]="model.label"  formControlName="label" value="koukai">公開
-        </label>
+      <!--<div class="form-group">-->
+        <!--<label class="control-label col-xs-3">公開しますか?</label>-->
+        <!--<label class="radio-inline">-->
+          <!--<input type="radio" [(ngModel)]="model.label"  formControlName="label" value="kari">仮登録-->
+        <!--</label>-->
+        <!--<label class="radio-inline">-->
+          <!--<input type="radio" [(ngModel)]="model.label"  formControlName="label" value="koukai">公開-->
+        <!--</label>-->
 
-      </div>
+      <!--</div>-->
+      <!---->
 
-      <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
-
-
+      <button *ngIf="OnOff" [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
+      <div *ngIf="!OnOff" class="alert alert-success" role="alert">登録が成功しました。上記のコメント一覧をクリックし確認ください。</div>
 
 
 
@@ -70,4 +70,8 @@
 </form>
 
 
+<!--エラーダイアログ-->
+<app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
+<!--プログレスダイアログ-->
+<app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
 

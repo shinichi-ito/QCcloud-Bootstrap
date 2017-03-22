@@ -6,6 +6,8 @@ import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {InsideMainService} from "../../../inside-main.service";
 import {TaiouSelectComponent} from "../../../Dialog/taiou-select/taiou-select.component";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 @Component({
   selector: 'app-input-taiou',
   templateUrl: './input-taiou.component.html',
@@ -13,6 +15,12 @@ import {TaiouSelectComponent} from "../../../Dialog/taiou-select/taiou-select.co
 })
 export class InputTaiouComponent  {
   @ViewChild("selectTaiouDialog") taiouSelectComponent: TaiouSelectComponent;
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
+
+
   mb:number;
 
   name:string;
@@ -23,7 +31,7 @@ export class InputTaiouComponent  {
   naiyou:string;
   password:string;
 
-  model;
+
   claimInfo: FirebaseObjectObservable<any[]>;
   claimInfo2: FirebaseListObservable<any[]>;
   public dt: Date = new Date();
@@ -44,11 +52,15 @@ InfoData:any[]=[];
  // key:string;
   claimitem:any;
   Info2: FirebaseObjectObservable<any[]>;
-
+OnOff:boolean=true;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.fileupList=this.insideService.fileupList;//その会社のログイン回数やアップロード数をもらう
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    });
 
 
 
@@ -56,9 +68,6 @@ InfoData:any[]=[];
 
 
 
-    this.model = {
-      label: "kari"
-    };
     this.myForm = this.fb.group({
       "taiousyubetu": ['',
         Validators.required
@@ -101,8 +110,8 @@ this.claimitem=this.insideService.claimitem;
 
   onAdd(){
    // console.log(this.dt)
-
-    let time=this.dt.getTime()
+this.progressDialogComponent.openDialog();
+    let time=this.dt.getTime();
     const claimInfo = {
       syubetu:this.taiousyubetu,
       name:this.name,
@@ -111,7 +120,6 @@ this.claimitem=this.insideService.claimitem;
       taioubi:time,
       naiyou:this.naiyou,
       password:this.password,
-      koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
@@ -119,15 +127,17 @@ this.claimitem=this.insideService.claimitem;
   //  console.log(this.insideMainService.getByteLength(JSON.stringify(claimInfo)))
        this.mb=this.insideMainService.getByteLength(JSON.stringify(claimInfo));//アップするデータをメガバイトで取得
 
-    this.claimInfo2=this.af.database.list('TaiouData/'+this.uid)
+    this.claimInfo2=this.af.database.list('TaiouData/'+this.uid);
      this.claimInfo2.push(claimInfo).then(data=>{
    // //   console.log(data.key)
-       this.addTaiouSu()
+       this.addTaiouSu();
       this.InfoData.push({jyoukyoukey:data.key,toukousya:this.name,siten:this.siten,busyo:this.busyo,claimkey:this.claimitem.key,doko:'対応',naiyou:this.naiyou});
       this.insideService.InfoData=this.InfoData;
    //   // console.log(this.insideService.InfoData[0])
     }).catch(error=>{
-
+       this.progressDialogComponent.closeDialog();
+       this.errorData=error.message;
+       this.errorDialogComponent.openDialog()
      })
   }
 
@@ -145,9 +155,13 @@ this.claimitem=this.insideService.claimitem;
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
+          this.OnOff=false;
+          this.progressDialogComponent.closeDialog();
         this.insideMainService.onFileUpSuMain(this.uid,this.mb);//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
-
+          this.progressDialogComponent.closeDialog();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
       }
     }

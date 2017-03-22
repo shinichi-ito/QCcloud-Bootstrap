@@ -1,10 +1,12 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Router, ActivatedRoute} from "@angular/router";
 import {CompanyInfoService} from "../company-info.service";
 import {OauthInfoService} from "../../oauth-info.service";
 import {Subscription} from "rxjs";
 import {Http,Headers, RequestOptions} from "@angular/http";
+import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../Dialog/progress-dialog/progress-dialog.component";
 
 @Component({
   selector: 'app-add-company-info',
@@ -27,6 +29,12 @@ export class AddCompanyInfoComponent implements OnInit{
   privacypolicy:boolean;
 uid:string;
 model;
+
+@ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+   errorData:string;
+   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+   Data:string;
+
   constructor(private _http: Http,private router:Router,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
     this.model = {
       label: ""
@@ -84,14 +92,20 @@ model;
 
 
   onAdd(){
-
-   // console.log(this.myForm.value.label)
-       this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
-
+    this.Data=""
+    this.progressDialogComponent.openDialog();
+      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
+//会社情報の登録が完了したらカード登録画面へ
 //this.GWOaccess()
 
-   //    //  console.log('会社詳細情報登録成功')
-       }).catch((error)=>{
+        this.progressDialogComponent.closeDialog()
+     }).catch((error)=>{
+        this.progressDialogComponent.closeDialog();
+        this.errorData=error.message;
+        this.errorDialogComponent.openDialog();
+
+
+
     });
   }
 
@@ -121,9 +135,15 @@ let send_data ={
   this._http.post(postUrl, trans_data, options)
     .subscribe(
       res  => {
-
+this.progressDialogComponent.closeDialog();
       },
-      error => alert(error));
+      error =>{
+        this.progressDialogComponent.closeDialog();
+        this.errorData=error;
+        this.errorDialogComponent.openDialog();
+
+
+      })
 
 }
 }

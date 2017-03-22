@@ -6,6 +6,8 @@ import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "ang
 import * as firebase from 'firebase'
 import {InsideMainService} from "../../inside-main.service";
 import {ClaimSelectComponent} from "../../Dialog/claim-select/claim-select.component";
+import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../Dialog/progress-dialog/progress-dialog.component";
 
 @Component({
   selector: 'app-add-claim',
@@ -13,7 +15,10 @@ import {ClaimSelectComponent} from "../../Dialog/claim-select/claim-select.compo
   styleUrls: ['./add-claim.component.css']
 })
 export class AddClaimComponent  {
-
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+   Data:string;
 
   @ViewChild("selectClaimDialog") claimSelectComponent: ClaimSelectComponent;
   public mytime: Date = new Date();
@@ -66,25 +71,32 @@ export class AddClaimComponent  {
   fileList:any[]=[];
   count:number;
   plusList:number;
+  OnOff:boolean=true;
+  OnOff2:boolean;
+  mb:number;
   public constructor(private af : AngularFire,private insideService:InsideService,
                      private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                       private insideMainService:InsideMainService) {
 
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    });
+
+
+
     this.uid=this.oauthInfoService.uid;
-
-
-
-
-
-
-
-
-    this.check=this.oauthInfoService.check;
+   this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
-    //console.log(this.login);
+    console.log(this.check);
     if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
       this.memberList=this.insideService.memberList;
+      this.sitenList=this.insideService.sitenList;
+      this.busyoList=this.insideService.busyoList;
+      this.syubetuList=this.insideService.syubetuList;
+      this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+      this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
     }else{
 
       //ここからログインした際に一気にデータを取得してそのサイズをその月のCheckにプラスしていく
@@ -92,7 +104,6 @@ export class AddClaimComponent  {
       this.sitenList=this.insideService.sitenList;
       this.busyoList=this.insideService.busyoList;
       this.syubetuList=this.insideService.syubetuList;
-      this.taiouSyubetuList=this.insideService.taiouSyubetuList;
       this.taiouSyubetuList=this.insideService.taiouSyubetuList;
       this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
       this.claimList=this.insideService.claimList;
@@ -108,8 +119,7 @@ export class AddClaimComponent  {
         .concat(this.claimList).concat(this.taiouList).concat(this.taisakuList).concat(this.geninList).concat(this.koukaList)
         .concat(this.commentList).concat(this.fileList)));
 
-
-      this.onAddLogin(this.login+this.plusList,this.uid);
+      this.onAddLogin(this.login+this.plusList,this.uid);//その月のログイン時(一覧表示　新規登録　公開前の画面に移ったらデータをすべて取得するからそれにプラスしてそのデータを上乗せする)
       this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
     }
 
@@ -153,6 +163,7 @@ export class AddClaimComponent  {
     ];
  }
   secondAdd(){
+    this.progressDialogComponent.openDialog();
     const claimInfo = {
       syubetu:this.syubetu,
       seihin:this.seihin,
@@ -168,12 +179,18 @@ export class AddClaimComponent  {
       seihininfo:this.seihininfo,
       yosoukoutei:this.yosoukoutei,
       koukai:this.model.label
-     // updateAt: firebase.database.ServerValue.TIMESTAMP
     };
-    this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.insideService.key)
+    this.mb=this.insideMainService.getByteLength(JSON.stringify(claimInfo));//アップするデータをメガバイトで取得
+    this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.insideService.key);
     this.claimInfo2.update(claimInfo).then(data=>{
-    }).catch(error=>{
+      this.insideMainService.onFileUpSuMain(this.uid,this.mb);//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
 
+      this.OnOff2=false;
+      this.progressDialogComponent.closeDialog()
+    }).catch(error=>{
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog()
     })
  }
 
@@ -214,6 +231,7 @@ setMember(value){
 
 }
   onAdd(){
+  this.progressDialogComponent.openDialog();
     const claimInfo = {
       syubetu:this.syubetu,
       seihin:this.seihin,
@@ -236,16 +254,21 @@ setMember(value){
       file:0,
       fileUp:'start',
       startAt: firebase.database.ServerValue.TIMESTAMP,
-    //  updateAt: firebase.database.ServerValue.TIMESTAMP
     };
-
+    this.mb=this.insideMainService.getByteLength(JSON.stringify(claimInfo));//アップするデータをメガバイトで取得
     this.claimInfo=this.af.database.list('ClaimData/'+this.uid);
     this.claimInfo.push(claimInfo).then(data=>{
+      this.insideMainService.onFileUpSuMain(this.uid,this.mb);//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
+
      // console.log(data.key)
-      this.insideService.key=data.key
-
+      this.insideService.key=data.key;
+      this.OnOff=false;
+      this.OnOff2=true;
+this.progressDialogComponent.closeDialog();
     }).catch(error=>{
-
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog()
     })
 
   }

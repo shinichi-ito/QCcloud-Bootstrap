@@ -9,7 +9,7 @@ import {InsideMainService} from "../../inside-main.service";
 })
 export class NavMainComponent implements OnInit {
 
-  constructor(private insideMainService:InsideMainService) {
+  constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService) {
 
 
 
@@ -18,6 +18,7 @@ export class NavMainComponent implements OnInit {
   ngOnInit() {
   }
 logout(){
+  this.oauthInfoService.check=false;//既にログインしてから一度カウントをアップしたかチェック
    this.insideMainService.logout()
 }
 }

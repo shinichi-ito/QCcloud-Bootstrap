@@ -1,16 +1,25 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import * as firebase from 'firebase'
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
 import {InsideService} from "../../../Inside.service";
 import {InsideMainService} from "../../../inside-main.service";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 @Component({
   selector: 'app-input-genin',
   templateUrl: './input-genin.component.html',
   styleUrls: ['./input-genin.component.css']
 })
 export class InputGeninComponent {
+
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
+
+
   name:string;
   siten:string;
   busyo:string;
@@ -25,7 +34,7 @@ export class InputGeninComponent {
   private opened: boolean = false;
 
   claimInfo: FirebaseObjectObservable<any[]>;
-  model;
+
 
 //key:string;
   memberList:any[]=[];
@@ -38,12 +47,17 @@ export class InputGeninComponent {
   InfoData:any[]=[];
   claimList:any[]=[];
   mb:number;
+  OnOff:boolean=true;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.memberList=this.insideService.memberList;
-    this.model = {
-      label: "kari"
-    };
+
+
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    });
+
     this.myForm = this.fb.group({
 
       "toukousya": ['',
@@ -78,7 +92,8 @@ export class InputGeninComponent {
 
 
   onAdd(){
-    let time=this.dt.getTime()
+    this.progressDialogComponent.openDialog();
+    let time=this.dt.getTime();
     const Info = {
       name:this.name,
       siten:this.siten,
@@ -86,20 +101,21 @@ export class InputGeninComponent {
       naiyou:this.naiyou,
       password:this.password,
       kakuninbi:time,
-      koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };
 
     this.mb=this.insideMainService.getByteLength(JSON.stringify(Info));//アップするデータをメガバイトで取得
-    this.Info=this.af.database.list('GeninData/'+this.uid)
+    this.Info=this.af.database.list('GeninData/'+this.uid);
     this.Info.push(Info).then(data=>{
       this.addGeninSu()
       this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
       this.insideService.InfoData=this.InfoData
     }).catch(error=>{
-
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog()
     })
   }
   addGeninSu(){//クレーム情報の対応数をプラス
@@ -113,9 +129,13 @@ export class InputGeninComponent {
         };
         this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
         this.claimInfo.update(claimInfo).then(data=>{
+          this.OnOff=false;
+          this.progressDialogComponent.closeDialog();
           this.insideMainService.onFileUpSuMain(this.uid,this.mb)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
-
+          this.progressDialogComponent.closeDialog();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
 
 

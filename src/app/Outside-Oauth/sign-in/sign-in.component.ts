@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OauthService} from "../oauth.service";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {OauthInfoService} from "../../Inside-Oauth/oauth-info.service";
-import {InsideMainService} from "../../Inside-Oauth/inside-main.service";
-import * as firebase from 'firebase'
+import {ErrorOutDialogComponent} from "../error-out-dialog/error-out-dialog.component";
+import {ProgressOutDialogComponent} from "../progress-out-dialog/progress-out-dialog.component";
 
 @Component({
   selector: 'app-sign-in',
@@ -13,9 +13,19 @@ import * as firebase from 'firebase'
 })
 export class SignInComponent implements OnInit {
   myForm: FormGroup;
+    @ViewChild("erroroutDialog") erroroutDialogComponent: ErrorOutDialogComponent;
+   errorData:string;
+   @ViewChild("progrssoutDialog") progressoutDialogComponent: ProgressOutDialogComponent;
+
+
+
   constructor(private oauthInfoService:OauthInfoService,private router: Router,private oauthService:OauthService,private fb: FormBuilder) {
     this.oauthService.flagChange$.subscribe((error)=>{
-       console.log(this.oauthService.errorChange(error))
+    //   console.log(error)
+      this.progressoutDialogComponent.closeDialog();
+      this.errorData=error;
+      this.erroroutDialogComponent.openDialog()
+
      })
 
   }
@@ -49,9 +59,9 @@ changeTop(){
 
 
   signIn(){
- //   this.showLoading();
+   this.progressoutDialogComponent.openDialog();
     this.oauthService.signIn(this.myForm.value).then((authState)=>{
-      console.log(authState.uid);
+    //  console.log(authState.uid);
       if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
          this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
           if(data){
@@ -62,7 +72,11 @@ changeTop(){
          //   this.oauthInfoService.photoURL=data.auth.photoURL;
            this.oauthInfoService.uid = authState.uid;
           }
-         });
+         },error=>{//ユーザー情報失敗
+           this.progressoutDialogComponent.closeDialog();
+           this.errorData=error;
+           this.erroroutDialogComponent.openDialog()
+    });
         this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
 
 //console.log(data.$value)
@@ -82,7 +96,7 @@ changeTop(){
               }else if(data.$value===0){//termが0であるから　期間をチェック
                 this.startAtCheck(authState.uid)
               }else if(data.$value===2){//termが0であるから　期間をチェック
-                console.log('ここ')
+               // console.log('ここ')
                 this.router.navigate(['/taikai'])
               }
            } else {
@@ -90,72 +104,25 @@ changeTop(){
             //signupで既に登録しているから　Noになることは考えられない
            }
           },
-          (error)=>{
+          (error)=>{//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック失敗
+            //console.log('ここ2')
+            this.progressoutDialogComponent.closeDialog();
+             this.errorData=error;
+             this.erroroutDialogComponent.openDialog()
             //   this.showError(this.oauthService.errorChange(error.message))
-          }),(error)=>{
-
-        }
+          })
       }
     }).catch((error)=>{
+    // console.log('ここ')
+      this.progressoutDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.erroroutDialogComponent.openDialog()
    //   this.showError(this.oauthService.errorChange(error.message))
     })
   }
 
-  onSigninTwitter(){
-    this.oauthService.loginTwitter().then((authState)=>{
-      console.log(authState.uid);
-      if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
-        this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
-          if(data){
-            //OauthInfoServiceに共通データをいれて使いまわす
-            this.oauthInfoService.displayName=data.auth.displayName;
-            this.oauthInfoService.photoURL=data.auth.photoURL;
-            this.oauthInfoService.uid = authState.uid;
-        }
-        }),(error)=>{
 
-        };
-        this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
-            console.log(data.$value)
-            if (typeof data.$value=='number') {//data.$valueはterm
-              console.log("Yes")//既にcompanyDataに登録がある
-              if(data.$value===1){
-                console.log("クレームリストへ");
-                this.router.navigate(['/main/list'])
-
-                ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
-           //     this.insideService.addSitenSQLite()
-           //     this.insideService.addBusyoSQLite()
-           //     this.insideService.addMemberSQLite()
-             ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
-              }else{//termが0であるから　期間をチェック
-                this.startAtCheck(authState.uid)
-              }
-            } else {
-              console.log("No")//まだcompanyDataに登録がないので登録
-              this.oauthService.firstCompanyDataTwFaGo(authState.auth.displayName, authState.uid).then((data) => {
-                //  this.startAtCheck(authState.uid)
-                console.log('最初の会社情報登録成功2')
-                 console.log(data)
-                console.log("クレームリストへ");
-                this.router.navigate(['/main/list'])
-              })
-            }
-          },
-          (error)=>{
-         //   this.showError(this.oauthService.errorChange(error.message))
-          }),(error)=>{
-
-        }
-      }else{
-      //  this.showError(this.oauthService.errorChange('ログインに失敗しました。再度ログインしてださい'))
-      }
-    }).catch(error=>{
-   //   this.showError(this.oauthService.errorChange(error.message))
-    })
-  }
   onSigninGoogle(){
-
    // firebase.database().goOnline();
     this.oauthService.loginGoogle().then((authState)=>{
    //   console.log(authState.uid);
@@ -178,101 +145,55 @@ changeTop(){
 
               if(data.$value===1){
                 console.log("クレームリストへ");
-              //  this.router.navigate(['/main/editclaim/selecteditclaim'])
-             //   this.oauthInfoService.setOnOff();//これはmainからmainに移るので　observerで観察している
-               this.router.navigate(['/main/topinside'])
-
+                 this.router.navigate(['/main/topinside'])
               }else if(data.$value===0){//termが0であるから　期間をチェック
                 this.startAtCheck(authState.uid)
               }else if(data.$value===2){//termが0であるから　期間をチェック
                 this.router.navigate(['/taikai'])
               }
-
-
-
-
-
-            } else {
+        } else {
               console.log("No")//まだcompanyDataに登録がないので登録
               this.oauthService.firstCompanyDataTwFaGo(authState.auth.displayName, authState.uid).then((data) => {
                 //  this.startAtCheck(authState.uid)
-                console.log('最初の会社情報登録成功2')
-                console.log(data)
-                console.log("クレームリストへ");
+              //  console.log('最初の会社情報登録成功2')
+              //  console.log(data)
+              //  console.log("クレームリストへ");
               //  this.oauthInfoService.OnOff=true;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
+
                 this.router.navigate(['/main/topinside'])
               })
             }
           },
           (error)=>{
-            //   this.showError(this.oauthService.errorChange(error.message))
-          }),(error)=>{
+            this.progressoutDialogComponent.closeDialog();
+            this.errorData=error;
+            this.erroroutDialogComponent.openDialog()
 
-        }
+
+            //   this.showError(this.oauthService.errorChange(error.message))
+          })
       }else{
+
         //  this.showError(this.oauthService.errorChange('ログインに失敗しました。再度ログインしてださい'))
       }
     }).catch(error=>{
+      this.progressoutDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.erroroutDialogComponent.openDialog()
       //   this.showError(this.oauthService.errorChange(error.message))
     })
   }
+
+  onSigninTwitter(){
+
+  }
+
   onSigninFacebook(){
-    this.oauthService.loginFacebook().then((authState)=>{
-      console.log(authState.uid);
-      if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
-        this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
-          if(data){
-            //OauthInfoServiceに共通データをいれて使いまわす
-            this.oauthInfoService.displayName=data.auth.displayName;
-            this.oauthInfoService.photoURL=data.auth.photoURL;
-            this.oauthInfoService.uid = authState.uid;
-          }
-        }),(error)=>{
 
-        }
-        this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
-            console.log(data.$value)
-            if (typeof data.$value=='number') {//data.$valueはterm
-              console.log("Yes")//既にcompanyDataに登録がある
-              if(data.$value===1){
-                console.log("クレームリストへ");
-                this.router.navigate(['/main/list'])
-
-                ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
-                //     this.insideService.addSitenSQLite()
-                //     this.insideService.addBusyoSQLite()
-                //     this.insideService.addMemberSQLite()
-                ///////////////////////////データを前もって取得してSQLiteに登録///////////////////////////////
-              }else{//termが0であるから　期間をチェック
-                this.startAtCheck(authState.uid)
-              }
-            } else {
-              console.log("No")//まだcompanyDataに登録がないので登録
-              this.oauthService.firstCompanyDataTwFaGo(authState.auth.displayName, authState.uid).then((data) => {
-                //  this.startAtCheck(authState.uid)
-                console.log('最初の会社情報登録成功2')
-                console.log(data)
-                console.log("クレームリストへ");
-
-                this.router.navigate(['/main/list'])
-              })
-            }
-          },
-          (error)=>{
-            //   this.showError(this.oauthService.errorChange(error.message))
-          }),(error)=>{
-
-        }
-      }else{
-        //  this.showError(this.oauthService.errorChange('ログインに失敗しました。再度ログインしてださい'))
-      }
-    }).catch(error=>{
-      //   this.showError(this.oauthService.errorChange(error.message))
-    })
   }
   startAtCheck(uid:string){//termが0である//0の時は　30日経過して正規の会社情報を登録してない状態
     this.oauthService.checkStartAt(uid).subscribe((data)=>{
-      let startAt:number=this.oauthService.setTimeChange(data.$value)
+      let startAt:number=this.oauthService.setTimeChange(data.$value);
       let date = new Date() ;
       let unixTimestampmill = date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
       let unixTimestamp = this.oauthService.setTimeChange(unixTimestampmill);// 現在のUNIX時間を取得する (秒単位)
@@ -284,13 +205,14 @@ changeTop(){
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
       console.log(term)
-      if (term >2) {//期日を超えたら　会社情報登録画面へ
+      if (term >86400) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
 //this.oauthInfoService.OnOff=false;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
+       this.progressoutDialogComponent.closeDialog();
         this.router.navigate(['/main/companyInfo/addCompanyInfo'])
       }else{
         console.log("クレームリストへ");
-
+        this.progressoutDialogComponent.closeDialog();
       //  this.oauthInfoService.OnOff=true;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
         this.router.navigate(['/main/topinside'])
 
@@ -300,7 +222,9 @@ changeTop(){
 
 
     }),(error)=>{
-
+      this.progressoutDialogComponent.closeDialog();
+      this.errorData=error;
+      this.erroroutDialogComponent.openDialog();
     };
   }
 

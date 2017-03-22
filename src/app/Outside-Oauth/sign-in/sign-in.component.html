@@ -15,7 +15,7 @@
             [hidden]="!myForm.controls.email.errors.required ">
         *</span>
         <span class="text-danger"
-              [hidden]="!myForm.controls.email.errors.pattern ">Format error</span>
+              [hidden]="!myForm.controls.email.errors.pattern ">フォーマットエラー</span>
       </span></label>
         <input type="text"  class="form-control" id="mail" formControlName="email" [(ngModel)]="email" placeholder="メールアドレスを入力ください">
     </div>
@@ -81,3 +81,8 @@
   </div>
 </div>
 </div>
+
+<!--エラーダイアログ-->
+<app-error-out-dialog [errorData]="errorData"  #erroroutDialog></app-error-out-dialog>
+<!--プログレスダイアログ-->
+<app-progress-out-dialog   #progrssoutDialog></app-progress-out-dialog>

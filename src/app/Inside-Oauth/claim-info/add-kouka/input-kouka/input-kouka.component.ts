@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FirebaseObjectObservable, FirebaseListObservable, AngularFire} from "angularfire2";
-import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import * as firebase from 'firebase'
 import {InsideMainService} from "../../../inside-main.service";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 @Component({
   selector: 'app-input-kouka',
   templateUrl: './input-kouka.component.html',
   styleUrls: ['./input-kouka.component.css']
 })
 export class InputKoukaComponent  {
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
+
+
   name:string='';
   siten:string='';
   busyo:string='';
-mb:number;
-
+  mb:number;
   naiyou:string='';
   password:string='';
-
-  model;
   Info: FirebaseObjectObservable<any[]>;
   public dt: Date = new Date();
   public minDate: Date = void 0;
@@ -47,17 +51,19 @@ mb:number;
   taisakuInfo: FirebaseObjectObservable<any[]>;
   claimList:any[]=[];
   koukaFromTaisakudata:any;
+  OnOff:boolean=true;
   public constructor(private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService,
                      private insideMainService:InsideMainService) {
-
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    });
 
    this.koukaFromTaisakudata= this.insideMainService.koukaFromTaisakudata;
  //  console.log(this.koukaFromTaisakudata)
     this.claimitem=this.insideService.claimitem;
-    this.model = {
-      label: "kari"
-    };
+
 
 
     this.uid=this.oauthInfoService.uid;
@@ -74,7 +80,8 @@ mb:number;
 
 
   onAdd(){
-    let time=this.dt.getTime()
+    this.progressDialogComponent.openDialog();
+    let time=this.dt.getTime();
 
     const Info = {
       name:this.name,
@@ -92,7 +99,6 @@ mb:number;
       taisakukey:this.koukaFromTaisakudata.key,
       naiyou:this.naiyou,
       password:this.password,
-      koukai:this.model.label,
       claimkey:this.claimitem.key,
       startAt: firebase.database.ServerValue.TIMESTAMP,
      updateAt: firebase.database.ServerValue.TIMESTAMP
@@ -105,7 +111,9 @@ mb:number;
       this.insideService.InfoData=this.InfoData
 
     }).catch(error=>{
-
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog()
     })
   }
   addKoukaSu(){//クレーム情報の対応数をプラス
@@ -120,7 +128,9 @@ mb:number;
         this.claimInfo.update(claimInfo).then(data=>{
          this.addTaisakusu()
         }).catch(error=>{
-
+          this.progressDialogComponent.closeDialog();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
 
       }
@@ -140,9 +150,13 @@ mb:number;
         };
         this.taisakuInfo=this.af.database.object('TaisakuData/'+this.uid+'/'+this.koukaFromTaisakudata.key);
         this.taisakuInfo.update(Info).then(data=>{
+          this.OnOff=false;
+          this.progressDialogComponent.closeDialog();
           this.insideMainService.onFileUpSuMain(this.uid,this.mb)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
-
+          this.progressDialogComponent.closeDialog();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
 
       }

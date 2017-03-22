@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as firebase from 'firebase'
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "angularfire2";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
 import {InsideMainService} from "../../../inside-main.service";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 @Component({
   selector: 'app-input-comment',
   templateUrl: './input-comment.component.html',
   styleUrls: ['./input-comment.component.css']
 })
 export class InputCommentComponent  {
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
   name:string;
   siten:string;
   busyo:string;
   naiyou:string;
   password:string;
-  model;
+
   memberList:any[]=[];
 mb:number;
   uid:string;
@@ -27,13 +33,18 @@ mb:number;
   claimitem:any;
   InfoData:any[]=[];
   claimInfo: FirebaseObjectObservable<any[]>;
+  OnOff:boolean=true;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,
                      private insideService:InsideService) {
     this.uid=this.oauthInfoService.uid;
     this.memberList=this.insideService.memberList;
-    this.model = {
-      label: "kari"
-    };
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    });
+
+
+
     this.myForm = this.fb.group({
 
       "toukousya": ['',
@@ -59,25 +70,26 @@ mb:number;
 
 
   onAdd(){
+    this.progressDialogComponent.openDialog();
     const Info = {
       name:this.name,
       siten:this.siten,
       busyo:this.busyo,
       naiyou:this.naiyou,
       password:this.password,
-      koukai:this.model.label,
       claimkey:this.claimitem.key,
-      startAt: firebase.database.ServerValue.TIMESTAMP,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
+      startAt: firebase.database.ServerValue.TIMESTAMP
     };
     this.mb=this.insideMainService.getByteLength(JSON.stringify(Info));//アップするデータをメガバイトで取得
-    this.Info=this.af.database.list('CommentData/'+this.uid)
+    this.Info=this.af.database.list('CommentData/'+this.uid);
     this.Info.push(Info).then(data=>{
       this.addCommentSu();
-      this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,})
+      this.InfoData.push({key:data.key,name:this.name,siten:this.siten,busyo:this.busyo,});
       this.insideService.InfoData=this.InfoData
     }).catch(error=>{
-
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog()
     })
   }
   addCommentSu(){//クレーム情報の対応数をプラス
@@ -89,11 +101,15 @@ mb:number;
           comment:this.claimList[key].comment+1,
            commentUp: firebase.database.ServerValue.TIMESTAMP
         };
-        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+        this.claimInfo=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key);
         this.claimInfo.update(claimInfo).then(data=>{
+          this.OnOff=false;
+          this.progressDialogComponent.closeDialog();
          this.insideMainService.onFileUpSuMain(this.uid,this.mb)//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
         }).catch(error=>{
-
+          this.progressDialogComponent.closeDialog();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
 
       }

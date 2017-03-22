@@ -15,7 +15,7 @@
     <div class="col-md-9" >
       <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
         <div class="panel-heading">
-          <img alt="Brand" src="{{photoURL}}" class="img-circle" style="height: 40px;">
+          <img *ngIf="OnOff" alt="Brand" src="{{photoURL}}" class="img-circle" style="height: 40px;">
           <strong>{{email}}</strong>でログイン中
 
         </div>
@@ -93,3 +93,7 @@
   </div>
 
 
+<!--エラーダイアログ-->
+<app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
+<!--プログレスダイアログ-->
+<app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>

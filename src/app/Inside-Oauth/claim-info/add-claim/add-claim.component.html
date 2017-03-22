@@ -2,12 +2,13 @@
 
 <app-nav-sabu></app-nav-sabu>
 <form (ngSubmit)="onAdd()" [formGroup]="myForm">
-  <div class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 30px">
+  <div class="panel panel-default" style="width: 60%;margin: 0 auto;margin-top: 20px">
     <div class="panel-heading">
       情報概要
+
     </div>
     <div class="panel-body">
-
+      <p class="text-right text-danger">*は必須です</p>
       <div class="form-group">
         <label for="syubetu">情報種別<span *ngIf="myForm.controls.syubetu.dirty &&
                 myForm.controls.syubetu.errors||myForm.controls.syubetu.untouched &&
@@ -24,7 +25,7 @@
 
       <div class="form-group">
         <label for="other">その他</label>
-        <a id="other" class="text-danger" style="cursor: pointer"(click)="addSyubetu()">　選択ボックスに追加【選択ボックス内に該当するものがなければ追加】</a>
+        <a id="other" class="text-danger" style="cursor: pointer"(click)="addSyubetu()">　情報種別に追加【選択ボックス内に該当する種別がなければ追加】</a>
       </div>
 
 
@@ -85,7 +86,9 @@
         <input type="password" class="form-control" id="InputPassword" [(ngModel)]="password" formControlName="password" placeholder="編集用パスワード。">
       </div>
 
-     <button   [disabled]="!myForm.valid" class="btn btn-primary btn-block">管理番号取得</button>
+     <button *ngIf="OnOff"  [disabled]="!myForm.valid" class="btn btn-primary btn-block">管理番号取得</button>
+      <div *ngIf="!OnOff" class="alert alert-success" role="alert">管理番号が取得出来ました。下記に詳細を記入ください。</div>
+
    </div>
   </div>
 </form>
@@ -94,21 +97,25 @@
 
 
 
-  <div *ngIf="getKey()" class="panel panel-default" style="width: 80%;margin: 0 auto;margin-top: 20px">
+  <div *ngIf="getKey()" class="panel panel-default" style="width: 60%;margin: 0 auto;margin-top: 20px">
     <div class="panel-heading">
       情報詳細
     </div>
     <div class="panel-body">
 
+      <div class="form-group">
+        <label for="syousai">情報詳細</label>
+        <textarea type="text" class="form-control" [(ngModel)]="syousai" name="syousai" rows="3" id="syousai" placeholder="情報の詳細を入力ください。"></textarea>
+      </div>
 
   <div class="form-group">
     <label for="hasseisaki">情報元</label>
-    <input type="text" class="form-control" [(ngModel)]="moto" name="moto" id="hasseisaki" placeholder="発生先や情報の発生元を入力ください。">
+    <input type="text" class="form-control" [(ngModel)]="moto" name="moto" id="hasseisaki" placeholder="情報の発生元である顧客名等を入力ください。">
   </div>
 
   <div class="form-group">
     <label for="hasseibasyo">発生場所 工程</label>
-    <input type="text" class="form-control" [(ngModel)]="basyo" name="basyo" id="hasseibasyo" placeholder="(例)組み立て工程のライン上。出荷作業中">
+    <input type="text" class="form-control" [(ngModel)]="basyo" name="basyo" id="hasseibasyo" placeholder="(例)組み立て工程のライン上や出荷作業中">
   </div>
 
       <div class="form-group">
@@ -127,22 +134,15 @@
       <timepicker id="hasseiji" [(ngModel)]="mytime" name="mytime"></timepicker>
       </div>
 
-
-
-  <div class="form-group">
-    <label for="syousai">情報詳細</label>
-    <textarea type="text" class="form-control" [(ngModel)]="syousai" name="syousai" rows="3" id="syousai" placeholder="情報の詳細を入力ください。"></textarea>
-  </div>
-
   <div class="form-group">
     <label for="seihinInfo">製品補足情報</label>
-    <textarea type="text" class="form-control" [(ngModel)]="seihininfo" name="seihininfo"  id="seihinInfo" placeholder="対象製品の補足情報を入力ください。"></textarea>
+    <textarea type="text" class="form-control" [(ngModel)]="seihininfo" name="seihininfo"  id="seihinInfo" placeholder="(例)製造番号等　補足情報を記入欄"></textarea>
   </div>
 
 
       <div class="form-group">
         <label for="yosoukoutei">対応が必要と予想される部署 工程</label>
-        <input type="text" class="form-control" [(ngModel)]="yosoukoutei" name="yosoukoutei" id="yosoukoutei">
+        <input type="text" class="form-control" [(ngModel)]="yosoukoutei" name="yosoukoutei" id="yosoukoutei" placeholder="(例)生産ライン,梱包作業">
       </div>
 
 
@@ -163,11 +163,14 @@
       </div>
 
 
-      <button type="button" (click)="secondAdd()" class="btn btn-primary btn-block">登録</button>
-
+      <button *ngIf="OnOff2" type="button" (click)="secondAdd()" class="btn btn-primary btn-block">登録</button>
+      <div *ngIf="!OnOff2" class="alert alert-success" role="alert">登録が成功しました。</div>
     </div>
   </div>
 
-
+<!--エラーダイアログ-->
+<app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
+<!--プログレスダイアログ-->
+<app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
 <!--状況追加ダイアログ-->
 <app-claim-select #selectClaimDialog></app-claim-select>

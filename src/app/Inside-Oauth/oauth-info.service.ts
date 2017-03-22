@@ -14,7 +14,7 @@ export class OauthInfoService {
 
 public uid:string;
 public displayName:string;
-public photoURL:string;
+public photoURL:string='';
 public emailMain:string;//ここにメール入れて　shinichi-ito@lotsjoys.comを判定
 //public onoffHeader:boolean=false;
   public syubetu:any[]=[];
@@ -31,6 +31,7 @@ check:boolean=false;//これは　claimalllistでログインの回数をカウ�
   privacypolicy:boolean;
   public busyoAdd: Observable<any>;
   newsList:any[]=[];
+
  // OnOff:boolean;//これは　インサイド内でのナビゲーションの二段目を表示するかどうか。　一覧　新規登録　投稿前とかのナビ
   // private _observer;
   // flagChange$: Observable<number>;

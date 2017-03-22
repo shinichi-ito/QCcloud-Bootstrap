@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
 import {Router} from "@angular/router";
 import {AngularFire, FirebaseObjectObservable} from "angularfire2";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideService} from "../../../Inside.service";
-import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 import {CheckKoukaComponent} from "../../../Dialog/check-kouka/check-kouka.component";
 import {ViewFileComponent} from "../../../Dialog/view-file/view-file.component";
 import {NoFileListComponent} from "../../../Dialog/no-file-list/no-file-list.component";
@@ -30,8 +29,8 @@ export class ClaimListAllComponent  {
   public sortOrder = "asc";
 taisakuList:any;
 koukakakuninTaisaku:any[]=[];
-  // @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
-  // errorData:string='エラー内容'
+   @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
   // @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
   // Data:string='プログレス内容'
 
@@ -79,11 +78,19 @@ plusList:number;
 
   constructor(private insideMainService:InsideMainService,private router: Router,
               private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
-    this.uid=this.oauthInfoService.uid;
 
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+
+    });
+
+
+
+  this.uid=this.oauthInfoService.uid;
 this.check=this.oauthInfoService.check;//既にログインしてから一度カウントをアップしたかチェック
     this.login=this.oauthInfoService.login;//その月のログインした際の一気にファイルを取得した際のサイズが入っている
-//console.log(this.login);
+//console.log(this.check);
  if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
    this.claimList=this.insideService.claimList;
@@ -110,10 +117,9 @@ this.check=this.oauthInfoService.check;//既にログインしてから一度カ
      .concat(this.busyoList).concat(this.syubetuList).concat(this.taiouSyubetuList).concat(this.taisakuSyubetuList)
      .concat(this.claimList).concat(this.taiouList).concat(this.taisakuList).concat(this.geninList).concat(this.koukaList)
      .concat(this.commentList).concat(this.fileList)));
-
-
-
-   this.onAddLogin(this.login+this.plusList,this.uid);
+//console.log(this.plusList)
+//console.log(this.login)
+  this.onAddLogin(this.login+this.plusList,this.uid);//その月のログイン時(一覧表示　新規登録　公開前の画面に移ったらデータをすべて取得するからそれにプラスしてそのデータを上乗せする)
     this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
    }
 
@@ -121,16 +127,15 @@ this.check=this.oauthInfoService.check;//既にログインしてから一度カ
 this.topWork()
 
 }
-  onAddLogin(count:number,uid:string){//これはログインした際データを一気に取得するので何メガバイト取得し更に保存
+  onAddLogin(count:number,uid:string){//これはログインした際データを一気に取得するので何メガバイト取得し更に保存上乗せ
     const Info = {
       login:count
     };
     this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
     this.Info2.set(Info).then(data=>{
-      //   console.log(data.key)
-
-
     }).catch(error=>{
+      this.errorData='データ取得に失敗しました。再ログインしてください';
+      this.errorDialogComponent.openDialog();
 
     })
   }
@@ -153,7 +158,7 @@ this.koukaSetumeiComponent.openDialog();
   //  this.taisakuList=this.insideService.taisakuList;//対策リスト内に　三か月たっても効果確認がされてないものを探し出す
     this.claimitem=this.insideService.claimitem;
     this.unixTimestampmill = this.date.getTime();// 現在のUNIX時間を取得する (ミリ秒単位)
-    this.unixTimestamp = this.setTimeChange(this.unixTimestampmill)// 現在のUNIX時間を取得する (秒単位)
+    this.unixTimestamp = this.setTimeChange(this.unixTimestampmill);// 現在のUNIX時間を取得する (秒単位)
     let term:number;
 
     for(let key in this.taisakuList){//対策リスト内に　三か月たっても効果確認がされてないものを探し出す
@@ -184,19 +189,6 @@ this.koukaSetumeiComponent.openDialog();
     this.viewSyousaiComponent.openDialog();
 
   }
-  // onAdd(count:number,uid:string){//これはログインした際その月のログイン回数を数える
-  // const Info = {
-  //     login:count
-  //   };
-  //   this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
-  //   this.Info2.set(Info).then(data=>{
-  //     //   console.log(data.key)
-  //
-  //
-  //   }).catch(error=>{
-  //
-  //   })
-  // }
 
  setEdit(claimitem){
    this.insideService.claimitem=claimitem;
@@ -208,10 +200,6 @@ this.koukaSetumeiComponent.openDialog();
 
 setFile(item){
    this.getFile(item);
-//  this.viewFileComponent.openDialog();
-
-
-
 }
 
   getFile(item){

@@ -53,7 +53,7 @@ export class SelectEditClaimComponent implements OnInit {
 
     this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
-    //console.log(this.login);
+    console.log(this.check);
     if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
       this.memberList=this.insideService.memberList;
@@ -80,7 +80,7 @@ export class SelectEditClaimComponent implements OnInit {
         .concat(this.busyoList).concat(this.syubetuList).concat(this.taiouSyubetuList).concat(this.taisakuSyubetuList)
         .concat(this.claimList).concat(this.taiouList).concat(this.taisakuList).concat(this.geninList).concat(this.koukaList)
         .concat(this.commentList).concat(this.fileList)));
-      this.onAddLogin(this.login+this.plusList,this.uid);
+      this.onAddLogin(this.login+this.plusList,this.uid);//その月のログイン時(一覧表示　新規登録　公開前の画面に移ったらデータをすべて取得するからそれにプラスしてそのデータを上乗せする)
       this.oauthInfoService.check=true;//これをtrueにして　一度ログインしていることを示している
     }
 

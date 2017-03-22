@@ -29,7 +29,7 @@ export class OauthService {
       return data;
     }).catch(error => {
       console.log('ユーザー作成時のエラー' + error.message);
-      this._observer.next(error.message);
+      this._observer.next(this.errorChange(error.message));
 
     })
   }
@@ -39,11 +39,11 @@ export class OauthService {
       {email: user.email, password: user.password},
       {provider: AuthProviders.Password, method: AuthMethods.Password}
     ).then((authState) => {
-      console.log("Successful OAuth-base Login");
+    //  console.log("Successful OAuth-base Login");
       return authState;
     }).catch((error) => {
       //  console.log('サインイン時のエラー'+error.message);
-      this._observer.next(error.message);
+      this._observer.next(this.errorChange(error.message));
 
 
     });
@@ -601,6 +601,8 @@ export class OauthService {
       message = '対象のメールアドレスは既に別のアカウントで使用されています。';
     } else if (message === "Cannot read property 'dismiss' of undefined") {
       message = 'ログインに失敗しました。　再ログインください。';
+    }else if (message === "Cannot read property 'uid' of undefined") {
+      message = '対象のパスワードが間違っています';
     }
     return message;
   }

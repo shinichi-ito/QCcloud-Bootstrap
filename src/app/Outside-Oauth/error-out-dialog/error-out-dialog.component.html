@@ -1,16 +1,14 @@
-
-
 <div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
-        <h4 class="modal-title">処理中</h4>
+        <h4 class="modal-title">エラー</h4>
       </div>
       <div class="modal-body">
+        <p> {{errorData}}</p>
 
-        <h4><img src="assets/img/ajax-loader.gif">　処理中...お待ちください。</h4>
-        <p>{{Data}} </p>
+
 
       </div>
       <div class="modal-footer">

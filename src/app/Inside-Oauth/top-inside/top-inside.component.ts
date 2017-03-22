@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {InsideService} from "../Inside.service";
-import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {OauthInfoService} from "../oauth-info.service";
 import {InsideMainService} from "../inside-main.service";
-import {Router, NavigationStart, NavigationEnd} from "@angular/router";
+import {ErrorDialogComponent} from "../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../Dialog/progress-dialog/progress-dialog.component";
 
 @Component({
   selector: 'app-top-inside',
@@ -33,37 +33,45 @@ dataupCheck:boolean;
   newsList:any[]=[];
   email:string;
   photoURL:string;
-  constructor(private router:Router,private oauthInfoService:OauthInfoService,private af : AngularFire,
-              private insideMainService:InsideMainService,private insideService:InsideService){
+  OnOff:boolean;
+
+   @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+   errorData:string;
+   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+   Data:string;
+
+  constructor(private oauthInfoService:OauthInfoService,private af : AngularFire,
+              private insideMainService:InsideMainService){
     this.getNews().subscribe(data=>{
       this.newsList=data;
      this.email= this.oauthInfoService.emailMain;
      this.photoURL= this.oauthInfoService.photoURL;
-
+     if(this.photoURL==''){
+       this.OnOff=false;
+     }else{
+       this.OnOff=true;
+     }
+    },error=>{
+      this.errorData='取得に失敗しました。再ログインしてください。';
+      this.errorDialogComponent.openDialog();
     });
+   this.uid=this.oauthInfoService.uid;
 
-
-
-    this.uid=this.oauthInfoService.uid;
-    //console.log(this.uid)
-  //  this.check=this.oauthInfoService.check;
   this.insideMainService.getCheckSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
-  //  console.log(data.length)
-
-
       for(let key in data){
         if(data[key].$key=='login'){
-          this.login=data[key].$value;//その月のログイン回数を取得
-          //console.log(this.login)
-         // this.oauthInfoService.login=this.login;
+          this.login=data[key].$value;//その月のログインした際の取得データ数
         }
-
     }
+    this.oauthInfoService.login=this.login
+   },error=>{
+    this.errorData='取得に失敗しました。再ログインしてください。';
+    this.errorDialogComponent.openDialog();
 
 
-   });
+  });
 
-    this.insideMainService.getFileUpSu(this.uid).subscribe((data) => {//その月のログイン回数やファイルアップ数を取得
+    this.insideMainService.getFileUpSu(this.uid).subscribe((data) => {//その月のファイルアップのメガバイト取得
       //console.log(data)
       for (let key in data) {
         if (data[key].$key == 'fileup') {
@@ -71,8 +79,12 @@ dataupCheck:boolean;
         //  this.oauthInfoService.fileup=this.fileup;
         }
       }
+    },error=>{
+      this.errorData='取得に失敗しました。再ログインしてください。';
+      this.errorDialogComponent.openDialog();
+
     });
-      this.insideMainService.getDataUpSu(this.uid).subscribe((data) => {//その月の画像アップ数を取得
+      this.insideMainService.getDataUpSu(this.uid).subscribe((data) => {//その月の画像アップのメガバイトを取得
         //console.log(data)
         for(let key in data){
           if(data[key].$key=='dataup'){
@@ -81,7 +93,10 @@ dataupCheck:boolean;
           }
         }
 
-    });
+    },error=>{
+        this.errorData='取得に失敗しました。再ログインしてください。';
+        this.errorDialogComponent.openDialog();
+      });
 
     this.insideMainService.getCompanyInfo(this.uid).subscribe((data)=> {//これを使ってプランを取得する　ログイン回数とかファイルアップロード数を割り当てる
       for (let key in data) {
@@ -158,7 +173,13 @@ this.loginPa=Math.ceil(this.login/this.loginGenkai*100);
   //   this.insideMainService.companyDataList=this.companyDataList;
      // console.log(companyDataList[0].dataup)
 
+    },error=>{
+      this.errorData='取得に失敗しました。再ログインしてください。';
+      this.errorDialogComponent.openDialog();
+
+
     });
+
 
 
     // if(this.oauthInfoService.newsList.length===0){

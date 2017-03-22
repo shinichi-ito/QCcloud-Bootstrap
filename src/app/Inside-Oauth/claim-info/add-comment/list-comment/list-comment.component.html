@@ -22,7 +22,9 @@
         </thead>
         <tbody>
         <tr *ngFor="let item of newcommentList let idx = index;">
-          <td>{{idx+1}}</td>
+          <td>
+            <span *ngIf="item.commentUp==true" class="label label-success">New</span>
+            {{idx+1}}</td>
           <td>{{item.name}}　　所属:　{{item.siten}}　{{item.busyo}}<br>
             登録日:　{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}
             <hr>
