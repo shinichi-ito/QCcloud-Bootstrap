@@ -681,7 +681,7 @@ console.log(value.val())
         }
     // console.log("taiou追加"+value.val().claimkey)
        this.taiouList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
-         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
+         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,taioubi:value.val().taioubi,
          password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taiouUp:taiouUp})
     })
   }
@@ -706,7 +706,7 @@ console.log(value.val())
         if(this.taiouList[index].key==value.key){
           this._observerTaiou.next(this.taiouList);
            this.taiouList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
-             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,taioubi:value.val().taioubi,
+             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,taioubi:value.val().taioubi,
              password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taiouUp:taiouUp}
          }
        }
@@ -748,7 +748,7 @@ console.log(value.val())
 
       this.taisakuList.push({claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
         siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
-        koukai:value.val().koukai,koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
+        koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taisakuUp:taisakuUp})
     })
 
@@ -773,7 +773,7 @@ console.log(value.val())
           this._observerTaisaku.next(this.taisakuList);
           this.taisakuList[index]={claimkey:value.val().claimkey,key:value.key,syubetu:value.val().syubetu,name:value.val().name,
             siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
-            koukai:value.val().koukai,koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
+            koukasu:value.val().koukasu,taisakubi:value.val().taisakubi,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,taisakuUp:taisakuUp}
         }
       }
@@ -811,7 +811,7 @@ console.log(value.val())
 
 
       this.geninList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
-        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,kakuninbi:value.val().kakuninbi,
+        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,kakuninbi:value.val().kakuninbi,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,geninUp:geninUp})
     })
   }
@@ -834,7 +834,7 @@ console.log(value.val())
         if(this.geninList[index].key==value.key){
           this._observerGenin.next(this.geninList);
           this.geninList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
-            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,kakuninbi:value.val().kakuninbi,
+            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,kakuninbi:value.val().kakuninbi,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,geninUp:geninUp}
         }
       }
@@ -873,7 +873,7 @@ console.log(value.val())
         siten:value.val().siten,busyo:value.val().busyo,aa:value.val().aa,bb:value.val().bb,cc:value.val().cc,dd:value.val().dd,
         aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
         taisakukey:value.val().taisakukey,kakuninbi:value.val().kakuninbi,
-        naiyou:value.val().naiyou,koukai:value.val().koukai,
+        naiyou:value.val().naiyou,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,koukaUp:koukaUp})
     })
   }
@@ -899,7 +899,7 @@ console.log(value.val())
             cc:value.val().cc,dd:value.val().dd,
             aanaiyou:value.val().aanaiyou,bbnaiyou:value.val().bbnaiyou,ccnaiyou:value.val().ccnaiyou,ddnaiyou:value.val().ddnaiyou,
             taisakukey:value.val().taisakukey,kakuninbi:value.val().kakuninbi,
-            naiyou:value.val().naiyou,koukai:value.val().koukai,
+            naiyou:value.val().naiyou,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,koukaUp:koukaUp}
         }
       }
@@ -933,7 +933,7 @@ console.log(value.val())
       }
 
       this.commentList.push({claimkey:value.val().claimkey,key:value.key,name:value.val().name,
-        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+        siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
         password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,commentUp:commentUp})
     })
   }
@@ -957,7 +957,7 @@ console.log(value.val())
         if(this.commentList[index].key==value.key){
           this._observerComment.next(this.commentList);
           this.commentList[index]={claimkey:value.val().claimkey,key:value.key,name:value.val().name,
-            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,koukai:value.val().koukai,
+            siten:value.val().siten,busyo:value.val().busyo,naiyou:value.val().naiyou,
             password:value.val().password,startAt:value.val().startAt,updateAt:value.val().updateAt,commentUp:commentUp}
         }
       }

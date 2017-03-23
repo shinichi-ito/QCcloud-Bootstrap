@@ -248,7 +248,7 @@ if(count===0){
   addKouka(index){
     this.index=index;
     this.taisakuData=this.newtaisakuList[index];
-
+//console.log(this.taisakuData)
 this.insideMainService.koukaFromTaisakudata=this.taisakuData;
     this.router.navigate(['/main/topclaim/addkouka/listkouka'])
 

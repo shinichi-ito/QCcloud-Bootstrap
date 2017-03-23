@@ -1,18 +1,39 @@
+
+<div class="panel panel-default" style="width: 100%;margin: 0 auto;">
+  <div class="panel-heading">
+    データ操作
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="download">CSVダウンロード</label>
+      <button id="download" (click)="Download()" class="btn btn-primary btn-block">ダウンロード</button>
+  </div>
+ </div>
+</div>
+
+
+
 <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
   <div class="panel-heading">
     登録会社一覧
   </div>
   <div class="panel-body">
-    <div class="form-group">
+ <div class="form-group">
       <table class="table table-striped">
         <thead>
 
         <tr>
           <th></th>
-          <th  style="width: 40%">
+          <th  style="width: 25%">
             会社名
           </th>
-          <th  style="width: 40%">
+          <th  style="width: 10%">
+            プラン
+          </th>
+          <th  style="width: 10%">
+            term
+          </th>
+          <th  style="width: 30%">
             uid
           </th>
           <th  style="width: 20%">
@@ -28,6 +49,9 @@
         <tr *ngFor="let item of companyList|orderby:'startAt'; let idx = index;">
           <td>{{idx+1}}</td>
           <td style="word-wrap:break-word;">{{item.companyname}}</td>
+          <td style="word-wrap:break-word;">{{item.label}}</td>
+          <td style="word-wrap:break-word;">{{item.term}}</td>
+
           <td style="word-wrap:break-word;">{{item.key}}</td>
 
 

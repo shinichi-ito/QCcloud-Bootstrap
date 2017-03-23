@@ -363,6 +363,11 @@ this.editImageTime(uid)
     str = (str==null)?"":str;
     return encodeURI(str).replace(/%../g, "*").length/1024/1024;
   }
+
+
+
+
+
   download(data){//CSVをダウンロード
     var csvData = this.ConvertToCSV(data);
     var a = document.createElement("a");
@@ -371,7 +376,7 @@ this.editImageTime(uid)
     var blob = new Blob([csvData], { type: 'text/csv' });
     var url= window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = 'SampleExport.csv';
+    a.download = 'GMO.csv';
     a.click();
   }
 

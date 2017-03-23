@@ -25,7 +25,7 @@ export class CompanyInfoService {
         label:companydetail.label,
         planUp: firebase.database.ServerValue.TIMESTAMP,
         updateAt: firebase.database.ServerValue.TIMESTAMP,
-
+         term:1
       };
       this.Info = this.af.database.object('companyData/' + uid + '/companyInfo');
      return this.Info.update(companyInfo)

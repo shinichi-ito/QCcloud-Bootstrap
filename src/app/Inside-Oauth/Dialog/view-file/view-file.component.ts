@@ -37,8 +37,8 @@ export class ViewFileComponent implements OnInit {
 
   ngOnInit() {
     this.syubetus = [
-      {value: '0', label: '対応関連'},
-      {value: '1', label: '対策関連'},
+      {value: '0', label: '応急対応関連'},
+      {value: '1', label: '恒久対策関連'},
       {value: '2', label: '原因分析関連'},
       {value: '3', label: '効果確認関連'},
       {value: '4', label: '情報関連'},
@@ -48,12 +48,12 @@ export class ViewFileComponent implements OnInit {
 
   }
   setChange(value){
-    if(value=='対応関連'){
+    if(value=='応急対応関連'){
       ///////////////////////////
       this.newfileData=this.insideMainService.fileData
       let jyoukyouData:any[]=[];
       for(let key in this.newfileData) {
-        if (this.newfileData[key].doko == '対応') {
+        if (this.newfileData[key].doko == '応急対応') {
           this.typeData = this.newfileData[key].type;
           if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
             this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
@@ -76,12 +76,12 @@ export class ViewFileComponent implements OnInit {
       }
       this.fileData=jyoukyouData
       ///////////////////////////
-    }else if(value=='対策関連'){
+    }else if(value=='恒久対策関連'){
       ///////////////////////////
       this.newfileData=this.insideMainService.fileData
       let jyoukyouData:any[]=[];
       for(let key in this.newfileData) {
-        if (this.newfileData[key].doko == '対策') {
+        if (this.newfileData[key].doko == '恒久対策') {
           this.typeData = this.newfileData[key].type;
           if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
             this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
@@ -110,7 +110,7 @@ export class ViewFileComponent implements OnInit {
       this.newfileData=this.insideMainService.fileData
       let jyoukyouData:any[]=[];
       for(let key in this.newfileData) {
-        if (this.newfileData[key].doko == '原因') {
+        if (this.newfileData[key].doko == '原因分析') {
           this.typeData = this.newfileData[key].type;
           if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
             this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
@@ -139,7 +139,7 @@ export class ViewFileComponent implements OnInit {
       this.newfileData=this.insideMainService.fileData
       let jyoukyouData:any[]=[];
       for(let key in this.newfileData) {
-        if (this.newfileData[key].doko == '効果') {
+        if (this.newfileData[key].doko == '効果確認') {
           this.typeData = this.newfileData[key].type;
           if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
             this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;
@@ -168,7 +168,7 @@ export class ViewFileComponent implements OnInit {
       this.newfileData=this.insideMainService.fileData
       let jyoukyouData:any[]=[];
       for(let key in this.newfileData) {
-        if (this.newfileData[key].doko == 'クレーム') {
+        if (this.newfileData[key].doko == '元情報') {
           this.typeData = this.newfileData[key].type;
           if (this.typeData.match(/^image\/(png|jpeg|gif)$/)) {
             this.newfileData[key]["downloadURL2"] = this.newfileData[key].downloadURL;

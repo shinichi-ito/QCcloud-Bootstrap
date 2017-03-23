@@ -97,7 +97,7 @@ model;
       this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
 //会社情報の登録が完了したらカード登録画面へ
 //this.GWOaccess()
-
+        this.router.navigate(['/main/topinside'])
         this.progressDialogComponent.closeDialog()
      }).catch((error)=>{
         this.progressDialogComponent.closeDialog();

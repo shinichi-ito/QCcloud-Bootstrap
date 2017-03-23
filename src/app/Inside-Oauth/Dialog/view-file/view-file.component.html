@@ -22,7 +22,11 @@
 
             <li  *ngFor="let item of fileData let idx = index;">
               <div style="width: 200px" class="thumbnail">
-                <img style="height: 150px" src="{{item?.downloadURL2}}">
+
+                <!--参考サイト　http://taneppa.net/css3_01/-->
+                <p class="img01 waku01"><img style="height: 150px" src="{{item?.downloadURL2}}"></p>
+
+
                 <div class="caption">
 
                   <p>{{item?.doko}}</p>
@@ -42,7 +46,7 @@
                   <!--</p>-->
 
 
-                  <div class="btn-group" dropdown>
+                  <div  class="btn-group" dropdown>
                     <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
                       <i class="fa fa-list" aria-hidden="true"></i>　各種操作<span class="caret"></span>
                     </button>

@@ -1,0 +1,61 @@
+<div class="modal fade" bsModal #lgModal="bs-modal" id="sampleModal" tabindex="-1">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
+        <h4 class="modal-title">元各種情報</h4>
+      </div>
+
+      <div style=" margin: 0 auto;height:500px;width:520px;overflow:auto">
+        <div class="modal-body">
+
+
+          <div class="form-group">
+            <label for="gaiyou">状況</label>
+            <input type="text" class="form-control" id="gaiyou" value="{{taisakuData?.syubetu}}" >
+          </div>
+
+
+
+          <div class="form-group">
+            <label for="syousai">恒久対策内容</label>
+            <textarea type="text" class="form-control" id="syousai" value="{{taisakuData?.naiyou}}" rows="4"></textarea>
+          </div>
+
+
+
+
+
+          <div class="form-group">
+            <label for="hasseibi">対策日</label>
+            <input type="text" id="hasseibi" class="form-control"  placeholder="発生日入力" value="{{taisakuData?.taisakubi | date:'yyyy/MM/dd'}}">
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="name">投稿者</label>
+            <input type="text" class="form-control" id="name"   name="name" value="{{taisakuData?.name}}" placeholder="投稿者名を入力して下さい。">
+          </div>
+
+          <div class="form-group">
+            <label for="siten">支店名</label>
+            <input type="text" class="form-control" id="siten"   name="siten" value="{{taisakuData?.siten}}" placeholder="支店名を入力して下さい。">
+          </div>
+
+          <div class="form-group">
+            <label for="busyo">部署名</label>
+            <input type="text" class="form-control" id="busyo"   name="busyo" value="{{taisakuData?.busyo}}" placeholder="部署名を入力して下さい。">
+          </div>
+
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+

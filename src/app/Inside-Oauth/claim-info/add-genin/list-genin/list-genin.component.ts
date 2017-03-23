@@ -88,13 +88,13 @@ export class ListGeninComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.geninList=this.insideService.geninList
+    this.geninList=this.insideService.geninList;
     for(let key in this.geninList){
       if(this.claimitem.key==this.geninList[key].claimkey){
          this.newgeninList.push(this.geninList[key])
       }
     }
-    this.fileList=this.insideService.fileList
+    this.fileList=this.insideService.fileList;
     for(let key in this.fileList){
        // console.log(this.fileList[key].doko)
       if(this.claimitem.key==this.fileList[key].claimkey&&this.fileList[key].doko=='原因分析'){

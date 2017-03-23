@@ -29,8 +29,9 @@
         <tbody>
         <tr *ngFor="let item of newtaiouList let idx = index;">
           <td>
-            <span *ngIf="item.taiouUp==true" class="label label-success">New</span>
-            {{idx+1}}
+
+            {{idx+1}}<br>
+            <span *ngIf="item.taiouUp==true" class="label label-danger">New</span>
 
           </td>
           <td style="word-wrap:break-word;">{{item.syubetu}}<br>更新日:　{{item.updateAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}</td>

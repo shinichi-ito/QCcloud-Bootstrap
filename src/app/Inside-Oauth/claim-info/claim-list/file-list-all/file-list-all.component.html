@@ -14,7 +14,7 @@
 
         <tr>
           <th></th>
-          <th style="width:40%">
+          <th style="width:35%">
             関連ファイル情報
           </th>
           <th style="width: 15%">
@@ -46,7 +46,24 @@
           <td style="word-wrap:break-word;">{{item.toukousya }}&#13;{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST' }}</td>
 
           <td>
-            <button type="button" class="btn btn-primary " (click)="setFile(item)"><i class="fa fa-eye" aria-hidden="true"></i>　表示</button>
+            <!--<button type="button" class="btn btn-primary " (click)="setFile(item)"><i class="fa fa-eye" aria-hidden="true"></i>　表示</button>-->
+            <div class="btn-group" dropdown>
+              <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+                <i class="fa fa-list" aria-hidden="true"></i>　各種操作<span class="caret"></span>
+              </button>
+              <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
+
+                <li role="menuitem"><a class="dropdown-item"  (click)="setFile(item)"><i class="fa fa-eye" aria-hidden="true"></i>　表示</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="setMoto(item)"><i class="fa fa-file" aria-hidden="true"></i>　元情報</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="setMotoTaisaku(item)"><i class="fa fa-file-o" aria-hidden="true"></i>　元各種情報</a></li>
+
+
+              </ul>
+            </div>
+
+
+
+
 
           </td>
         </tr>
@@ -61,3 +78,10 @@
 
 <!--ファイル一覧ダイアログ-->
 <app-view-file-other [fileData]="fileData"  #fileOtherDialog></app-view-file-other>
+
+<!--詳細ダイアログ-->
+<app-view-syousai [claimItem]="claimItem"  #syousaiDialog></app-view-syousai>
+
+
+<!--各種表示-->
+<app-taisaku-view-dialog [taisakuData]="taisakuData" #taisakuviewDialog></app-taisaku-view-dialog>

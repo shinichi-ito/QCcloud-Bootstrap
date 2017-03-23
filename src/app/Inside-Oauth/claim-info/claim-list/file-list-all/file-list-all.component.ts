@@ -4,6 +4,9 @@ import {ViewFileComponent} from "../../../Dialog/view-file/view-file.component";
 import {ViewFileOtherComponent} from "../../../Dialog/view-file-other/view-file-other.component";
 import {OauthInfoService} from "../../../oauth-info.service";
 import {InsideMainService} from "../../../inside-main.service";
+import {ViewSyousaiComponent} from "../../../Dialog/view-syousai/view-syousai.component";
+import {NoFileListComponent} from "../../../Dialog/no-file-list/no-file-list.component";
+import {TaisakuViewDialogComponent} from "../../../Dialog/taisaku-view-dialog/taisaku-view-dialog.component";
 
 @Component({
   selector: 'app-file-list-all',
@@ -13,19 +16,45 @@ import {InsideMainService} from "../../../inside-main.service";
 export class FileListAllComponent implements OnInit {
   @ViewChild("fileOtherDialog") viewFileOtherComponent: ViewFileOtherComponent;
 fileList:any[]=[];
+claimList:any[]=[];
 data:any;
   fileData:any;
   typeData:any;
   onoffData:boolean;
   uid:string;
+  @ViewChild("syousaiDialog") viewSyousaiComponent: ViewSyousaiComponent;
+  @ViewChild("fileDialog") viewFileComponent: ViewFileComponent;
+  @ViewChild("taisakuviewDialog") taisakuViewDialogComponent: TaisakuViewDialogComponent;
+  claimItem:any;
+taisakuData:any;
+  // taisakuList:any[]=[];
+  // geninList:any[]=[];
+  // koukaList:any[]=[];
+
   constructor(private oauthInfoService:OauthInfoService,private insideService:InsideService,private insideMainService:InsideMainService) {
     this.data=this.insideService.fileList;
 this.uid=this.oauthInfoService.uid;
-
+    this.claimList=this.insideService.claimList;
   }
 
   ngOnInit() {
   }
+
+  setMoto(item){
+    let claimItem;
+    for(let key in this.claimList){
+      if(item.claimkey==this.claimList[key].key){
+        //   console.log(item.claimkey)
+        //   console.log(this.claimList[key])
+        claimItem=this.claimList[key];
+      }
+    }
+    this.claimItem=claimItem;
+    this.viewSyousaiComponent.openDialog();
+
+  }
+
+
   setFile(item){
     this.getFile(item);
 //  this.viewFileComponent.openDialog();
@@ -64,4 +93,36 @@ this.uid=this.oauthInfoService.uid;
 
    this.insideMainService.onDataUpSuMain(this.uid,item.size/1024/1024)//画像を取得する際そのMBを合計してその月にどれくらいダウンロードしてるか加算
   }
+
+  setMotoTaisaku(item){
+   // console.log(item.doko)
+    let kakusyuList:any;
+    let kakusyuData:any;
+    if(item.doko=='応急対応'){
+      kakusyuList=this.insideService.taiouList
+    }else  if(item.doko=='恒久対策'){
+      kakusyuList=this.insideService.taisakuList
+    }else  if(item.doko=='効果確認'){
+      kakusyuList=this.insideService.koukaList
+    }else  if(item.doko=='原因分析'){
+      kakusyuList=this.insideService.geninList
+    }else  if(item.doko=='元情報'){
+     kakusyuList=this.claimList
+    }
+for(let key in kakusyuList){
+      if(item.jyoukyoukey==kakusyuList[key].key){
+       // console.log(kakusyuList[key])
+        kakusyuData=kakusyuList[key]
+      }
+
+
+}
+this.taisakuData=kakusyuData;
+this.taisakuViewDialogComponent.openDialog();
+
+
+
+  }
+
+
 }

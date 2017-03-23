@@ -111,6 +111,10 @@ import {FileSelectFilterPipe} from "./claim-info/claim-list/fileSelect.pipe";
 import { ViewFileOtherComponent } from './Dialog/view-file-other/view-file-other.component';
 import { PlanChangeComponent } from './plan-change/plan-change.component';
 import { ProgressImageDialogComponent } from './Dialog/progress-image-dialog/progress-image-dialog.component';
+import { TaisakuViewDialogComponent } from './Dialog/taisaku-view-dialog/taisaku-view-dialog.component';
+import {TaiouFilterPipe} from "./claim-info/claim-list/taiouListFilter.pipe";
+import {KoukaFilterPipe} from "./claim-info/claim-list/koukaListFilter.pipe";
+import {GeninFilterPipe} from "./claim-info/claim-list/geninListFilter.pipe";
 
 
 
@@ -134,7 +138,10 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
   ClaimListComponent,
     DataFilterPipe,
     Data2FilterPipe,
+    TaiouFilterPipe,
+    KoukaFilterPipe,
     FileSelectFilterPipe,
+    GeninFilterPipe,
     ImageInfoComponent,
     AddImageFileDirective,
     SetImageFileComponent,
@@ -228,7 +235,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     FileListAllComponent,
     ViewFileOtherComponent,
     PlanChangeComponent,
-    ProgressImageDialogComponent
+    ProgressImageDialogComponent,
+    TaisakuViewDialogComponent
 
 
 

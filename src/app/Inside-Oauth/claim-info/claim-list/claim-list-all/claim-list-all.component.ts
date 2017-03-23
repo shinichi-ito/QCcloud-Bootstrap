@@ -252,9 +252,11 @@ setFile(item){
     this.InfoData.push({
       toukousya: index.name,
        siten: index.siten, busyo: index.busyo,
-       claimkey: index.key, doko: 'クレーム', naiyou: index.gaiyou,jyoukyoukey:index.key
+       claimkey: index.key,
+      doko: '元情報',
+      naiyou: index.gaiyou,jyoukyoukey:index.key
      })
-     this.insideService.InfoData = this.InfoData
+     this.insideService.InfoData = this.InfoData;
 
 
     this.router.navigate(['/main/editclaimmain/addimageclaim']);

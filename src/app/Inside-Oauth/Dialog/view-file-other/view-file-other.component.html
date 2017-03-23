@@ -8,13 +8,16 @@
 
       </div>
       <div class="modal-body">
-          <img style="height: 150px" src="{{fileData}}">
-          <div class="caption">
-        <!--<a href="{{fileData}}" class="btn btn-default" role="button" target="_blank">拡大</a>-->
-        <!--<a href="{{fileData}}" download  class="btn btn-default" role="button" target="_blank">ダウンロード</a>-->
 
-            <div class="btn-group" dropdown>
-              <button style="margin-left: 10px" id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+        <div style="width: 200px;margin:0 auto" class="thumbnail">
+
+          <!--参考サイト　http://taneppa.net/css3_01/-->
+          <p class="img01 waku01"> <img style="height: 150px" src="{{fileData}}"></p>
+
+          <div class="caption">
+
+            <div  class="btn-group" dropdown>
+              <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
                 <i class="fa fa-list" aria-hidden="true"></i>　各種操作<span class="caret"></span>
               </button>
               <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button">
@@ -27,13 +30,18 @@
 
 
 
-
-
-
-
-
-
           </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
 
 
 
