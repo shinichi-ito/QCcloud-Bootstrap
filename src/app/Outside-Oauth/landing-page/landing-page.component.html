@@ -8,23 +8,25 @@
     <div class="row">
       <div class="col-sm-8">
 
+
+
         <h1>品質管理とは</h1>
         <p>顧客の要求を満たす品質の製品あるいはサービスを<br>
           経済的に作り出すための管理技法です。</p>
         <p>そして品質管理の最も大きな目的は、<br>
           製品やサービスの品質を一定以上の水準に確保して顧客に提供することです。</p>
-
+        <p>品質管理は、英語では「Quality Control」とあ表記され、この頭文字をとって、QCと略して呼ばれています。</p>
 
 
         <!--<p>いつでもどこからでも情報共有<br>-->
           <!--使い方も簡単、すぐ出来る。<br>-->
           <!--要望をもとに業務効率化の為に創り出されたグループウェアです。</p>-->
-        <p><a style="cursor: pointer" (click)="login()" class="button btn btn-success btn-lg">無料で試す</a></p>
+        <p><a style="cursor: pointer;margin-bottom: 50px" (click)="login()" class="button btn btn-success btn-lg">無料で試す</a></p>
 
       </div><!-- col -->
       <div class="col-sm-4">
 
-        <img src="assets/img/pc3.png" alt="" class="img-responsive center-block">
+        <!--<img src="assets/img/pc3.png" alt="" class="img-responsive center-block">-->
 
       </div><!-- col -->
     </div><!-- row -->
@@ -33,25 +35,25 @@
 
 
   <!-- Static navbar -->
-  <nav class="menu navbar navbar-default navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">メニュー</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand text-primary" style="cursor:pointer;font-family:'Arial Black';font-size: 30px;color: darkblue" routerLink="/usage/softinfo">QCクラウド</a>
+  <!--<nav class="menu navbar navbar-default navbar-static-top">-->
+    <!--<div class="container">-->
+      <!--<div class="navbar-header">-->
+        <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
+          <!--<span class="sr-only">メニュー</span>-->
+          <!--<span class="icon-bar"></span>-->
+          <!--<span class="icon-bar"></span>-->
+          <!--<span class="icon-bar"></span>-->
+        <!--</button>-->
+        <!--<a class="navbar-brand text-primary" style="cursor:pointer;font-family:'Arial Black';font-size: 30px;color: darkblue" routerLink="/usage/softinfo">QCクラウド</a>-->
 
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a  style="cursor:pointer;" routerLink="/usage/softinfo">アプリについて</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+      <!--</div>-->
+      <!--<div id="navbar" class="navbar-collapse collapse">-->
+        <!--<ul class="nav navbar-nav navbar-right">-->
+          <!--<li><a  style="cursor:pointer;" routerLink="/usage/softinfo">アプリについて</a></li>-->
+        <!--</ul>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</nav>-->
 
 
 
@@ -69,7 +71,12 @@
       <div class="col-sm-12">
 
         <h2>御社では　品質管理上手く機能してますか?</h2>
-        <h4>言い換えれば、品質管理が機能するように情報を上手く利用できてますか</h4>
+        <h4>言い換えれば、品質管理が機能するように情報を上手く利用できていますか？</h4>
+
+
+       <hr class="style-two">
+
+
 
         <div class="row">
 
@@ -117,10 +124,10 @@
     </div><!-- row -->
   </div><!-- container -->
 </div>
-
+  <hr class="style-two">
 
 <!-- main3-app -->
-<div class="main3-app">
+<div>
   <div class="container">
     <div class="row">
       <div class="col-sm-5">
@@ -142,7 +149,7 @@
   </div><!-- container -->
 </div>
 
-
+  <hr class="style-two">
 <!-- main4-app -->
 <div class="main4-app">
   <div class="container">
@@ -240,7 +247,7 @@
             </div><!-- col -->
 
           </div><!-- row -->
-
+          <hr class="style-two">
           <div class="row">
 
             <div class="col-sm-4">
@@ -310,12 +317,14 @@
 
       </div><!-- col -->
       <div class="col-sm-5">
+        <div class="menu">
         <ul style="margin-top: 20px">
           <li ><a HREF="/riyoukiyaku" TARGET="_blank">利用規約確認</a></li>
           <li ><a HREF="/privacypolicy" TARGET="_blank">プライバシーポリシー</a></li>
           <li ><a routerLink="/askform" >問い合わせ</a></li>
           <li ><a routerLink="/lotsjoys" >運営会社</a></li>
         </ul>
+        </div>
       </div>
     </div><!-- row -->
 
