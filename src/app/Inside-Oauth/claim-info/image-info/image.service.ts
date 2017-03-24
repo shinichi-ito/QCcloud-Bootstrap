@@ -35,18 +35,25 @@ export class ImageService {
     let typeData=file.type;
     if (file.type.match(/^image\/(png|jpeg|gif)$/)){
       typecheck=false;
+
     }else  if (typeData.match('application/pdf')) {
        typecheck=false;
+
     }else if (typeData.match('application/vnd.oasis.opendocument.spreadsheet')) {
        typecheck=false;
+
     }else if (typeData.match('application/vnd.oasis.opendocument.text')) {
        typecheck=false;
+
     }else if (typeData.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
        typecheck=false;
+
     }else if (typeData.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
        typecheck=false;
+
     } else {
        typecheck=true;
+
     }
 
 

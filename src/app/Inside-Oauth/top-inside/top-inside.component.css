@@ -1,0 +1,38 @@
+
+/* フッター Bootstrap-シングルページ制作６*/
+.footer{
+  padding: 15px 0 25px 0;
+  background-color: #D3D3D3;
+  color: #000000;
+}
+
+.footer p{
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.tel{
+  padding-bottom: 15px;
+}
+
+.footer address{
+  margin: 0 0 3px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.menu ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.menu li a {
+  color:#000000;
+  font-size: 14px;
+  text-decoration: none;
+}
+.copyarea{
+  padding: 30px 0 0px 0;
+  background-color: #D3D3D3;
+  color: #000000;
+}

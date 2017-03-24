@@ -13,7 +13,7 @@
             [hidden]="!myForm.controls.tourokusya.errors.required ">
         *</span>
           </span></label>
-        <input type="text" [(ngModel)]="tourokusya" formControlName="tourokusya" class="form-control" id="tourokusya" placeholder="登録者を入力して下さい。">
+        <input type="text"  formControlName="tourokusya" class="form-control" id="tourokusya" placeholder="登録者を入力して下さい。">
       </div>
 
 
@@ -25,10 +25,13 @@
             [hidden]="!myForm.controls.busyo.errors.required ">
         *</span>
           </span></label>
-        <input type="text" class="form-control" id="busyo"  [(ngModel)]="busyo" formControlName="busyo"placeholder="部署名を入力して下さい。">
+        <input type="text" class="form-control" id="busyo"   formControlName="busyo"placeholder="部署名を入力して下さい。">
       </div>
       <button  [disabled]="!myForm.valid" class="btn btn-primary btn-block">登録</button>
     </div>
   </div>
 </form>
 
+
+<!--エラーダイアログ-->
+<app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>

@@ -13,7 +13,7 @@
 
     <!-- center -->
     <div class="col-md-9" >
-      <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
+      <div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-bottom: 100px">
         <div class="panel-heading">
           <img *ngIf="OnOff" alt="Brand" src="{{photoURL}}" class="img-circle" style="height: 40px;">
           <strong>{{email}}</strong>でログイン中
@@ -34,13 +34,13 @@
 
 
       <small><em>取得データ(MB)</em></small>
-      <progressbar [animate]="true" [value]="loginPa" type="success"><b>{{loginPa}}%</b></progressbar>
+      <progressbar [animate]="true" [value]="loginPa" type="primary"><b>{{loginPa}}%</b></progressbar>
 
       <small><em>データアップロード(MB)</em></small>
-      <progressbar [animate]="true" [value]="fileupPa" type="info"><b>{{fileupPa}}%</b></progressbar>
+      <progressbar [animate]="true" [value]="fileupPa" type="primary"><b>{{fileupPa}}%</b></progressbar>
 
       <small><em>関連ファイルアップロード(MB)</em></small>
-      <progressbar [animate]="true" [value]="dataupPa" type="warning"><b>{{dataupPa}}%</b></progressbar>
+      <progressbar [animate]="true" [value]="dataupPa" type="primary"><b>{{dataupPa}}%</b></progressbar>
 
 
       <div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
@@ -49,6 +49,8 @@
         </div>
         <div class="panel-body">
           <div class="form-group">
+
+            <div style="height:500px; overflow-y:auto;">
             <table class="table table-striped">
               <thead>
 
@@ -73,6 +75,7 @@
               </tr>
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       </div>
@@ -91,6 +94,62 @@
       <!--right-->
     <!--</div>-->
   </div>
+
+
+
+
+<!-- footer -->
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+
+        <h3>LotsJOY【ロッツジョイ】</h3>
+
+        <address>
+          〒501-2105 岐阜県山県市高富2778-14
+        </address>
+
+
+      </div><!-- col -->
+      <div class="col-sm-5">
+        <div class="menu">
+          <ul style="margin-top: 20px">
+            <li ><a HREF="/riyoukiyaku" TARGET="_blank">利用規約確認</a></li>
+            <li ><a HREF="/privacypolicy" TARGET="_blank">プライバシーポリシー</a></li>
+            <li ><a routerLink="/askform" >問い合わせ</a></li>
+            <li ><a routerLink="/lotsjoys" >運営会社</a></li>
+            <li><a [routerLink]="['/main/planchange']"><i class="fa fa-outdent" aria-hidden="true"></i> プラン変更</a></li>
+            <li><a [routerLink]="['/main/taikaiedit']"><i class="fa fa-sign-out" aria-hidden="true"></i> 退会</a></li>
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div><!-- row -->
+
+    <div class="row copyarea text-center">
+      <div class="col-sm-12">
+        <p class="copy">Copyright &copy; LotJOY,all rights reserved.</p>
+
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!--エラーダイアログ-->

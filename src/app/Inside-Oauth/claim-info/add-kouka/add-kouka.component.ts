@@ -9,7 +9,7 @@ import {InsideMainService} from "../../inside-main.service";
 export class AddKoukaComponent  {
   aa:string='active';
   bb:string='';
-  cc:string="disabled";
+ // cc:string="disabled";
   fileupcheck:string='';
   public constructor(private insideMainService:InsideMainService) {
 
@@ -25,20 +25,20 @@ export class AddKoukaComponent  {
       flag => {
         this.aa='';
         this.bb='';
-        this.cc="active";
+     //   this.cc="active";
       })
 
   }
   aaa(){
     this.aa='active';
     this.bb='';
-    this.cc='disabled'
+  //  this.cc='disabled'
 
   }
   bbb(){
     this.bb='active';
     this.aa='';
-    this.cc='disabled'
+  //  this.cc='disabled'
   }
 
 

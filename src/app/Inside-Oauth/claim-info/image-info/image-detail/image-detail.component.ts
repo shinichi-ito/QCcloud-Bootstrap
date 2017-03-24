@@ -241,7 +241,7 @@ this.insideMainService.onDataUpSuMain(this.uid,fileDetail.size)
 
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+   // this.subscription.unsubscribe();
 }
 
 }

@@ -9,7 +9,7 @@ import {InsideMainService} from "../../inside-main.service";
 export class AddGeninComponent {
   aa:string='active';
   bb:string='';
-  cc:string="disabled";
+ // cc:string="disabled";
   fileupcheck:string='';
   public constructor(private insideMainService:InsideMainService) {
     if(this.insideMainService.fileup==false){//ファイルアップロード数が限度を超えていると登録画面に行かないようにしてある
@@ -24,20 +24,20 @@ export class AddGeninComponent {
         console.log('ここ')
         this.aa='';
         this.bb='';
-        this.cc="active";
+    //    this.cc="active";
       })
 
   }
   aaa(){
     this.aa='active';
     this.bb='';
-    this.cc='disabled'
+//    this.cc='disabled'
 
   }
   bbb(){
     this.bb='active';
     this.aa='';
-    this.cc='disabled'
+ //   this.cc='disabled'
   }
 
 }

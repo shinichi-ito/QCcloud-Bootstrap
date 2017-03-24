@@ -37,6 +37,9 @@
         </div>
       </div>
       <div class="modal-footer">
+        <div *ngIf="OnOff">
+          <div class="alert alert-danger" role="alert">パスワードが一致しません</div>
+        </div>
         <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
         <button type="button" class="btn btn-primary" (click)="onEdit()">編集</button>
       </div>

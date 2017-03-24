@@ -67,6 +67,8 @@ export class TaiouDialogComponent implements OnInit {
    this.modalRef.show();
   }
   onEdit(){
+    //console.log(this.pass)
+   // console.log(this.taiouData.password)
     if(this.taiouData.password==this.pass){
 
       if(this.syubetu==''){
@@ -105,7 +107,7 @@ this.pass='';
       }).catch(error=>{
       })
     }else{
-
+//console.log('ここ')
       this.OnOff=true;
 
     }

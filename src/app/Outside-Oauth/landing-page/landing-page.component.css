@@ -114,8 +114,8 @@
 /* フッター Bootstrap-シングルページ制作６*/
 .footer{
   padding: 15px 0 25px 0;
-  background-color: #353535;
-  color: #fff;
+  background-color: #D3D3D3;
+  color: #000000;
 }
 
 .footer p{
@@ -158,8 +158,8 @@
 
 .copyarea{
   padding: 30px 0 0px 0;
-  background-color: #353535;
-  color: #fff;
+  background-color: #D3D3D3;
+  color: #000000;
 }
 
 
@@ -186,7 +186,7 @@
 }
 .main5-app	{
   padding: 70px 0 70px 0;
-  background-color: #5bc0de;
+  background-color: #87CEFA;
   color: #fff;
 }
 hr.style-two {
@@ -203,7 +203,7 @@ hr.style-two {
   list-style: none;
 }
 .menu li a {
-  color:#d4d4d4;
+  color:#000000;
   font-size: 14px;
   text-decoration: none;
 }

@@ -68,7 +68,6 @@ import { SelectEditComponent } from './select-edit/select-edit.component';
 import { SelectSyubetuComponent } from './select-edit/select-syubetu/select-syubetu.component';
 import { SelectTaiouComponent } from './select-edit/select-taiou/select-taiou.component';
 import { SelectTaisakuComponent } from './select-edit/select-taisaku/select-taisaku.component';
-import { ImageTopComponent } from './claim-info/image-info/image-top/image-top.component';
 import { ProgressDialogComponent } from './Dialog/progress-dialog/progress-dialog.component';
 import { SelectEditClaimComponent } from './claim-info/edit-claim/select-edit-claim/select-edit-claim.component';
 import { ChangeClaimComponent } from './claim-info/edit-claim/change-claim/change-claim.component';
@@ -195,7 +194,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SelectSyubetuComponent,
     SelectTaiouComponent,
     SelectTaisakuComponent,
-    ImageTopComponent,
     ProgressDialogComponent,
     SelectEditClaimComponent,
     ChangeClaimComponent,
