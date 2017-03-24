@@ -105,6 +105,7 @@ mb:number;
   //  console.log(this.dt)
   //  console.log(time)
     const Info = {
+      seihin:this.claimitem.seihin,
       syubetu:this.taisakusyubetu,
       name:this.name,
       siten:this.siten,

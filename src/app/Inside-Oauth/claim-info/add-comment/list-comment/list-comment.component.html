@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of newcommentList let idx = index;">
+        <tr *ngFor="let item of newcommentList|orderby:'startAt'; let idx = index;">
           <td>
 
             {{idx+1}}<br>
@@ -32,7 +32,7 @@
           <td>{{item.name}}　　所属:　{{item.siten}}　{{item.busyo}}<br>
             登録日:　{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}
             <hr>
-            {{item.naiyou}}
+               {{item.naiyou}}
           </td>
           <td>
             <!--<button type="button" class="btn btn-primary" (click)="setEdit(idx)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>-->

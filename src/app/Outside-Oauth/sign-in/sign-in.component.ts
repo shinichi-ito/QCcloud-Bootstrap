@@ -130,7 +130,7 @@ changeTop(){
         this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
           if(data){
             //OauthInfoServiceに共通データをいれて使いまわす
-         //   console.log(data.auth.email)
+         //  console.log(data.auth)
             this.oauthInfoService.emailMain=data.auth.email;
             this.oauthInfoService.displayName=data.auth.displayName;
             this.oauthInfoService.photoURL=data.auth.photoURL;

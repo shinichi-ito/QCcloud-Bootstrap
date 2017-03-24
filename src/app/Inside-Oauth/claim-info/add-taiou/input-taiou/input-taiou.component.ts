@@ -113,6 +113,7 @@ this.claimitem=this.insideService.claimitem;
 this.progressDialogComponent.openDialog();
     let time=this.dt.getTime();
     const claimInfo = {
+      seihin:this.claimitem.seihin,
       syubetu:this.taiousyubetu,
       name:this.name,
       siten:this.siten,

@@ -10,6 +10,8 @@ import * as firebase from 'firebase'
 })
 export class SuccessComponent implements OnInit ,OnDestroy{
   param:string;
+  error:string;
+  errorData:string;
   param2:string;
   Info2: FirebaseObjectObservable<any[]>;
   private subscription:Subscription;
@@ -17,9 +19,20 @@ export class SuccessComponent implements OnInit ,OnDestroy{
   uid:string='Qu7zPPa2usMf8VubSWlbGsLzL933';
   constructor(private route:ActivatedRoute,private af : AngularFire) {
     this.subscription=this.route.queryParams.subscribe(
-      queryParam=>{this.param=queryParam['uid'];
-console.log(this.param)
-       this.addCompanyDetail(this.uid)
+      queryParam=>{this.param=queryParam['ClientField1'];
+      this.error=queryParam['ErrCode'];
+      this.errorData=queryParam['ErrInfo'];
+
+
+
+        if (typeof this.param === "undefined") {
+          console.log('ない')
+        }else{
+          console.log(this.param)
+          // this.addCompanyDetail(this.uid)
+        }
+
+
       }
     )
 

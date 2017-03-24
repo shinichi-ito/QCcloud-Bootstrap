@@ -95,6 +95,7 @@ export class InputGeninComponent {
     this.progressDialogComponent.openDialog();
     let time=this.dt.getTime();
     const Info = {
+      seihin:this.claimitem.seihin,
       name:this.name,
       siten:this.siten,
       busyo:this.busyo,
