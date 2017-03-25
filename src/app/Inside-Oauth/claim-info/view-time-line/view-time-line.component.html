@@ -2,18 +2,22 @@
 
 <app-nav-sabu></app-nav-sabu>
 
-
+<div class="panel panel-default" style="width: 90%;margin: 0 auto;margin-top: 20px">
+  <div class="panel-heading">
+    タイムライン
+  </div>
+  <div class="panel-body">
 <div class="container">
-  <div class="page-header ">
+  <div class="page-header" style=" border:1px solid #000; box-shadow: 7px 7px 7px rgba(0,0,0,0.4);">
 
-      <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{claimitem?.hasseibi | date:'yyyy/MM/dd'}}</small></p>
-    <p >
-      {{claimitem?.name}}{{claimitem?.siten}}{{claimitem?.busyo}}
+      <p style="margin-left: 90px;margin-top: 20px" ><small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{claimitem?.hasseibi | date:'yyyy/MM/dd'}}</small></p>
+    <p style="margin-left: 90px" >
+      {{claimitem?.name}}　{{claimitem?.siten}}　{{claimitem?.busyo}}
     </p>
-    <h2 id="timeline">
+    <h2 style="margin-left: 90px" id="timeline">
       {{claimitem?.syubetu}}
     </h2>
-    <h3>
+    <h3 style="margin-left: 90px" >
       {{claimitem?.gaiyou}}
     </h3>
 
@@ -39,4 +43,6 @@
     </li>
   </ul>
 
+</div>
+  </div>
 </div>

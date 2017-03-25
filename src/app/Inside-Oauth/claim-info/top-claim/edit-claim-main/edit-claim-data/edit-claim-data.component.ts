@@ -5,6 +5,8 @@ import {InsideService} from "../../../../Inside.service";
 import {OauthInfoService} from "../../../../oauth-info.service";
 import {ErrorDialogComponent} from "../../../../Dialog/error-dialog/error-dialog.component";
 import {ProgressDialogComponent} from "../../../../Dialog/progress-dialog/progress-dialog.component";
+import {SuccessComponent} from "../../../../../Outside-Oauth/GmoRedirect/success/success.component";
+import {SuccessDialogComponent} from "../../../../Dialog/success-dialog/success-dialog.component";
 @Component({
   selector: 'app-edit-claim-data',
   templateUrl: './edit-claim-data.component.html',
@@ -15,6 +17,7 @@ export class EditClaimDataComponent implements OnInit {
   errorData:any;
   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
   Data:string;
+  @ViewChild("successDialog") successDialogComponent: SuccessDialogComponent;
   public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
@@ -49,10 +52,10 @@ export class EditClaimDataComponent implements OnInit {
   fileList:any;
   newfileList:any;
   jyoukyouData:any;
- taiou:any;
-// taiouOnOff:boolean=false;
-// taisaku:number;
-//   taisakuOnOff:boolean=false;
+ taiou:number;
+taiouOnOff:boolean=false;
+taisaku:number;
+   taisakuOnOff:boolean=false;
 // genin:number;
 //   geninOnOff:boolean=false;
 // kouka:number;
@@ -101,7 +104,7 @@ OnOff2:boolean=false;
         this.mytime=this.claimList[key].hasseiji;
         this.model.label=this.claimList[key].koukai;
         this.taiou=this.claimList[key].taiou;
-        // this.taisaku=this.claimList[key].taisaku;
+         this.taisaku=this.claimList[key].taisaku;
         // this.genin=this.claimList[key].genin;
         // this.kouka=this.claimList[key].kouka;
         // this.comment=this.claimList[key].comment;
@@ -115,12 +118,24 @@ onoff(){
 
 }
 test(){
-  if (typeof(this.name) == 'number'){
-    console.log(this.taiou)
+  if (!this.taiou.toString().match(/[^0-9]/g)){
+    console.log('数字')
+    this.taiouOnOff=false;
+    if (!this.taisaku.toString().match(/[^0-9]/g)){
+      this.taisakuOnOff=false;
 
+    }else{
+      this.taisakuOnOff=true;
+return;
+
+    }
   }else{
-    console.log(this.taiou)
-  }
+
+    this.taiouOnOff=true;
+    this.taisakuOnOff=false;
+    console.log('文字')
+return
+ }
 
 }
   onEdit(){
@@ -215,6 +230,7 @@ test(){
     this.claimInfo2.update(claimInfo).then(data=>{
        this.OnOff=true;
 this.progressDialogComponent.closeDialog();
+this.successDialogComponent.openDialog();
      }).catch(error=>{
       this.progressDialogComponent.closeDialog();
       this.errorData=error.message;

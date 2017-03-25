@@ -125,16 +125,16 @@
     <!--<a (click)="onoff()" class="text-info">応急対応や恒久対策の件数が不一致の際,修正ボタン</a>-->
 
     <!--<div *ngIf="OnOff2">-->
-      <!--<div class="form-group">-->
-        <!--<label for="taiou">応急対応数(数が合わない場合修正ください。半角数字)</label>-->
-        <!--<input type="text" class="form-control" [(ngModel)]="taiou" id="taiou" value="{{taiou}}">-->
-        <!--<div *ngIf="taiouOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>-->
-      <!--</div>-->
-      <!--<div class="form-group">-->
-        <!--<label for="taisaku">恒久対策数(数が合わない場合修正ください。半角数字)</label>-->
-        <!--<input type="text" class="form-control" [(ngModel)]="taisaku" id="taisaku" value="{{taisaku}}">-->
-        <!--<div *ngIf="taisakuOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>-->
-      <!--</div>-->
+      <div class="form-group">
+        <label for="taiou">応急対応数(数が合わない場合修正ください。半角数字)</label>
+        <input type="text" class="form-control" [(ngModel)]="taiou" id="taiou" value="{{taiou}}">
+        <div *ngIf="taiouOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>
+      </div>
+      <div class="form-group">
+        <label for="taisaku">恒久対策数(数が合わない場合修正ください。半角数字)</label>
+        <input type="text" class="form-control" [(ngModel)]="taisaku" id="taisaku" value="{{taisaku}}">
+        <div *ngIf="taisakuOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>
+      </div>
       <!--<div class="form-group">-->
         <!--<label for="genin">原因分析数(数が合わない場合修正ください。半角数字)</label>-->
         <!--<input type="text" class="form-control" [(ngModel)]="genin" id="genin" value="{{genin}}">-->
@@ -170,5 +170,6 @@
 <app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
 <!--プログレスダイアログ-->
 <app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
-
+<!--成功ダイアログ-->
+<app-success-dialog #successDialog></app-success-dialog>
 

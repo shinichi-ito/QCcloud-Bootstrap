@@ -1,14 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OauthInfoService} from "../../oauth-info.service";
 import {InsideMainService} from "../../inside-main.service";
 import {FirebaseObjectObservable, AngularFire} from "angularfire2";
 import * as firebase from 'firebase'
+import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../Dialog/progress-dialog/progress-dialog.component";
+import {SuccessDialogComponent} from "../../Dialog/success-dialog/success-dialog.component";
 @Component({
   selector: 'app-edit-company-info',
   templateUrl: './edit-company-info.component.html',
   styleUrls: ['./edit-company-info.component.css']
 })
 export class EditCompanyInfoComponent implements OnInit {
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
+  @ViewChild("successDialog") successDialogComponent: SuccessDialogComponent;
+  OnOff:boolean=false;
 companyname:string;
 address:string;
 tel:string;
@@ -159,6 +168,7 @@ return
       return
     }else {
       this.emailB2 = false;
+      this.progressDialogComponent.openDialog();
       const companyInfo = {
         companyname:this.companyname,
         daihyouname:this.daihyouname,
@@ -175,7 +185,17 @@ return
       this.value = this.af.database.object('companyData/' + this.uid + '/companyInfo');
       this.value.update(companyInfo).then(data=>{
        // console.log('会社詳細情報編集成功')
+        this.OnOff=true;
+        this.progressDialogComponent.closeDialog();
+        this.successDialogComponent.openDialog();
+
+
+
       }).catch(error=>{
+        this.progressDialogComponent.closeDialog();
+        this.errorData=error.message;
+        this.errorDialogComponent.openDialog()
+
       })
 
 

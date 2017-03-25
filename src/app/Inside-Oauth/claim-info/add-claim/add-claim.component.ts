@@ -8,6 +8,8 @@ import {InsideMainService} from "../../inside-main.service";
 import {ClaimSelectComponent} from "../../Dialog/claim-select/claim-select.component";
 import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.component";
 import {ProgressDialogComponent} from "../../Dialog/progress-dialog/progress-dialog.component";
+import {SuccessDialogComponent} from "../../Dialog/success-dialog/success-dialog.component";
+import {KanriNoDialogComponent} from "../../Dialog/kanri-no-dialog/kanri-no-dialog.component";
 
 @Component({
   selector: 'app-add-claim',
@@ -19,8 +21,9 @@ export class AddClaimComponent  {
   errorData:any;
    @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
    Data:string;
-
+  @ViewChild("successDialog") successDialogComponent: SuccessDialogComponent;
   @ViewChild("selectClaimDialog") claimSelectComponent: ClaimSelectComponent;
+  @ViewChild("kanrinoDialog") kanrinoComponent: KanriNoDialogComponent;
   public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
@@ -186,7 +189,8 @@ export class AddClaimComponent  {
       this.insideMainService.onFileUpSuMain(this.uid,this.mb);//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
 
       this.OnOff2=false;
-      this.progressDialogComponent.closeDialog()
+      this.progressDialogComponent.closeDialog();
+      this.successDialogComponent.openDialog();
     }).catch(error=>{
       this.progressDialogComponent.closeDialog();
       this.errorData=error.message;
@@ -265,6 +269,7 @@ setMember(value){
       this.OnOff=false;
       this.OnOff2=true;
 this.progressDialogComponent.closeDialog();
+this.kanrinoComponent.openDialog();
     }).catch(error=>{
       this.progressDialogComponent.closeDialog();
       this.errorData=error.message;

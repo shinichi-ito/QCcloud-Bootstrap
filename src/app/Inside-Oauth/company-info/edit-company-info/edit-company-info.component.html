@@ -83,8 +83,20 @@
       <div *ngIf="tantounameB" class="alert alert-danger" role="alert">担当者名を入力ください</div>
       <div *ngIf="emailB" class="alert alert-danger" role="alert">メールアドレスを入力ください</div>
       <div *ngIf="emailB2" class="alert alert-danger" role="alert">メールアドレスのフォーマットに誤りがあります。</div>
-      <button (click)="upCompanyInfo()"  class="btn btn-primary btn-block">編集</button>
+      <div *ngIf="OnOff" class="alert alert-info" role="alert">編集されました。</div>
+      <button *ngIf="!OnOff" (click)="upCompanyInfo()"  class="btn btn-primary btn-block">編集</button>
     </div>
   </div>
+
+
+
+
+  <!--エラーダイアログ-->
+  <app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
+  <!--プログレスダイアログ-->
+  <app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
+  <!--成功ダイアログ-->
+  <app-success-dialog #successDialog></app-success-dialog>
+
 
 

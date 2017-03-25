@@ -114,6 +114,8 @@ import { TaisakuViewDialogComponent } from './Dialog/taisaku-view-dialog/taisaku
 import {TaiouFilterPipe} from "./claim-info/claim-list/taiouListFilter.pipe";
 import {KoukaFilterPipe} from "./claim-info/claim-list/koukaListFilter.pipe";
 import {GeninFilterPipe} from "./claim-info/claim-list/geninListFilter.pipe";
+import { SuccessDialogComponent } from './Dialog/success-dialog/success-dialog.component';
+import { KanriNoDialogComponent } from './Dialog/kanri-no-dialog/kanri-no-dialog.component';
 
 
 
@@ -234,7 +236,9 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ViewFileOtherComponent,
     PlanChangeComponent,
     ProgressImageDialogComponent,
-    TaisakuViewDialogComponent
+    TaisakuViewDialogComponent,
+    SuccessDialogComponent,
+    KanriNoDialogComponent
 
 
 

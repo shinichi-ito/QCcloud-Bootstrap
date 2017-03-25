@@ -286,7 +286,7 @@ setTimeLine(item){
   koukaList=this.insideService.koukaList;
   for(let key in taiouList){
     if(item.key==taiouList[key].claimkey){
-      taiouList[key]['doko']='対応';
+      taiouList[key]['doko']='応急対応';
       taiouList[key]['check']='';
       taiouList[key]['color']='timeline-badge warning';
       taiouList[key]['icon']="fa fa-university";
@@ -296,7 +296,7 @@ setTimeLine(item){
   }
   for(let key in taisakuList){
     if(item.key==taisakuList[key].claimkey){
-      taisakuList[key]['doko']='対策';
+      taisakuList[key]['doko']='恒久対策';
       taisakuList[key]['check']='';
       taisakuList[key]['color']='timeline-badge primary';
       taisakuList[key]['icon']="fa fa-thermometer-three-quarters";
@@ -307,7 +307,7 @@ setTimeLine(item){
 
   for(let key in geninList){
     if(item.key==geninList[key].claimkey){
-      geninList[key]['doko']='原因';
+      geninList[key]['doko']='原因分析';
       geninList[key]['check']='timeline-inverted';
       geninList[key]['color']='timeline-badge success';
       geninList[key]['icon']="fa fa-id-card";
@@ -318,7 +318,7 @@ setTimeLine(item){
 
   for(let key in koukaList){
     if(item.key==koukaList[key].claimkey){
-      koukaList[key]['doko']='効果';
+      koukaList[key]['doko']='効果確認';
       koukaList[key]['check']='timeline-inverted';
       koukaList[key]['color']='timeline-badge info';
       koukaList[key]['icon']="fa fa-check-square-o";
