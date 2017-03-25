@@ -92,7 +92,7 @@ model;
 
 
   onAdd(){
-    this.Data=""
+    this.Data="";
     this.progressDialogComponent.openDialog();
       this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
 //会社情報の登録が完了したらカード登録画面へ

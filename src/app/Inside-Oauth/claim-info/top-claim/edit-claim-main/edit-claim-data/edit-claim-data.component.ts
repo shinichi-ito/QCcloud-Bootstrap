@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FirebaseListObservable, FirebaseObjectObservable, AngularFire} from "angularfire2";
 import * as firebase from 'firebase'
 import {InsideService} from "../../../../Inside.service";
 import {OauthInfoService} from "../../../../oauth-info.service";
+import {ErrorDialogComponent} from "../../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../../Dialog/progress-dialog/progress-dialog.component";
 @Component({
   selector: 'app-edit-claim-data',
   templateUrl: './edit-claim-data.component.html',
   styleUrls: ['./edit-claim-data.component.css']
 })
 export class EditClaimDataComponent implements OnInit {
-
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
   public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
@@ -44,15 +49,26 @@ export class EditClaimDataComponent implements OnInit {
   fileList:any;
   newfileList:any;
   jyoukyouData:any;
-
+ taiou:any;
+// taiouOnOff:boolean=false;
+// taisaku:number;
+//   taisakuOnOff:boolean=false;
+// genin:number;
+//   geninOnOff:boolean=false;
+// kouka:number;
+//   koukaOnOff:boolean=false;
+// comment:number;
+//   commentOnOff:boolean=false;
+// file:number;
+//   fileOnOff:boolean=false;
+OnOff2:boolean=false;
   public constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
-
 
 
     this.uid=this.oauthInfoService.uid;
     this.claimList=this.insideService.claimList;
     this.model = {
-      label: "kari"
+      label: ""
     };
     (this.tomorrow = new Date()).setDate(this.tomorrow.getDate() + 1);
     (this.afterTomorrow = new Date()).setDate(this.tomorrow.getDate() + 2);
@@ -83,70 +99,100 @@ export class EditClaimDataComponent implements OnInit {
         this.password2=this.claimList[key].password;
         this.dt=this.claimList[key].hasseibi;
         this.mytime=this.claimList[key].hasseiji;
+        this.model.label=this.claimList[key].koukai;
+        this.taiou=this.claimList[key].taiou;
+        // this.taisaku=this.claimList[key].taisaku;
+        // this.genin=this.claimList[key].genin;
+        // this.kouka=this.claimList[key].kouka;
+        // this.comment=this.claimList[key].comment;
+        // this.file=this.claimList[key].file;
       }
     }
   }
   ngOnInit(){}
+onoff(){
+    this.OnOff2=!this.OnOff2;
 
+}
+test(){
+  if (typeof(this.name) == 'number'){
+    console.log(this.taiou)
 
+  }else{
+    console.log(this.taiou)
+  }
+
+}
   onEdit(){
-    if(this.password==this.password2){
+
+
+    if(this.password==this.password2||this.password!=''){
       this.check=false;
+
     }else{
       this.check=true;
-    }
 
-    if(this.syubetu==''){
-      this.syubetu=this.claimitem.syubetu;
-      //  console.log(this.name)
+      return;
     }
-
-    if(this.seihin==''){
-      this.seihin=this.claimitem.seihin;
-      //  console.log(this.name)
+//console.log(this.password)
+   if(this.syubetu==''){
+       this.syubetu=this.claimitem.syubetu;
+//       //  console.log(this.name)
+     }
+//
+     if(this.seihin==''){
+       this.seihin=this.claimitem.seihin;
+//       //  console.log(this.name)
     }
-
-    if(this.gaiyou==''){
+//
+     if(this.gaiyou==''){
       this.gaiyou=this.claimitem.gaiyou;
-      //  console.log(this.name)
+//       //  console.log(this.name)
     }
-
-
-
+//
+//
+//
     if(this.syousai==''){
       this.syousai=this.claimitem.syousai;
-      //  console.log(this.name)
-    }
-
-    if(this.moto==''){
+//       //  console.log(this.name)
+     }
+//
+     if(this.moto==''){
       this.moto=this.claimitem.moto;
-      //  console.log(this.name)
+//       //  console.log(this.name)
     }
     if(this.basyo==''){
       this.basyo=this.claimitem.basyo;
-      // console.log(this.siten)
+//       // console.log(this.siten)
     }
     if(this.seihininfo==''){
       this.seihininfo=this.claimitem.seihininfo;
-      //console.log(this.busyo)
-    }
-
+//       //console.log(this.busyo)
+     }
+//
     if(this.yosoukoutei==''){
       this.yosoukoutei=this.claimitem.yosoukoutei
-      //console.log(this.syubetu)
+//       //console.log(this.syubetu)
     }
     if(this.name==''){
       this.name=this.claimitem.name
-      //  console.log(this.name)
+//       //  console.log(this.name)
     }
-    if(this.siten==''){
-      this.siten=this.claimitem.siten
-      // console.log(this.siten)
+     if(this.siten==''){
+     this.siten=this.claimitem.siten
+//       // console.log(this.siten)
     }
     if(this.busyo==''){
       this.busyo=this.claimitem.busyo
-      //console.log(this.busyo)
-    }
+//       //console.log(this.busyo)
+     }
+//
+
+//
+//
+//
+
+     this.progressDialogComponent.openDialog();
     const claimInfo = {
       syubetu:this.syubetu,
       seihin:this.seihin,
@@ -156,40 +202,43 @@ export class EditClaimDataComponent implements OnInit {
       busyo:this.busyo,
       password:this.password,
       moto:this.moto,
-      basyo:this.basyo,
+       basyo:this.basyo,
       hasseibi:this.dt,
       hasseiji:this.mytime,
       syousai:this.syousai,
-      seihininfo:this.seihininfo,
-      yosoukoutei:this.yosoukoutei,
+       seihininfo:this.seihininfo,
+       yosoukoutei:this.yosoukoutei,
       koukai:this.model.label,
       updateAt: firebase.database.ServerValue.TIMESTAMP
-    };
+   };
     this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.key)
     this.claimInfo2.update(claimInfo).then(data=>{
-
-    }).catch(error=>{
-
+       this.OnOff=true;
+this.progressDialogComponent.closeDialog();
+     }).catch(error=>{
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog()
     })
 
 
 
   }
 
-  getFile(){
-    let jyoukyouData:any[]=[];
-    let passwordData:any[]=[];
-    this.OnOff=!this.OnOff;
-    this.fileList=this.insideService.fileList
-    for(let key in this.fileList){
-      //  console.log(this.fileList[key].claimkey)
-      // console.log(this.claimitem.key)
-      if(this.claimitem.key==this.fileList[key].claimkey){
-        jyoukyouData.push(this.fileList[key])
-      }
-    }
-    this.jyoukyouData=jyoukyouData
-  }
+  // getFile(){
+  //   let jyoukyouData:any[]=[];
+  //   let passwordData:any[]=[];
+  //   this.OnOff=!this.OnOff;
+  //   this.fileList=this.insideService.fileList
+  //   for(let key in this.fileList){
+  //     //  console.log(this.fileList[key].claimkey)
+  //     // console.log(this.claimitem.key)
+  //     if(this.claimitem.key==this.fileList[key].claimkey){
+  //       jyoukyouData.push(this.fileList[key])
+  //     }
+  //   }
+  //   this.jyoukyouData=jyoukyouData
+  // }
 
 
 

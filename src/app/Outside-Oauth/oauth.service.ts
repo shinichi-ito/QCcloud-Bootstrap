@@ -75,7 +75,11 @@ export class OauthService {
         }).catch(error => {
 
         })
+        this.addSelect4(uid).then(data => {
 
+        }).catch(error => {
+
+        })
         this.addTaiouSelect(uid).then(data => {
 
         }).catch(error => {
@@ -163,7 +167,11 @@ export class OauthService {
         }).catch(error => {
 
         })
+        this.addSelect4(uid).then(data => {
 
+        }).catch(error => {
+
+        })
         this.addTaiouSelect(uid).then(data => {
 
         }).catch(error => {
@@ -284,7 +292,25 @@ export class OauthService {
       }
     })
   }
-
+  addSelect4(uid: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let selectData = this.af.database.list('selectData/' + uid + '/syubetuInfo');
+      let newRef = selectData.push(
+        {
+          'syubetuInfo': '改善',
+          'tourokusya': '初期値'
+        }).then((data) => {
+      }).catch((error) => {
+        this._observer.next(error.message);
+      });
+      if (newRef) {
+        resolve(newRef);
+      }
+      else {
+        reject("登録に失敗しました。時間をおいて再度登録ください");
+      }
+    })
+  }
   // addSelect4(uid: string) : Promise<any>{
   //   return new Promise((resolve, reject) => {
   //     let selectData = this.af.database.list('selectData/' + uid+'/syubetuInfo');
@@ -608,7 +634,7 @@ export class OauthService {
   }
 
   sendResetPasswordMail(email: string) {//パスワード再設定のメール送信
-    this.auth .sendPasswordResetEmail(email)
+    this.auth.sendPasswordResetEmail(email)
       .then(resp => {
         console.log('sent!')
       })
@@ -618,6 +644,5 @@ export class OauthService {
 
 
   }
-
 
 }

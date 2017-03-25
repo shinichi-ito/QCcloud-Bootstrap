@@ -10,7 +10,7 @@ import {NoFileListComponent} from "../../../Dialog/no-file-list/no-file-list.com
 import {InsideMainService} from "../../../inside-main.service";
 import {ViewSyousaiComponent} from "../../../Dialog/view-syousai/view-syousai.component";
 import {KoukaSetumeiComponent} from "../../../Dialog/kouka-setumei/kouka-setumei.component";
-
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-claim-list-all',
@@ -74,8 +74,6 @@ koukakakuninTaisaku:any[]=[];
 count:number;
 plusList:number;
 
-
-
   constructor(private insideMainService:InsideMainService,private router: Router,
               private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
 
@@ -131,6 +129,8 @@ this.topWork()
     const Info = {
       login:count
     };
+
+
     this.Info2=this.af.database.object('Check/'+uid+'/'+this.insideService.date2);
     this.Info2.set(Info).then(data=>{
     }).catch(error=>{

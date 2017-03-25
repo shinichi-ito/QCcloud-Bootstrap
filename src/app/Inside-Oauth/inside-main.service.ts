@@ -56,6 +56,7 @@ error:any;
   flagChangeError$: Observable<number>;
   private _observerError;
   constructor(private router: Router,private insideService:InsideService,private af : AngularFire) {
+
   this.date2=this.date.toISOString().split('-')[0]+'-'+this.date.toISOString().split('-')[1];
     this.flagChangeError$ = new Observable(observer =>
       this._observerError = observer).share();

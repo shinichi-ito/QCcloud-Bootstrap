@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit {
   constructor(private oauthInfoService:OauthInfoService,private router: Router,private oauthService:OauthService,private fb: FormBuilder) {
     this.oauthService.flagChange$.subscribe((error)=>{
     //   console.log(error)
-      this.progressoutDialogComponent.closeDialog();
+   //   this.progressoutDialogComponent.closeDialog();
       this.errorData=error;
       this.erroroutDialogComponent.openDialog()
 

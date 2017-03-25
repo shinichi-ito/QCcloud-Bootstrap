@@ -1134,6 +1134,7 @@ deleteBusyo(key:string,uid:string){
     });
 }
 
+
   addSiten(data:BranchOffice,uid:string){
     const siten = {
       siten:data.siten,
