@@ -12,7 +12,7 @@ import * as firebase from 'firebase'
 export class ChangeClaimComponent implements OnInit {
 
 
-  public mytime: Date = new Date();
+//  public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
   public events: any[];
@@ -35,7 +35,7 @@ export class ChangeClaimComponent implements OnInit {
   basyo:string='';
   syousai:string='';
   seihininfo:string='';
-  yosoukoutei:string='';
+ // yosoukoutei:string='';
   model;
   check:boolean=false;
   key:string;
@@ -66,13 +66,13 @@ export class ChangeClaimComponent implements OnInit {
     this.moto=this.claimitem.moto;
     this.basyo=this.claimitem.basyo;
     this.seihininfo=this.claimitem.seihininfo;
-    this.yosoukoutei=this.claimitem.yosoukoutei;
+  //  this.yosoukoutei=this.claimitem.yosoukoutei;
     this.name=this.claimitem.name;
     this.siten=this.claimitem.siten;
     this.busyo=this.claimitem.busyo;
     this.password2=this.claimitem.password;
     this.dt=this.claimitem.hasseibi;
-    this.mytime=this.claimitem.hasseiji;
+  //  this.mytime=this.claimitem.hasseiji;
 
 
   }
@@ -121,10 +121,10 @@ export class ChangeClaimComponent implements OnInit {
       //console.log(this.busyo)
     }
 
-    if(this.yosoukoutei==''){
-      this.yosoukoutei=this.claimitem.yosoukoutei
-      //console.log(this.syubetu)
-    }
+    // if(this.yosoukoutei==''){
+    //   this.yosoukoutei=this.claimitem.yosoukoutei
+    //   //console.log(this.syubetu)
+    // }
     if(this.name==''){
       this.name=this.claimitem.name
       //  console.log(this.name)
@@ -148,10 +148,10 @@ export class ChangeClaimComponent implements OnInit {
       moto:this.moto,
       basyo:this.basyo,
       hasseibi:this.dt,
-      hasseiji:this.mytime,
+     // hasseiji:this.mytime,
       syousai:this.syousai,
       seihininfo:this.seihininfo,
-      yosoukoutei:this.yosoukoutei,
+    //  yosoukoutei:this.yosoukoutei,
       koukai:this.model.label,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };

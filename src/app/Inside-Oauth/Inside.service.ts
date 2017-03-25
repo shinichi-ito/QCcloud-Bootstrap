@@ -418,9 +418,9 @@ console.log(value.val())
      this.claimList.push({key:value.key,syubetu:value.val().syubetu,siten:value.val().siten
         ,busyo:value.val().busyo, gaiyou:value.val().gaiyou,seihin:value.val().seihin,
        name:value.val().name,basyo:value.val().basyo,moto:value.val().moto, seihininfo:value.val().seihininfo,
-       syousai:value.val().syousai, yosoukoutei:value.val().yosoukoutei,
+       syousai:value.val().syousai,
        password: value.val().password,koukai:value.val().koukai,startAt:value.val().startAt, updateAt: value.val().updateAt,
-       hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,
+       hasseibi:value.val().hasseibi,taiou:value.val().taiou,
      taisaku:value.val().taisaku,genin:value.val().genin,
      kouka:value.val().kouka,comment:value.val().comment,file:value.val().file,
        taiouUp:taiouUp,taisakuUp:taisakuUp,geninUp:geninUp,
@@ -524,9 +524,9 @@ console.log(value.val())
            this.claimList[index]={key:value.key,syubetu:value.val().syubetu,siten:value.val().siten
              ,busyo:value.val().busyo, gaiyou:value.val().gaiyou,seihin:value.val().seihin,
              name:value.val().name,basyo:value.val().basyo,moto:value.val().moto, seihininfo:value.val().seihininfo,
-             syousai:value.val().syousai, yosoukoutei:value.val().yosoukoutei,
+             syousai:value.val().syousai,
              password: value.val().password,koukai:value.val().koukai,startAt:value.val().startAt, updateAt: value.val().updateAt,
-             hasseibi:value.val().hasseibi, hasseiji:value.val().hasseiji,taiou:value.val().taiou,
+             hasseibi:value.val().hasseibi,taiou:value.val().taiou,
              taisaku:value.val().taisaku,genin:value.val().genin,
              kouka:value.val().kouka,comment:value.val().comment,file:value.val().file,
              taiouUp:taiouUp,taisakuUp:taisakuUp,geninUp:geninUp,

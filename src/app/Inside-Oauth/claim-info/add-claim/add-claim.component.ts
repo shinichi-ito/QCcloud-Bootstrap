@@ -24,7 +24,7 @@ export class AddClaimComponent  {
   @ViewChild("successDialog") successDialogComponent: SuccessDialogComponent;
   @ViewChild("selectClaimDialog") claimSelectComponent: ClaimSelectComponent;
   @ViewChild("kanrinoDialog") kanrinoComponent: KanriNoDialogComponent;
-  public mytime: Date = new Date();
+ // public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
   public events: any[];
@@ -41,7 +41,7 @@ export class AddClaimComponent  {
   name:string;
   siten:string;
   busyo:string;
-  branch:string;
+ // branch:string;
   password:string;
   uid:string;
   koukai:number=0;
@@ -49,7 +49,7 @@ export class AddClaimComponent  {
   basyo:string='';
   syousai:string='';
   seihininfo:string='';
-  yosoukoutei:string='';
+//  yosoukoutei:string='';
   syubetuvalue:string='';
   model;
   claimInfo: FirebaseListObservable<any[]>;
@@ -148,7 +148,8 @@ export class AddClaimComponent  {
           Validators.required
         ]
       )],
-      "branch": [''],
+      "siten": [''],
+      "busyo": [''],
       "syubetuvalue":[''],
       "password": ['',Validators.compose([
           Validators.required
@@ -177,10 +178,10 @@ export class AddClaimComponent  {
       moto:this.moto,
       basyo:this.basyo,
       hasseibi:this.dt,
-      hasseiji:this.mytime,
+    //  hasseiji:this.mytime,
       syousai:this.syousai,
       seihininfo:this.seihininfo,
-      yosoukoutei:this.yosoukoutei,
+    //  yosoukoutei:this.yosoukoutei,
       koukai:this.model.label
     };
     this.mb=this.insideMainService.getByteLength(JSON.stringify(claimInfo));//アップするデータをメガバイトで取得
@@ -226,7 +227,8 @@ setMember(value){
   for(let key in this.memberList){
   //  console.log(this.memberList[key].key)
     if(this.memberList[key].key==value){
-    console.log(this.name=this.memberList[key].siten);
+   // console.log(this.name=this.memberList[key].siten);
+ //     console.log(this.name=this.memberList[key].busyo);
       this.name=this.memberList[key].name;
       this.siten=this.memberList[key].siten;
       this.busyo=this.memberList[key].busyo;

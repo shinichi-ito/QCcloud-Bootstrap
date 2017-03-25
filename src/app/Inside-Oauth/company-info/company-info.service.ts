@@ -11,6 +11,7 @@ export class CompanyInfoService {
   }
 
   addCompanyDetail(companydetail:CompanyDetail,uid: string){
+   // console.log('ここ')
       const companyInfo = {
         companyname:companydetail.companyname,
         daihyouname:companydetail.daihyouname,
@@ -24,8 +25,7 @@ export class CompanyInfoService {
         privacypolicy:companydetail.privacypolicy,
         label:companydetail.label,
         planUp: firebase.database.ServerValue.TIMESTAMP,
-        updateAt: firebase.database.ServerValue.TIMESTAMP,
-         term:1
+        updateAt: firebase.database.ServerValue.TIMESTAMP
       };
       this.Info = this.af.database.object('companyData/' + uid + '/companyInfo');
      return this.Info.update(companyInfo)

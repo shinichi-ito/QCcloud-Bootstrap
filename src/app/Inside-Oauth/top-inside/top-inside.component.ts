@@ -106,13 +106,13 @@ dataupCheck:boolean;
       }
 
       if (this.label == 'スタンダード') {
-        this.companyDataList.push({login: 60, dataup: 200, fileup: 50})//月に1GB＝1024MBアップできる
+        this.companyDataList.push({login: 60, dataup: 300, fileup: 50})//月に1GB＝1024MBアップできる
       } else if (this.label == 'プレミアム') {
-        this.companyDataList.push({login: 110, dataup: 400, fileup: 90})
+        this.companyDataList.push({login: 110, dataup: 600, fileup: 90})
       } else if (this.label == 'エキスパート') {
-        this.companyDataList.push({login: 160, dataup: 600, fileup: 130})
+        this.companyDataList.push({login: 160, dataup: 900, fileup: 130})
       }
-this.insideMainService.companyDataList=this.companyDataList
+this.insideMainService.companyDataList=this.companyDataList;
       if(this.login===0){//まだ一度もログインしてない状態
 //console.log('ここ')
         this.loginCheck=true;

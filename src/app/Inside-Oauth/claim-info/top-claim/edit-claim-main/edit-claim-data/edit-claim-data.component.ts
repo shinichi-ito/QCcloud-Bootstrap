@@ -18,7 +18,7 @@ export class EditClaimDataComponent implements OnInit {
   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
   Data:string;
   @ViewChild("successDialog") successDialogComponent: SuccessDialogComponent;
-  public mytime: Date = new Date();
+//  public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
   public events: any[];
@@ -41,7 +41,7 @@ export class EditClaimDataComponent implements OnInit {
   basyo:string='';
   syousai:string='';
   seihininfo:string='';
-  yosoukoutei:string='';
+ // yosoukoutei:string='';
   model;
   check:boolean=false;
   key:string;
@@ -56,14 +56,14 @@ export class EditClaimDataComponent implements OnInit {
 taiouOnOff:boolean=false;
 taisaku:number;
    taisakuOnOff:boolean=false;
-// genin:number;
-//   geninOnOff:boolean=false;
-// kouka:number;
-//   koukaOnOff:boolean=false;
-// comment:number;
-//   commentOnOff:boolean=false;
-// file:number;
-//   fileOnOff:boolean=false;
+ genin:number;
+  geninOnOff:boolean=false;
+ kouka:number;
+   koukaOnOff:boolean=false;
+ comment:number;
+   commentOnOff:boolean=false;
+ file:number;
+   fileOnOff:boolean=false;
 OnOff2:boolean=false;
   public constructor(private insideService:InsideService,private oauthInfoService:OauthInfoService,private af : AngularFire) {
 
@@ -95,20 +95,20 @@ OnOff2:boolean=false;
         this.moto=this.claimList[key].moto;
         this.basyo=this.claimList[key].basyo;
         this.seihininfo=this.claimList[key].seihininfo;
-        this.yosoukoutei=this.claimList[key].yosoukoutei;
+       // this.yosoukoutei=this.claimList[key].yosoukoutei;
         this.name=this.claimList[key].name;
         this.siten=this.claimList[key].siten;
         this.busyo=this.claimList[key].busyo;
         this.password2=this.claimList[key].password;
         this.dt=this.claimList[key].hasseibi;
-        this.mytime=this.claimList[key].hasseiji;
+     //   this.mytime=this.claimList[key].hasseiji;
         this.model.label=this.claimList[key].koukai;
         this.taiou=this.claimList[key].taiou;
          this.taisaku=this.claimList[key].taisaku;
-        // this.genin=this.claimList[key].genin;
-        // this.kouka=this.claimList[key].kouka;
-        // this.comment=this.claimList[key].comment;
-        // this.file=this.claimList[key].file;
+         this.genin=this.claimList[key].genin;
+         this.kouka=this.claimList[key].kouka;
+         this.comment=this.claimList[key].comment;
+         this.file=this.claimList[key].file;
       }
     }
   }
@@ -117,28 +117,110 @@ onoff(){
     this.OnOff2=!this.OnOff2;
 
 }
-test(){
-  if (!this.taiou.toString().match(/[^0-9]/g)){
-    console.log('数字')
-    this.taiouOnOff=false;
+// test(){
+//   if (!this.taiou.toString().match(/[^0-9]/g)){
+//     console.log('数字')
+//     this.taiouOnOff=false;
+//
+//   }else{
+//
+//     this.taiouOnOff=true;
+//     this.taisakuOnOff=false;
+//     console.log('文字')
+// return
+//  }
+//   if (!this.taisaku.toString().match(/[^0-9]/g)){
+//     this.taisakuOnOff=false;
+//
+//   }else{
+//     this.taisakuOnOff=true;
+//     return;
+//
+//   }
+// }
+  onEdit(){
+    if (!this.taiou.toString().match(/[^0-9]/g)){
+      console.log('数字')
+      this.taiouOnOff=false;
+
+    }else{
+
+      this.taiouOnOff=true;
+      this.taisakuOnOff=false;
+      this.geninOnOff=false;
+      this.koukaOnOff=false;
+      this.commentOnOff=false;
+      this.fileOnOff=false;
+    //  console.log('文字')
+      return
+    }
     if (!this.taisaku.toString().match(/[^0-9]/g)){
       this.taisakuOnOff=false;
 
     }else{
       this.taisakuOnOff=true;
-return;
+      this.taiouOnOff=false;
+      this.geninOnOff=false;
+      this.koukaOnOff=false;
+      this.commentOnOff=false;
+      this.fileOnOff=false;
+      return;
 
     }
-  }else{
 
-    this.taiouOnOff=true;
-    this.taisakuOnOff=false;
-    console.log('文字')
-return
- }
+    if (!this.genin.toString().match(/[^0-9]/g)){
+      this.geninOnOff=false;
 
-}
-  onEdit(){
+    }else{
+      this.taisakuOnOff=false;
+      this.taiouOnOff=false;
+      this.geninOnOff=true;
+      this.koukaOnOff=false;
+      this.commentOnOff=false;
+      this.fileOnOff=false;
+      return;
+
+    }
+
+    if (!this.kouka.toString().match(/[^0-9]/g)){
+      this.koukaOnOff=false;
+
+    }else{
+      this.taisakuOnOff=false;
+      this.taiouOnOff=false;
+      this.geninOnOff=false;
+      this.koukaOnOff=true;
+      this.commentOnOff=false;
+      this.fileOnOff=false;
+      return;
+
+    }
+    if (!this.comment.toString().match(/[^0-9]/g)){
+      this.commentOnOff=false;
+
+    }else{
+      this.taisakuOnOff=false;
+      this.taiouOnOff=false;
+      this.geninOnOff=false;
+      this.koukaOnOff=false;
+      this.commentOnOff=true;
+      this.fileOnOff=false;
+      return;
+
+    }
+    if (!this.file.toString().match(/[^0-9]/g)){
+      this.fileOnOff=false;
+
+    }else{
+      this.taisakuOnOff=false;
+      this.taiouOnOff=false;
+      this.geninOnOff=false;
+      this.koukaOnOff=false;
+      this.commentOnOff=false;
+      this.fileOnOff=true;
+      return;
+
+    }
 
 
     if(this.password==this.password2||this.password!=''){
@@ -185,10 +267,10 @@ return
 //       //console.log(this.busyo)
      }
 //
-    if(this.yosoukoutei==''){
-      this.yosoukoutei=this.claimitem.yosoukoutei
-//       //console.log(this.syubetu)
-    }
+//     if(this.yosoukoutei==''){
+//       this.yosoukoutei=this.claimitem.yosoukoutei
+// //       //console.log(this.syubetu)
+//     }
     if(this.name==''){
       this.name=this.claimitem.name
 //       //  console.log(this.name)
@@ -219,11 +301,17 @@ return
       moto:this.moto,
        basyo:this.basyo,
       hasseibi:this.dt,
-      hasseiji:this.mytime,
+   //   hasseiji:this.mytime,
       syousai:this.syousai,
        seihininfo:this.seihininfo,
-       yosoukoutei:this.yosoukoutei,
+     //  yosoukoutei:this.yosoukoutei,
       koukai:this.model.label,
+      taiou:this.taiou,
+      taisaku:this.taisaku,
+      genin:this.genin,
+      kouka:this.kouka,
+      comment:this.comment,
+      file:this.file,
       updateAt: firebase.database.ServerValue.TIMESTAMP
    };
     this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.key)

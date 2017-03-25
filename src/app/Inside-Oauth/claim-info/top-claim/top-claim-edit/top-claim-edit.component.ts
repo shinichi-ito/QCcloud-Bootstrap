@@ -10,7 +10,7 @@ import * as firebase from 'firebase'
   styleUrls: ['./top-claim-edit.component.css']
 })
 export class TopClaimEditComponent implements OnInit{
-  public mytime: Date = new Date();
+ // public mytime: Date = new Date();
   public dt: Date = new Date();
   public minDate: Date = void 0;
   public events: any[];
@@ -33,7 +33,7 @@ export class TopClaimEditComponent implements OnInit{
   basyo:string='';
   syousai:string='';
   seihininfo:string='';
-  yosoukoutei:string='';
+//  yosoukoutei:string='';
   model;
 check:boolean=false;
 key:string;
@@ -76,13 +76,13 @@ claimList:any;
         this.moto=this.claimList[key].moto;
         this.basyo=this.claimList[key].basyo;
         this.seihininfo=this.claimList[key].seihininfo;
-        this.yosoukoutei=this.claimList[key].yosoukoutei;
+     //   this.yosoukoutei=this.claimList[key].yosoukoutei;
         this.name=this.claimList[key].name;
         this.siten=this.claimList[key].siten;
         this.busyo=this.claimList[key].busyo;
         this.password2=this.claimList[key].password;
         this.dt=this.claimList[key].hasseibi;
-        this.mytime=this.claimList[key].hasseiji;
+      //  this.mytime=this.claimList[key].hasseiji;
     }
     }
  }
@@ -131,10 +131,10 @@ claimList:any;
       //console.log(this.busyo)
     }
 
-    if(this.yosoukoutei==''){
-      this.yosoukoutei=this.claimitem.yosoukoutei
-      //console.log(this.syubetu)
-    }
+    // if(this.yosoukoutei==''){
+    //   this.yosoukoutei=this.claimitem.yosoukoutei
+    //   //console.log(this.syubetu)
+    // }
     if(this.name==''){
       this.name=this.claimitem.name
       //  console.log(this.name)
@@ -158,10 +158,10 @@ claimList:any;
       moto:this.moto,
       basyo:this.basyo,
       hasseibi:this.dt,
-      hasseiji:this.mytime,
+    //  hasseiji:this.mytime,
       syousai:this.syousai,
       seihininfo:this.seihininfo,
-      yosoukoutei:this.yosoukoutei,
+    //  yosoukoutei:this.yosoukoutei,
       koukai:this.model.label,
       updateAt: firebase.database.ServerValue.TIMESTAMP
     };

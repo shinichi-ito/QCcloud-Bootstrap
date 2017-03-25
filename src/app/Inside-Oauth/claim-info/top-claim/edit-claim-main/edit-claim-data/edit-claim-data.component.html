@@ -58,21 +58,21 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="hasseiji">発生時間帯【予想される時間帯】</label>
-      <timepicker id="hasseiji" [(ngModel)]="mytime" name="mytime"></timepicker>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<label for="hasseiji">発生時間帯【予想される時間帯】</label>-->
+      <!--<timepicker id="hasseiji" [(ngModel)]="mytime" name="mytime"></timepicker>-->
+    <!--</div>-->
 
     <div class="form-group">
-      <label for="seihinInfo">製品補足情報</label>
-      <textarea type="text" class="form-control" [(ngModel)]="seihininfo" name="seihininfo"  id="seihinInfo" placeholder="対象製品の補足情報を入力ください。"></textarea>
+      <label for="seihinInfo">補足情報【製品情報やその他情報入力欄】</label>
+      <textarea type="text" class="form-control" [(ngModel)]="seihininfo" name="seihininfo"  id="seihinInfo" placeholder="(例)製品の製造番号や顧客の反応、緊急度合いなど　"></textarea>
     </div>
 
 
-    <div class="form-group">
-      <label for="yosoukoutei">対応が必要と予想される部署 工程</label>
-      <input type="text" class="form-control" [(ngModel)]="yosoukoutei" name="yosoukoutei" id="yosoukoutei">
-    </div>
+    <!--<div class="form-group">-->
+      <!--<label for="yosoukoutei">対応が必要と予想される部署 工程</label>-->
+      <!--<input type="text" class="form-control" [(ngModel)]="yosoukoutei" name="yosoukoutei" id="yosoukoutei">-->
+    <!--</div>-->
 
     <div class="form-group">
       <label for="toukousya">投稿者</label>
@@ -116,15 +116,15 @@
 
 
 
-    <button *ngIf="!OnOff" type="button" (click)="test()" class="btn btn-primary btn-block">test</button>
+    <!--<button *ngIf="!OnOff" type="button" (click)="test()" class="btn btn-primary btn-block">test</button>-->
 
     <div *ngIf="check" class="alert alert-danger" role="alert">パスワードが違います。</div>
     <div *ngIf="OnOff" class="alert alert-info" role="alert">編集されました。一覧画面の詳細表示から変更を確認ください。</div>
     <button *ngIf="!OnOff" type="button" (click)="onEdit()" class="btn btn-primary btn-block">編集</button>
 
-    <!--<a (click)="onoff()" class="text-info">応急対応や恒久対策の件数が不一致の際,修正ボタン</a>-->
+    <a (click)="onoff()"style="cursor: pointer" class="text-muted">応急対応や恒久対策の件数が不一致の際,修正ボタン</a>
 
-    <!--<div *ngIf="OnOff2">-->
+    <div *ngIf="OnOff2">
       <div class="form-group">
         <label for="taiou">応急対応数(数が合わない場合修正ください。半角数字)</label>
         <input type="text" class="form-control" [(ngModel)]="taiou" id="taiou" value="{{taiou}}">
@@ -135,28 +135,29 @@
         <input type="text" class="form-control" [(ngModel)]="taisaku" id="taisaku" value="{{taisaku}}">
         <div *ngIf="taisakuOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>
       </div>
-      <!--<div class="form-group">-->
-        <!--<label for="genin">原因分析数(数が合わない場合修正ください。半角数字)</label>-->
-        <!--<input type="text" class="form-control" [(ngModel)]="genin" id="genin" value="{{genin}}">-->
-        <!--<div *ngIf="geninOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>-->
-      <!--</div>-->
-      <!--<div class="form-group">-->
-        <!--<label for="kouka">効果確認数(数が合わない場合修正ください。半角数字)</label>-->
-        <!--<input type="text" class="form-control" [(ngModel)]="kouka" id="kouka" value="{{kouka}}">-->
-        <!--<div *ngIf="koukaOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>-->
-      <!--</div>-->
+      <div class="form-group">
+        <label for="genin">原因分析数(数が合わない場合修正ください。半角数字)</label>
+        <input type="text" class="form-control" [(ngModel)]="genin" id="genin" value="{{genin}}">
+        <div *ngIf="geninOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>
+      </div>
 
-      <!--<div class="form-group">-->
-        <!--<label for="comment">コメント数(数が合わない場合修正ください。半角数字)</label>-->
-        <!--<input type="text" class="form-control" [(ngModel)]="comment" id="comment" value="{{comment}}">-->
-        <!--<div *ngIf="commentOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>-->
-      <!--</div>-->
+      <div class="form-group">
+        <label for="kouka">効果確認数(数が合わない場合修正ください。半角数字)</label>
+        <input type="text" class="form-control" [(ngModel)]="kouka" id="kouka" value="{{kouka}}">
+        <div *ngIf="koukaOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>
+      </div>
 
-      <!--<div class="form-group">-->
-        <!--<label for="file">ファイル数(数が合わない場合修正ください。半角数字)</label>-->
-        <!--<input type="text" class="form-control" [(ngModel)]="file" id="file" value="{{file}}">-->
-        <!--<div *ngIf="fileOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>-->
-      <!--</div>-->
+      <div class="form-group">
+        <label for="comment">コメント数(数が合わない場合修正ください。半角数字)</label>
+        <input type="text" class="form-control" [(ngModel)]="comment" id="comment" value="{{comment}}">
+        <div *ngIf="commentOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>
+      </div>
+
+      <div class="form-group">
+        <label for="file">ファイル数(数が合わない場合修正ください。半角数字)</label>
+        <input type="text" class="form-control" [(ngModel)]="file" id="file" value="{{file}}">
+        <div *ngIf="fileOnOff" class="alert alert-danger" style="margin-top: 10px" role="alert">半角数字で入力ください。</div>
+      </div>
 
     <!--</div>-->
 

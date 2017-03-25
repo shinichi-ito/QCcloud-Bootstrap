@@ -41,7 +41,7 @@
         *</span>
         <span class="text-danger"
               [hidden]="!myForm.controls.tel.errors.pattern ">
-        Format error</span>
+        10桁～11桁の半角数字で入力ください</span>
       </span></label>
       <input type="text" class="form-control" formControlName="tel" [(ngModel)]="tel"  id="tel" placeholder="電話番号を入力して下さい。">
     </div>
@@ -181,3 +181,5 @@
 <app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
 <!--プログレスダイアログ-->
 <app-progress-dialog  #progrssDialog></app-progress-dialog>
+<!--カード登録ダイアログ-->
+<app-add-card [urlData]="urlData" #cardDialog></app-add-card>

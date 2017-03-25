@@ -205,7 +205,7 @@ changeTop(){
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
       console.log(term)
-      if (term >86400) {//期日を超えたら　会社情報登録画面へ
+      if (term >2) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
 //this.oauthInfoService.OnOff=false;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
        this.progressoutDialogComponent.closeDialog();

@@ -27,7 +27,7 @@ import { AddEmployeeComponent } from './employee-info/add-employee/add-employee.
 import { AddBranchOfficeComponent } from './employee-info/add-branch-office/add-branch-office.component';
 import { AddDepartmentComponent } from './employee-info/add-department/add-department.component';
 import {
-  DatepickerModule, RatingModule, TimepickerModule, ModalModule, DropdownModule, ProgressbarModule
+  DatepickerModule, RatingModule, ModalModule, DropdownModule, ProgressbarModule
 } from "ng2-bootstrap";
 import {CompanyInfoComponent} from "./company-info/company-info.component";
 import {AddCompanyInfoComponent} from "./company-info/add-company-info/add-company-info.component";
@@ -116,6 +116,7 @@ import {KoukaFilterPipe} from "./claim-info/claim-list/koukaListFilter.pipe";
 import {GeninFilterPipe} from "./claim-info/claim-list/geninListFilter.pipe";
 import { SuccessDialogComponent } from './Dialog/success-dialog/success-dialog.component';
 import { KanriNoDialogComponent } from './Dialog/kanri-no-dialog/kanri-no-dialog.component';
+import { AddCardComponent } from './Dialog/add-card/add-card.component';
 
 
 
@@ -238,7 +239,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ProgressImageDialogComponent,
     TaisakuViewDialogComponent,
     SuccessDialogComponent,
-    KanriNoDialogComponent
+    KanriNoDialogComponent,
+    AddCardComponent
 
 
 
@@ -252,7 +254,7 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     JsonpModule,
     DatepickerModule.forRoot(),
     RatingModule.forRoot(),
-    TimepickerModule.forRoot(),
+   // TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     DropdownModule.forRoot(),
     ProgressbarModule.forRoot(),

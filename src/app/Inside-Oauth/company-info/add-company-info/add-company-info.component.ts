@@ -7,7 +7,8 @@ import {Subscription} from "rxjs";
 import {Http,Headers, RequestOptions} from "@angular/http";
 import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.component";
 import {ProgressDialogComponent} from "../../Dialog/progress-dialog/progress-dialog.component";
-
+import {AddCardComponent} from "../../Dialog/add-card/add-card.component";
+import {Md5} from 'ts-md5/dist/md5';
 @Component({
   selector: 'app-add-company-info',
   templateUrl: './add-company-info.component.html',
@@ -34,7 +35,8 @@ model;
    errorData:string;
    @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
    Data:string;
-
+  @ViewChild("cardDialog") cardDialogComponent: AddCardComponent;
+  urlData:string;
   constructor(private _http: Http,private router:Router,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
     this.model = {
       label: ""
@@ -94,11 +96,13 @@ model;
   onAdd(){
     this.Data="";
     this.progressDialogComponent.openDialog();
-      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{
+      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{//ここではまだtermは変更しない　0のまま。カード登録が終わったらtermを1にする
 //会社情報の登録が完了したらカード登録画面へ
 //this.GWOaccess()
-        this.router.navigate(['/main/topinside'])
-        this.progressDialogComponent.closeDialog()
+     //   this.router.navigate(['/main/topinside'])
+        this.progressDialogComponent.closeDialog();
+        this.GmoURL();
+        this.cardDialogComponent.openDialog();
      }).catch((error)=>{
         this.progressDialogComponent.closeDialog();
         this.errorData=error.message;
@@ -109,41 +113,127 @@ model;
     });
   }
 
-
-GWOaccess(){
-   // console.log(this.model.label)
-  let price;
+  GmoURL(){
+    let priceData;
   if(this.model.label=='スタンダード'){
-      price=15000;
+      priceData=25000;
   }else if(this.model.label=='プレミアム'){
-    price=25000;
+    priceData=30000;
   }else if(this.model.label=='エキスパート'){
-price=35000;
+ priceData=35000;
+   }
+
+    let url='/link/(弊社指定の ID)/Multi/Entry?';
+    let shopID='testshop';
+    let orderID='order001';
+    let plice=priceData;
+    let shoppassword=this.shopInfo();
+    let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
+    let uid=this.uid;
+
+    let URL=url+ 'ShopID='+shopID+'&OrderID='+orderID+'&Amount='+plice
+      +'&DataTime='+date+'&ShopPassString='+shoppassword+
+      '&RetURL=http://localhost:4200/success'+
+      '&CancelURL=http://localhost:4200/cancel'+'&ClientField1='+uid;//ClientField1は弊社自由に使用できる
+
+   // console.log(URL)
+this.urlData=URL;
   }
 
 
 
-let postUrl = '../../wp-content/themes/wp/lamp-http_server.php';
-let send_data ={
-    price: price,
-    uid: this.uid
+//   ショップ ID＝testshop   オーダーID＝order001   利用金額＝1000   税送料＝80   ショップパスワード＝abcdefgh   日時情報＝20080401092355
+//
+// ■税送料を送信する場合 ショップ情報確認文字列＝「”testshop|order001|1000|80|abcdefgh|20080401092355” をＭＤ５でハッシュした値」
+//
+// ■税送料を送信しない場合 ショップ情報確認文字列＝「”testshop|order001|1000||abcdefgh|20080401092355” をＭＤ５でハッシュした値」
+  shopInfo(){//税抜きで作成
+    let shopID='testshop';
+    let orderID='order001';
+    let plice=15000;
+    let shoppassword='abcdefgh';
+    let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
+
+    //console.log(shopID+'|'+orderID+'|'+plice+'|'+shoppassword+'|'+date);
+    //console.log(Md5.hashStr("foo"));
+    // console.log(Md5.hashStr(shopID+'|'+orderID+'|'+plice+'|'+shoppassword+'|'+date));
+    return Md5.hashStr(shopID+'|'+orderID+'|'+plice+'|'+shoppassword+'|'+date);
+  }
+
+
+//指定の日付フォーマットで表示
+  formatDate(date, format) {//console.log(this.formatDate(new Date(),'YYYYMMDDhhmmss'));表示は20170324094029
+    if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
+    format = format.replace(/YYYY/g, date.getFullYear());
+    format = format.replace(/MM/g, ('0' + (date.getMonth() + 1)).slice(-2));
+    format = format.replace(/DD/g, ('0' + date.getDate()).slice(-2));
+    format = format.replace(/hh/g, ('0' + date.getHours()).slice(-2));
+    format = format.replace(/mm/g, ('0' + date.getMinutes()).slice(-2));
+    format = format.replace(/ss/g, ('0' + date.getSeconds()).slice(-2));
+    if (format.match(/S/g)) {
+      var milliSeconds = ('00' + date.getMilliseconds()).slice(-3);
+      var length = format.match(/S/g).length;
+      for (var i = 0; i < length; i++) format = format.replace(/S/, milliSeconds.substring(i, i + 1));
+    }
+    return format;
   };
 
-  let headers = new Headers({ 'Content-Type': 'application/json' });
-  let options = new RequestOptions({ headers: headers });
-  let trans_data = JSON.stringify(send_data);
-  this._http.post(postUrl, trans_data, options)
-    .subscribe(
-      res  => {
-this.progressDialogComponent.closeDialog();
-      },
-      error =>{
-        this.progressDialogComponent.closeDialog();
-        this.errorData=error;
-        this.errorDialogComponent.openDialog();
 
 
-      })
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// GWOaccess(){
+//    // console.log(this.model.label)
+//   let price;
+//   if(this.model.label=='スタンダード'){
+//       price=15000;
+//   }else if(this.model.label=='プレミアム'){
+//     price=25000;
+//   }else if(this.model.label=='エキスパート'){
+// price=35000;
+//   }
+
+//
+//
+// let postUrl = '../../wp-content/themes/wp/lamp-http_server.php';
+// let send_data ={
+//     price: price,
+//     uid: this.uid
+//   };
+//
+//   let headers = new Headers({ 'Content-Type': 'application/json' });
+//   let options = new RequestOptions({ headers: headers });
+//   let trans_data = JSON.stringify(send_data);
+//   this._http.post(postUrl, trans_data, options)
+//     .subscribe(
+//       res  => {
+// this.progressDialogComponent.closeDialog();
+//       },
+//       error =>{
+//         this.progressDialogComponent.closeDialog();
+//         this.errorData=error;
+//         this.errorDialogComponent.openDialog();
+//
+//
+//       })
+//
+// }
 }
