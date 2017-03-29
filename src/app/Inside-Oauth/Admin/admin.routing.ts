@@ -7,4 +7,5 @@ import {CompanyEditComponent} from "./company-edit/company-edit.component";
 export const ADMIN_ROUTES: Routes = [
   { path: 'newsline',component:NewsLineComponent},//admin/newsline
   { path: 'admincompanyedit',component:CompanyEditComponent}
+
 ];

@@ -9,8 +9,18 @@ export class CompanyInfoService {
   constructor(private af : AngularFire) {
 
   }
-
-  addCompanyDetail(companydetail:CompanyDetail,uid: string){
+getPrice(data:string){
+  let priceData;
+  if(data=='スタンダード'){
+    priceData=25000;
+  }else if(data=='プレミアム'){
+    priceData=30000;
+  }else if(data=='エキスパート'){
+    priceData=35000;
+  }
+  return priceData;
+}
+  addCompanyDetail(companydetail:CompanyDetail,uid: string,priceData:number){
    // console.log('ここ')
       const companyInfo = {
         companyname:companydetail.companyname,
@@ -24,6 +34,7 @@ export class CompanyInfoService {
         riyoukiyaku:companydetail.riyoukiyaku,
         privacypolicy:companydetail.privacypolicy,
         label:companydetail.label,
+        price:priceData,
         planUp: firebase.database.ServerValue.TIMESTAMP,
         updateAt: firebase.database.ServerValue.TIMESTAMP
       };

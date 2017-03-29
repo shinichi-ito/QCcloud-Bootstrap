@@ -6,7 +6,7 @@ import {InsideService} from "./Inside.service";
 import {Router} from "@angular/router";
 @Injectable()
 export class InsideMainService {
-
+  claims: FirebaseListObservable<any[]>;
   jyoukyouData:any[]=[];//対応や対策の　対象のFileDataの一覧が入る
   jyoukyoukey:string;//これは画像を削除したとき削除した画像の対象のキー(データベース内の)
   claimData:any;
@@ -83,7 +83,11 @@ logout(){
 
 }
 
+  deleteClaim(key:string,uid:string){
+    this.claims=this.af.database.list('ClaimData/'+uid);
+   return this.claims.remove(key);
 
+  }
 
 
   //////////////////////////////////////////////////////////////////

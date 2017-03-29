@@ -180,7 +180,7 @@ signIn(){
 
 }
  test(){
-//  this.getStorageUrl()
+ this.getStorageUrl()
 
 
   // this.notificationBarService.create({ message: 'アップロード成功', type: NotificationType.Error});
@@ -189,14 +189,9 @@ signIn(){
   getStorageUrl() {
     let params = new URLSearchParams();
     params.set('uid', 'test');
-    params.set('syurui', 'test');
-    params.set('toukousya', 'test');
-    params.set('siten', 'test');
-    params.set('busyo', 'test');
-    params.set('comment', 'test');
-    params.set('mainmail', 'uid');
-    let url = 'http://localhost:8888/rest/addFile/url?callback=__ng_jsonp__.__req0.finished';
-    // let url = 'http://1-dot-qccloud-asia-northeast1.appspot.com/rest/addFile/url?callback=__ng_jsonp__.__req0.finished';
+
+   let url = 'http://localhost:8888/rest/http/url?callback=__ng_jsonp__.__req0.finished';
+     //let url = 'http://localhost:8888/rest/addFile/url?callback=__ng_jsonp__.__req0.finished';
     this.jsonp
       .get(url, {search: params})
       .subscribe(

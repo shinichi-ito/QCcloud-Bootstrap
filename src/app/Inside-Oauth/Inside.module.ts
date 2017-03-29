@@ -117,6 +117,9 @@ import {GeninFilterPipe} from "./claim-info/claim-list/geninListFilter.pipe";
 import { SuccessDialogComponent } from './Dialog/success-dialog/success-dialog.component';
 import { KanriNoDialogComponent } from './Dialog/kanri-no-dialog/kanri-no-dialog.component';
 import { AddCardComponent } from './Dialog/add-card/add-card.component';
+import { EditInfoComponent } from './Admin/edit-info/edit-info.component';
+import { CardEditComponent } from './Admin/edit-info/card-edit/card-edit.component';
+import { SideEditInfoComponent } from './Admin/edit-info/side-edit-info/side-edit-info.component';
 
 
 
@@ -240,7 +243,10 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TaisakuViewDialogComponent,
     SuccessDialogComponent,
     KanriNoDialogComponent,
-    AddCardComponent
+    AddCardComponent,
+    EditInfoComponent,
+    CardEditComponent,
+    SideEditInfoComponent
 
 
 

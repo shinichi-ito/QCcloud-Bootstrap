@@ -32,6 +32,8 @@ import {AdminComponent} from "./Admin/admin.component";
 import {ADMIN_ROUTES} from "./Admin/admin.routing";
 import {TaiakiEditComponent} from "./taiaki-edit/taiaki-edit.component";
 import {PlanChangeComponent} from "./plan-change/plan-change.component";
+import {EditInfoComponent} from "./Admin/edit-info/edit-info.component";
+import {EDITINFO_ROUTES} from "./Admin/edit-info/editinfo.routing";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -53,9 +55,11 @@ const IN_ROUTES: Routes = [
     { path: 'topinside',component:TopInsideComponent},
    { path: 'editclaimmain',component:EditClaimMainComponent,children:EDITCLAIMMAIN_ROUTES},
     { path: 'viewtimeline',component:ViewTimeLineComponent},
-    { path: 'admin',component:AdminComponent,children:ADMIN_ROUTES},
-    { path: 'taikaiedit',component:TaiakiEditComponent},
-    { path: 'planchange',component:PlanChangeComponent},
+     { path: 'admin',component:AdminComponent,children:ADMIN_ROUTES},
+    // { path: 'taikaiedit',component:TaiakiEditComponent},
+    // { path: 'planchange',component:PlanChangeComponent},
+    { path: 'editinfo',component:EditInfoComponent,children:EDITINFO_ROUTES}
+
   ]}
 
 ];

@@ -1,6 +1,7 @@
 import {Component, OnInit, Inject, HostListener} from '@angular/core';
 import {DOCUMENT} from "@angular/platform-browser";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-landing-page',
@@ -10,9 +11,9 @@ import {Router} from "@angular/router";
 export class LandingPageComponent implements OnInit {
   public navIsFixed: boolean = false;
   OnOff:boolean;
+  private subscription:Subscription;
 
-
-  constructor(private router: Router,@Inject(DOCUMENT) private document: Document) { }
+  constructor(private route:ActivatedRoute,private router: Router,@Inject(DOCUMENT) private document: Document) { }
 
 
   ngOnInit() {

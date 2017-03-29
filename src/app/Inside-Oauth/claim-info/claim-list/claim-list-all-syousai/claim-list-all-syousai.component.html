@@ -54,7 +54,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of mf.data">
+        <tr *ngFor="let item of mf.data|orderby:'startAt';">
 
 
           <td style="word-wrap:break-word;">

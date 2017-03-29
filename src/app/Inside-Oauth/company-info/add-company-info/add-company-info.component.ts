@@ -30,7 +30,8 @@ export class AddCompanyInfoComponent implements OnInit{
   privacypolicy:boolean;
 uid:string;
 model;
-
+data:string='yyyyyy';
+gmoData:any[]=[];
 @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
    errorData:string;
    @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
@@ -94,19 +95,23 @@ model;
 
 
   onAdd(){
+
+    let priceData;
+    priceData=this.companyInfoService.getPrice(this.model.label);
     this.Data="";
     this.progressDialogComponent.openDialog();
-      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid).then((data)=>{//ここではまだtermは変更しない　0のまま。カード登録が終わったらtermを1にする
+      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid,priceData).then((data)=>{//ここではまだtermは変更しない　0のまま。カード登録が終わったらtermを1にする
 //会社情報の登録が完了したらカード登録画面へ
 //this.GWOaccess()
      //   this.router.navigate(['/main/topinside'])
         this.progressDialogComponent.closeDialog();
         this.GmoURL();
-        this.cardDialogComponent.openDialog();
+       this.cardDialogComponent.openDialog();
      }).catch((error)=>{
         this.progressDialogComponent.closeDialog();
         this.errorData=error.message;
         this.errorDialogComponent.openDialog();
+
 
 
 
@@ -115,30 +120,42 @@ model;
 
   GmoURL(){
     let priceData;
-  if(this.model.label=='スタンダード'){
-      priceData=25000;
-  }else if(this.model.label=='プレミアム'){
-    priceData=30000;
-  }else if(this.model.label=='エキスパート'){
- priceData=35000;
-   }
+    priceData=this.companyInfoService.getPrice(this.model.label);
 
-    let url='/link/(弊社指定の ID)/Multi/Entry?';
-    let shopID='testshop';
-    let orderID='order001';
-    let plice=priceData;
-    let shoppassword=this.shopInfo();
+    let url='http://localhost:8888/sendgwo?';//https://pt01.mul-pay.jp/link/tshop00027379/Multi/Entry
+    let shopID='tshop00027379';//tshop00027379
     let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
     let uid=this.uid;
+    let orderID=uid.substr(0,27);
+    let plice=priceData;
+    let shoppassword=this.shopInfo(orderID,priceData,date);
+    let kainInfo=this.kainInfo(uid,date);
+     let syurui='QCcloud';
+    let JobCd='CHECK';
 
-    let URL=url+ 'ShopID='+shopID+'&OrderID='+orderID+'&Amount='+plice
-      +'&DataTime='+date+'&ShopPassString='+shoppassword+
-      '&RetURL=http://localhost:4200/success'+
-      '&CancelURL=http://localhost:4200/cancel'+'&ClientField1='+uid;//ClientField1は弊社自由に使用できる
+
+
+    let URL=url+'ShopID='+shopID+'&OrderID='+orderID+'&Amount='+plice
+      +'&DateTime='+date+'&ShopPassString='+shoppassword+
+      '&RetURL=http://localhost:8888/sendgwo'+
+      '&CancelURL=http://localhost:8888/cancel'+'&UseCredit=1'+'&SiteID=tsite00024826'+'&MemberID='+uid+'&JobCd='+JobCd+
+      '&MemberPassString='+kainInfo+'&ClientField1='+uid+'&ClientField2='+syurui;//ClientField1は弊社自由に使用できる
 
    // console.log(URL)
 this.urlData=URL;
   }
+
+  //サイト ID＝testsite   会員 ID＝300028   サイトパスワード＝abcdefgh   日時情報＝20080401092355
+  // 会員情報チェック文字列＝「”testsite|300028|abcdefgh|20080401092355” をＭＤ５でハッシュした値」
+  kainInfo(uid:string,date:any){
+    let siteID='tsite00024826';//	tsite00024826
+    let kainID=uid;
+    let sitepassword='6yh42aya';//6yh42aya
+
+    return Md5.hashStr(siteID+'|'+kainID+'|'+sitepassword+'|'+date);
+
+  }
+
 
 
 
@@ -147,17 +164,14 @@ this.urlData=URL;
 // ■税送料を送信する場合 ショップ情報確認文字列＝「”testshop|order001|1000|80|abcdefgh|20080401092355” をＭＤ５でハッシュした値」
 //
 // ■税送料を送信しない場合 ショップ情報確認文字列＝「”testshop|order001|1000||abcdefgh|20080401092355” をＭＤ５でハッシュした値」
-  shopInfo(){//税抜きで作成
-    let shopID='testshop';
-    let orderID='order001';
-    let plice=15000;
-    let shoppassword='abcdefgh';
-    let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
-
-    //console.log(shopID+'|'+orderID+'|'+plice+'|'+shoppassword+'|'+date);
-    //console.log(Md5.hashStr("foo"));
-    // console.log(Md5.hashStr(shopID+'|'+orderID+'|'+plice+'|'+shoppassword+'|'+date));
-    return Md5.hashStr(shopID+'|'+orderID+'|'+plice+'|'+shoppassword+'|'+date);
+  shopInfo(orderid:string,pliceData:number,date:any){//税抜きで作成
+    let shopID='tshop00027379';
+    let orderID=orderid;
+    let plice=pliceData;
+    let shoppassword='ncea14h4';//ncea14h4
+    // let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
+    console.log(shopID+'|'+orderID+'|'+plice+'|'+'|'+shoppassword+'|'+date)
+   return Md5.hashStr(shopID+'|'+orderID+'|'+plice+'|'+'|'+shoppassword+'|'+date);
   }
 
 

@@ -134,7 +134,17 @@ export class SelectEditClaimComponent implements OnInit {
 
 
   }
+  Delete(index){
+    this.claimData=this.newclaimList[index];
+   //console.log(this.claimData.key)
+    this.insideMainService.deleteClaim(this.claimData.key,this.uid).then(data=>{
+      this.newclaimList.splice(Number(this.claimData.key),1);
+    }).catch(error=>{
 
+
+
+    });
+  }
 
 
 }

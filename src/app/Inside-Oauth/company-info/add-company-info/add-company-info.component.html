@@ -4,6 +4,10 @@
 <!--<app-nav-sabu></app-nav-sabu>-->
 
 
+
+
+
+
 <form [formGroup]="myForm"
       (ngSubmit)="onAdd()">
 <div class="panel panel-default" style="width: 60%;margin: 0 auto;margin-top: 30px">
@@ -11,7 +15,7 @@
     会社情報詳細登録
   </div>
   <div class="panel-body">
-    <div class="alert alert-success" role="alert">引き続きご利用いただくために下記の登録を行ってください。</div>
+    <div class="alert alert-info" role="alert">引き続きご利用いただくために下記の登録を行ってください。</div>
     <div class="form-group">
       <label for="companyname">会社名<span *ngIf="myForm.controls.companyname.dirty &&
                 myForm.controls.companyname.errors||myForm.controls.companyname.untouched &&
@@ -182,4 +186,4 @@
 <!--プログレスダイアログ-->
 <app-progress-dialog  #progrssDialog></app-progress-dialog>
 <!--カード登録ダイアログ-->
-<app-add-card [urlData]="urlData" #cardDialog></app-add-card>
+<app-add-card [urlData]="urlData"  [gmoData]="gmoData"#cardDialog></app-add-card>
