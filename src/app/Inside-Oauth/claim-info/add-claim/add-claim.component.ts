@@ -91,7 +91,7 @@ export class AddClaimComponent  {
     this.uid=this.oauthInfoService.uid;
    this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
-    console.log(this.check);
+//    console.log(this.check);
     if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
       this.memberList=this.insideService.memberList;
@@ -247,6 +247,12 @@ setMember(value){
       busyo:this.busyo,
       password:this.password,
       koukai:this.model.label,
+
+      moto:'',
+      basyo:'',
+      hasseibi:'',
+      syousai:'',
+      seihininfo:'',
       taiou:0,
       taiouUp:'start',
       genin:0,

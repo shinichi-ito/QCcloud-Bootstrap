@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {InsideMainService} from "../../../inside-main.service";
 import {FirebaseListObservable, FirebaseObjectObservable, AngularFire} from "angularfire2";
 import {InsideService} from "../../../Inside.service";
 import {OauthInfoService} from "../../../oauth-info.service";
 import * as firebase from 'firebase'
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
+import {ProgressDialogComponent} from "../../../Dialog/progress-dialog/progress-dialog.component";
 @Component({
   selector: 'app-change-claim',
   templateUrl: './change-claim.component.html',
   styleUrls: ['./change-claim.component.css']
 })
 export class ChangeClaimComponent implements OnInit {
-
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
+  @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
+  Data:string;
 
 //  public mytime: Date = new Date();
   public dt: Date = new Date();
@@ -41,7 +46,7 @@ export class ChangeClaimComponent implements OnInit {
   key:string;
   claimInfo: FirebaseListObservable<any[]>;
   claimInfo2: FirebaseObjectObservable<any[]>;
-
+OnOff:boolean=false;
   public constructor(private insideMainService:InsideMainService,private insideService:InsideService,
                      private oauthInfoService:OauthInfoService,private af : AngularFire) {
     this.uid=this.oauthInfoService.uid;
@@ -137,30 +142,33 @@ export class ChangeClaimComponent implements OnInit {
       this.busyo=this.claimitem.busyo
       //console.log(this.busyo)
     }
-    const claimInfo = {
-      syubetu:this.syubetu,
-      seihin:this.seihin,
-      gaiyou:this.gaiyou,
-      name:this.name,
-      siten:this.siten,
-      busyo:this.busyo,
-      password:this.password,
-      moto:this.moto,
-      basyo:this.basyo,
-      hasseibi:this.dt,
-     // hasseiji:this.mytime,
+
+this.progressDialogComponent.openDialog();
+
+     const claimInfo = {
+       syubetu:this.syubetu,
+       seihin:this.seihin,
+       gaiyou:this.gaiyou,
+       name:this.name,
+       siten:this.siten,
+       busyo:this.busyo,
+       password:this.password,
+       moto:this.moto,
+       basyo:this.basyo,
+       hasseibi:this.dt,
       syousai:this.syousai,
-      seihininfo:this.seihininfo,
-    //  yosoukoutei:this.yosoukoutei,
-      koukai:this.model.label,
-      updateAt: firebase.database.ServerValue.TIMESTAMP
-    };
-    this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.key)
-    this.claimInfo2.update(claimInfo).then(data=>{
-
-    }).catch(error=>{
-
-    })
+       seihininfo:this.seihininfo,
+       koukai:this.model.label,
+       updateAt: firebase.database.ServerValue.TIMESTAMP
+     };
+     this.claimInfo2=this.af.database.object('ClaimData/'+this.uid+'/'+this.key);
+     this.claimInfo2.update(claimInfo).then(data=>{
+       this.OnOff=true;
+this.progressDialogComponent.closeDialog();
+     }).catch(error=>{
+       this.errorData=error;
+       this.errorDialogComponent.openDialog();
+     })
 
 
 

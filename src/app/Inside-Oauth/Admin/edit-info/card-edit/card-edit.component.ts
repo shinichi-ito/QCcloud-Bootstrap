@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Md5} from 'ts-md5/dist/md5';
 import {OauthInfoService} from "../../../oauth-info.service";
+import {InsideMainService} from "../../../inside-main.service";
 @Component({
   selector: 'app-card-edit',
   templateUrl: './card-edit.component.html',
@@ -9,8 +10,31 @@ import {OauthInfoService} from "../../../oauth-info.service";
 export class CardEditComponent implements OnInit {
 uid:string;
   urlData:string;
-  constructor(private oauthInfoService:OauthInfoService) {
+  OrderID:string;
+  companyname:string;
+  constructor(private insideMainService:InsideMainService,private oauthInfoService:OauthInfoService) {
     this.uid=this.oauthInfoService.uid;
+
+    this.insideMainService.getCompanyInfo(this.uid).subscribe((data)=>{
+        for(let key in data){
+          if(data[key].$key=='OrderID'){
+            this.OrderID=data[key].$value;
+          }
+          if(data[key].$key=='companyname'){
+            this.companyname=data[key].$value;
+          }
+
+
+        }//forを抜けた
+      },
+      (error)=>{
+
+      });
+
+
+
+
+
     this.GmoURL();
   }
 
@@ -19,22 +43,32 @@ uid:string;
   GmoURL(){
 
 
-    let url='http://localhost:8888/editcard?';//https://pt01.mul-pay.jp/link/tshop00027379/Multi/Entry
-    let shopID='tshop00027379';//tshop00027379
+    //let url='http://localhost:8888/editcard?';//https://pt01.mul-pay.jp/link/tshop00027379/Multi/Entry
+    let url=this.insideMainService.urledit;
+
+    //let shopID='tshop00027379';//tshop00027379
+    let shopID=this.insideMainService.shopID;
+
     let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
     let uid=this.uid;
-    let orderID=uid.substr(0,27);
-let siteID='tsite00024826';
+    let orderID=this.OrderID;
+
+    //let siteID='tsite00024826';
+    let siteID=this.insideMainService.siteID;
+
 
     let kainInfo=this.kainInfo(uid,date);
+    let reURL=this.insideMainService.reURL2;
 
+    // let canURL='http://localhost:8888/cancel';
+    let canURL=this.insideMainService.canURL;
 
 
 
     let URL=url+'ShopID='+shopID+'&OrderID='+orderID
       +'&DateTime='+date+
-      '&RetURL=http://localhost:8888/successeditcard'+
-      '&CancelURL=http://localhost:8888/cancel'+'&SiteID='+siteID+'&MemberID='+uid+
+      '&RetURL='+reURL+
+      '&CancelURL='+canURL+'&SiteID='+siteID+'&MemberID='+uid+'&MemberName='+this.companyname+
       '&MemberPassString='+kainInfo;
 
     // console.log(URL)
@@ -44,15 +78,26 @@ let siteID='tsite00024826';
   //サイト ID＝testsite   会員 ID＝300028   サイトパスワード＝abcdefgh   日時情報＝20080401092355
   // 会員情報チェック文字列＝「”testsite|300028|abcdefgh|20080401092355” をＭＤ５でハッシュした値」
   kainInfo(uid:string,date:any){
-    let siteID='tsite00024826';//	tsite00024826
+   // let siteID='tsite00024826';//	tsite00024826
+    let siteID=this.insideMainService.siteID;
 
-    let shopID='tshop00027379';
+    //let shopID='tshop00027379';
+    let shopID=this.insideMainService.shopID;
+
     let kainID=uid;
-    let sitepassword='6yh42aya';//6yh42aya
-    let shoppassword='ncea14h4';
+
+  //  let sitepassword='6yh42aya';//6yh42aya
+    let sitepassword=this.insideMainService.sitepassword;
+
+   // let shoppassword='ncea14h4';
+    let shoppassword=this.insideMainService.shoppassword;
+
+
+//console.log(siteID+'|'+kainID+'|'+shopID+'|'
+ // +this.OrderID+'|'+sitepassword+'|'+shoppassword+'|'+date);
 
     return Md5.hashStr(siteID+'|'+kainID+'|'+shopID+'|'
-      +date+'|'+sitepassword+'|'+shoppassword+'|'+date);
+      +this.OrderID+'|'+sitepassword+'|'+shoppassword+'|'+date);
 
   }
 

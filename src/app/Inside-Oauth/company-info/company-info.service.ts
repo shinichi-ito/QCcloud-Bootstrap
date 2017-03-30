@@ -20,7 +20,7 @@ getPrice(data:string){
   }
   return priceData;
 }
-  addCompanyDetail(companydetail:CompanyDetail,uid: string,priceData:number){
+  addCompanyDetail(companydetail:CompanyDetail,uid: string,priceData:number,OrderID:string){
    // console.log('ここ')
       const companyInfo = {
         companyname:companydetail.companyname,
@@ -35,6 +35,7 @@ getPrice(data:string){
         privacypolicy:companydetail.privacypolicy,
         label:companydetail.label,
         price:priceData,
+        OrderID:OrderID,
         planUp: firebase.database.ServerValue.TIMESTAMP,
         updateAt: firebase.database.ServerValue.TIMESTAMP
       };

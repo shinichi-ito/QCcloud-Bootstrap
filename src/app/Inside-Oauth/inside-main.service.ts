@@ -6,6 +6,37 @@ import {InsideService} from "./Inside.service";
 import {Router} from "@angular/router";
 @Injectable()
 export class InsideMainService {
+
+  //////これよりGMOへアクセスするためのデータ///////////
+   url:string='http://localhost:8888/sendgwo?';//一番最初に登録さる際のURL
+  urledit='http://localhost:8888/editcard?';//クレジットカードを編集追加する際のURL
+   shopID:string='tshop00027379';
+  siteID='tsite00024826';
+  sitepassword='6yh42aya';//6yh42aya
+  shoppassword='ncea14h4';
+  syurui='QCcloud';//これは将来てきにQCcloud以外のサービスが発生した際区別できるように
+   JobCd='CHECK';
+   reURL='http://localhost:8888/successeditcard';//クレジットカードをチェックした後に今度はカード名義人を入力する際のリダイレクト先
+
+  reURL2='http://localhost:8888/successeditcard2';//クレジットカードを編集後のリダイレクト先
+
+  //なお　カード名義人を登録した際のリダイレクト先はサーバー側にあるため要注意
+  canURL='http://localhost:8888/cancel';
+
+
+
+
+  //////これよりGMOへアクセスするためのデータ///////////
+
+
+
+
+
+
+
+
+
+
   claims: FirebaseListObservable<any[]>;
   jyoukyouData:any[]=[];//対応や対策の　対象のFileDataの一覧が入る
   jyoukyoukey:string;//これは画像を削除したとき削除した画像の対象のキー(データベース内の)
@@ -63,11 +94,21 @@ error:any;
 
     this.flagChangeActive$ = new Observable((observer) =>{
       this._observeractive= observer
-    }).share()
+    }).share();
 
     this.claimitem=this.insideService.claimitem;
   }
+  deleteClaim(key:string,uid:string){
+    this.claims=this.af.database.list('ClaimData/'+uid);
+    this.claims.remove(key).then(data=>{
+      this.active='削除成功';
+      this._observeractive.next(this.active);
+    }).catch(error=>{
+      this.error=error;
+      this._observerError.next(this.error);
+   });
 
+  }
 
 setError(error){
 
@@ -83,11 +124,7 @@ logout(){
 
 }
 
-  deleteClaim(key:string,uid:string){
-    this.claims=this.af.database.list('ClaimData/'+uid);
-   return this.claims.remove(key);
 
-  }
 
 
   //////////////////////////////////////////////////////////////////

@@ -9,6 +9,7 @@ import {ErrorDialogComponent} from "../../Dialog/error-dialog/error-dialog.compo
 import {ProgressDialogComponent} from "../../Dialog/progress-dialog/progress-dialog.component";
 import {AddCardComponent} from "../../Dialog/add-card/add-card.component";
 import {Md5} from 'ts-md5/dist/md5';
+import {InsideMainService} from "../../inside-main.service";
 @Component({
   selector: 'app-add-company-info',
   templateUrl: './add-company-info.component.html',
@@ -38,7 +39,8 @@ gmoData:any[]=[];
    Data:string;
   @ViewChild("cardDialog") cardDialogComponent: AddCardComponent;
   urlData:string;
-  constructor(private _http: Http,private router:Router,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
+  OrderID:string;
+  constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
     this.model = {
       label: ""
     };
@@ -95,12 +97,13 @@ gmoData:any[]=[];
 
 
   onAdd(){
-
+    let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
+    this.OrderID=this.uid.substr(0,13)+date;
     let priceData;
     priceData=this.companyInfoService.getPrice(this.model.label);
     this.Data="";
     this.progressDialogComponent.openDialog();
-      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid,priceData).then((data)=>{//ここではまだtermは変更しない　0のまま。カード登録が終わったらtermを1にする
+      this.companyInfoService.addCompanyDetail(this.myForm.value,this.uid,priceData,this.OrderID).then((data)=>{//ここではまだtermは変更しない　0のまま。カード登録が終わったらtermを1にする
 //会社情報の登録が完了したらカード登録画面へ
 //this.GWOaccess()
      //   this.router.navigate(['/main/topinside'])
@@ -122,41 +125,92 @@ gmoData:any[]=[];
     let priceData;
     priceData=this.companyInfoService.getPrice(this.model.label);
 
-    let url='http://localhost:8888/sendgwo?';//https://pt01.mul-pay.jp/link/tshop00027379/Multi/Entry
-    let shopID='tshop00027379';//tshop00027379
+    //let url='http://localhost:8888/sendgwo?';//https://pt01.mul-pay.jp/link/tshop00027379/Multi/Entry
+    let url=this.insideMainService.url;
+
+    //let shopID='tshop00027379';//tshop00027379
+    let shopID=this.insideMainService.shopID;
+
     let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
     let uid=this.uid;
-    let orderID=uid.substr(0,27);
+    // let orderID=uid.substr(0,13)+date;
     let plice=priceData;
-    let shoppassword=this.shopInfo(orderID,priceData,date);
+    let shoppassword=this.shopInfo(this.OrderID,priceData,date);
     let kainInfo=this.kainInfo(uid,date);
-     let syurui='QCcloud';
-    let JobCd='CHECK';
+
+   //  let syurui='QCcloud';
+    let syurui=this.insideMainService.syurui;
+
+    //let JobCd='CHECK';
+    let JobCd=this.insideMainService.JobCd;
 
 
+   // let siteID='tsite00024826';//	tsite00024826
+    let siteID=this.insideMainService.siteID;
 
-    let URL=url+'ShopID='+shopID+'&OrderID='+orderID+'&Amount='+plice
+    let memberID=uid;
+     let companyname=this.companyname;
+    let kainInfo2=this.kainInfo2(uid,date);
+
+   // let reURL='http://localhost:8888/successeditcard';
+    let reURL=this.insideMainService.reURL;
+
+   // let canURL='http://localhost:8888/cancel';
+let canURL=this.insideMainService.canURL;
+
+
+    let URL=url+'ShopID='+shopID+'&OrderID='+this.OrderID+'&Amount='+plice
       +'&DateTime='+date+'&ShopPassString='+shoppassword+
       '&RetURL=http://localhost:8888/sendgwo'+
       '&CancelURL=http://localhost:8888/cancel'+'&UseCredit=1'+'&SiteID=tsite00024826'+'&MemberID='+uid+'&JobCd='+JobCd+
-      '&MemberPassString='+kainInfo+'&ClientField1='+uid+'&ClientField2='+syurui;//ClientField1は弊社自由に使用できる
+      '&MemberPassString='+kainInfo+'&ClientField1='+uid+'&ClientField2='+companyname+'/'+syurui+'/'+kainInfo2
+      +'&ClientField3='+siteID+'/'+memberID+'/'+date;//ClientField1は弊社自由に使用できる
 
-   // console.log(URL)
+    //console.log(URL)
 this.urlData=URL;
   }
 
   //サイト ID＝testsite   会員 ID＝300028   サイトパスワード＝abcdefgh   日時情報＝20080401092355
   // 会員情報チェック文字列＝「”testsite|300028|abcdefgh|20080401092355” をＭＤ５でハッシュした値」
   kainInfo(uid:string,date:any){
-    let siteID='tsite00024826';//	tsite00024826
+   // let siteID='tsite00024826';//	tsite00024826
+    let siteID=this.insideMainService.siteID;
+
     let kainID=uid;
-    let sitepassword='6yh42aya';//6yh42aya
+
+    //let sitepassword='6yh42aya';//6yh42aya
+    let sitepassword=this.insideMainService.sitepassword;
 
     return Md5.hashStr(siteID+'|'+kainID+'|'+sitepassword+'|'+date);
 
   }
 
+  //サイト ID＝testsite   会員 ID＝300028   サイトパスワード＝abcdefgh   日時情報＝20080401092355
+  // 会員情報チェック文字列＝「”testsite|300028|abcdefgh|20080401092355” をＭＤ５でハッシュした値」
+  kainInfo2(uid:string,date:any){
+   // let siteID='tsite00024826';//	tsite00024826
+    let siteID=this.insideMainService.siteID;
 
+    //let shopID='tshop00027379';
+    let shopID=this.insideMainService.shopID;
+
+    let kainID=uid;
+
+   // let sitepassword='6yh42aya';//6yh42aya
+    let sitepassword=this.insideMainService.sitepassword;
+
+
+   // let shoppassword='ncea14h4';
+    let shoppassword=this.insideMainService.shoppassword;
+
+ //   console.log(siteID+'|'+kainID+'|'+shopID+'|'
+  //    +this.OrderID+'|'+sitepassword+'|'+shoppassword+'|'+date);
+//console.log(siteID+'|'+kainID+'|'+shopID+'|'
+ // +this.OrderID+'|'+sitepassword+'|'+shoppassword+'|'+date)
+    return Md5.hashStr(siteID+'|'+kainID+'|'+shopID+'|'
+      +this.OrderID+'|'+sitepassword+'|'+shoppassword+'|'+date);
+
+  }
 
 
 //   ショップ ID＝testshop   オーダーID＝order001   利用金額＝1000   税送料＝80   ショップパスワード＝abcdefgh   日時情報＝20080401092355
@@ -165,12 +219,17 @@ this.urlData=URL;
 //
 // ■税送料を送信しない場合 ショップ情報確認文字列＝「”testshop|order001|1000||abcdefgh|20080401092355” をＭＤ５でハッシュした値」
   shopInfo(orderid:string,pliceData:number,date:any){//税抜きで作成
-    let shopID='tshop00027379';
+    //let shopID='tshop00027379';
+    let shopID=this.insideMainService.shopID;
+
     let orderID=orderid;
     let plice=pliceData;
-    let shoppassword='ncea14h4';//ncea14h4
+
+    //let shoppassword='ncea14h4';//ncea14h4
+    let shoppassword=this.insideMainService.shoppassword;
+
     // let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
-    console.log(shopID+'|'+orderID+'|'+plice+'|'+'|'+shoppassword+'|'+date)
+   // console.log(shopID+'|'+orderID+'|'+plice+'|'+'|'+shoppassword+'|'+date)
    return Md5.hashStr(shopID+'|'+orderID+'|'+plice+'|'+'|'+shoppassword+'|'+date);
   }
 

@@ -120,6 +120,7 @@ import { AddCardComponent } from './Dialog/add-card/add-card.component';
 import { EditInfoComponent } from './Admin/edit-info/edit-info.component';
 import { CardEditComponent } from './Admin/edit-info/card-edit/card-edit.component';
 import { SideEditInfoComponent } from './Admin/edit-info/side-edit-info/side-edit-info.component';
+import { ClaimDeleteDialogComponent } from './Dialog/claim-delete-dialog/claim-delete-dialog.component';
 
 
 
@@ -246,7 +247,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     AddCardComponent,
     EditInfoComponent,
     CardEditComponent,
-    SideEditInfoComponent
+    SideEditInfoComponent,
+    ClaimDeleteDialogComponent
 
 
 

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {InsideService} from "../../../Inside.service";
 import {Router} from "@angular/router";
 import {InsideMainService} from "../../../inside-main.service";
 import {FirebaseObjectObservable, AngularFire} from "angularfire2";
 import {OauthInfoService} from "../../../oauth-info.service";
+import {ClaimDeleteDialogComponent} from "../../../Dialog/claim-delete-dialog/claim-delete-dialog.component";
+import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
 
 @Component({
   selector: 'app-select-edit-claim',
@@ -11,7 +13,7 @@ import {OauthInfoService} from "../../../oauth-info.service";
   styleUrls: ['./select-edit-claim.component.css']
 })
 export class SelectEditClaimComponent implements OnInit {
-
+  @ViewChild("claimDeleteDialog") claimDeleteDialogComponent: ClaimDeleteDialogComponent;
  // memberList:any[]=[];
   name:string;
   siten:string;
@@ -44,16 +46,26 @@ export class SelectEditClaimComponent implements OnInit {
   fileList:any[]=[];
   count:number;
   plusList:number;
-
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
   constructor(private af : AngularFire,private insideMainService:InsideMainService,private router: Router,
               private insideService:InsideService,private oauthInfoService:OauthInfoService) {
     this.claimitem=this.insideService.claimitem;
    this.uid=this.oauthInfoService.uid;
+    this.insideMainService.flagChangeActive$.subscribe((data)=>{
+      //console.log('削除');
+      this.newclaimList.splice(Number(this.claimData.key),1);
+    });
+
+    this.insideMainService.flagChangeError$.subscribe((error)=>{
+      this.errorData=error;
+      this.errorDialogComponent.openDialog();
+    });
 
 
     this.check=this.oauthInfoService.check;
     this.login=this.oauthInfoService.login;//その月のログイン回数が入ってくる
-    console.log(this.check);
+   // console.log(this.check);
     if(this.check){
 //   //既に一度ログインしているのでこれ以上カウントを増やさない
       this.memberList=this.insideService.memberList;
@@ -136,14 +148,15 @@ export class SelectEditClaimComponent implements OnInit {
   }
   Delete(index){
     this.claimData=this.newclaimList[index];
+    this.claimDeleteDialogComponent.openDialog();
    //console.log(this.claimData.key)
-    this.insideMainService.deleteClaim(this.claimData.key,this.uid).then(data=>{
-      this.newclaimList.splice(Number(this.claimData.key),1);
-    }).catch(error=>{
-
-
-
-    });
+   //  this.insideMainService.deleteClaim(this.claimData.key,this.uid).then(data=>{
+   //    this.newclaimList.splice(Number(this.claimData.key),1);
+   //  }).catch(error=>{
+   //
+   //
+   //
+   //  });
   }
 
 

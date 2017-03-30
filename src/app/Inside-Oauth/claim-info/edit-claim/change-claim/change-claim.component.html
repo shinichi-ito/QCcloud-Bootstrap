@@ -104,7 +104,7 @@
     </div>
 
     <div *ngIf="check" class="alert alert-danger" role="alert">パスワードが違います。</div>
-
+    <div style="margin-bottom: 5px" *ngIf="OnOff" class="alert alert-success" role="alert">編集されました。</div>
     <button type="button" (click)="onEdit()" class="btn btn-primary btn-block">編集</button>
 
 
@@ -116,5 +116,8 @@
 </div>
 
 
-
+<!--エラーダイアログ-->
+<app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
+<!--プログレスダイアログ-->
+<app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
 
