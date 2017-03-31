@@ -19,6 +19,7 @@ companyList:any[]=[];
 
     this.insideMainService.flagChangeError$.subscribe(//編集ダイアログのエラーハンドリング
       error => {
+        this.companyeditDialogComponent.closeDialog();
         this.errorData=error;
         this.errorDialogComponent.openDialog();
 
@@ -62,43 +63,137 @@ this.companyList=companyList;
 
 
   Download(){
-    let companyList:any[]=[];
+  //  let companyList:any[]=[];
+
+    let newcompanyList2:any[]=[];
     this.getCompany().subscribe(data=>{
       for(let key in data){
-      if(data[key].companyInfo.label=='スタンダード'){
-          data[key].companyInfo['plice']=15000;
-       }else if(data[key].companyInfo.label=='プレミアム'){
-          data[key].companyInfo['plice']=25000;
+        let newcompanyList:any[]=[];
 
-       }else if(data[key].companyInfo.label=='エキスパート'){
-          data[key].companyInfo['plice']=35000;
+        if(data[key].companyInfo['term']=='1') {
 
-       }
-    data[key].companyInfo['uid']=data[key].$key;
-        data[key].companyInfo['term']=data[key].companyInfo.term;
+          if(data[key].$key=='PbuebiUmDZQzeDpaqhTlH0DfzZk1'){
+          //  console.log('管理者用')
+          }else{
+            newcompanyList.push(data[key].$key);
+            newcompanyList.push('空白');
+            newcompanyList.push('空白');
+            newcompanyList2.push(newcompanyList)
 
-        delete data[key].companyInfo['companyname'];
-        delete data[key].companyInfo['daihyouname'];
-        delete data[key].companyInfo['email'];
-        delete data[key].companyInfo['employee'];
-        delete data[key].companyInfo['occupation'];
-        delete data[key].companyInfo['planUp'];
-        delete data[key].companyInfo['privacypolicy'];
-        delete data[key].companyInfo['riyoukiyaku'];
-        delete data[key].companyInfo['startAt'];
-        delete data[key].companyInfo['tantouname'];
-        delete data[key].companyInfo['tel'];
-        delete data[key].companyInfo['updateAt'];
-      delete data[key].companyInfo['address'];
-        delete data[key].companyInfo['label'];
-        companyList.push(data[key].companyInfo)
+          }
+
+        }
+     }
+     });
+
+  // this.insideMainService.download(companyList)
+   this.insideMainService.download(newcompanyList2)
+
+
+  }
+
+
+  Download2(){
+  //  let companyList:any[]=[];
+    let newcompanyList2:any[]=[];
+    let renban:string;
+    this.getCompany().subscribe(data=>{
+      for(let key in data){
+        let newcompanyList:any[]=[];
+        let count=0;
+
+        if(data[key].companyInfo['term']=='1'){
+
+          if(data[key].$key=='PbuebiUmDZQzeDpaqhTlH0DfzZk1'){
+              console.log('管理者用')
+         }else {
+count++;
+if(String(count).length===1){
+  //console.log(('0000' + count).slice(-5)); // 005
+  renban=('0000' + count).slice(-5);
+}else if(String(count).length===2){
+  //console.log(('000' + count).slice(-5)); // 005
+  renban=('000' + count).slice(-5);
+}else if(String(count).length===3){
+  //console.log(('00' + count).slice(-5)); // 005
+  renban=('00' + count).slice(-5);
+}else if(String(count).length===4){
+  //console.log(('0' + count).slice(-5)); // 005
+  renban=('0' + count).slice(-5)
+}else if(String(count).length===5){
+ // console.log((count)); // 005
+  renban=String(count);
+}else{
+  console.log('6桁になった!!!!')
+
+}
+
+             let date = this.formatDate(new Date(), 'YYYYMMDD');
+             newcompanyList.push(this.insideMainService.shopID);
+             newcompanyList.push(data[key].$key);
+             newcompanyList.push('空白');
+             newcompanyList.push('0');
+             newcompanyList.push(String(date));
+             newcompanyList.push(data[key].companyInfo.OrderID);
+             newcompanyList.push('空白');
+             newcompanyList.push(String(data[key].companyInfo.price));
+             newcompanyList.push('空白');
+             newcompanyList.push('1');
+             newcompanyList.push('空白');
+             newcompanyList.push('空白');
+             newcompanyList.push('空白');
+            newcompanyList.push(renban);
+            newcompanyList.push('空白');
+            newcompanyList.push('空白');
+            newcompanyList.push('空白');
+            newcompanyList.push('空白');
+            newcompanyList.push('空白');
+
+            newcompanyList2.push(newcompanyList)
+
+
+
+
+          }
+
+
+        }
+
+
+
+
+
+
+//console.log(data[key].companyInfo)
+
+       // companyList.push(data[key].companyInfo)
 
       }
-      });
+    });
 
-   this.insideMainService.download(companyList)
+    this.insideMainService.download2(newcompanyList2)
 
 
 
   }
+
+//指定の日付フォーマットで表示
+  formatDate(date, format) {//console.log(this.formatDate(new Date(),'YYYYMMDDhhmmss'));表示は20170324094029
+    if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
+    format = format.replace(/YYYY/g, date.getFullYear());
+    format = format.replace(/MM/g, ('0' + (date.getMonth() + 1)).slice(-2));
+    format = format.replace(/DD/g, ('0' + date.getDate()).slice(-2));
+    format = format.replace(/hh/g, ('0' + date.getHours()).slice(-2));
+    format = format.replace(/mm/g, ('0' + date.getMinutes()).slice(-2));
+    format = format.replace(/ss/g, ('0' + date.getSeconds()).slice(-2));
+    if (format.match(/S/g)) {
+      var milliSeconds = ('00' + date.getMilliseconds()).slice(-3);
+      var length = format.match(/S/g).length;
+      for (var i = 0; i < length; i++) format = format.replace(/S/, milliSeconds.substring(i, i + 1));
+    }
+    return format;
+  };
+
+
+
 }

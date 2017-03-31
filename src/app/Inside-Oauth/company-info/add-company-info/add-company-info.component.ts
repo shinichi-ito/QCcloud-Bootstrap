@@ -153,7 +153,7 @@ gmoData:any[]=[];
     let kainInfo2=this.kainInfo2(uid,date);
 
    // let reURL='http://localhost:8888/successeditcard';
-    let reURL=this.insideMainService.reURL;
+    let reURL=this.insideMainService.url;
 
    // let canURL='http://localhost:8888/cancel';
 let canURL=this.insideMainService.canURL;
@@ -161,8 +161,8 @@ let canURL=this.insideMainService.canURL;
 
     let URL=url+'ShopID='+shopID+'&OrderID='+this.OrderID+'&Amount='+plice
       +'&DateTime='+date+'&ShopPassString='+shoppassword+
-      '&RetURL=http://localhost:8888/sendgwo'+
-      '&CancelURL=http://localhost:8888/cancel'+'&UseCredit=1'+'&SiteID=tsite00024826'+'&MemberID='+uid+'&JobCd='+JobCd+
+      '&RetURL='+reURL+
+      '&CancelURL='+canURL+'&UseCredit=1'+'&SiteID=tsite00024826'+'&MemberID='+uid+'&JobCd='+JobCd+
       '&MemberPassString='+kainInfo+'&ClientField1='+uid+'&ClientField2='+companyname+'/'+syurui+'/'+kainInfo2
       +'&ClientField3='+siteID+'/'+memberID+'/'+date;//ClientField1は弊社自由に使用できる
 

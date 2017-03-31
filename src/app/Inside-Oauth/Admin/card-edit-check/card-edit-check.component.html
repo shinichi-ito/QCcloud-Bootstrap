@@ -1,50 +1,31 @@
 
-<div class="panel panel-default" style="width: 100%;margin: 0 auto;">
-  <div class="panel-heading">
-    データ操作
-  </div>
-  <div class="panel-body">
-    <div class="form-group">
-      <label for="download">洗替ダウンロード</label>
-      <button id="download" (click)="Download()" class="btn btn-primary btn-block">洗替ダウンロード</button>
-  </div>
-
-    <div class="form-group">
-      <label for="download2">継続課金ダウンロード</label>
-      <button id="download2" (click)="Download2()" class="btn btn-primary btn-block">継続課金ダウンロード</button>
-    </div>
-
-
- </div>
-</div>
 
 
 
 <div class="panel panel-default" style="width: 100%;margin: 0 auto;">
   <div class="panel-heading">
     登録会社一覧
+    <p>カードが編集された日時を確認し編集したのか削除されたのか判断できないので<br>GMO管理画面と照合して削除ならtermを0に変更。カード追加
+      ならそのまま</p>
   </div>
   <div class="panel-body">
- <div class="form-group">
+    <div class="form-group">
       <table class="table table-striped">
         <thead>
 
         <tr>
           <th></th>
-          <th  style="width: 25%">
+          <th  style="width: 30%">
             会社名
           </th>
-          <th  style="width: 10%">
-            プラン
+          <th  style="width: 30%">
+            カード編集日
           </th>
           <th  style="width: 10%">
             term
           </th>
           <th  style="width: 30%">
             uid
-          </th>
-          <th  style="width: 20%">
-            登録日時
           </th>
           <th >
             編集
@@ -53,16 +34,13 @@
 
         </thead>
         <tbody>
-        <tr *ngFor="let item of companyList|orderby:'startAt'; let idx = index;">
+        <tr *ngFor="let item of companyList|orderby:'cardedit'; let idx = index;">
           <td>{{idx+1}}</td>
           <td style="word-wrap:break-word;">{{item.companyname}}</td>
-          <td style="word-wrap:break-word;">{{item.label}}</td>
+          <td>{{item.cardedit| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}</td>
           <td style="word-wrap:break-word;">{{item.term}}</td>
 
           <td style="word-wrap:break-word;">{{item.key}}</td>
-
-
-          <td>{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}</td>
           <td>
             <button type="button" class="btn btn-primary" (click)="setEdit(idx)">編集</button>
             <!--<button type="button" class="btn btn-danger" (click)="Delete(idx)">削除</button>-->
@@ -76,8 +54,9 @@
 </div>
 
 
+
 <!--エラーダイアログ-->
 <app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
 
 <!--編集ダイアログ-->
-<app-company-edit-dialog [companyData]="companyData"  #companyeditDialog></app-company-edit-dialog>
+<app-card-edit-check-dialog [companyData]="companyData"  #cardEditCheckDialog></app-card-edit-check-dialog>

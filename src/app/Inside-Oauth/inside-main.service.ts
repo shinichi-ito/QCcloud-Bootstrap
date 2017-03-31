@@ -8,21 +8,32 @@ import {Router} from "@angular/router";
 export class InsideMainService {
 
   //////これよりGMOへアクセスするためのデータ///////////
+
+
    url:string='http://localhost:8888/sendgwo?';//一番最初に登録さる際のURL
   urledit='http://localhost:8888/editcard?';//クレジットカードを編集追加する際のURL
+ // url:string='http://1-dot-qccloud-1186.appspot.com/sendgwo?';//一番最初に登録さる際のURL
+ // urledit='http://1-dot-qccloud-1186.appspot.com/editcard?';//クレジットカードを編集追加する際のURL
+  reURL2='http://localhost:8888/successeditcard2';//クレジットカードを編集後のリダイレクト先
+  canURL='http://localhost:8888/cancel';
+
+  // reURL2='http://1-dot-qccloud-1186.appspot.com/successeditcard2';//クレジットカードを編集後のリダイレクト先
+//  canURL='http://1-dot-qccloud-1186.appspot.com/cancel';
+
+
+
    shopID:string='tshop00027379';
   siteID='tsite00024826';
   sitepassword='6yh42aya';//6yh42aya
   shoppassword='ncea14h4';
   syurui='QCcloud';//これは将来てきにQCcloud以外のサービスが発生した際区別できるように
    JobCd='CHECK';
-   reURL='http://localhost:8888/successeditcard';//クレジットカードをチェックした後に今度はカード名義人を入力する際のリダイレクト先
 
-  reURL2='http://localhost:8888/successeditcard2';//クレジットカードを編集後のリダイレクト先
 
-  //なお　カード名義人を登録した際のリダイレクト先はサーバー側にあるため要注意
-  canURL='http://localhost:8888/cancel';
 
+
+
+//なお　カード名義人を登録した際のリダイレクト先はサーバー側にあるため要注意
 
 
 
@@ -418,30 +429,40 @@ this.editImageTime(uid)
     var blob = new Blob([csvData], { type: 'text/csv' });
     var url= window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = 'GMO.csv';
+    a.download = 'Araigae.csv';
     a.click();
   }
-
+  download2(data){//CSVをダウンロード
+    var csvData = this.ConvertToCSV(data);
+    var a = document.createElement("a");
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    var blob = new Blob([csvData], { type: 'text/csv' });
+    var url= window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = 'Keizokukakin.csv';
+    a.click();
+  }
 
   ConvertToCSV(objArray) {//JSONをCSVに変換
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     var str = '';
     var row = "";
 
-    for (var index in objArray[0]) {
-      //Now convert each value to string and comma-separated
-      row += index + ',';
-    }
-    row = row.slice(0, -1);
-    //append Label row with line break
-    str += row + '\r\n';
-
+    //  for (var index in objArray[0]) {
+    // //   //Now convert each value to string and comma-separated
+    //    row += index + ',';
+    //  }
+    //  row = row.slice(0, -1);
+    // // //append Label row with line break
+    //  str += row + '\r\n';
+//console.log(JSON.stringify(array))
     for (var i = 0; i < array.length; i++) {
       var line = '';
       for (var index in array[i]) {
-        if (line != '') line += ','
+        if (line != '') line += ',';
 
-        line += '"'+array[i][index]+'"';//ダブル点追加
+        line += '"'+array[i][index].replace('空白','')+'"';//ダブル点追加
       }
       str += line + '\r\n';
     }
