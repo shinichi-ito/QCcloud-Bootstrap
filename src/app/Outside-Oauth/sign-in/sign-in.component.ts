@@ -124,6 +124,7 @@ changeTop(){
 
   onSigninGoogle(){
    // firebase.database().goOnline();
+    this.progressoutDialogComponent.openDialog();
     this.oauthService.loginGoogle().then((authState)=>{
    //   console.log(authState.uid);
       if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか

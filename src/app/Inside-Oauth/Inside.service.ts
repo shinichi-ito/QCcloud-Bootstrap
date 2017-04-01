@@ -49,6 +49,7 @@ export class InsideService {
   filename:string;
   date:Date = new Date();
 date2:any;
+
   //console.log(this.date.toISOString().split('-')[0])
 uid:string;//会社を振り分けるログイン時に受け取るユニークの値
 key:string;//各登録情報のユニークなキー

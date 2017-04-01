@@ -171,7 +171,7 @@ this.loginPa=Math.ceil(this.login/this.loginGenkai*100);
       this.fileupPa=Math.ceil(this.fileup/this.fileupGenkai*100);
       this.dataupPa=Math.ceil(this.dataup/this.dataupGenkai*100);
   //   this.insideMainService.companyDataList=this.companyDataList;
-     // console.log(companyDataList[0].dataup)
+
 
     },error=>{
       this.errorData='取得に失敗しました。再ログインしてください。';

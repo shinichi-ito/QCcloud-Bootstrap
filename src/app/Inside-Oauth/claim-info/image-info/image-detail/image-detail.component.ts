@@ -51,7 +51,9 @@ fileUrl:string;
     });
 
     this.uid=this.oauthInfoService.uid;
-    this.claimitem=this.insideService.claimitem;
+    this.claimitem=this.insideService.InfoData;
+   // console.log('kkk')
+   // console.log(this.claimitem[0].claimkey)
   }
 
 
@@ -212,23 +214,25 @@ this.flag=false;
   addImageSu(fileDetail:FileDetail){//クレーム情報のファイル数をプラス
     this.claimList=this.insideService.claimList;
     for(let key in this.claimList) {
-      if (this.claimList[key].key == this.claimitem.key) {
-        //  console.log(this.claimList[key].taiou)
+     // console.log(this.claimList[key].key)
+     // console.log(this.claimitem.claimkey)
+      if (this.claimList[key].key == this.claimitem[0].claimkey) {
+        //
 
         const claimInfo = {
-          file:this.claimList[key].file+1,
-          fileUp: firebase.database.ServerValue.TIMESTAMP
-        };
-        this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
-        this.Info.update(claimInfo).then(data=>{
+           file:this.claimList[key].file+1,
+           fileUp: firebase.database.ServerValue.TIMESTAMP
+         };
+         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+         this.Info.update(claimInfo).then(data=>{
 
-this.progressImageDialogComponent.closeDialog();
-this.insideMainService.onDataUpSuMain(this.uid,fileDetail.size)
-        }).catch(error=>{
-          this.progressImageDialogComponent.closeDialog();
-          this.errorData=error.message;
-          this.errorDialogComponent.openDialog()
-        })
+ this.progressImageDialogComponent.closeDialog();
+ this.insideMainService.onDataUpSuMain(this.uid,fileDetail.size)
+         }).catch(error=>{
+           this.progressImageDialogComponent.closeDialog();
+           this.errorData=error.message;
+           this.errorDialogComponent.openDialog()
+         })
 
 
       }

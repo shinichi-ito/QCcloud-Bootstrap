@@ -21,26 +21,6 @@
         </div>
         <div class="panel-body">
 
-        <div *ngIf="loginCheck==false" class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
-
-
-
-        <div *ngIf="fileupCheck==false" class="alert alert-danger" role="alert">データアップロード数がオーバーしました。プランの変更を検討ください。</div>
-
-
-
-        <div *ngIf="dataupCheck==false" class="alert alert-danger" role="alert">関連ファイルアップロード数がオーバーしました。プランの変更を検討ください。</div>
-
-
-
-      <small><em>取得データ(MB)</em></small>
-      <progressbar [animate]="true" [value]="loginPa" type="primary"><b>{{loginPa}}%</b></progressbar>
-
-      <small><em>データアップロード(MB)</em></small>
-      <progressbar [animate]="true" [value]="fileupPa" type="primary"><b>{{fileupPa}}%</b></progressbar>
-
-      <small><em>関連ファイルアップロード(MB)</em></small>
-      <progressbar [animate]="true" [value]="dataupPa" type="primary"><b>{{dataupPa}}%</b></progressbar>
 
 
       <div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
@@ -79,6 +59,42 @@
           </div>
         </div>
       </div>
+
+
+          <div class="panel panel-default" style="width: 100%;margin: 0 auto;margin-top: 20px">
+            <div class="panel-heading">
+              利用容量確認
+            </div>
+            <div class="panel-body">
+              <div *ngIf="loginCheck==false" class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+              <div *ngIf="fileupCheck==false" class="alert alert-danger" role="alert">データアップロード数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+              <div *ngIf="dataupCheck==false" class="alert alert-danger" role="alert">関連ファイルアップロード数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+              <small><em>取得データ(MB)</em></small>
+              <progressbar [animate]="true" [value]="loginPa" type="primary"><b>{{loginPa}}%</b></progressbar>
+
+              <small><em>データアップロード(MB)</em></small>
+              <progressbar [animate]="true" [value]="fileupPa" type="primary"><b>{{fileupPa}}%</b></progressbar>
+
+              <small><em>関連ファイルアップロード(MB)</em></small>
+              <progressbar [animate]="true" [value]="dataupPa" type="primary"><b>{{dataupPa}}%</b></progressbar>
+
+
+            </div>
+          </div>
+
+
+
+
+
 
 
 </div>
