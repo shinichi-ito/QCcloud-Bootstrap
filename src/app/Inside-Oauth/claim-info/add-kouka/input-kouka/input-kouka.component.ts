@@ -52,6 +52,7 @@ export class InputKoukaComponent  {
   claimList:any[]=[];
   koukaFromTaisakudata:any;
   OnOff:boolean=true;
+  check:boolean;
   public constructor(private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService,
                      private insideMainService:InsideMainService) {
@@ -80,7 +81,12 @@ export class InputKoukaComponent  {
 
 
   onAdd(){
-    this.progressDialogComponent.openDialog();
+    this.check=false;
+    if(this.password==''){
+      this.check=true;
+      return;
+    }
+  this.progressDialogComponent.openDialog();
     let time=this.dt.getTime();
 
     const Info = {
