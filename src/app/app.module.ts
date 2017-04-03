@@ -29,6 +29,8 @@ import { CancelComponent } from './Outside-Oauth/GmoRedirect/cancel/cancel.compo
 import { TaikaiComponent } from './Outside-Oauth/taikai/taikai.component';
 import { ProgressOutDialogComponent } from './Outside-Oauth/progress-out-dialog/progress-out-dialog.component';
 import { ErrorOutDialogComponent } from './Outside-Oauth/error-out-dialog/error-out-dialog.component';
+import { ClaimAddComponent } from './usage/claim-add/claim-add.component';
+import { TaiouAddComponent } from './usage/taiou-add/taiou-add.component';
 
 
 
@@ -66,6 +68,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     TaikaiComponent,
     ProgressOutDialogComponent,
     ErrorOutDialogComponent,
+    ClaimAddComponent,
+    TaiouAddComponent,
 
   ],
   imports: [

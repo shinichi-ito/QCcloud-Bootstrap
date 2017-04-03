@@ -137,7 +137,7 @@ changeTop(){
             this.oauthInfoService.photoURL=data.auth.photoURL;
             this.oauthInfoService.uid = authState.uid;
           }
-        })
+        });
         this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
          //   console.log(data.$value)
           this.oauthInfoService.term=data.$value;//サインインのさいその時点のtermを保管して　プラン変更時に0なら会社情報はまだ　カード登録もまだ　1の場合は会社情報と　カード情報は登録済み　2は退会済み

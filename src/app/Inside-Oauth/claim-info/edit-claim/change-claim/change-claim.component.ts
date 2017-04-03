@@ -85,10 +85,14 @@ OnOff:boolean=false;
 
 
   onEdit(){
+
+    this.check=false;
+    this.OnOff=false;
     if(this.password==this.password2){
       this.check=false;
     }else{
       this.check=true;
+      return;
     }
 
     if(this.syubetu==''){

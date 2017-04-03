@@ -218,7 +218,7 @@ export class AddClaimComponent  {
 
 
   getKey(){
-    return this.insideService.key;
+    return this.insideService.onoff;
 }
 
 
@@ -273,6 +273,7 @@ setMember(value){
       this.insideMainService.onFileUpSuMain(this.uid,this.mb);//対応や対策のデータを登録時　その月のファイルアップロード数を加算する
 
      // console.log(data.key)
+      this.insideService.onoff=true;
       this.insideService.key=data.key;
       this.OnOff=false;
       this.OnOff2=true;

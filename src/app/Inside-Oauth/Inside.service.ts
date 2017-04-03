@@ -53,6 +53,7 @@ date2:any;
   //console.log(this.date.toISOString().split('-')[0])
 uid:string;//会社を振り分けるログイン時に受け取るユニークの値
 key:string;//各登録情報のユニークなキー
+  onoff:boolean;
   InfoData:any;//対策や対応情報を選択した際そのデータを入れておく key name siten busyo
   flagChangeTaisaku$: Observable<number>;
   private _observerTaisaku;

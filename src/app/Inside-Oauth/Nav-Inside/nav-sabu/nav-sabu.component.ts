@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {InsideMainService} from "../../inside-main.service";
 import {OauthInfoService} from "../../oauth-info.service";
+import {InsideService} from "../../Inside.service";
 
 @Component({
   selector: 'app-nav-sabu',
@@ -12,26 +13,21 @@ export class NavSabuComponent implements OnInit {
   OnOff:string="";
   OnOff2:boolean=false;
   email:string;
-  constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService) {
+  constructor(private oauthInfoService:OauthInfoService,private insideService:InsideService) {
     this.email=this.oauthInfoService.emailMain;
     if(this.email=='shinichi-ito@lotsjoys.com'){
       this.OnOff2=true;
     }else{
       this.OnOff2=false;
     }
-// if(this.insideMainService.login == false){
-//  // console.log('ここ')
-//  this.OnOff="disabled";
-// }else{
-//   this.OnOff="";
-//
-// }
-
 
 
   }
 
   ngOnInit() {
   }
+  onoff(){
 
+    this.insideService.onoff=false;
+  }
 }
