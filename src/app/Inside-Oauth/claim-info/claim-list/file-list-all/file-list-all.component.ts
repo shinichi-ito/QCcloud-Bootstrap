@@ -95,30 +95,73 @@ this.uid=this.oauthInfoService.uid;
   }
 
   setMotoTaisaku(item){
-   // console.log(item.doko)
+  //  console.log(item.doko)
     let kakusyuList:any;
     let kakusyuData:any;
     if(item.doko=='応急対応'){
       kakusyuList=this.insideService.taiouList
+      for(let key in kakusyuList){
+        if(item.jyoukyoukey==kakusyuList[key].key){
+          // console.log(kakusyuList[key])
+          kakusyuData=kakusyuList[key]
+        }
+      }
+      this.taisakuData=kakusyuData;
+      this.taisakuViewDialogComponent.openDialog();
+
+
     }else  if(item.doko=='恒久対策'){
       kakusyuList=this.insideService.taisakuList
+      for(let key in kakusyuList){
+        if(item.jyoukyoukey==kakusyuList[key].key){
+          // console.log(kakusyuList[key])
+          kakusyuData=kakusyuList[key]
+        }
+      }
+      this.taisakuData=kakusyuData;
+      this.taisakuViewDialogComponent.openDialog();
+
     }else  if(item.doko=='効果確認'){
       kakusyuList=this.insideService.koukaList
+      for(let key in kakusyuList){
+        if(item.jyoukyoukey==kakusyuList[key].key){
+          // console.log(kakusyuList[key])
+          kakusyuData=kakusyuList[key]
+        }
+      }
+      this.taisakuData=kakusyuData;
+      this.taisakuViewDialogComponent.openDialog();
+
     }else  if(item.doko=='原因分析'){
       kakusyuList=this.insideService.geninList
-    }else  if(item.doko=='元情報'){
-     kakusyuList=this.claimList
-    }
-for(let key in kakusyuList){
-      if(item.jyoukyoukey==kakusyuList[key].key){
-       // console.log(kakusyuList[key])
-        kakusyuData=kakusyuList[key]
+      for(let key in kakusyuList){
+        if(item.jyoukyoukey==kakusyuList[key].key){
+          // console.log(kakusyuList[key])
+          kakusyuData=kakusyuList[key]
+        }
       }
+      this.taisakuData=kakusyuData;
+      this.taisakuViewDialogComponent.openDialog();
+
+    }else  if(item.doko=='元情報'){
+//console.log('ここ')
+
+      let claimItem;
+      for(let key in this.claimList){
+        if(item.claimkey==this.claimList[key].key){
+          //   console.log(item.claimkey)
+          //   console.log(this.claimList[key])
+          claimItem=this.claimList[key];
+        }
+      }
+      this.claimItem=claimItem;
+      this.viewSyousaiComponent.openDialog();
 
 
-}
-this.taisakuData=kakusyuData;
-this.taisakuViewDialogComponent.openDialog();
+
+
+    }
+
 
 
 

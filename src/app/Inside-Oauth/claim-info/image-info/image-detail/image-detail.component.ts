@@ -223,7 +223,7 @@ this.flag=false;
            file:this.claimList[key].file+1,
            fileUp: firebase.database.ServerValue.TIMESTAMP
          };
-         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem.key)
+         this.Info=this.af.database.object('ClaimData/'+this.uid+'/'+this.claimitem[0].claimkey);
          this.Info.update(claimInfo).then(data=>{
 
  this.progressImageDialogComponent.closeDialog();

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ng2-bootstrap";
 import {InsideMainService} from "../../inside-main.service";
 import {OauthInfoService} from "../../oauth-info.service";
+import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
 
 @Component({
   selector: 'app-claim-select',
@@ -10,6 +11,8 @@ import {OauthInfoService} from "../../oauth-info.service";
 })
 export class ClaimSelectComponent implements OnInit {
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
+  @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
+  errorData:any;
   uid:string;
   naiyou:string='';
   name:string='';
@@ -44,7 +47,9 @@ export class ClaimSelectComponent implements OnInit {
           this.naiyou='';
           this.modalRef.hide()
         }).catch(error=>{
-
+          this.modalRef.hide();
+          this.errorData=error.message;
+          this.errorDialogComponent.openDialog()
         })
 
 

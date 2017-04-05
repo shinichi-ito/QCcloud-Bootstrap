@@ -170,7 +170,7 @@ this.koukaSetumeiComponent.openDialog();
       // console.log(this.taisakuList[key].koukasu)
       this.taisakubi=this.setTimeChange(this.taisakuList[key].taisakubi)
       term=this.unixTimestamp-this.taisakubi;
-      if(term>7776000&&this.taisakuList[key].koukasu===0){
+      if(term>777600&&this.taisakuList[key].koukasu===0){
         this.koukakakuninTaisaku.push(this.taisakuList[key])
       }
       if(this.koukakakuninTaisaku.length>0){

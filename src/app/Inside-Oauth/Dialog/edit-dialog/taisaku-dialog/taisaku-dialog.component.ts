@@ -100,6 +100,8 @@ export class TaisakuDialogComponent implements OnInit {
       this.editTaisakuTime()
       this.pass='';
      }).catch(error=>{
+
+
      })
   }else{
 
