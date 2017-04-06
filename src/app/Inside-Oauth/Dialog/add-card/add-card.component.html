@@ -3,14 +3,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" (click)="lgModal.hide()"><span>×</span></button>
-        <h4 class="modal-title">クレジットカード登録</h4>
+        <h4 class="modal-title">クレジットカード登録/プラン変更</h4>
       </div>
       <div class="modal-body">
-        <p style="margin-bottom: 30px"> 下記をクリックしていただきクレジットカードの登録を行ってください。</p>
+        <p style="margin-bottom: 30px"> 下記をクリックしていただきクレジットカードの登録/プラン変更手続きを行ってください。</p>
 
 
 
-        <a href={{urlData}} TARGET="_blank">クレジットカード登録手続きへ</a>
+        <a href={{urlData}} TARGET="_blank"(click)="lgModal.hide()">登録手続きへ</a>
         <!--<a href='http://localhost:8888/sendgwo?test=yyyyy525252' TARGET="_blank">クレジットカード登録手続きへ</a>-->
 
 

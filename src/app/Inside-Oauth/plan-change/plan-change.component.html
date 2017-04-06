@@ -27,7 +27,7 @@
 
 </div>
     <div *ngIf="OnOff2" class="alert alert-info" style="margin-bottom: 5px" role="alert">プランが変更されました。</div>
-<button *ngIf="OnOff"  (click)="upCompanyInfo()" class="btn btn-primary btn-block">プラン変更</button>
+<button *ngIf="OnOff"  (click)="upCompanyInfo2()" class="btn btn-primary btn-block">プラン変更</button>
 
     <div  *ngIf="OnOff" class="alert alert-info" role="alert" style="margin-top: 10px">プランを変更された場合再ログインしてください。<br>変更が反映されます。</div>
 
@@ -42,3 +42,5 @@
 <app-error-dialog [errorData]="errorData"  #errorDialog></app-error-dialog>
 <!--プログレスダイアログ-->
 <app-progress-dialog [Data]="Data"  #progrssDialog></app-progress-dialog>
+<!--カード登録ダイアログ-->
+<app-add-card [urlData]="urlData"  [gmoData]="gmoData"#cardDialog></app-add-card>

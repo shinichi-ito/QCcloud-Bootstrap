@@ -12,6 +12,7 @@ uid:string;
   urlData:string;
   OrderID:string;
   companyname:string;
+  customerID:string;
   constructor(private insideMainService:InsideMainService,private oauthInfoService:OauthInfoService) {
     this.uid=this.oauthInfoService.uid;
 
@@ -23,7 +24,9 @@ uid:string;
           if(data[key].$key=='companyname'){
             this.companyname=data[key].$value;
           }
-
+          if(data[key].$key=='customerID'){
+            this.customerID=data[key].$value;
+          }
 
         }//forを抜けた
       },
@@ -32,14 +35,28 @@ uid:string;
       });
 
 
+this.PayJP();
 
 
-
-    this.GmoURL();
+   // this.GmoURL();
   }
 
   ngOnInit() {
   }
+
+
+  PayJP(){
+
+    let url=this.insideMainService.url5;
+
+    let URL=url+'uid='+this.uid+'&customerID='+this.customerID;
+
+    this.urlData=URL;
+
+  }
+
+
+
   GmoURL(){
 
 

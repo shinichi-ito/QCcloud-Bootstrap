@@ -96,7 +96,7 @@ gmoData:any[]=[];
 
 
 
-  onAdd(){
+  onAdd(){//GMOのパターン
     let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');
     this.OrderID=this.uid.substr(0,13)+date;
     let priceData;
@@ -121,6 +121,45 @@ gmoData:any[]=[];
     });
   }
 
+
+  onAdd2(){//PAY.JPのパターン
+
+    let price:any[]=[];
+    price=this.companyInfoService.getPrice2(this.model.label);
+    this.Data="";
+    this.progressDialogComponent.openDialog();
+    this.companyInfoService.addCompanyDetail2(this.myForm.value,this.uid).then((data)=>{//ここではまだtermは変更しない　0のまま。カード登録が終わったらtermを1にする
+//会社情報の登録が完了したらカード登録画面へ
+//this.GWOaccess()
+      //   this.router.navigate(['/main/topinside'])
+      this.progressDialogComponent.closeDialog();
+      this.PayJP();
+      this.cardDialogComponent.openDialog();
+
+    }).catch((error)=>{
+      this.progressDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.errorDialogComponent.openDialog();
+
+
+
+
+    });
+  }
+
+
+
+PayJP(){
+let price:any[]=[];
+price=this.companyInfoService.getPrice2(this.model.label);
+let url=this.insideMainService.url2;
+
+  let URL=url+'uid='+this.uid+'&companyname='+this.companyname+'&email='+this.email
+    +'&tel='+this.tel+'&plan='+price[2]+'&plan2='+price[1]+'&amount='+price[0];
+
+  this.urlData=URL;
+
+}
   GmoURL(){
     let priceData;
     priceData=this.companyInfoService.getPrice(this.model.label);

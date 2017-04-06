@@ -7,6 +7,29 @@ import {Router} from "@angular/router";
 @Injectable()
 export class InsideMainService {
 
+  //////これよりPAY.JPへアクセスするためのデータ///////////
+url2:string='http://localhost:8888/payjp?';
+  url3:string='http://localhost:8888/changeplan?';
+  url4:string='http://localhost:8888/deletecustomer?';
+  url5:string='http://localhost:8888/editpay?';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //////これよりPAY.JPへアクセスするためのデータ///////////
+
   //////これよりGMOへアクセスするためのデータ///////////
 
 

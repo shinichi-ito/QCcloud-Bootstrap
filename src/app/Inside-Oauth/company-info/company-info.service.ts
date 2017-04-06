@@ -20,6 +20,30 @@ getPrice(data:string){
   }
   return priceData;
 }
+  getPrice2(data:string){
+
+    let price:any[]=[];
+
+    if(data=='スタンダード'){
+      price.push(25000);
+      price.push('スタンダード');
+      price.push('StandardQC');
+    }else if(data=='プレミアム'){
+      price.push(30000);
+      price.push('プレミアム');
+      price.push('PremiumQC');
+    }else if(data=='エキスパート'){
+      price.push(35000);
+      price.push('エキスパート');
+      price.push('ExpertQC');
+    }
+    return price;
+  }
+
+
+
+
+
   addCompanyDetail(companydetail:CompanyDetail,uid: string,priceData:number,OrderID:string){
    // console.log('ここ')
       const companyInfo = {
@@ -44,7 +68,26 @@ getPrice(data:string){
 
 
   }
+  addCompanyDetail2(companydetail:CompanyDetail,uid: string){
+    // console.log('ここ')
+    const companyInfo = {
+      companyname:companydetail.companyname,
+      daihyouname:companydetail.daihyouname,
+      address:companydetail.address,
+      tel:companydetail.tel,
+      tantouname:companydetail.tantouname,
+      email:companydetail.email,
+      employee:companydetail.employee,
+      occupation:companydetail.occupation,
+      riyoukiyaku:companydetail.riyoukiyaku,
+      privacypolicy:companydetail.privacypolicy,
+      updateAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    this.Info = this.af.database.object('companyData/' + uid + '/companyInfo');
+    return this.Info.update(companyInfo)
 
+
+  }
   editCompanyDetail(companyname,daihyouname,address,tel,tantouname,email,url,employee,occupation,uid: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const companyInfo = {

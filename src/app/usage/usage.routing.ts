@@ -6,6 +6,7 @@ import {ClaimAddComponent} from "./claim-add/claim-add.component";
 import {TaiouAddComponent} from "./taiou-add/taiou-add.component";
 import {KoukaAddComponent} from "./kouka-add/kouka-add.component";
 import {SearchComponent} from "./search/search.component";
+import {ImageAddComponent} from "./image-add/image-add.component";
 /**
  * Created by hp on 2017/03/14.
  */
@@ -17,4 +18,5 @@ export const USAGE_ROUTES: Routes = [
   { path: 'usagetaiouadd',component:TaiouAddComponent},
   { path: 'usagekoukaadd',component:KoukaAddComponent},
   { path: 'usagesearch',component:SearchComponent},
+  { path: 'usageimage',component:ImageAddComponent},
 ];

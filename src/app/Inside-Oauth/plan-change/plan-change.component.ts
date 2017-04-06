@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {CompanyInfoService} from "../company-info/company-info.service";
 import {ErrorDialogComponent} from "../Dialog/error-dialog/error-dialog.component";
 import {ProgressDialogComponent} from "../Dialog/progress-dialog/progress-dialog.component";
+import {AddCardComponent} from "../Dialog/add-card/add-card.component";
 @Component({
   selector: 'app-plan-change',
   templateUrl: './plan-change.component.html',
@@ -19,11 +20,13 @@ uid:string;
   term:number;
   OnOff:boolean;
   OnOff2:boolean=false;
+  planID:string;
   @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
   errorData:any;
   @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
   Data:string;
-
+  @ViewChild("cardDialog") cardDialogComponent: AddCardComponent;
+  urlData:string;
   constructor(private companyInfoService:CompanyInfoService,private router:Router,private af : AngularFire,private insideMainService:InsideMainService,private oauthInfoService:OauthInfoService) {
   this.term=this.oauthInfoService.term;
 if(this.term===1){
@@ -44,7 +47,10 @@ if(this.term===1){
          //   console.log(data[key].$value)
             this.model.label=data[key].$value;
           }
-
+          if(data[key].$key=='planID'){
+            //   console.log(data[key].$value)
+            this.planID=data[key].$value;
+          }
 
         }//forを抜けた
       },
@@ -87,6 +93,12 @@ if(this.term===1){
 
     }else  if(this.oauthInfoService.term===0){//0の場合まだ会社情報が登録されてないので　更にカード情報もされてないので会社情報の画面に偏移する
 
+
+      this.router.navigate(['/main/companyInfo/addCompanyInfo'])
+
+
+
+
     }
 
 
@@ -95,4 +107,33 @@ if(this.term===1){
 
 
   }
-}
+
+
+
+  upCompanyInfo2() {
+
+    if (this.oauthInfoService.term === 1) {//サインインのさいその時点のtermを保管して　プラン変更時に0なら会社情報はまだ　カード登録もまだ　1の場合は会社情報と　カード情報は登録済み　2は退会済み
+    this.PayJP();
+      this.cardDialogComponent.openDialog();
+
+    } else if (this.oauthInfoService.term === 0) {//0の場合まだ会社情報が登録されてないので　更にカード情報もされてないので会社情報の画面に偏移する
+
+
+      this.router.navigate(['/main/companyInfo/addCompanyInfo'])
+
+
+    }
+  }
+
+
+  PayJP(){
+let price:any[]=[];
+    price=this.companyInfoService.getPrice2(this.model.label);
+    let url=this.insideMainService.url3;
+
+    let URL=url+'uid='+this.uid+'&planID='+this.planID+'&newplan='+price[2]+'&newplan2='+price[1]+'&amount='+price[0];
+
+    this.urlData=URL;
+
+  }
+  }

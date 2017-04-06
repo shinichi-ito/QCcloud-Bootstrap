@@ -7,11 +7,19 @@
       </div>
       <div class="modal-body">
 
-       退会してもよろしいですか?
+       退会してもよろしいですか?<br>
+
+        <p style="margin-bottom: 30px"> 下記をクリックしていただき退会の手続きを行ってください。</p>
+        <a href={{urlData}} TARGET="_blank"(click)="lgModal.hide()">退会手続きへ</a>
+
+
         </div>
         <div class="modal-footer">
+
+
+
           <button type="button" class="btn btn-default"   (click)="lgModal.hide()" data-dismiss="modal">閉じる</button>
-          <button type="button" class="btn btn-primary" (click)="taikai()">退会</button>
+
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ import {InsideMainService} from "../../inside-main.service";
 })
 export class TaikaiCheckComponent implements OnInit {
   @ViewChild("lgModal") modalRef:ModalDirective;//Modalダイアログへの参照
-  @Input() uid;//親コンポーネントから受取る属性
+  @Input() urlData;//親コンポーネントから受取る属性
   value: FirebaseObjectObservable<any>;
 
   constructor(private insideMainService:InsideMainService,private af : AngularFire) { }
@@ -21,19 +21,6 @@ export class TaikaiCheckComponent implements OnInit {
     this.modalRef.show();
   }
   taikai(){
-    const Info = {
-      term:2
-    };
-    this.value = this.af.database.object('companyData/'+this.uid+'/companyInfo');
-    this.value.update(Info).then(data=>{
-      this.modalRef.hide()
-
-    }).catch(error=>{
-      this.modalRef.hide();
-      this.insideMainService.setError(error.message);
-
-
-    })
 
 
 
