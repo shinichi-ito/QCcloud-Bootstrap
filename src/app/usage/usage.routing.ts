@@ -7,6 +7,7 @@ import {TaiouAddComponent} from "./taiou-add/taiou-add.component";
 import {KoukaAddComponent} from "./kouka-add/kouka-add.component";
 import {SearchComponent} from "./search/search.component";
 import {ImageAddComponent} from "./image-add/image-add.component";
+import {TimeLineComponent} from "./time-line/time-line.component";
 /**
  * Created by hp on 2017/03/14.
  */
@@ -19,4 +20,5 @@ export const USAGE_ROUTES: Routes = [
   { path: 'usagekoukaadd',component:KoukaAddComponent},
   { path: 'usagesearch',component:SearchComponent},
   { path: 'usageimage',component:ImageAddComponent},
+  { path: 'usagetimeline',component:TimeLineComponent},
 ];

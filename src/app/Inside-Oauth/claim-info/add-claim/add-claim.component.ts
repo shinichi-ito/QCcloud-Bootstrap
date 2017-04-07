@@ -77,10 +77,11 @@ export class AddClaimComponent  {
   OnOff:boolean=true;
   OnOff2:boolean;
   mb:number;
+  fileup:boolean;
   public constructor(private af : AngularFire,private insideService:InsideService,
                      private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                       private insideMainService:InsideMainService) {
-
+    this.fileup=this.insideMainService.fileup;
     this.insideMainService.flagChangeError$.subscribe((error)=>{
       this.errorData=error;
       this.errorDialogComponent.openDialog();

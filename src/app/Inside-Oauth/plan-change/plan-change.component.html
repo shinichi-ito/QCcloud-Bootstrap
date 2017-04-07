@@ -4,7 +4,8 @@
 
 <div class="panel panel-default" style="width: 50%;margin: 0 auto;">
   <div class="panel-heading">
-    プラン変更
+    プラン編集<br>
+   <strong> ◎現在のプランは{{model.label}}プランです。</strong>
   </div>
   <div class="panel-body">
 
@@ -13,7 +14,9 @@
 
 
 <div class="form-group">
-  <label>プラン選択 <a HREF="/priceinfo" TARGET="_blank">【価格プラン確認】</a></label><br>
+  <div *ngIf="OnOff">
+
+  <label>プラン変更 <a HREF="/priceinfo" TARGET="_blank">【価格プラン確認】</a></label><br>
 
   <label class="radio-inline">
     <input type="radio" [(ngModel)]="model.label"  name="label" value="スタンダード">　スタンダード
@@ -24,7 +27,7 @@
   <label class="radio-inline">
     <input type="radio" [(ngModel)]="model.label"  name="label" value="エキスパート">　エキスパート
   </label>
-
+  </div>
 </div>
     <div *ngIf="OnOff2" class="alert alert-info" style="margin-bottom: 5px" role="alert">プランが変更されました。</div>
 <button *ngIf="OnOff"  (click)="upCompanyInfo2()" class="btn btn-primary btn-block">プラン変更</button>

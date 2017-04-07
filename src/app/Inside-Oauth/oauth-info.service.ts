@@ -6,7 +6,7 @@ import * as firebase from 'firebase'
 @Injectable()
 export class OauthInfoService {
   login:number=0;//その月のログイン回数を保管してある
- // dataup:number;//その月の関連ファイルのMBが入っている
+  //dataup:number;//その月の関連ファイルのMBが入っている
  // fileup:number;//その月のデータアップのMBが入っている
 
   term:number;//サインインのさいその時点のtermを保管して　プラン変更時に0なら会社情報はまだ　カード登録もまだ　1の場合は会社情報と　カード情報は登録済み　2は退会済み

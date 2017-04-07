@@ -29,6 +29,7 @@ export class ClaimListAllComponent  {
   public sortOrder = "asc";
 taisakuList:any;
 koukakakuninTaisaku:any[]=[];
+ dataup:boolean;
    @ViewChild("errorDialog") errorDialogComponent: ErrorDialogComponent;
   errorData:any;
   // @ViewChild("progrssDialog") progressDialogComponent: ProgressDialogComponent;
@@ -76,7 +77,7 @@ plusList:number;
 
   constructor(private insideMainService:InsideMainService,private router: Router,
               private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
-
+    this.dataup=this.insideMainService.dataup;
     this.insideMainService.flagChangeError$.subscribe((error)=>{
       this.errorData=error;
       this.errorDialogComponent.openDialog();
@@ -306,6 +307,8 @@ setTimeLine(item){
   }
 
   for(let key in geninList){
+
+
     if(item.key==geninList[key].claimkey){
       geninList[key]['doko']='原因分析';
       geninList[key]['check']='timeline-inverted';
@@ -317,12 +320,28 @@ setTimeLine(item){
   }
 
   for(let key in koukaList){
+   // console.log(koukaList[key].naiyou)
+    let dd=koukaList[key].naiyou;
+let naiyouData:string;
     if(item.key==koukaList[key].claimkey){
       koukaList[key]['doko']='効果確認';
       koukaList[key]['check']='timeline-inverted';
       koukaList[key]['color']='timeline-badge info';
       koukaList[key]['icon']="fa fa-check-square-o";
       koukaList[key]['sort']=koukaList[key].kakuninbi;
+delete koukaList[key]['naiyou'];
+
+naiyouData='◎以前の状態より改善されたか'+'【達成率】'+koukaList[key].aa+'0%'+'　'+koukaList[key].aanaiyou+
+
+  '\n'+'◎対策の狙いは達成できたか'+'【達成率】'+koukaList[key].bb+'0%'+'　'+koukaList[key].bbnaiyou+
+  +'\n'+'◎副作用は発生してないか'+'【達成率】'+koukaList[key].cc+'0%'+'　'+koukaList[key].ccnaiyou+
+  '\n'+'◎水平展開はできているか'+'【達成率】'+koukaList[key].dd+'0%'+'　'+koukaList[key].ddnaiyou+'　　'+dd;
+
+
+
+
+      koukaList[key]['naiyou']=naiyouData;
+
       newkoukaList.push(koukaList[key])
     }
   }

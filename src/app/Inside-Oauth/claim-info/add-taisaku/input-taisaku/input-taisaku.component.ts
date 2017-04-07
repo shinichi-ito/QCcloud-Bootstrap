@@ -49,8 +49,9 @@ mb:number;
 //key:string;
   claimitem:any;
   OnOff:boolean=true;
+  fileup:boolean;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
-
+    this.fileup=this.insideMainService.fileup;
     this.insideMainService.flagChangeError$.subscribe((error)=>{
       this.errorData=error;
       this.errorDialogComponent.openDialog();

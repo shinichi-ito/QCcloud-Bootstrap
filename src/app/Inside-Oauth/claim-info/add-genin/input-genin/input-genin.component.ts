@@ -48,7 +48,10 @@ export class InputGeninComponent {
   claimList:any[]=[];
   mb:number;
   OnOff:boolean=true;
+  fileup:boolean;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,private af : AngularFire,private insideService:InsideService) {
+    this.fileup=this.insideMainService.fileup;
+
     this.uid=this.oauthInfoService.uid;
     this.memberList=this.insideService.memberList;
 

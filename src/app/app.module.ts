@@ -34,6 +34,7 @@ import { TaiouAddComponent } from './usage/taiou-add/taiou-add.component';
 import { KoukaAddComponent } from './usage/kouka-add/kouka-add.component';
 import { SearchComponent } from './usage/search/search.component';
 import { ImageAddComponent } from './usage/image-add/image-add.component';
+import { TimeLineComponent } from './usage/time-line/time-line.component';
 
 
 
@@ -76,6 +77,7 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     KoukaAddComponent,
     SearchComponent,
     ImageAddComponent,
+    TimeLineComponent,
 
   ],
   imports: [

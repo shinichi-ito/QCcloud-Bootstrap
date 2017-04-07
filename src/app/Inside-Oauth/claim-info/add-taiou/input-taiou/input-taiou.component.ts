@@ -53,8 +53,10 @@ InfoData:any[]=[];
   claimitem:any;
   Info2: FirebaseObjectObservable<any[]>;
 OnOff:boolean=true;
+  fileup:boolean;
   public constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService) {
+    this.fileup=this.insideMainService.fileup;
     this.uid=this.oauthInfoService.uid;
     this.fileupList=this.insideService.fileupList;//その会社のログイン回数やアップロード数をもらう
     this.insideMainService.flagChangeError$.subscribe((error)=>{

@@ -28,6 +28,22 @@
           お知らせ一覧
         </div>
         <div class="panel-body">
+
+          <div *ngIf="loginCheck==false" class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+          <div *ngIf="fileupCheck==false" class="alert alert-danger" role="alert">データアップロード数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+          <div *ngIf="dataupCheck==false" class="alert alert-danger" role="alert">関連ファイルアップロード数がオーバーしました。プランの変更を検討ください。</div>
+
+
+
+
+
+
           <div class="form-group">
 
             <div style="height:500px; overflow-y:auto;">
@@ -66,15 +82,6 @@
               利用容量確認
             </div>
             <div class="panel-body">
-              <div *ngIf="loginCheck==false" class="alert alert-danger" role="alert">アクセス数がオーバーしました。プランの変更を検討ください。</div>
-
-
-
-              <div *ngIf="fileupCheck==false" class="alert alert-danger" role="alert">データアップロード数がオーバーしました。プランの変更を検討ください。</div>
-
-
-
-              <div *ngIf="dataupCheck==false" class="alert alert-danger" role="alert">関連ファイルアップロード数がオーバーしました。プランの変更を検討ください。</div>
 
 
 

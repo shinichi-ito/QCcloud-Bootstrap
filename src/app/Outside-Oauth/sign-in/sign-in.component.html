@@ -6,6 +6,10 @@
     ログイン
   </div>
   <div class="panel-body">
+
+    <h4 style="color: red;">只今テストとして運用してます。いろいろ試していただいて結構です。<br>
+      本番環境になった際は登録したデータは一度リセットしますので、ご注意ください</h4>
+
     <form (ngSubmit)="signIn()" [formGroup]="myForm">
     <div class="form-group">
       <label for="mail">メールアドレス <span *ngIf="myForm.controls.email.dirty &&

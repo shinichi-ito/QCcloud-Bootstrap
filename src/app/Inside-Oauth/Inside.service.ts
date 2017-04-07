@@ -216,7 +216,7 @@ this.checkTrigger(this.uid);
   dataupChangeTrigger(uid){//画像アップ時　その月のファイルアップロード数を加算してく際にこのデータが必要
     let commentsRef = firebase.database().ref('DataUpCheck/'+uid+'/'+this.date2);
     commentsRef.on('child_changed', (value)=> {
-console.log(value.val())
+//console.log(value.val())
       this.dataupList.unshift({count:value.val()})
     })
   }

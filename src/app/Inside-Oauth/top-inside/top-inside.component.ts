@@ -89,7 +89,7 @@ dataupCheck:boolean;
         for(let key in data){
           if(data[key].$key=='dataup'){
             this.dataup=data[key].$value
-          //  this.oauthInfoService.dataup=this.dataup;
+        //   this.oauthInfoService.dataup=this.dataup;
           }
         }
 

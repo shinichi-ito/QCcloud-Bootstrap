@@ -53,9 +53,11 @@ export class InputKoukaComponent  {
   koukaFromTaisakudata:any;
   OnOff:boolean=true;
   check:boolean;
+  fileup:boolean;
   public constructor(private oauthInfoService:OauthInfoService,
                      private af : AngularFire,private insideService:InsideService,
                      private insideMainService:InsideMainService) {
+    this.fileup=this.insideMainService.fileup;
     this.insideMainService.flagChangeError$.subscribe((error)=>{
       this.errorData=error;
       this.errorDialogComponent.openDialog();

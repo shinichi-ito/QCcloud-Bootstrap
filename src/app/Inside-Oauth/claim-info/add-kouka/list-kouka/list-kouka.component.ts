@@ -48,10 +48,11 @@ export class ListKoukaComponent implements OnInit {
   fileData:any[]=[];
   typeData:any;
   onoffData:boolean;
-
+  dataup:boolean;
 
 
   constructor(private insideMainService:InsideMainService,private router: Router,private af : AngularFire,private oauthInfoService:OauthInfoService,private insideService:InsideService) {
+    this.dataup=this.insideMainService.dataup;
     this.uid=this.oauthInfoService.uid;
     //this.key=this.insideService.claimitem.key;
     this.claimitem=this.insideService.claimitem;

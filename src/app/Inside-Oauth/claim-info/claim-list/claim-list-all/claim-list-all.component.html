@@ -96,7 +96,7 @@
 
 
       <td>
-        <div class="btn-group" dropdown>
+        <div *ngIf="dataup" class="btn-group" dropdown>
           <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
             <i class="fa fa-list" aria-hidden="true"></i>　各種編集追加<span class="caret"></span>
           </button>
@@ -107,6 +107,24 @@
              <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-clock-o" aria-hidden="true"></i>　タイムライン表示</a></li>
       </ul>
         </div>
+
+
+        <div *ngIf="!dataup" class="btn-group" dropdown>
+          <button id="single-button2" type="button" class="btn btn-primary" dropdownToggle>
+            <i class="fa fa-list" aria-hidden="true"></i>　各種編集追加<span class="caret"></span>
+          </button>
+          <ul style="cursor: pointer" dropdownMenu role="menu" aria-labelledby="single-button2">
+            <li role="menuitem"><a class="dropdown-item" (click)="setEdit(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>　編集</a></li>
+            <!--<li role="menuitem"><a class="dropdown-item" (click)="addImage(item)"><i class="fa fa-plus" aria-hidden="true"></i>　関連ファイル登録</a></li>-->
+            <!--<li role="menuitem"><a class="dropdown-item"  (click)="setFile(item)"><i class="fa fa-check-square-o" aria-hidden="true"></i>　関連ファイル一覧表示</a></li>-->
+            <li role="menuitem"><a class="dropdown-item"  (click)="setTimeLine(item)"><i class="fa fa-clock-o" aria-hidden="true"></i>　タイムライン表示</a></li>
+          </ul>
+        </div>
+
+
+
+
+
       </td>
      </tr>
 

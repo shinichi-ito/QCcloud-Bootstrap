@@ -1,4 +1,7 @@
-<form (ngSubmit)="onAdd()" [formGroup]="myForm">
+
+<div *ngIf="!fileup" class="alert alert-danger" role="alert">月に割り当てられた情報登録数がオーバーしてます。プランの変更を検討ください。</div>
+
+<form *ngIf="fileup" (ngSubmit)="onAdd()" [formGroup]="myForm">
   <div class="panel panel-default"  style="width: 100%;margin: 0 auto;margin-top: 20px">
     <div class="panel-heading">
       コメント登録

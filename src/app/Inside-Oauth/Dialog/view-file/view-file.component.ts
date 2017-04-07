@@ -209,6 +209,7 @@ this.fileData=this.insideMainService.fileData
 
 
   getFilterFile(itemData){
+  //  console.log(itemData.key)
     let count=0;
     this.fileSameList=[];
     let fileSameList:any[]=[];
@@ -221,12 +222,22 @@ this.newData=[]
       for (let key2 in fileSameList) {
       //  console.log(array[key])
       //  console.log(fileSameList[key2].imageAnalysis)
+
+
+
         if (typeof fileSameList[key2].imageAnalysis === "undefined") {//undefind 判定は　エクセルデータ等が登録されているとimageAnalysisがないから
 
         }else{
-          if (fileSameList[key2].imageAnalysis.indexOf(array[key]) >= 0) {
-          this.newData.push(fileSameList[key2]);
+          if(fileSameList[key2].key===itemData.key){//対象の画像は除く
+
+          }else{
+            if (fileSameList[key2].imageAnalysis.indexOf(array[key]) >= 0) {
+              this.newData.push(fileSameList[key2]);
+            }
+
           }
+
+
         }
 
        }
