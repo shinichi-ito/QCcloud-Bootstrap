@@ -24,8 +24,7 @@ import { UsageSidemenuComponent } from './usage/usage-sidemenu/usage-sidemenu.co
 import { SoftInfoComponent } from './usage/soft-info/soft-info.component';
 import { AddMemberComponent } from './usage/add-member/add-member.component';
 import { UsageLoginComponent } from './usage/usage-login/usage-login.component';
-import { SuccessComponent } from './Outside-Oauth/GmoRedirect/success/success.component';
-import { CancelComponent } from './Outside-Oauth/GmoRedirect/cancel/cancel.component';
+
 import { TaikaiComponent } from './Outside-Oauth/taikai/taikai.component';
 import { ProgressOutDialogComponent } from './Outside-Oauth/progress-out-dialog/progress-out-dialog.component';
 import { ErrorOutDialogComponent } from './Outside-Oauth/error-out-dialog/error-out-dialog.component';
@@ -67,8 +66,6 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SoftInfoComponent,
     AddMemberComponent,
     UsageLoginComponent,
-    SuccessComponent,
-    CancelComponent,
     TaikaiComponent,
     ProgressOutDialogComponent,
     ErrorOutDialogComponent,

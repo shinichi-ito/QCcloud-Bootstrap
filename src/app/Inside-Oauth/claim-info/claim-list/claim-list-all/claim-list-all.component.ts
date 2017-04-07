@@ -169,9 +169,10 @@ this.koukaSetumeiComponent.openDialog();
       //30日のタイムスタンプ絶対値（秒）＝2592000
       //三か月のタイムスタンプ絶対値（秒）＝7776000
       // console.log(this.taisakuList[key].koukasu)
-      this.taisakubi=this.setTimeChange(this.taisakuList[key].taisakubi)
+      this.taisakubi=this.setTimeChange(this.taisakuList[key].taisakubi);
       term=this.unixTimestamp-this.taisakubi;
-      if(term>777600&&this.taisakuList[key].koukasu===0){
+      console.log(term)
+      if(term>7776000&&this.taisakuList[key].koukasu===0){
         this.koukakakuninTaisaku.push(this.taisakuList[key])
       }
       if(this.koukakakuninTaisaku.length>0){

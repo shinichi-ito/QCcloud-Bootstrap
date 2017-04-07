@@ -5,7 +5,7 @@ import {InsideService} from "../../../../Inside.service";
 import {OauthInfoService} from "../../../../oauth-info.service";
 import {ErrorDialogComponent} from "../../../../Dialog/error-dialog/error-dialog.component";
 import {ProgressDialogComponent} from "../../../../Dialog/progress-dialog/progress-dialog.component";
-import {SuccessComponent} from "../../../../../Outside-Oauth/GmoRedirect/success/success.component";
+
 import {SuccessDialogComponent} from "../../../../Dialog/success-dialog/success-dialog.component";
 @Component({
   selector: 'app-edit-claim-data',
