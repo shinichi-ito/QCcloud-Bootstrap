@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
     this.oauthService.flagChange$.subscribe((error)=>{
     //   console.log(error)
      this.progressoutDialogComponent.closeDialog();
-      this.errorData='ログインに失敗しました。再ログインください。';
+      this.errorData=this.oauthService.errorChange(error);
       this.erroroutDialogComponent.openDialog()
 
      })
@@ -186,11 +186,129 @@ changeTop(){
   }
 
   onSigninTwitter(){
+    // firebase.database().goOnline();
+    this.progressoutDialogComponent.openDialog();
+    this.oauthService.loginTwitter().then((authState)=>{
+      //   console.log(authState.uid);
+      if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
+        this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
+          if(data){
+            //OauthInfoServiceに共通データをいれて使いまわす
+            //  console.log(data.auth)
+            this.oauthInfoService.emailMain=data.auth.email;
+            this.oauthInfoService.displayName=data.auth.displayName;
+            this.oauthInfoService.photoURL=data.auth.photoURL;
+            this.oauthInfoService.uid = authState.uid;
+          }
+        });
+        this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
+            //   console.log(data.$value)
+            this.oauthInfoService.term=data.$value;//サインインのさいその時点のtermを保管して　プラン変更時に0なら会社情報はまだ　カード登録もまだ　1の場合は会社情報と　カード情報は登録済み　2は退会済み
+            if (typeof data.$value=='number') {//data.$valueはterm
+              console.log("Yes")//既にcompanyDataに登録がある
 
+              if(data.$value===1){
+                console.log("クレームリストへ");
+                this.router.navigate(['/main/topinside'])
+              }else if(data.$value===0){//termが0であるから　期間をチェック
+                this.startAtCheck(authState.uid)
+              }else if(data.$value===2){//termが0であるから　期間をチェック
+                this.router.navigate(['/taikai'])
+              }
+            } else {
+              console.log("No")//まだcompanyDataに登録がないので登録
+              this.oauthService.firstCompanyDataTwFaGo(authState.auth.displayName, authState.uid).then((data) => {
+                //  this.startAtCheck(authState.uid)
+                //  console.log('最初の会社情報登録成功2')
+                //  console.log(data)
+                //  console.log("クレームリストへ");
+                //  this.oauthInfoService.OnOff=true;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
+
+                this.router.navigate(['/main/topinside'])
+              })
+            }
+          },
+          (error)=>{
+            this.progressoutDialogComponent.closeDialog();
+            this.errorData=error;
+            this.erroroutDialogComponent.openDialog()
+
+
+            //   this.showError(this.oauthService.errorChange(error.message))
+          })
+      }else{
+
+        //  this.showError(this.oauthService.errorChange('ログインに失敗しました。再度ログインしてださい'))
+      }
+    }).catch(error=>{
+      this.progressoutDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.erroroutDialogComponent.openDialog()
+      //   this.showError(this.oauthService.errorChange(error.message))
+    })
   }
 
   onSigninFacebook(){
+    // firebase.database().goOnline();
+    this.progressoutDialogComponent.openDialog();
+    this.oauthService.loginFacebook().then((authState)=>{
+      //   console.log(authState.uid);
+      if (authState && authState.uid) {//ログインした際にアカウントがしっかりとあるか
+        this.oauthService.getUserInfo().subscribe((data)=>{//ユーザー情報を取得
+          if(data){
+            //OauthInfoServiceに共通データをいれて使いまわす
+            //  console.log(data.auth)
+            this.oauthInfoService.emailMain=data.auth.email;
+            this.oauthInfoService.displayName=data.auth.displayName;
+            this.oauthInfoService.photoURL=data.auth.photoURL;
+            this.oauthInfoService.uid = authState.uid;
+          }
+        });
+        this.oauthService.checkTerm(authState.uid).subscribe((data) => {//termを取得してデータがあるかチェックすることにより会社情報が登録済みかチェック
+            //   console.log(data.$value)
+            this.oauthInfoService.term=data.$value;//サインインのさいその時点のtermを保管して　プラン変更時に0なら会社情報はまだ　カード登録もまだ　1の場合は会社情報と　カード情報は登録済み　2は退会済み
+            if (typeof data.$value=='number') {//data.$valueはterm
+              console.log("Yes")//既にcompanyDataに登録がある
 
+              if(data.$value===1){
+                console.log("クレームリストへ");
+                this.router.navigate(['/main/topinside'])
+              }else if(data.$value===0){//termが0であるから　期間をチェック
+                this.startAtCheck(authState.uid)
+              }else if(data.$value===2){//termが0であるから　期間をチェック
+                this.router.navigate(['/taikai'])
+              }
+            } else {
+              console.log("No")//まだcompanyDataに登録がないので登録
+              this.oauthService.firstCompanyDataTwFaGo(authState.auth.displayName, authState.uid).then((data) => {
+                //  this.startAtCheck(authState.uid)
+                //  console.log('最初の会社情報登録成功2')
+                //  console.log(data)
+                //  console.log("クレームリストへ");
+                //  this.oauthInfoService.OnOff=true;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
+
+                this.router.navigate(['/main/topinside'])
+              })
+            }
+          },
+          (error)=>{
+            this.progressoutDialogComponent.closeDialog();
+            this.errorData=error;
+            this.erroroutDialogComponent.openDialog()
+
+
+            //   this.showError(this.oauthService.errorChange(error.message))
+          })
+      }else{
+
+        //  this.showError(this.oauthService.errorChange('ログインに失敗しました。再度ログインしてださい'))
+      }
+    }).catch(error=>{
+      this.progressoutDialogComponent.closeDialog();
+      this.errorData=error.message;
+      this.erroroutDialogComponent.openDialog()
+      //   this.showError(this.oauthService.errorChange(error.message))
+    })
   }
   startAtCheck(uid:string){//termが0である//0の時は　30日経過して正規の会社情報を登録してない状態
     this.oauthService.checkStartAt(uid).subscribe((data)=>{
@@ -206,7 +324,7 @@ changeTop(){
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
       console.log(term)
-      if (term >2592000) {//期日を超えたら　会社情報登録画面へ
+      if (term >2) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
 //this.oauthInfoService.OnOff=false;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
        this.progressoutDialogComponent.closeDialog();

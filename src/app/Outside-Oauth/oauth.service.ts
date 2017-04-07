@@ -629,6 +629,8 @@ export class OauthService {
       message = 'ログインに失敗しました。　再ログインください。';
     }else if (message === "Cannot read property 'uid' of undefined") {
       message = '対象のパスワードが間違っています';
+    }else if (message === "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.") {
+      message = '対象のメールアドレスは既に別のアカウントで使用されています。';
     }
     return message;
   }
