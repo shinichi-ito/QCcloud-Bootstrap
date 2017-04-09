@@ -8,15 +8,15 @@ import {Router} from "@angular/router";
 export class InsideMainService {
 
   //////これよりPAY.JPへアクセスするためのデータ///////////
-url2:string='http://localhost:8888/payjp?';
-  url3:string='http://localhost:8888/changeplan?';
-  url4:string='http://localhost:8888/deletecustomer?';
-  url5:string='http://localhost:8888/editpay?';
+//url2:string='http://localhost:8888/payjp?';
+//  url3:string='http://localhost:8888/changeplan?';
+//  url4:string='http://localhost:8888/deletecustomer?';
+//  url5:string='http://localhost:8888/editpay?';
 
- // url2:string='https://corded-evening-163501.appspot.com/payjp?';
- //url3:string='https://corded-evening-163501.appspot.com/changeplan?';
-//  url4:string='https://corded-evening-163501.appspot.com/deletecustomer?';
- // url5:string='https://corded-evening-163501.appspot.com/editpay?';
+  url2:string='https://corded-evening-163501.appspot.com/payjp?';
+ url3:string='https://corded-evening-163501.appspot.com/changeplan?';
+ url4:string='https://corded-evening-163501.appspot.com/deletecustomer?';
+  url5:string='https://corded-evening-163501.appspot.com/editpay?';
 
 
 
