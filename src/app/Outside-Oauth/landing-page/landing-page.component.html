@@ -9,7 +9,7 @@
       <div class="col-sm-8">
 
 
-        <h3 style="color: red;">只今テストとして運用してます。いろいろ試していただいて結構です。,,<br>
+        <h3 style="color: red;">只今テストとして運用してます。いろいろ試していただいて結構です..<br>
           本番環境になった際は登録したデータは一度リセットしますので、ご注意ください</h3>
         <h1>品質管理とは</h1>
         <p>顧客の要求を満たす、品質の製品あるいはサービスを、<br>
@@ -34,7 +34,7 @@
   </div><!-- container -->
 </div>
 
-
+<app-nav-title></app-nav-title>
 
 
 
@@ -360,8 +360,10 @@
       <div class="col-sm-5">
         <div class="menu">
         <ul style="margin-top: 20px">
-          <li ><a HREF="/riyoukiyaku" TARGET="_blank">利用規約確認</a></li>
-          <li ><a HREF="/privacypolicy" TARGET="_blank">プライバシーポリシー</a></li>
+
+
+          <li ><a   style="cursor:pointer;" routerLink="/riyoukiyaku">利用規約確認</a></li>
+          <li ><a   style="cursor:pointer;" routerLink="/privacypolicy">プライバシーポリシー</a></li>
           <li ><a routerLink="/askform" >問い合わせ</a></li>
           <li ><a routerLink="/lotsjoys" >運営会社</a></li>
         </ul>

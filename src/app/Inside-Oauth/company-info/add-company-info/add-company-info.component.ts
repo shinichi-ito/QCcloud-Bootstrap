@@ -40,7 +40,9 @@ gmoData:any[]=[];
   @ViewChild("cardDialog") cardDialogComponent: AddCardComponent;
   urlData:string;
   OrderID:string;
+  url:string;
   constructor(private insideMainService:InsideMainService,private fb: FormBuilder,private companyInfoService:CompanyInfoService,private oauthInfoService:OauthInfoService) {
+  this.url=this.insideMainService.url;
     this.model = {
       label: ""
     };

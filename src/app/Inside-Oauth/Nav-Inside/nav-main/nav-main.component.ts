@@ -8,10 +8,10 @@ import {InsideMainService} from "../../inside-main.service";
   styleUrls: ['./nav-main.component.css']
 })
 export class NavMainComponent implements OnInit {
-
+url:string;
   constructor(private oauthInfoService:OauthInfoService,private insideMainService:InsideMainService) {
 
-
+this.url=this.insideMainService.url;
 
   }
 

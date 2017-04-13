@@ -15,7 +15,16 @@
     会社情報詳細登録
   </div>
   <div class="panel-body">
-    <div class="alert alert-info" role="alert">引き続きご利用いただくために下記の登録を行ってください。</div>
+    <div class="alert alert-info" role="alert">引き続きご利用いただくために下記の登録を行ってください。<br>
+     ◎ 利用規約、プライバシーポリシー及び、価格プランをご確認いただいて下記を入力ください。<br>
+      <a   style="cursor:pointer;" routerLink="/main/riyoukiyaku2">【利用規約確認】</a><br>
+      <a style="cursor:pointer;" routerLink="/main/privacypolicy2">【プライバシーポリシー確認】</a><br>
+      <a style="cursor:pointer;" routerLink="/main/priceinfo3">【価格プラン確認】</a>
+
+
+
+
+    </div>
     <div class="form-group">
       <label for="companyname">会社名<span *ngIf="myForm.controls.companyname.dirty &&
                 myForm.controls.companyname.errors||myForm.controls.companyname.untouched &&
@@ -130,7 +139,7 @@
               <span ion-text  color="danger"
                     [hidden]="!myForm.controls.riyoukiyaku.errors.pattern ">
               同意されてません</span>
-        </span><a HREF="/riyoukiyaku" TARGET="_blank">【利用規約確認】</a>
+        </span>
 
       </label>
     </div>
@@ -145,7 +154,7 @@
               <span ion-text  color="danger"
                     [hidden]="!myForm.controls.privacypolicy.errors.pattern ">
               同意されてません</span>
-      </span><a HREF="/privacypolicy" TARGET="_blank">【プライバシーポリシー確認】</a>
+      </span>
       </label>
     </div>
 
@@ -154,7 +163,7 @@
 <hr>
 
     <div class="form-group">
-      <label>プラン選択 <a HREF="/priceinfo" TARGET="_blank">【価格プラン確認】</a><span *ngIf="myForm.controls.label.dirty &&
+      <label>プラン選択 <span *ngIf="myForm.controls.label.dirty &&
                 myForm.controls.label.errors||myForm.controls.label.untouched &&
                 myForm.controls.label.errors">
       <span class="text-danger"

@@ -16,9 +16,9 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a (click)="logout()" style="cursor:pointer;">ホーム</a></li>
-        <li><a  style="cursor:pointer;" HREF="/usage/softinfo"  TARGET="_blank">アプリについて</a></li>
-        <li><a HREF="/priceinfo" TARGET="_blank">価格</a></li>
-        <li><a routerLink="/askform">お問い合わせ</a></li>
+        <li><a  style="cursor:pointer;" routerLink="/main/usage2/softinfo2">アプリについて</a></li>
+        <li><a   style="cursor:pointer;" routerLink="/main/priceinfo2">価格</a></li>
+        <li><a routerLink="/main/askform2">お問い合わせ</a></li>
         <li><button type="button" (click)="logout()" class="btn btn-primary navbar-btn navbar-right">ログアウト</button></li>
       </ul>
     </div>

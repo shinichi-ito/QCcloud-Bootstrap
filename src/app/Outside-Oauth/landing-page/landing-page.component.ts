@@ -3,6 +3,7 @@ import {DOCUMENT} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -12,8 +13,10 @@ export class LandingPageComponent implements OnInit {
   public navIsFixed: boolean = false;
   OnOff:boolean;
   private subscription:Subscription;
+url:string='https://corded-evening-163501.appspot.com';
+  constructor(private route:ActivatedRoute,private router: Router,@Inject(DOCUMENT) private document: Document) {
 
-  constructor(private route:ActivatedRoute,private router: Router,@Inject(DOCUMENT) private document: Document) { }
+  }
 
 
   ngOnInit() {

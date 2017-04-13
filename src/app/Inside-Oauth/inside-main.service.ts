@@ -8,11 +8,16 @@ import {Router} from "@angular/router";
 export class InsideMainService {
 
   //////これよりPAY.JPへアクセスするためのデータ///////////
+ // url:string='http://localhost:8888';
 //url2:string='http://localhost:8888/payjp?';
 //  url3:string='http://localhost:8888/changeplan?';
 //  url4:string='http://localhost:8888/deletecustomer?';
 //  url5:string='http://localhost:8888/editpay?';
 
+
+
+
+  url:string='https://corded-evening-163501.appspot.com';
   url2:string='https://corded-evening-163501.appspot.com/payjp?';
  url3:string='https://corded-evening-163501.appspot.com/changeplan?';
  url4:string='https://corded-evening-163501.appspot.com/deletecustomer?';
@@ -25,7 +30,7 @@ export class InsideMainService {
   //////これよりGMOへアクセスするためのデータ///////////
 
 
-   url:string='http://localhost:8888/sendgwo?';//一番最初に登録さる際のURL
+ //  url:string='http://localhost:8888/sendgwo?';//一番最初に登録さる際のURL
   urledit='http://localhost:8888/editcard?';//クレジットカードを編集追加する際のURL
  // url:string='http://1-dot-qccloud-1186.appspot.com/sendgwo?';//一番最初に登録さる際のURL
  // urledit='http://1-dot-qccloud-1186.appspot.com/editcard?';//クレジットカードを編集追加する際のURL

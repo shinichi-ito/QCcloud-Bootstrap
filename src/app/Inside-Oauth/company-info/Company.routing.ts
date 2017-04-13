@@ -7,4 +7,7 @@ import {EditCompanyInfoComponent} from "./edit-company-info/edit-company-info.co
 export const COM_ROUTES: Routes = [
  { path: 'addCompanyInfo', component:AddCompanyInfoComponent},
   { path: 'editcompanyinfo',component:EditCompanyInfoComponent},
+
+
+
 ];

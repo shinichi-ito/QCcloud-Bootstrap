@@ -46,7 +46,16 @@ export class SignInComponent implements OnInit {
   }
 
   onSendResetPasswordMail(){//パスワード再設定のメール送信
-    this.oauthService.sendResetPasswordMail(this.myForm.value.email);
+    if(typeof this.myForm.value.email === "undefined"){
+      console.log('ない')
+      alert('パスワードを変更するメールアドレスを入力してから再度クリックください')
+    }else{
+
+      this.oauthService.sendResetPasswordMail(this.myForm.value.email);
+      alert('入力したメールアドレスまでパスワード変更用のメールを送信しました')
+    }
+
+   //
   }
 
 
@@ -323,8 +332,8 @@ changeTop(){
       //1時間のタイムスタンプ絶対値（秒）＝3600
       //1日のタイムスタンプ絶対値（秒）＝86400
       //30日のタイムスタンプ絶対値（秒）＝2592000
-      console.log(term)
-      if (term >2) {//期日を超えたら　会社情報登録画面へ
+     // console.log(term)
+      if (term >2592000) {//期日を超えたら　会社情報登録画面へ
         console.log("会社情報登録へ");
 //this.oauthInfoService.OnOff=false;//これはmainじゃない時からmainに移るからオぶサーバ必要ない
        this.progressoutDialogComponent.closeDialog();

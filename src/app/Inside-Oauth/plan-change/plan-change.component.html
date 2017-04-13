@@ -16,7 +16,7 @@
 <div class="form-group">
   <div *ngIf="OnOff">
 
-  <label>プラン変更 <a HREF="/priceinfo" TARGET="_blank">【価格プラン確認】</a></label><br>
+  <label>プラン変更 <a href="{{url}}/price" TARGET="_blank">【価格プラン確認】</a></label><br>
 
   <label class="radio-inline">
     <input type="radio" [(ngModel)]="model.label"  name="label" value="スタンダード">　スタンダード

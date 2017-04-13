@@ -34,6 +34,15 @@ import {TaiakiEditComponent} from "./taiaki-edit/taiaki-edit.component";
 import {PlanChangeComponent} from "./plan-change/plan-change.component";
 import {EditInfoComponent} from "./Admin/edit-info/edit-info.component";
 import {EDITINFO_ROUTES} from "./Admin/edit-info/editinfo.routing";
+import {USAGE_ROUTES} from "../usage/usage.routing";
+import {UsageComponent} from "../usage/usage.component";
+import {Usage2Component} from "./usage2/usage2.component";
+import {USAGE2_ROUTES} from "./usage2/usage2.routing";
+import {Price2InfoComponent} from "./price2-info/price2-info.component";
+import {Privacy2PolicyComponent} from "./privacy2-policy/privacy2-policy.component";
+import {Riyou2KiyakuComponent} from "./riyou2-kiyaku/riyou2-kiyaku.component";
+import {Ask2FormComponent} from "./ask2-form/ask2-form.component";
+import {Price3InfoComponent} from "./price3-info/price3-info.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -58,8 +67,13 @@ const IN_ROUTES: Routes = [
      { path: 'admin',component:AdminComponent,children:ADMIN_ROUTES},
     // { path: 'taikaiedit',component:TaiakiEditComponent},
     // { path: 'planchange',component:PlanChangeComponent},
-    { path: 'editinfo',component:EditInfoComponent,children:EDITINFO_ROUTES}
-
+    { path: 'editinfo',component:EditInfoComponent,children:EDITINFO_ROUTES},
+    { path: 'usage2', component: Usage2Component,children: USAGE2_ROUTES},
+    { path: 'priceinfo2', component: Price2InfoComponent},
+    { path: 'priceinfo3', component: Price3InfoComponent},
+    { path: 'privacypolicy2', component: Privacy2PolicyComponent},
+    { path: 'riyoukiyaku2', component: Riyou2KiyakuComponent},
+    { path: 'askform2', component: Ask2FormComponent},
   ]}
 
 ];

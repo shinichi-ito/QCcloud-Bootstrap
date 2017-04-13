@@ -27,7 +27,10 @@ uid:string;
   Data:string;
   @ViewChild("cardDialog") cardDialogComponent: AddCardComponent;
   urlData:string;
+  url:string;
   constructor(private companyInfoService:CompanyInfoService,private router:Router,private af : AngularFire,private insideMainService:InsideMainService,private oauthInfoService:OauthInfoService) {
+this.url=this.insideMainService.url;
+
   this.term=this.oauthInfoService.term;
 if(this.term===1){
   this.OnOff=true;

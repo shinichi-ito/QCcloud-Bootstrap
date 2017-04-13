@@ -123,6 +123,24 @@ import { SideEditInfoComponent } from './Admin/edit-info/side-edit-info/side-edi
 import { ClaimDeleteDialogComponent } from './Dialog/claim-delete-dialog/claim-delete-dialog.component';
 import { CardEditCheckComponent } from './Admin/card-edit-check/card-edit-check.component';
 import { CardEditCheckDialogComponent } from './Dialog/edit-dialog/card-edit-check-dialog/card-edit-check-dialog.component';
+import {ClaimAddComponent} from "../usage/claim-add/claim-add.component";
+import { Usage2Component } from './usage2/usage2.component';
+import { AddMember2Component } from './usage2/add-member2/add-member2.component';
+import { Usage2SidemenuComponent } from './usage2/usage2-sidemenu/usage2-sidemenu.component';
+import { Claim2AddComponent } from './usage2/claim2-add/claim2-add.component';
+import { Image2AddComponent } from './usage2/image2-add/image2-add.component';
+import { Kouka2AddComponent } from './usage2/kouka2-add/kouka2-add.component';
+import { Search2Component } from './usage2/search2/search2.component';
+import { Soft2InfoComponent } from './usage2/soft2-info/soft2-info.component';
+import { Taiou2AddComponent } from './usage2/taiou2-add/taiou2-add.component';
+import { Time2LineComponent } from './usage2/time2-line/time2-line.component';
+import { Price2InfoComponent } from './price2-info/price2-info.component';
+import { Privacy2PolicyComponent } from './privacy2-policy/privacy2-policy.component';
+import { Riyou2KiyakuComponent } from './riyou2-kiyaku/riyou2-kiyaku.component';
+import { Ask2FormComponent } from './ask2-form/ask2-form.component';
+import { Price3InfoComponent } from './price3-info/price3-info.component';
+
+
 
 
 
@@ -252,7 +270,22 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     SideEditInfoComponent,
     ClaimDeleteDialogComponent,
     CardEditCheckComponent,
-    CardEditCheckDialogComponent
+    CardEditCheckDialogComponent,
+    Usage2Component,
+    AddMember2Component,
+    Usage2SidemenuComponent,
+    Claim2AddComponent,
+    Image2AddComponent,
+    Kouka2AddComponent,
+    Search2Component,
+    Soft2InfoComponent,
+    Taiou2AddComponent,
+    Time2LineComponent,
+    Price2InfoComponent,
+    Privacy2PolicyComponent,
+    Riyou2KiyakuComponent,
+    Ask2FormComponent,
+    Price3InfoComponent
 
 
 
