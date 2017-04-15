@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {OauthInfoService} from "../../Inside-Oauth/oauth-info.service";
 import {ErrorOutDialogComponent} from "../error-out-dialog/error-out-dialog.component";
 import {ProgressOutDialogComponent} from "../progress-out-dialog/progress-out-dialog.component";
+import {InfoDialogComponent} from "./info-dialog/info-dialog.component";
 
 @Component({
   selector: 'app-sign-in',
@@ -16,7 +17,8 @@ export class SignInComponent implements OnInit {
     @ViewChild("erroroutDialog") erroroutDialogComponent: ErrorOutDialogComponent;
    errorData:string;
    @ViewChild("progrssoutDialog") progressoutDialogComponent: ProgressOutDialogComponent;
-
+  @ViewChild("infoDialog") infoDialogComponent: InfoDialogComponent;
+  Data:string;
 
 
   constructor(private oauthInfoService:OauthInfoService,private router: Router,private oauthService:OauthService,private fb: FormBuilder) {
@@ -48,11 +50,18 @@ export class SignInComponent implements OnInit {
   onSendResetPasswordMail(){//パスワード再設定のメール送信
     if(typeof this.myForm.value.email === "undefined"){
       console.log('ない')
-      alert('パスワードを変更するメールアドレスを入力してから再度クリックください')
+      //alert('パスワードを変更するメールアドレスを入力してから再度クリックください')
+      this.Data='パスワードを変更する、メールアドレスを入力欄に、入力してから再度クリックください';
+      this.infoDialogComponent.openDialog();
+
     }else{
 
       this.oauthService.sendResetPasswordMail(this.myForm.value.email);
-      alert('入力したメールアドレスまでパスワード変更用のメールを送信しました')
+      //alert('入力したメールアドレスまでパスワード変更用のメールを送信しました')
+
+      this.Data='入力したメールアドレスまで、パスワード変更用のメールを送信しました';
+      this.infoDialogComponent.openDialog();
+
     }
 
    //
@@ -107,7 +116,14 @@ changeTop(){
               }else if(data.$value===2){//termが0であるから　期間をチェック
                // console.log('ここ')
                 this.router.navigate(['/taikai'])
+              }else if(data.$value===3){//termが3であるから　退会から復帰なので会社情報を再度登録
+                // console.log('ここ')
+                this.router.navigate(['/main/companyInfo/addCompanyInfo'])
               }
+
+
+
+
            } else {
             console.log("No")//まだcompanyDataに登録がないので登録
             //signupで既に登録しているから　Noになることは考えられない
@@ -160,6 +176,9 @@ changeTop(){
                 this.startAtCheck(authState.uid)
               }else if(data.$value===2){//termが0であるから　期間をチェック
                 this.router.navigate(['/taikai'])
+              }else if(data.$value===3){//termが3であるから　退会から復帰なので会社情報を再度登録
+                // console.log('ここ')
+                this.router.navigate(['/main/companyInfo/addCompanyInfo'])
               }
         } else {
               console.log("No")//まだcompanyDataに登録がないので登録
@@ -223,6 +242,9 @@ changeTop(){
                 this.startAtCheck(authState.uid)
               }else if(data.$value===2){//termが0であるから　期間をチェック
                 this.router.navigate(['/taikai'])
+              }else if(data.$value===3){//termが3であるから　退会から復帰なので会社情報を再度登録
+                // console.log('ここ')
+                this.router.navigate(['/main/companyInfo/addCompanyInfo'])
               }
             } else {
               console.log("No")//まだcompanyDataに登録がないので登録
@@ -286,6 +308,9 @@ changeTop(){
                 this.startAtCheck(authState.uid)
               }else if(data.$value===2){//termが0であるから　期間をチェック
                 this.router.navigate(['/taikai'])
+              }else if(data.$value===3){//termが3であるから　退会から復帰なので会社情報を再度登録
+                // console.log('ここ')
+                this.router.navigate(['/main/companyInfo/addCompanyInfo'])
               }
             } else {
               console.log("No")//まだcompanyDataに登録がないので登録

@@ -30,7 +30,7 @@ export class SelectTaisakuComponent implements OnInit {
               private insideService:InsideService,private af : AngularFire) {
 
     this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
-
+console.log(this.taisakuSyubetuList)
     this.uid=this.oauthInfoService.uid;
   }
 
@@ -48,7 +48,7 @@ export class SelectTaisakuComponent implements OnInit {
   }
   onEdit(){
     const Info = {
-      taiouInfo:this.syubetuname,
+      taisakuInfo:this.syubetuname,
       tourokusya:this.tourokusyaname
     };
     this.value = this.af.database.object('selectData/' + this.uid + '/taisakuInfo/'+this.syubetukey);

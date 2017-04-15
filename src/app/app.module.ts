@@ -35,6 +35,8 @@ import { SearchComponent } from './usage/search/search.component';
 import { ImageAddComponent } from './usage/image-add/image-add.component';
 import { TimeLineComponent } from './usage/time-line/time-line.component';
 import { NavTitleComponent } from './header/nav-title/nav-title.component';
+import { TokuteiComponent } from './Outside-Oauth/tokutei/tokutei.component';
+import { InfoDialogComponent } from './Outside-Oauth/sign-in/info-dialog/info-dialog.component';
 
 
 
@@ -77,6 +79,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     ImageAddComponent,
     TimeLineComponent,
     NavTitleComponent,
+    TokuteiComponent,
+    InfoDialogComponent,
 
   ],
   imports: [

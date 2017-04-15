@@ -64,10 +64,10 @@
       <i class="fa fa-fw fa-facebook"></i>
       Facebook
     </a></li>
-    <li><a style="cursor: pointer"(click)="onSigninTwitter()" class="login-TW">
-      <i class="fa fa-fw fa-twitter"></i>
-      Twitter
-    </a></li>
+    <!--<li><a style="cursor: pointer"(click)="onSigninTwitter()" class="login-TW">-->
+      <!--<i class="fa fa-fw fa-twitter"></i>-->
+      <!--Twitter-->
+    <!--</a></li>-->
   </ul>
   <a style="cursor: pointer"(click)="changeCreateUserPage()">まだアカウントをお持ちでない方はこちら</a>
 
@@ -90,3 +90,5 @@
 <app-error-out-dialog [errorData]="errorData"  #erroroutDialog></app-error-out-dialog>
 <!--プログレスダイアログ-->
 <app-progress-out-dialog   #progrssoutDialog></app-progress-out-dialog>
+
+<app-info-dialog [Data]="Data"  #infoDialog></app-info-dialog>

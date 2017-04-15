@@ -147,7 +147,10 @@ export class SelectEditClaimComponent implements OnInit {
 
   }
   Delete(index){
+ //   console.log(index)
     this.claimData=this.newclaimList[index];
+  //  console.log(this.claimData)
+  //  console.log(this.claimData.key)
     this.claimDeleteDialogComponent.openDialog();
    //console.log(this.claimData.key)
    //  this.insideMainService.deleteClaim(this.claimData.key,this.uid).then(data=>{

@@ -96,7 +96,10 @@ gmoData:any[]=[];
     ];
   }
 
-
+  logout(){
+    this.oauthInfoService.check=false;//既にログインしてから一度カウントをアップしたかチェック
+    this.insideMainService.logout()
+  }
 
   onAdd(){//GMOのパターン
     let date=this.formatDate(new Date(),'YYYYMMDDhhmmss');

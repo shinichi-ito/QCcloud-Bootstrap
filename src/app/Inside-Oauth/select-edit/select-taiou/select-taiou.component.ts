@@ -31,6 +31,7 @@ export class SelectTaiouComponent implements OnInit {
               private insideService:InsideService,private af : AngularFire) {
   //  this.syubetus=this.insideService.syubetuList;
     this.taiouSyubetuList=this.insideService.taiouSyubetuList;
+    console.log(this.taiouSyubetuList)
   //  this.taisakuSyubetuList=this.insideService.taisakuSyubetuList;
     this.uid=this.oauthInfoService.uid;
   }

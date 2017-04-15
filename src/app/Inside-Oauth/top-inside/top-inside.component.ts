@@ -195,7 +195,11 @@ this.loginPa=Math.ceil(this.login/this.loginGenkai*100);
   }
   getNews(): FirebaseListObservable<any> {//お知らせを取得
 
-    return this.af.database.list('/News');
+    return this.af.database.list('/News', {
+      query: {
+        limitToLast: 10
+      }
+      });
   }
 
 }

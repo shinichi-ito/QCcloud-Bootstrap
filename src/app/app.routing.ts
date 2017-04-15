@@ -16,6 +16,7 @@ import {UsageComponent} from "./usage/usage.component";
 import {USAGE_ROUTES} from "./usage/usage.routing";
 
 import {TaikaiComponent} from "./Outside-Oauth/taikai/taikai.component";
+import {TokuteiComponent} from "./Outside-Oauth/tokutei/tokutei.component";
 /**
  * Created by hp on 2017/02/18.
  */
@@ -35,7 +36,8 @@ const APP_ROUTES: Routes = [
   { path: 'landing', component: LandingPageComponent},
   { path: 'priceinfo', component: PriceInfoComponent},
   { path: 'usage', component: UsageComponent,children: USAGE_ROUTES},
-  { path: 'taikai', component: TaikaiComponent}
+  { path: 'taikai', component: TaikaiComponent},
+  { path: 'tokutei', component: TokuteiComponent}
 
 ];
 export const routing : ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

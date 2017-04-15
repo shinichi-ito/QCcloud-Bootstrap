@@ -55,6 +55,12 @@
         <div class="form-group">
           <label for="password">パスワード</label>
           <input type="password" class="form-control" id="password"  [(ngModel)]="pass" name="pass"   placeholder="パスワードを入力して下さい。">
+
+
+          <div *ngIf="OnOff">
+            <div class="alert alert-danger" role="alert">パスワードが一致しません</div>
+          </div>
+
         </div>
 
 
@@ -64,9 +70,7 @@
       </div>
       <div class="modal-footer">
 
-        <div *ngIf="OnOff">
-          <div class="alert alert-danger" role="alert">パスワードが一致しません</div>
-        </div>
+
 
         <button type="button" class="btn btn-default"   (click)="close()" data-dismiss="modal">閉じる</button>
         <button type="button" class="btn btn-primary" (click)="onEdit()">編集</button>
