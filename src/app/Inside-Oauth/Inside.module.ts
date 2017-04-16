@@ -139,6 +139,7 @@ import { Privacy2PolicyComponent } from './privacy2-policy/privacy2-policy.compo
 import { Riyou2KiyakuComponent } from './riyou2-kiyaku/riyou2-kiyaku.component';
 import { Ask2FormComponent } from './ask2-form/ask2-form.component';
 import { Price3InfoComponent } from './price3-info/price3-info.component';
+import { HenkinComponent } from './Admin/henkin/henkin.component';
 
 
 
@@ -285,7 +286,8 @@ export const firebaseConfig = {                     //対象は　qccloud-asia-n
     Privacy2PolicyComponent,
     Riyou2KiyakuComponent,
     Ask2FormComponent,
-    Price3InfoComponent
+    Price3InfoComponent,
+    HenkinComponent
 
 
 

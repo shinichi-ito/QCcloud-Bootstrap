@@ -32,7 +32,7 @@
         <tr>
           <th></th>
           <th  style="width: 25%">
-            会社名
+            会社名<br>電話番号
           </th>
           <th  style="width: 10%">
             プラン
@@ -41,7 +41,7 @@
             term
           </th>
           <th  style="width: 30%">
-            uid
+            uid<br>customerID
           </th>
           <th  style="width: 20%">
             登録日時
@@ -55,11 +55,12 @@
         <tbody>
         <tr *ngFor="let item of companyList|orderby:'startAt'; let idx = index;">
           <td>{{idx+1}}</td>
-          <td style="word-wrap:break-word;">{{item.companyname}}</td>
+          <td style="word-wrap:break-word;">{{item.companyname}}<br>
+          {{item.tel}}</td>
           <td style="word-wrap:break-word;">{{item.label}}</td>
           <td style="word-wrap:break-word;">{{item.term}}</td>
 
-          <td style="word-wrap:break-word;">{{item.key}}</td>
+          <td style="word-wrap:break-word;">{{item.key}}<br>{{item.customerID}}</td>
 
 
           <td>{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST'}}</td>
@@ -71,6 +72,11 @@
         </tr>
         </tbody>
       </table>
+
+
+
+
+
     </div>
   </div>
 </div>

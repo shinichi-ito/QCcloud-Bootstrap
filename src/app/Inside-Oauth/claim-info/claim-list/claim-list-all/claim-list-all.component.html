@@ -13,6 +13,10 @@
     <div *ngIf="OnOff">
       <div class="alert alert-danger" role="alert">三か月が経過しました。効果確認を行ってください。<a (click)="checkKouka()" style="cursor: pointer">対象の対策{{addKouka}}件</a></div>
     </div>
+
+
+    <div *ngIf="!isMobile">
+
 <div style="margin: auto;">
   <table   style="table-layout:fixed;width:100%;" class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
            [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
@@ -137,8 +141,94 @@
     </tr>
     </tfoot>
   </table>
+</div>
+
+
+
+
 
 </div>
+    <div *ngIf="isMobile">
+
+
+
+      <div style="margin: auto;">
+
+        <div class="table-responsive">
+        <table  class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+                 [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+          <tr>
+            <th>
+              詳細
+            </th>
+            <th>
+
+              概要
+            </th>
+
+            <th>
+              投稿者
+            </th>
+
+
+          </tr>
+
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of mf.data|orderby:'startAt';">
+            <td>
+              <!--<button (click)="sendEditClaim(item)" class="btn btn-primary"><i class="fa fa-server" aria-hidden="true"></i>　情報登録</button>-->
+              <button  type="button" (click)="viewSyousai(item)" class="btn btn-info"><i class="fa fa-server" aria-hidden="true"></i></button>
+
+            </td>
+            <td>
+              {{item.syubetu}}<br>
+              {{item.seihin}}<br>
+              {{item.gaiyou}}
+
+            </td>
+
+            <td >{{item.name }}<br>{{item.startAt| date: 'yyyy/MM/dd : hh:mm:ss':'JST' }}</td>
+
+
+          </tr>
+
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="5">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
   </div>
 </div>
 

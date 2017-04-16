@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ErrorDialogComponent} from "../../../Dialog/error-dialog/error-dialog.component";
 import {Router} from "@angular/router";
 import {AngularFire, FirebaseObjectObservable} from "angularfire2";
@@ -17,7 +17,7 @@ import * as firebase from 'firebase';
   templateUrl: './claim-list-all.component.html',
   styleUrls: ['./claim-list-all.component.css']
 })
-export class ClaimListAllComponent  {
+export class ClaimListAllComponent  implements OnInit  {
   fileList:any;
   public data;
   newclaimList;
@@ -27,6 +27,8 @@ export class ClaimListAllComponent  {
   public rowsOnPage = 10;
   public sortBy = "email";
   public sortOrder = "asc";
+  isMobile:boolean;
+  MOBILE_SCREEN_WIDTH = 768; //モバイル判定画面幅
 taisakuList:any;
 koukakakuninTaisaku:any[]=[];
  dataup:boolean;
@@ -126,6 +128,10 @@ this.check=this.oauthInfoService.check;//既にログインしてから一度カ
 this.topWork()
 
 }
+ngOnInit(){
+    this.onScreenResize()
+}
+
   onAddLogin(count:number,uid:string){//これはログインした際データを一気に取得するので何メガバイト取得し更に保存上乗せ
     const Info = {
       login:count
@@ -203,6 +209,7 @@ this.koukaSetumeiComponent.openDialog();
 setFile(item){
    this.getFile(item);
 }
+
 
   getFile(item){
   let count=0;
@@ -431,5 +438,9 @@ checkKouka(){
   setTimeChange(unixTimestampmill:number){//(ミリ秒単位)から(秒単位)へ
     return Math.floor( unixTimestampmill / 1000 );
   }
+@HostListener("window:resize")
+  onScreenResize(){
+  this.isMobile=(innerWidth<this.MOBILE_SCREEN_WIDTH);
 
+}
 }
